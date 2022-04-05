@@ -38,17 +38,17 @@ else:
     print('\"Then we shall have to do some kidnapping. Into the barrel ye goes!\"')
     print('You are grabbed and thrown into an empty barrel labelled \"salted pork\".')
 
+time.sleep(5)
+
 print('You accept your fate and try to get some sleep despite the smell.')
 print('After some bad rest, you are woken up by a strong lurch that knocks you on the floor.')
 print('You scuttle away and find that the ship had struck land. \"Is that how ships work?\" you think to yourself.')
 print('From over your shoulder you hear the captain say, \"Welcome to Treasure Island!\" '
       'Everyone on the boat begins jumping overboard.')
-time.sleep(5)
 
 jump = input('Do you jump off the right or left side of the boat? (R/L)\n').lower()
 if jump == 'l' or jump == 'left':
     print('Good choice! You safely swim ashore with your new pirate friends.')
-    time.sleep(5)
 
     pond = input('Walk up the beach and into the jungle. There you come across a clear pond so clear you can see the'
                  'bottom. Do you wash off the sand on you? (Y/N)\n').lower()
@@ -74,7 +74,6 @@ if jump == 'l' or jump == 'left':
             print('That was not an option. The captain shoots you for not following directions. Pirates are very '
                   'particular about following directions.')
             print('Game Over.')
-
 
     else:
         print('Immediately, trout come out from all the rocks and attack you. "So that\'s why it is called \'Long John'
