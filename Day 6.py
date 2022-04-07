@@ -29,3 +29,5 @@ while not at_goal():
             move()
         else:
             turn_left()
+
+# Note: The above strategy also works to solce the "Hurdle 4" challenge on Reeborg's World
