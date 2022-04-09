@@ -1,5 +1,6 @@
 # 100DaysOfCode
 
+* [Day 8: Caesar Cipher](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day8.py)
 * [Day 7: Hangman Game](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day7)
 * [Day 6: Maze Solver](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day%206.py)
 * [Day 5: Password Generator](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day%205.py)
