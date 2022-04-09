@@ -4,7 +4,7 @@ Day 7: Hangman Game
 import random
 import requests
 import re
-from Day7 import Day7art as art, Day7words as words
+import Day7art as art, Day7words as words
 
 print(f'\nWelcome to...\n{art.logo}\n')
 
