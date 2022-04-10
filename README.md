@@ -1,5 +1,6 @@
 # 100DaysOfCode
 
+* [Day 9: First Price, Sealed Bid Auction](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day9.py)
 * [Day 8: Caesar Cipher](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day8.py)
 * [Day 7: Hangman Game](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day7)
 * [Day 6: Maze Solver](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day%206.py)
