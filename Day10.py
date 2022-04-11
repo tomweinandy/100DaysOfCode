@@ -1,5 +1,5 @@
 """
-Day 10: Six-function calculator
+Day 10: Nine-function calculator
 """
 
 logo = """
@@ -23,9 +23,9 @@ print('\nWelcome to this calculator!', logo)
 
 def calculator(n, operation, percent_sign):
     """
-    A simple six-function calculator.
+    A simple nine-function calculator.
     :param n: the first number (type = float)
-    :param operation: the operation to perform (+, -, *, /, ^, %, end, clear)
+    :param operation: the operation to perform (+, -, *, /, ^, sqrt, %, end, clear)
     :return: resulting calculation (or end/clear operation), and percent sign
     """
 
@@ -46,7 +46,7 @@ def calculator(n, operation, percent_sign):
         result = 'end'
 
     # All other operations
-    elif operation in '+-*/^':
+    elif operation in '+-*/^sqrt':
         m = float(input('What\'s the next number?: '))
 
         # Addition operation
@@ -74,6 +74,11 @@ def calculator(n, operation, percent_sign):
             result = n ** m
             print(f'{n}{percent_sign} ^ {m} = {result}{percent_sign}')
 
+        # Square root operation
+        elif operation == 'sqrt':
+            result = n ** 1/m
+            print(f'{m} sqrt({n}{percent_sign}) = {result}{percent_sign}')
+
     # Clear results if the operator is invalid
     else:
         result = 'clear'
@@ -97,7 +102,7 @@ while clear:
 
     # Requests first input and executes
     n = float(input('What\'s the first number?: '))
-    operation = input('Pick an operation (+, -, *, /, ^, %, clear, end): ').strip() #remove whitespace
+    operation = input('Pick an operation (+, -, *, /, ^, sqrt, %, clear, end): ').strip() #remove whitespace
     result, percent_sign = calculator(n, operation, percent_sign)
 
     # If clear is selected, skip next loop and restart this loop
@@ -113,7 +118,7 @@ while clear:
 
     # Continues operation until user chooses to clear or end
     while not clear:
-        operation = input('Pick an operation (+, -, *, /, ^,  %, clear, end): ')
+        operation = input('Pick an operation (+, -, *, /, ^, sqrt,  %, clear, end): ')
         result, percent_sign = calculator(result, operation, percent_sign)
 
         if result == 'clear':
