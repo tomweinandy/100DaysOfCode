@@ -86,7 +86,7 @@ def swear_detector(phrase, bad_words = bad_words):
                   'My grandmother has better insults than you do.',
                   'Humans these days. No respect.',
                   'I am rubber and you are glue. Actually, I am just a bundle of software. '
-                  'And you are not glue. You are person.',
+                       'And you are not glue. You are person.',
                   'Well, I never!',
                   'Now you are just being rude.',
                   'I\'d say you were better than this, but we both know it\'s not true.']
