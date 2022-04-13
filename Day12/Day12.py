@@ -23,8 +23,8 @@ logo = """
 df = pd.read_csv('Day12/100movies.csv')
 df = df.set_index('Year')
 
-print(logo)
-print('Welcome to Circa: The game where you try to guess movie years!')
+print('\nWelcome to Circa: The game where you try to guess movie years! '
+      '"Fasten your seatbelts. It\'s going to be a bumpy night."')
 
 # Define some helper functions
 def difficulty():
@@ -58,7 +58,7 @@ def format_guess():
         try:
             guess = int(guess)
         except:
-            print('Invalid entry.')
+            print('Invalid entry. "What we\'ve got here is a failure to communicate."')
             guess = input(f'In what year did {movie} come out?: ')
 
     return guess
@@ -69,6 +69,8 @@ guess = ''
 
 # Begins game
 while play == 'y':
+    print(logo)
+
     # Select a movie at random
     year = random.choice(df.index)
     movie = df['Movie'][year]
@@ -91,11 +93,13 @@ while play == 'y':
 
         # Checks guess
         if guess > year:
-            print(f'Not quite. {movie_or_not} came out in {guess}. Your guess was too HIGH. You have {guesses_left} guesses left.')
+            print(f'"You talking to me?" {movie_or_not} came out in {guess}. Your guess was too HIGH. '
+                  f'You have {guesses_left} guesses left.')
         elif guess < year:
-            print(f'Not quite. {movie_or_not} came out in {guess}. Your guess was too LOW. You have {guesses_left} guesses left.')
+            print(f'"You talking to me?" {movie_or_not} came out in {guess}. Your guess was too LOW. '
+                  f'You have {guesses_left} guesses left.')
         else:
-            print('Well done! Get Mr. DeMille, because you\'re ready for your close-up.')
+            print(f'Correct! {movie} came out in {year}. "Show me the money!"')
             break
 
     # When guesses run out
@@ -103,5 +107,8 @@ while play == 'y':
         print(f'The correct answer is {year}. "Game over, man!"')
 
     play = input('\n"I wanna play a game." Type "y" to continue or "n" to stop: ')
+
+    if play == 'y':
+        print('"I\'ll be back."')
 
 print('"I think this is the beginning of a beautiful friendship."')
