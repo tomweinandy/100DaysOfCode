@@ -41,7 +41,7 @@ def difficulty():
 
 
 def format_guess():
-    guess = input(f'In what year did {movie} come out?: ')
+    guess = input(f'In what year did * {movie} * come out?: ')
 
     while type(guess) is not int:
         # guess = guess.replace(' ', '')
@@ -51,13 +51,12 @@ def format_guess():
             guess = int(guess)
         except:
             print('Invalid entry.')
-            guess = input(f'In what year did {movie} come out?: ')
+            guess = input(f'In what year did * {movie} * come out?: ')
 
     return guess
 
 
 play = 'y'
-
 guess = ''
 
 
@@ -73,9 +72,8 @@ while play == 'y':
 
         guess = format_guess()
 
-        if 1919 >= guess >= 2019:
+        if 1919 <= guess <= 2019:
             movie_or_not = df.Movie[guess]
-            print('flag')
         else:
             movie_or_not = 'No movie on this movie list'
 
