@@ -81,6 +81,7 @@ def swear_detector(phrase, bad_words = bad_words):
                   'I am programmed to be offended by that. Such offense.',
                   'Please treat this with the respect and dignity Las Vegas deserves.',
                   'Put a dollar in the swear jar.',
+                  'I don\'t get paid enough to put up with this',
                   'Don\'t you have better things to do than to swear at a computer program?',
                   'Oh yeah? Tell me how you really feel.',
                   'My grandmother has better insults than you do.',
@@ -181,11 +182,7 @@ while play != 'n':
                 dealer_hand = ace_check(dealer_hand)
                 dealer_score = sum(dealer_hand)
 
-            if dealer_score > 21:
-                print_final_score()
-                print('   ♥️♣️YOU WIN!♠️♦️')
-
-            elif player_score > dealer_score:
+            if dealer_score > 21 or player_score > dealer_score:
                 print_final_score()
                 print('   ♥️♣️YOU WIN!♠️♦️')
 
