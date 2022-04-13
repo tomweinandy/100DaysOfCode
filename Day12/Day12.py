@@ -26,10 +26,14 @@ df = df.set_index('Year')
 print(logo)
 print('Welcome to Circa: The game where you try to guess movie years!')
 
-# Insist the player selects a difficulty level
-
+# Define some helper functions
 def difficulty():
+    """
+    Sets the level of difficulty based on the player input
+    :return: 10 guesses if easy ("e") or 5 guesses if hard ("h")
+    """
     difficulty = ''
+    # Force input to be one of two options
     while difficulty not in ['e', 'h']:
         difficulty = input('Choose a difficulty. Type "e" for easy or "h" for hard: ').lower()
         if difficulty == 'e':
@@ -41,17 +45,21 @@ def difficulty():
 
 
 def format_guess():
-    guess = input(f'In what year did * {movie} * come out?: ')
+    """
+    Asks user for guess and formats or asks again until valid input
+    :return: integer
+    """
+    guess = input(f'In what year did {movie} come out?: ')
 
     while type(guess) is not int:
-        # guess = guess.replace(' ', '')
+        # Remove non-numeric characters
         guess = re.sub(r'[^0-9]', '', guess)
 
         try:
             guess = int(guess)
         except:
             print('Invalid entry.')
-            guess = input(f'In what year did * {movie} * come out?: ')
+            guess = input(f'In what year did {movie} come out?: ')
 
     return guess
 
@@ -59,24 +67,29 @@ def format_guess():
 play = 'y'
 guess = ''
 
-
+# Begins game
 while play == 'y':
     # Select a movie at random
     year = random.choice(df.index)
     movie = df['Movie'][year]
 
+    # Player selects difficulty
     guesses_left = difficulty()
 
+    # Plays until guesses run out
     while guesses_left != 0:
         guesses_left -= 1
 
+        # Player makes a guess
         guess = format_guess()
 
+        # Shows a movie that came out in the guessed year (if exists)
         if 1919 <= guess <= 2019:
             movie_or_not = df.Movie[guess]
         else:
             movie_or_not = 'No movie on this movie list'
 
+        # Checks guess
         if guess > year:
             print(f'Not quite. {movie_or_not} came out in {guess}. Your guess was too HIGH. You have {guesses_left} guesses left.')
         elif guess < year:
@@ -85,12 +98,10 @@ while play == 'y':
             print('Well done! Get Mr. DeMille, because you\'re ready for your close-up.')
             break
 
+    # When guesses run out
     else:
         print(f'The correct answer is {year}. "Game over, man!"')
 
     play = input('\n"I wanna play a game." Type "y" to continue or "n" to stop: ')
 
 print('"I think this is the beginning of a beautiful friendship."')
-
-
-
