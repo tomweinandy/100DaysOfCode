@@ -17,14 +17,4 @@ vs = """
 | |/ (__  ) 
 |___/____(_)
 """
-# #
-# keep_playing = True
-# play_again = ''
-# while play_again not in ['y', 'n']:
-#     play_again = input('Want to play again? Type "y" for yes or "n" for no: ').lower()
-#
-#     if play_again == 'n':
-#         keep_playing = False
-#
-#     print(play_again, keep_playing, play_again not in ['y', 'n'])
-#
+
