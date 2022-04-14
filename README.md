@@ -1,5 +1,6 @@
 # 100DaysOfCode
 
+* [Day 14: Higher Lower Game](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day14)
 * Day 13: Debugging Exercises (no project)
 * [Day 12: Guess the Movie Year](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day12)
 * [Day 11: Blackjack (CAPSTONE #1)](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day11.py)
