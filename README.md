@@ -1,5 +1,6 @@
 # 100DaysOfCode
 
+* Day 13: Debugging Exercises (no project)
 * [Day 12: Guess the Movie Year](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day12)
 * [Day 11: Blackjack (CAPSTONE #1)](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day11.py)
 * [Day 10: Nine-Function Calculator](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day10.py)
