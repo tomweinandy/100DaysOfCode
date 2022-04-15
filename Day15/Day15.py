@@ -1,7 +1,6 @@
 """
 Day 15: Coffee Machine Program
 """
-
 from initial_conditions import *
 
 
@@ -60,7 +59,7 @@ def insert_coins():
 
 def update_resources(drink):
     """
-    Removes the resources used to to make the ordered drink
+    Removes the resources used to make the ordered drink
     :param drink: 'espresso', 'latte' or 'cappuccino'
     """
     for ingredient in ingredient_list:
@@ -76,32 +75,51 @@ resources['money'] = 0
 menu['espresso']['ingredients']['milk'] = 0
 powered_on = True
 
-#
+# Continues operating until turned off
 while powered_on:
     # Take order from customer
-    order = input('What would you like? (espresso/latte/cappuccino): ')
+    order = input('What would you like? (espresso/latte/cappuccino) 🤔: ').lower()
 
+    # Turns off machine
     if order == 'off':
         powered_on = False
 
+    # Prints report or resource status
     if order == 'report':
         print(f"Water: {resources['water']}ml")
         print(f"Milk: {resources['milk']}ml")
         print(f"Coffee: {resources['coffee']}g")
         print(f"Money: ${round(resources['money'], 2)}")
 
+    # Checks that input is valid
     if order in drink_list:
+
+        # Checks that there are enough resources
         if enough_resources(order):
-            print(f"That will be ${menu[order]['cost']:.2f}.")
+            # Requests payment
+            print(f"That will be ${menu[order]['cost']:.2f} 🪙.")
             coins = insert_coins()
             change = round(coins - menu[order]['cost'], 2)
-            if change >= 0:
-                update_resources(order)
-                print(f'Here is your {order}. Enjoy! Your change is ${change:.2f}.')
-            else:
-                print(f'Sorry that\'s not enough money. ${coins:.2f} refunded.')
 
-print('Powered off.')
+            # Checks that enough money was inserted
+            if change >= 0:
+                # Processes order
+                update_resources(order)
+                print(f'Here is your {order} ☕. Enjoy! Your change is ${change:.2f}.')
+
+            else:
+                print(f'Sorry that\'s not enough money. ${coins:.2f} refunded 🪙.')
+
+    elif order == 'coffee':
+        print('Plain coffee? That\'s too basic for this fancy-pants machine!')
+
+    elif order == 'off':
+        print('Powered off.')
+
+    else:
+        print('Invalid input.')
+
+
 
 
 

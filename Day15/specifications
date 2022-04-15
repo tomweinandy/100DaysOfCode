@@ -1,10 +1,10 @@
 Coffee Machine Program Requirements
 
-# todo 1. Prompt user by asking “What would you like? (espresso/latte/cappuccino):”
+1. Prompt user by asking “What would you like? (espresso/latte/cappuccino):”
     a. Check the user’s input to decide what to do next.
     b. The prompt should show every time action has completed, e.g. once the drink is
     dispensed. The prompt should show again to serve the next customer.
-# todo 2. Turn off the Coffee Machine by entering “off”to the prompt.
+2. Turn off the Coffee Machine by entering “off”to the prompt.
     a. For maintainers of the coffee machine, they can use “off” as the secret word to turn off
     the machine. Your code should end execution when this happens.
 3. Print report.
@@ -30,7 +30,7 @@ Coffee Machine Program Requirements
         Money: $2.5
     c. If the user has inserted too much money, the machine should offer change.
         E.g. “Here is $2.45 dollars in change.” The change should be rounded to 2 decimal places.
-# todo 7. Make Coffee.
+7. Make Coffee.
     a. If the transaction is successful and there are enough resources to make the drink the user selected, then the ingredients to make the drink should be deducted from the coffee machine resources.
         E.g. report before purchasing latte: Water: 300ml
             Milk: 200ml
