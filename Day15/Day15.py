@@ -4,15 +4,6 @@ Day 15: Coffee Machine Program
 
 from initial_conditions import *
 
-# Set initial conditions
-menu = MENU
-drink_list = [k for k in menu.keys()]
-ingredient_list = [k for k in resources.keys()]
-# coin_list = [k for k in coins.keys()]
-
-resources['money'] = 0
-menu['espresso']['ingredients']['milk'] = 0
-
 
 def enough_resources(drink):
     """
@@ -67,26 +58,50 @@ def insert_coins():
     return total
 
 
-# Take order from customer
-order = input('What would you like? (espresso/latte/cappuccino): ')
+def update_resources(drink):
+    """
+    Removes the resources used to to make the ordered drink
+    :param drink: 'espresso', 'latte' or 'cappuccino'
+    """
+    for ingredient in ingredient_list:
+        resources[ingredient] -= menu[drink]['ingredients'][ingredient]
+    resources['money'] += menu[drink]['cost']
 
-if order == 'report':
-    print(f"Water: {resources['water']}ml")
-    print(f"Milk: {resources['milk']}ml")
-    print(f"Coffee: {resources['coffee']}g")
-    print(f"Money: ${round(resources['money'], 2)}")
 
+# Set initial conditions
+menu = MENU
+drink_list = [k for k in menu.keys()]
+ingredient_list = [k for k in resources.keys()]
+resources['money'] = 0
+menu['espresso']['ingredients']['milk'] = 0
+powered_on = True
 
-if order in drink_list:
-    if enough_resources(order):
-        print(f"That will be ${menu[order]['cost']:.2f}.")
-        coins = insert_coins()
-        change = round(coins - menu[order]['cost'], 2)
-        if change >= 0:
-            # update_resources(order)
-            print(f'Here is your {order}. Enjoy! Your change is ${change:.2f}.')
-        else:
-            print(f'Sorry that\'s not enough money. ${coins:.2f} refunded.')
+#
+while powered_on:
+    # Take order from customer
+    order = input('What would you like? (espresso/latte/cappuccino): ')
+
+    if order == 'off':
+        powered_on = False
+
+    if order == 'report':
+        print(f"Water: {resources['water']}ml")
+        print(f"Milk: {resources['milk']}ml")
+        print(f"Coffee: {resources['coffee']}g")
+        print(f"Money: ${round(resources['money'], 2)}")
+
+    if order in drink_list:
+        if enough_resources(order):
+            print(f"That will be ${menu[order]['cost']:.2f}.")
+            coins = insert_coins()
+            change = round(coins - menu[order]['cost'], 2)
+            if change >= 0:
+                update_resources(order)
+                print(f'Here is your {order}. Enjoy! Your change is ${change:.2f}.')
+            else:
+                print(f'Sorry that\'s not enough money. ${coins:.2f} refunded.')
+
+print('Powered off.')
 
 
 
