@@ -7,6 +7,10 @@ for q in question_data:
     question_list.append(Question(q['text'], q['answer']))
 
 
-quiz = Quiz(question_list)
+quiz = QuizBrain(question_list)
+correct = True
 
-quiz.ask_question(0)
+while correct and not quiz.check_end():
+
+    guess = quiz.ask_question()
+    correct = quiz.check_guess(guess)

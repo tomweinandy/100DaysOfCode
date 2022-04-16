@@ -9,24 +9,48 @@ def convert_t_or_f(old_guess):
         new_guess = old_guess
     return new_guess
 
-class Quiz:
+
+class QuizBrain:
     def __init__(self, question_list):
         self.question_list = question_list
         self.quiz_number = 0
 
-    # todo ask questions
-    def ask_question(self, quiz_number):
-        question_object = self.question_list[quiz_number]
+    def ask_question(self):
+        # Define question and answer
+        question_object = self.question_list[self.quiz_number]
         question = question_object.text
-        guess = input(f'{question} (True/False): ').lower()
+
+        guess = input(f'Q.{self.quiz_number + 1}: {question} (True/False): ').lower()
         guess = convert_t_or_f(guess)
 
         while guess not in ['true', 'false']:
-            guess = input(f'{question} (True/False): ').lower()
+            guess = input(f'Q.{quiz_number}: {question} (True/False): ').lower()
             guess = convert_t_or_f(guess)
 
+        return guess
 
-# todo checking if the answer is correct
 
+    def check_guess(self, guess):
+        # Define answer
+        question_object = self.question_list[self.quiz_number]
+        answer = question_object.answer
+        answer = answer.lower()
 
-# todo checking if at the end of the quiz
+        # Check if answer is correct
+        if guess == answer:
+            correct = True
+            self.quiz_number += 1
+            print(f'   Correct! Your score is {self.quiz_number}.')
+        else:
+            correct = False
+            print(f'   Incorrect. Your score is {self.quiz_number}.')
+
+        return correct
+
+    # todo checking if at the end of the quiz
+    def check_end(self):
+        if len(self.question_list) - 1 == self.quiz_number:
+            end = True
+        else:
+            end = False
+        return end
