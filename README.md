@@ -1,5 +1,6 @@
 # 100DaysOfCode
 
+* [Day 16: Coffee Machine Program (Pt II)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day16)
 * [Day 15: Coffee Machine Program (Pt I)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day15)
 * [Day 14: Higher Lower Game](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day14)
 * Day 13: Debugging Exercises (no project)
