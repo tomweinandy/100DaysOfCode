@@ -1,7 +1,7 @@
 """
 Day 15: Coffee Machine Program (Pt I)
 """
-from initial_conditions import *
+from Day15_initial_conditions import *
 
 
 def enough_resources(drink):

@@ -3,8 +3,8 @@ Day 14: Higher Lower Game
 """
 # Inspired by the original of the same name: http://www.higherlowergame.com
 
-from art import logo, vs
-from game_data import data
+from Day14_art import logo, vs
+from Day14_game_data import data
 import random
 
 keep_playing = True

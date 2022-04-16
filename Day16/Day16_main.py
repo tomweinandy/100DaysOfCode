@@ -3,9 +3,9 @@ Coffee Machine Program (Pt II)
 - This replicates the
 """
 
-from menu import Menu, MenuItem
-from coffee_maker import CoffeeMaker
-from money_machine import MoneyMachine
+from Day16_menu import Menu, MenuItem
+from Day16_coffee_maker import CoffeeMaker
+from Day16_money_machine import MoneyMachine
 
 # latte = MenuItem(
 #     name='latte',
@@ -50,8 +50,8 @@ while powered_on:
         print(coffee_maker.is_resource_sufficient(drink))
 
         if coffee_maker.is_resource_sufficient(drink):
-            coffee_maker.make_coffe(drink)
-            print()
+            coffee_maker.make_coffee(drink)
+            print(f'Here is your {drink.name}. Enjoy!')
         else:
             print('Sorry, insufficient ingredients.')
 
@@ -65,10 +65,6 @@ while powered_on:
 
 
 
-# # todo 4. Check resources sufficient?
-#     a. When the user chooses a drink, the program should check if there are enough resources to make that drink.
-#     b. E.g. if Latte requires 200ml water but there is only 100ml left in the machine. It should not continue to make the drink but print: “Sorry there is not enough water.”
-#     c. The same should happen if another resource is depleted, e.g. milk or coffee.
 # # todo 5. Process coins.
 #     a. If there are sufficient resources to make the drink selected, then the program should prompt the user to insert coins.
 #     b. Remember that quarters = $0.25, dimes = $0.10, nickles = $0.05, pennies = $0.01
