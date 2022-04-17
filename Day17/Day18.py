@@ -124,15 +124,18 @@ import math
 
 # shimmy()
 
-distance = 100
+
+distance = 400
 sides = 3
 theta = 180/sides
-hypotenuse = (distance/2) / math.sin(theta)
+theta_radians = math.radians(theta)
 
-# danklin.right(90 + theta)
+hypotenuse = (distance/2) / math.sin(theta_radians)
+
+danklin.left(90 + theta)
 danklin.forward(hypotenuse)
-# danklin.right(270 + theta)
-# ploygon(danklin, sides, distance, 'blue')
+danklin.right(90 + theta)
+ploygon(danklin, sides, distance, 'blue')
 
 
 screen.exitonclick()
