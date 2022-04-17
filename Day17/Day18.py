@@ -81,28 +81,58 @@ color_list = ['red', 'orange', 'blue', 'black', 'brown', 'grey', 'yellow', 'pink
               'deep sky blue']
 random.shuffle(color_list)
 
+import math
 
-def reposition(t, north, west):
-    t.penup()
-    t.left(90)
-    t.forward(north)
-    t.left(90)
-    t.forward(west)
-    t.right(180)
-    t.pendown()
 
-# for poly in range(3, 10):
-reposition(danklin, 50, 25)
+# def center_polygon(t, sides, distance):
+#
+#     theta = 180/sides
+#     hypotenuse = (distance/2) / math.sin(theta)
+#     print(theta, hypotenuse)
+#
+#     t.penup()
+#     t.right(90 - theta)
+#     t.forward(hypotenuse)
+#     t.left(90 - theta)
+#     t.pendown()
+
+
+# def reposition(t, north, west):
+#     t.penup()
+#     t.left(90)
+#     t.forward(north)
+#     t.left(90)
+#     t.forward(west)
+#     t.right(180)
+#     t.pendown()
+
+# distance = 200
+# reposition(danklin, 150, distance/2)
+# max_poly = 3
+# center_polygon(danklin, max_poly, distance)
+# for poly in range(3, max_poly + 1):
 #     rando = color_list[poly-3]
-#     ploygon(danklin, poly, 100, rando)
+#     ploygon(danklin, poly, distance, rando)
 
-# Goes through ALL the colors!
-reposition(danklin, 150, 75)
-for poly in range(3, len(color_list)+3):
-    rando = color_list[poly-3]
-    ploygon(danklin, poly, 25, rando)
 
-shimmy()
+
+# # Goes through ALL the colors!
+# reposition(danklin, 150, 50)
+# for poly in range(3, len(color_list)+3):
+#     rando = color_list[poly-3]
+#     ploygon(danklin, poly, 25, rando)
+
+# shimmy()
+
+distance = 100
+sides = 3
+theta = 180/sides
+hypotenuse = (distance/2) / math.sin(theta)
+
+# danklin.right(90 + theta)
+danklin.forward(hypotenuse)
+# danklin.right(270 + theta)
+# ploygon(danklin, sides, distance, 'blue')
 
 
 screen.exitonclick()
