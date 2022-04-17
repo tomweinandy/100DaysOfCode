@@ -1,6 +1,7 @@
 from turtle import Turtle, Screen
 import time
 import random
+import math
 
 # Docs: https://docs.python.org/3/library/turtle.html
 
@@ -12,6 +13,7 @@ screen = Screen()
 danklin.shape('turtle')
 danklin.color('red')
 danklin.pensize(2)
+danklin.speed(10)
 
 
 def shimmy():
@@ -67,10 +69,10 @@ def dashed_square(t, interval, distance):
 
 # Challenge 3: Drawing nested shapes
 
-def ploygon(t, sides, distance, color='red'):
+def ploygon(t, sides, side_length, color='red'):
     t.color(color)
     for side in range(sides):
-        t.forward(distance)
+        t.forward(side_length)
         t.right(360/sides)
 
 
@@ -81,61 +83,37 @@ color_list = ['red', 'orange', 'blue', 'black', 'brown', 'grey', 'yellow', 'pink
               'deep sky blue']
 random.shuffle(color_list)
 
-import math
+def center_polygon(t, sides, side_length):
+    theta = 180/sides
+    theta_radians = math.radians(theta)
+    hypotenuse = (side_length/2) / math.sin(theta_radians)
+
+    t.penup()
+    t.left(90 + theta)
+    t.forward(hypotenuse)
+    t.right(90 + theta)
+    t.pendown()
+
+side_length = 200
+max_sides = 10
+center_polygon(danklin, max_sides, side_length)
+for poly in range(3, max_sides + 1):
+    color = color_list[poly - 3]
+    ploygon(danklin, poly, side_length, color)
 
 
-# def center_polygon(t, sides, distance):
-#
-#     theta = 180/sides
-#     hypotenuse = (distance/2) / math.sin(theta)
-#     print(theta, hypotenuse)
-#
-#     t.penup()
-#     t.right(90 - theta)
-#     t.forward(hypotenuse)
-#     t.left(90 - theta)
-#     t.pendown()
+# Goes through ALL the colors!
+# side_length = 50
+# max_sides = len(color_list)
+# center_polygon(danklin, max_sides, side_length)
+# for poly in range(3, max_sides + 1):
+#     color = color_list[poly - 3]
+#     ploygon(danklin, poly, side_length, color)
 
-
-# def reposition(t, north, west):
-#     t.penup()
-#     t.left(90)
-#     t.forward(north)
-#     t.left(90)
-#     t.forward(west)
-#     t.right(180)
-#     t.pendown()
-
-# distance = 200
-# reposition(danklin, 150, distance/2)
-# max_poly = 3
-# center_polygon(danklin, max_poly, distance)
-# for poly in range(3, max_poly + 1):
-#     rando = color_list[poly-3]
-#     ploygon(danklin, poly, distance, rando)
+shimmy()
 
 
 
-# # Goes through ALL the colors!
-# reposition(danklin, 150, 50)
-# for poly in range(3, len(color_list)+3):
-#     rando = color_list[poly-3]
-#     ploygon(danklin, poly, 25, rando)
-
-# shimmy()
-
-
-distance = 400
-sides = 3
-theta = 180/sides
-theta_radians = math.radians(theta)
-
-hypotenuse = (distance/2) / math.sin(theta_radians)
-
-danklin.left(90 + theta)
-danklin.forward(hypotenuse)
-danklin.right(90 + theta)
-ploygon(danklin, sides, distance, 'blue')
 
 
 screen.exitonclick()
