@@ -1,5 +1,7 @@
+"""
+Day 18: Turtle Drawings
+"""
 import turtle
-# from turtle import Turtle, Screen
 import time
 import random
 import math
@@ -15,22 +17,36 @@ danklin.shape('turtle')
 danklin.color('red')
 danklin.pensize(2)
 danklin.speed(10)
+turtle.tracer(0, 0)  # Comment out to watch the turtle draw
 
+def shimmy(t):
+    """
+    Makes the turtle do a shimmy and a shake
+    :param t: The turtle of interest
+    """
+    # The shimmy
+    t.right(45)
+    time.sleep(0.2)
+    t.left(45)
+    time.sleep(0.2)
 
-def shimmy():
-    danklin.right(45)
-    time.sleep(0.2)
-    danklin.left(45)
-    time.sleep(0.2)
-    danklin.right(45)
-    danklin.left(45)
-    danklin.right(45)
-    danklin.left(45)
-    danklin.right(45)
-    danklin.left(45)
+    # The shake
+    t.right(45)
+    t.left(45)
+    t.right(45)
+    t.left(45)
+    t.right(45)
+    t.left(45)
+
 
 # Challenge 1: Draw a square
 def square(t, distance):
+    """
+    Draws an equilateral square
+    :param t: The turtle of interest
+    :param distance: Side length of the square
+    :return:
+    """
     t.forward(distance)
     t.right(90)
     t.forward(distance)
@@ -41,8 +57,15 @@ def square(t, distance):
 
 # square(danklin, 100)
 
+
 # Challenge 2: Draw a dashed line
 def dash(t, interval, distance):
+    """
+    Draws a dashed line
+    :param t: The turtle of interest
+    :param interval: Length of the dash and space between each dash
+    :param distance: Line length
+    """
     full_loops = distance // (2*interval)
     remainder = distance % (2*interval)
     for loop in range(full_loops):
@@ -54,7 +77,14 @@ def dash(t, interval, distance):
 
 # dash(danklin, 10, 100)
 
+
 def dashed_square(t, interval, distance):
+    """
+    An equilateral square, but dashed
+    :param t: The turtle of interest
+    :param interval: Length of the dash and space between each dash
+    :param distance: Length of each side
+    """
     dash(t, interval, distance)
     t.right(90)
     dash(t, interval, distance)
@@ -68,6 +98,13 @@ def dashed_square(t, interval, distance):
 
 # Challenge 3: Drawing nested shapes
 def ploygon(t, sides, side_length, color='red'):
+    """
+    Draws an equilateral polygon
+    :param t: The turtle of interest
+    :param sides: Number of sides in the polygon
+    :param side_length: Side length
+    :param color: Named color
+    """
     t.color(color)
     for side in range(sides):
         t.forward(side_length)
@@ -80,6 +117,7 @@ color_list = ['red', 'orange', 'blue', 'black', 'brown', 'grey', 'yellow', 'pink
               'steel blue', 'medium blue', 'medium purple', 'white smoke', 'light green', 'light pink', 'blue violet',
               'deep sky blue']
 random.shuffle(color_list)
+
 
 def center_polygon(t, sides, side_length):
     """
@@ -114,6 +152,8 @@ def center_polygon(t, sides, side_length):
     t.right(90 + theta)
     t.pendown()
 
+
+# Draws 8 polygons
 # side_length = 200
 # max_sides = 10
 # center_polygon(danklin, max_sides, side_length)
@@ -132,13 +172,21 @@ def center_polygon(t, sides, side_length):
 
 # Challenge 4: Random Walk with random RGB colors
 def random_walk(t, steps, step_length, color='random'):
+    """
+    Draws a line according to a random walk
+    :param t: The turtle of interest
+    :param steps: Number of steps in the walk
+    :param step_length: The length of each step in the random walk
+    :param color: Line color in (r,g,b) format. If 'random', will select random RBG values
+    """
     if color == 'random':
         turtle.colormode(255)
-        tup = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-        t.color(tup)
+        r, g, b = random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)
+        t.color(r, g, b)
     else:
         t.color(color)
 
+    # Random walk
     for step in range(steps):
         t.right(random.randint(0, 360))
         t.forward(step_length)
@@ -148,40 +196,49 @@ def random_walk(t, steps, step_length, color='random'):
     t.goto(0, 0)
     t.pendown()
 
-#
-# danklin.pensize(5)
-# seed = random.randint(0, 1000)
-# print('Seed:', seed)
-# random.seed(seed)
-#
-# for i in range(0, 50):
-#     random_walk(danklin, 50, 50, color='random')
 
+# Take a million steps
+danklin.pensize(5)
+seed = random.randint(0, 1000)  # seed = 6 was cool
+print('Seed:', seed)
+random.seed(seed)
+for i in range(0, 1000):
+    random_walk(danklin, 1000, 50, color='random')
+
+danklin.color('black')
 
 
 # Challenge 5: Spirograph
 
 # Set initial conditions
-t = danklin
-def spirl(t, loops, circle_size, distance_from_origin, rbg = 'b'):
+def spiral(t, loops, circle_size, distance_from_origin, rgb='b'):
+    """
+    Makes a spiral shape using disjoint, overlapping circles
+    :param t: The turtle of interest
+    :param loops: Number of equi-distant circles
+    :param circle_size: Circle size
+    :param distance_from_origin: Distance from origin to the circle base
+    :param rgb: Shows a spectrum of color (supports 'r', 'g', and 'b')
+    """
     turtle.colormode(255)
 
     spectrum = []
     half_loop = math.ceil(loops/2)
-    for i in range(255, -255, -255//half_loop):
+    for i in range(255, -255, -round(255/half_loop)):
         spectrum.append(abs(i))
-        spectrum = spectrum[0:loops]
 
+    # Changes the color for each loop
+    spectrum = spectrum[0:loops]
     for i in range(loops):
         # Define r, b, or g
         r, b, g = 0, 0, 0
-        if rbg == 'r':
+        if rgb == 'r':
             r = spectrum[i]
-        elif rbg == 'b':
-            b = spectrum[i]
-        else:
+        elif rgb == 'g':
             g = spectrum[i]
-        t.color((r, b, g))
+        else:
+            b = spectrum[i]
+        t.color((r, g, b))
 
         # Move from origin
         t.penup()
@@ -197,7 +254,13 @@ def spirl(t, loops, circle_size, distance_from_origin, rbg = 'b'):
         t.goto(0, 0)
         t.pendown()
 
-# spirl(danklin, 20, 50, 100, 'r')
 
-shimmy()
+# Draws three spiral circles, one of each color
+# spiral(danklin, 50, 200, 195, 'r')
+# spiral(danklin, 50, 200, 200, 'g')
+# spiral(danklin, 50, 200, 205, 'b')
+
+turtle.update()
+
+shimmy(danklin)
 screen.exitonclick()
