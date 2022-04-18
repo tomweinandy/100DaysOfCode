@@ -3,65 +3,26 @@ Day 18: Turtle Drawings
 """
 import turtle
 import colorgram
-import time
 import random
-import math
 
 # Docs: https://docs.python.org/3/library/turtle.html
 
 # Initialize classes
-danklin = turtle.Turtle()
+t = turtle.Turtle()
 screen = turtle.Screen()
 
 # Configure our reptile
-danklin.shape('turtle')
-danklin.color('red')
-danklin.pensize(2)
-danklin.speed(10)
-# turtle.tracer(0, 0)  # Comment out to watch the turtle draw
+t.shape('turtle')
+t.color('red')
+t.pensize(2)
+t.speed(10)
 
 
-
-# colorgram_list.reverse()
-
-# Challenge 4: Random Walk with random RGB colors
-def random_walk(t, steps, step_length, color):
-    """
-    Draws a line according to a random walk
-    :param t: The turtle of interest
-    :param steps: Number of steps in the walk
-    :param step_length: The length of each step in the random walk
-    :param color: Line color in (r,g,b) format. If 'random', will select random RBG values
-    """
-    turtle.colormode(255)
-    t.color(color)
-
-    # Random walk
-    for step in range(steps):
-        t.right(random.randint(0, 360))
-        t.forward(step_length)
-
-    # Return to origin
-    t.penup()
-    t.goto(0, 0)
-    t.pendown()
-
-
-# Take a million steps
-danklin.pensize(5)
-# seed = random.randint(0, 1000)  # seed = 6 was cool
-# seed = 6
-# print('Seed:', seed)
-# random.seed(seed)
-
-# for i in range(0, 100):
-#     # color = random.choice(colorgram_list)
-#     print(color)
-#     random_walk(danklin, 100, 50, color)
-
+# Extract colors from the jpg
 colorgram_list = []
 colors = colorgram.extract('kill_bill.jpeg', 8)
 
+# Convert colors to a list of RGB values
 for color in colors:
     r = color.rgb.r
     g = color.rgb.g
@@ -69,23 +30,22 @@ for color in colors:
     tup = (r, g, b)
     colorgram_list.append(tup)
 
-t = danklin
-
+# Position the turtle
 turtle.colormode(255)
 t.penup()
 t.goto(-305, 305)
 t.pendown()
 
-color = colorgram_list[0]
-
-print(len(colorgram_list))
-
-dots = 100
+# Set dots for a 7x7 grid
+dots = 49
 for i in range(dots):
+    # Make a dot
     color = random.choice(colorgram_list)
     t.dot(50, color)
 
+    # Move the turtle
     t.penup()
+    # Move to the next line after every 7th dot is placed
     if (i+1) % 7 == 0:
         t.right(90)
         t.forward(100)
@@ -96,9 +56,4 @@ for i in range(dots):
         t.forward(100)
     t.pendown()
 
-
-
-
-turtle.update()
-# shimmy(danklin)
 screen.exitonclick()
