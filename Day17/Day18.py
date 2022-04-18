@@ -129,10 +129,10 @@ for poly in range(3, max_sides + 1):
 #     color = color_list[poly - 3]
 #     ploygon(danklin, poly, side_length, color)
 
+
+# Challenge 4
+
+
+
 shimmy()
-
-
-
-
-
 screen.exitonclick()
