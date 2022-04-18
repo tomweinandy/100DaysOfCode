@@ -113,12 +113,12 @@ def center_polygon(t, sides, side_length):
     t.right(90 + theta)
     t.pendown()
 
-side_length = 200
-max_sides = 10
-center_polygon(danklin, max_sides, side_length)
-for poly in range(3, max_sides + 1):
-    color = color_list[poly - 3]
-    ploygon(danklin, poly, side_length, color)
+# side_length = 200
+# max_sides = 10
+# center_polygon(danklin, max_sides, side_length)
+# for poly in range(3, max_sides + 1):
+#     color = color_list[poly - 3]
+#     ploygon(danklin, poly, side_length, color)
 
 
 # Goes through ALL the colors!
@@ -132,7 +132,37 @@ for poly in range(3, max_sides + 1):
 
 # Challenge 4
 
+def random_walk(t, steps, step_length, color='black'):
+    seedling = random.randint(0, 1000)
+    random.seed(seedling)
 
+    for step in range(steps):
+        if step == 0:
+            print(seedling)
+
+        t.color(color)
+        t.right(random.randint(0, 360))
+        t.forward(step_length
+# import turtle
+# import random
+# turtle.colormode(255)
+# tup = (random.randint(1,255), random.randint(1,255), random.randint(1,255))
+# turtle.color(tup)
+# turtle.forward(100)
+
+        v
+
+    #return to origin
+    t.penup()
+    t.goto(0,0)
+    t.pendown()
+
+# color_list = ['red', 'orange', 'blue', 'black']
+
+
+danklin.pensize(5)
+for color in color_list:
+    random_walk(danklin, 50, 50, color)
 
 shimmy()
 screen.exitonclick()
