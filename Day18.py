@@ -1,4 +1,5 @@
-from turtle import Turtle, Screen
+import turtle
+# from turtle import Turtle, Screen
 import time
 import random
 import math
@@ -6,8 +7,8 @@ import math
 # Docs: https://docs.python.org/3/library/turtle.html
 
 # Initialize classes
-danklin = Turtle()
-screen = Screen()
+danklin = turtle.Turtle()
+screen = turtle.Screen()
 
 # Configure our reptile
 danklin.shape('turtle')
@@ -120,7 +121,6 @@ def center_polygon(t, sides, side_length):
 #     color = color_list[poly - 3]
 #     ploygon(danklin, poly, side_length, color)
 
-
 # Goes through ALL the colors!
 # side_length = 50
 # max_sides = len(color_list)
@@ -130,39 +130,74 @@ def center_polygon(t, sides, side_length):
 #     ploygon(danklin, poly, side_length, color)
 
 
-# Challenge 4
-
-def random_walk(t, steps, step_length, color='black'):
-    seedling = random.randint(0, 1000)
-    random.seed(seedling)
+# Challenge 4: Random Walk with random RGB colors
+def random_walk(t, steps, step_length, color='random'):
+    if color == 'random':
+        turtle.colormode(255)
+        tup = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        t.color(tup)
+    else:
+        t.color(color)
 
     for step in range(steps):
-        if step == 0:
-            print(seedling)
-
-        t.color(color)
         t.right(random.randint(0, 360))
-        t.forward(step_length
-# import turtle
-# import random
-# turtle.colormode(255)
-# tup = (random.randint(1,255), random.randint(1,255), random.randint(1,255))
-# turtle.color(tup)
-# turtle.forward(100)
+        t.forward(step_length)
 
-        v
-
-    #return to origin
+    # Return to origin
     t.penup()
-    t.goto(0,0)
+    t.goto(0, 0)
     t.pendown()
 
-# color_list = ['red', 'orange', 'blue', 'black']
+#
+# danklin.pensize(5)
+# seed = random.randint(0, 1000)
+# print('Seed:', seed)
+# random.seed(seed)
+#
+# for i in range(0, 50):
+#     random_walk(danklin, 50, 50, color='random')
 
 
-danklin.pensize(5)
-for color in color_list:
-    random_walk(danklin, 50, 50, color)
+
+# Challenge 5: Spirograph
+
+# Set initial conditions
+t = danklin
+def spirl(t, loops, circle_size, distance_from_origin, rbg = 'b'):
+    turtle.colormode(255)
+
+    spectrum = []
+    half_loop = math.ceil(loops/2)
+    for i in range(255, -255, -255//half_loop):
+        spectrum.append(abs(i))
+        spectrum = spectrum[0:loops]
+
+    for i in range(loops):
+        # Define r, b, or g
+        r, b, g = 0, 0, 0
+        if rbg == 'r':
+            r = spectrum[i]
+        elif rbg == 'b':
+            b = spectrum[i]
+        else:
+            g = spectrum[i]
+        t.color((r, b, g))
+
+        # Move from origin
+        t.penup()
+        t.forward(distance_from_origin)
+        t.pendown()
+
+        # Draw circle
+        t.circle(circle_size)
+        t.right(360/loops)
+
+        # Return to origin
+        t.penup()
+        t.goto(0, 0)
+        t.pendown()
+
+# spirl(danklin, 20, 50, 100, 'r')
 
 shimmy()
 screen.exitonclick()
