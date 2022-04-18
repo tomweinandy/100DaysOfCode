@@ -198,12 +198,13 @@ def random_walk(t, steps, step_length, color='random'):
 
 
 # Take a million steps
-danklin.pensize(5)
-seed = random.randint(0, 1000)  # seed = 6 was cool
-print('Seed:', seed)
-random.seed(seed)
-for i in range(0, 1000):
-    random_walk(danklin, 1000, 50, color='random')
+# danklin.pensize(5)
+# seed = random.randint(0, 1000)  # seed = 6 was cool
+# seed = 6
+# print('Seed:', seed)
+# random.seed(seed)
+# for i in range(0, 1000):
+#     random_walk(danklin, 1000, 50, color='random')
 
 danklin.color('black')
 
@@ -260,7 +261,7 @@ def spiral(t, loops, circle_size, distance_from_origin, rgb='b'):
 # spiral(danklin, 50, 200, 200, 'g')
 # spiral(danklin, 50, 200, 205, 'b')
 
-turtle.update()
 
+turtle.update()
 shimmy(danklin)
 screen.exitonclick()
