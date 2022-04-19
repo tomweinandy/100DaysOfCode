@@ -2,26 +2,30 @@
 Day 20-21: Snake Game
 """
 import turtle
+import snake
+import time
 
-t = turtle.Turtle()
+# Set initial conditions
 screen = turtle.Screen()
-
 screen.setup(width=600, height=600)
 screen.bgcolor('black')
 screen.title('Snakes on a Plane')
+screen.tracer(0)  # only updates on screen.update()
 
-snake = []
-x = 0
+# My pet snake is named "snek"
+snek = snake.Snake()
 
-for i in range(3):
-    new_turtle = turtle.Turtle(shape='square')
-    new_turtle.color('white')
-    new_turtle.goto(x, 0)
-    x -= 20
-
-    snake.append(new_turtle)
+# Define constants
+STARTING_X = 0
+MOVING_DISTANCE = 20
+STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
 
 
+game_on = True
+
+while game_on:
+    screen.update()
+    time.sleep(0.1)
+    snek.move()
 
 screen.exitonclick()
-
