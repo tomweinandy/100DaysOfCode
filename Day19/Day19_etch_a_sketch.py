@@ -5,10 +5,19 @@ import turtle
 
 # Docs: https://docs.python.org/3/library/turtle.html
 
-
+# Set up intial conditions
 t = turtle.Turtle()
 t.shape('turtle')
 screen = turtle.Screen()
+screen.setup(width=1000, height=500)
+
+# Add instructions to the screen
+t.penup()
+t.goto(-450, 200)
+t.write('Welcome to Etch-A-Sketch!\n'
+        'Directions: w/s moves forwards/backwards, a/d turns left/right, and c clears the screen.', font=50)
+t.goto(0, 0)
+t.pendown()
 
 
 # Challenge 1: Make an Etch-A-Sketch
