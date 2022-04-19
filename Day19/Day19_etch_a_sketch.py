@@ -1,5 +1,5 @@
 """
-Day 19: Turtle Race
+Day 19: Etch-A-Sketch
 """
 import turtle
 
