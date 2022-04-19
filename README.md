@@ -1,6 +1,7 @@
 # 100DaysOfCode
 
-* [Day 18: Hirst Art](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day18)
+* [Day 19: Etch-A-Sketch & Turtle Race](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day19)
+* [Day 18: Hirst & Pollock Art](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day18)
 * [Day 17: Geography Quiz](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day17)
 * [Day 16: Coffee Machine Program (Pt II)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day16)
 * [Day 15: Coffee Machine Program (Pt I)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day15)
