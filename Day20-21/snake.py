@@ -6,17 +6,13 @@ import turtle
 # Define constants
 STARTING_X = 0
 MOVING_DISTANCE = 20
-STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
 
 
 class Snake:
 
     def __init__(self):
-        print('checkpoint 5')
         self.segments = []
-        print('checkpoint 6')
         self.create_snake()
-        print('checkpoint 8')
 
     def create_snake(self, x=STARTING_X):
         for i in range(3):
@@ -37,14 +33,15 @@ class Snake:
             self.segments[seg_num].goto(new_x, new_y)
         self.segments[0].forward(MOVING_DISTANCE)
 
-    def turn_right(self):
-        self.segments[0].right(90)
+    def turn_up(self):
+        self.segments[0].setheading(90)
+
+    def turn_down(self):
+        self.segments[0].setheading(270)
 
     def turn_left(self):
-        self.segments[0].left(90)
+        self.segments[0].setheading(180)
 
+    def turn_right(self):
+        self.segments[0].setheading(0)
 
-# # "Listens" for keystrokes
-# screen.listen()
-# screen.onkey(key='up', fun=turn_left)
-# screen.onkey(key='down', fun=turn_right)

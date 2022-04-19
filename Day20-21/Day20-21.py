@@ -20,6 +20,12 @@ STARTING_X = 0
 MOVING_DISTANCE = 20
 STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
 
+# "Listens" for keystrokes
+screen.listen()
+screen.onkey(snek.turn_up, "Up")
+screen.onkey(snek.turn_down, "Down")
+screen.onkey(snek.turn_left, "Left")
+screen.onkey(snek.turn_right, "Right")
 
 game_on = True
 
