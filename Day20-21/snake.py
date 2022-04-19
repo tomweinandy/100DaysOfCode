@@ -4,8 +4,9 @@ Snake class
 import turtle
 
 # Define constants
-STARTING_X = 0
+STARTING_X = -200
 MOVING_DISTANCE = 20
+RIGHT, UP, LEFT, DOWN = 0, 90, 180, 270
 
 
 class Snake:
@@ -34,14 +35,29 @@ class Snake:
         self.segments[0].forward(MOVING_DISTANCE)
 
     def turn_up(self):
-        self.segments[0].setheading(90)
+        if self.segments[0].heading() != DOWN:
+            self.segments[0].setheading(90)
 
     def turn_down(self):
-        self.segments[0].setheading(270)
+        if self.segments[0].heading() != UP:
+            self.segments[0].setheading(270)
 
     def turn_left(self):
-        self.segments[0].setheading(180)
+        if self.segments[0].heading() != RIGHT:
+            self.segments[0].setheading(180)
 
     def turn_right(self):
-        self.segments[0].setheading(0)
+        if self.segments[0].heading() != LEFT:
+            self.segments[0].setheading(0)
 
+
+def difficulty():
+    screen = turtle.Screen()
+    mode = screen.textinput(title='Mode', prompt='Set level of difficulty (easy/normal/hard): ').lower()
+    if mode == 'easy':
+        pause_length = 0.15
+    elif mode == 'hard':
+        pause_length = 0.05
+    else:
+        pause_length = 0.1
+    return pause_length
