@@ -21,6 +21,7 @@ logo = """
 
 # Load list of 100 movies
 df = pd.read_csv('Day12/100movies.csv')
+df = pd.read_csv('100movies.csv')
 df = df.set_index('Year')
 
 print('\nWelcome to Circa: The game where you try to guess movie years! '
