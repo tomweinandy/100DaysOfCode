@@ -7,6 +7,9 @@ import time
 import food
 from scoreboard import Scoreboard
 
+# todo better document
+# todo test snek more
+
 # Set initial conditions
 screen = turtle.Screen()
 screen.setup(width=600, height=600)
@@ -27,6 +30,7 @@ screen.onkey(snek.turn_down, "Down")
 screen.onkey(snek.turn_left, "Left")
 screen.onkey(snek.turn_right, "Right")
 
+# todo add play again
 # Begin the game
 game_on = True
 while game_on:
@@ -36,11 +40,19 @@ while game_on:
 
     # Detect collision with food
     if snek.head.distance(food) <= 15:
+        snek.extend()
         food.refresh()
         scoreboard.refresh()
 
     # Detect collision with wall
-    if snek.head.xcor() > 280 or snek.head.xcor() < -300 or snek.head.ycor() > 300 or snek.head.ycor() < -280:
+    if snek.head.xcor() > 300 or snek.head.xcor() < -300 or snek.head.ycor() > 300 or snek.head.ycor() < -280:
         game_on = False
+        scoreboard.game_over()
+
+    # Detect collision with tail
+    for segment in snek.segments[1:]:
+        if snek.head.distance(segment) < 5:
+            game_on = False
+            scoreboard.game_over()
 
 screen.exitonclick()
