@@ -18,6 +18,8 @@ screen.tracer(0)  # only updates on screen.update()
 right_paddle = paddle.Paddle(350, 0)
 left_paddle = paddle.Paddle(-350, 0)
 
+print(left_paddle.position(), right_paddle.position())
+
 # Create ball
 ball = ball.Ball()
 
@@ -37,7 +39,14 @@ while game_on:
     time.sleep(0.1)
     ball.move()
 
+    # Detect if the ball hits the ceiling or floor
+    if ball.ycor() > 280 or ball.ycor() < -280:
+        ball.bounce(y=True)
 
-
+    # Detect if the ball hits a paddle
+    if ball.distance(right_paddle.position()) < 50 and ball.xcor() > 320:
+        ball.bounce(x=True)
+    if ball.distance(left_paddle.position()) < 50 and ball.xcor() < -320:
+        ball.bounce(x=True)
 
 screen.exitonclick()
