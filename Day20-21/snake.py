@@ -14,6 +14,7 @@ class Snake:
     def __init__(self):
         self.segments = []
         self.create_snake()
+        self.head = self.segments[0]
 
     def create_snake(self, x=STARTING_X):
         for i in range(3):
@@ -32,23 +33,32 @@ class Snake:
             new_x = self.segments[seg_num - 1].xcor()
             new_y = self.segments[seg_num - 1].ycor()
             self.segments[seg_num].goto(new_x, new_y)
-        self.segments[0].forward(MOVING_DISTANCE)
+        self.head.forward(MOVING_DISTANCE)
+        # self.segments[0].forward(MOVING_DISTANCE)
 
     def turn_up(self):
-        if self.segments[0].heading() != DOWN:
-            self.segments[0].setheading(90)
+        # if self.segments[0].heading() != DOWN:
+        if self.head.heading() != DOWN:
+            # self.segments[0].setheading(90)
+            self.head.setheading(90)
 
     def turn_down(self):
-        if self.segments[0].heading() != UP:
-            self.segments[0].setheading(270)
+        if self.head.heading() != UP:
+        # if self.segments[0].heading() != UP:
+            self.head.setheading(270)
+            # self.segments[0].setheading(270)
 
     def turn_left(self):
-        if self.segments[0].heading() != RIGHT:
-            self.segments[0].setheading(180)
+        if self.head.heading() != RIGHT:
+        # if self.segments[0].heading() != RIGHT:
+            self.head.setheading(180)
+            # self.segments[0].setheading(180)
 
     def turn_right(self):
-        if self.segments[0].heading() != LEFT:
-            self.segments[0].setheading(0)
+        if self.head.heading() != LEFT:
+        # if self.segments[0].heading() != LEFT:
+            self.head.setheading(0)
+            # self.segments[0].setheading(0)
 
 
 def difficulty():
