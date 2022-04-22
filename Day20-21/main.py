@@ -4,6 +4,7 @@ Day 20-21: Snake Game
 import turtle
 import snake
 import time
+import food
 
 # Set initial conditions
 screen = turtle.Screen()
@@ -15,6 +16,7 @@ screen.tracer(0)  # only updates on screen.update()
 # My pet snake is named "snek"
 snek = snake.Snake()
 difficulty = snake.difficulty()
+food = food.Food()
 
 # "Listens" for keystrokes
 screen.listen()
@@ -29,5 +31,11 @@ while game_on:
     screen.update()
     time.sleep(difficulty)
     snek.move()
+
+    # Detect collision with food
+
+    if snek.segments[0].distance(food) <=  15:
+        food.refresh()
+        print('nom nom nom')
 
 screen.exitonclick()
