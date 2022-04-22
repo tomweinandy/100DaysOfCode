@@ -5,6 +5,7 @@ import turtle
 import snake
 import time
 import food
+from scoreboard import Scoreboard
 
 # Set initial conditions
 screen = turtle.Screen()
@@ -17,6 +18,7 @@ screen.tracer(0)  # only updates on screen.update()
 snek = snake.Snake()
 difficulty = snake.difficulty()
 food = food.Food()
+scoreboard = Scoreboard()
 
 # "Listens" for keystrokes
 screen.listen()
@@ -34,8 +36,8 @@ while game_on:
 
     # Detect collision with food
 
-    if snek.segments[0].distance(food) <=  15:
+    if snek.segments[0].distance(food) <= 15:
         food.refresh()
-        print('nom nom nom')
+        scoreboard.refresh()
 
 screen.exitonclick()
