@@ -20,4 +20,7 @@ class Ball(Turtle):
         if y:
             self.y_direction *= -1
 
+    def reset_position(self):
+        self.goto(0, 0)
+        self.bounce(x=True, y=True)
 

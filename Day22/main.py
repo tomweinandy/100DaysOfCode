@@ -32,6 +32,9 @@ screen.onkey(left_paddle.move_down, "z")
 
 # todo add instructions on bottom of screen
 # todo start with the spacebar
+# todo limit paddle movement to stay on screen
+# todo fix glitch of ball sticking to paddle
+
 
 game_on = True
 while game_on:
@@ -49,4 +52,13 @@ while game_on:
     if ball.distance(left_paddle.position()) < 50 and ball.xcor() < -320:
         ball.bounce(x=True)
 
+    # Detect if a paddle misses
+    if ball.xcor() > 350:
+        ball.reset_position()
+    if ball.xcor() < -350:
+        ball.reset_position()
+
+
+ball.color('red')
+screen.update()
 screen.exitonclick()
