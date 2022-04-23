@@ -37,7 +37,7 @@ screen.onkey(left_paddle.move_down, "z")
 # todo limit paddle movement to stay on screen
 # todo fix glitch of ball sticking to paddle
 # todo have ball appear at random point in center
-
+# todo Add game over at 10 points
 
 game_on = True
 while game_on:
