@@ -5,6 +5,7 @@ Day 22: Pong
 import turtle
 import paddle
 import ball
+import scoreboard
 import time
 
 screen = turtle.Screen()
@@ -20,8 +21,9 @@ left_paddle = paddle.Paddle(-350, 0)
 
 print(left_paddle.position(), right_paddle.position())
 
-# Create ball
+# Create ball and scoreboard
 ball = ball.Ball()
+scoreboard = scoreboard.Scoreboard()
 
 # "Listens" for keystrokes
 screen.listen()
@@ -34,12 +36,14 @@ screen.onkey(left_paddle.move_down, "z")
 # todo start with the spacebar
 # todo limit paddle movement to stay on screen
 # todo fix glitch of ball sticking to paddle
+# todo have ball appear at random point in center
 
 
 game_on = True
 while game_on:
+
     screen.update()
-    time.sleep(0.1)
+    time.sleep(0.1 * ball.speed)
     ball.move()
 
     # Detect if the ball hits the ceiling or floor
@@ -54,9 +58,15 @@ while game_on:
 
     # Detect if a paddle misses
     if ball.xcor() > 350:
+        scoreboard.point('left')
+        ball.increase_speed()
         ball.reset_position()
+
     if ball.xcor() < -350:
+        scoreboard.point('right')
+        ball.increase_speed()
         ball.reset_position()
+
 
 
 ball.color('red')
