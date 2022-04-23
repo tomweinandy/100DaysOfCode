@@ -39,7 +39,11 @@ while game_on:
         scoreboard.level_up()
         car_manager.increase_traffic()
         player.reset_position()
-        print(f'Traffic: {car_manager.traffic_rate}')
+        print(f'Traffic: {round(car_manager.traffic_rate, 2)}')
+
+
+    # todo add game over, traffic rate
+    # todo document
 
 
 screen.exitonclick()
