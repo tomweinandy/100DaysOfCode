@@ -33,7 +33,7 @@ screen.onkey(left_paddle.move_up, "a")
 screen.onkey(left_paddle.move_down, "z")
 
 # todo add instructions on bottom of screen
-# todo start with the spacebar
+# todo start with the space bar
 # todo limit paddle movement to stay on screen
 # todo fix glitch of ball sticking to paddle
 # todo have ball appear at random point in center
@@ -51,23 +51,21 @@ while game_on:
         ball.bounce(y=True)
 
     # Detect if the ball hits a paddle
-    if ball.distance(right_paddle.position()) < 50 and ball.xcor() > 320:
+    if ball.distance(right_paddle.position()) < 50 and ball.xcor() > 320 or \
+            ball.distance(left_paddle.position()) < 50 and ball.xcor() < -320:
         ball.bounce(x=True)
-    if ball.distance(left_paddle.position()) < 50 and ball.xcor() < -320:
-        ball.bounce(x=True)
+        ball.increase_speed()
 
     # Detect if a paddle misses
     if ball.xcor() > 350:
         scoreboard.point('left')
-        ball.increase_speed()
         ball.reset_position()
+        ball.reset_speed()
 
     if ball.xcor() < -350:
         scoreboard.point('right')
-        ball.increase_speed()
         ball.reset_position()
-
-
+        ball.reset_speed()
 
 ball.color('red')
 screen.update()
