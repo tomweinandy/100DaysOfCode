@@ -13,7 +13,7 @@ class Car(Turtle):
         self.shape('square')
         self.turtlesize(stretch_len=2)
         self.color(random.choice(COLORS))
-        self.goto(360, random.randint(-240, 260))
+        self.goto(360, random.randint(-240, 240))
 
         # self.backward(STARTING_MOVE_DISTANCE)
 
@@ -35,6 +35,10 @@ class CarManager(Turtle):
     def green_light(self):
         for car in self.cars:
             car.move()
+
+    def increase_traffic(self):
+        self.traffic_rate *= 1.1
+
 
 
 
