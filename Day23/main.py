@@ -8,7 +8,14 @@ screen = Screen()
 screen.setup(width=600, height=600)
 screen.tracer(0)
 
-car_manager = CarManager(1)
+# Initialize player and traffic
+player = Player()
+car_manager = CarManager(0.1)
+car_manager.hideturtle()
+
+# Add player movement
+screen.listen()
+screen.onkey(player.move, 'Up')
 
 game_is_on = True
 while game_is_on:
@@ -18,11 +25,8 @@ while game_is_on:
     car_manager.add_cars()
     car_manager.green_light()
 
-
-    # todo add turtle movement function
     # todo detect car collision
     # todo detect when the turtle crosses the finish line
     # todo advance to next level and tune car speed
-    #
 
 screen.exitonclick()

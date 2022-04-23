@@ -8,11 +8,13 @@ MOVE_INCREMENT = 10
 class Car(Turtle):
     def __init__(self):
         super().__init__()
+        # self.hideturtle()
         self.penup()
         self.shape('square')
         self.turtlesize(stretch_len=2)
         self.color(random.choice(COLORS))
-        self.goto(360, random.randint(-260, 260))
+        self.goto(360, random.randint(-240, 260))
+
         # self.backward(STARTING_MOVE_DISTANCE)
 
     def move(self):
