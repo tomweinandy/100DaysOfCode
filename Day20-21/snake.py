@@ -30,6 +30,12 @@ class Snake:
     def extend(self):
         self.add_segment(self.segments[-1].position())
 
+    def reset(self):
+        for segment in self.segments:
+            segment.color('black')
+        self.segments.clear()
+        self.create_snake()
+        self.head = self.segments[0]
 
     def move(self):
         # Make snake continuously move forward

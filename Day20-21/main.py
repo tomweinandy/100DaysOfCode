@@ -5,10 +5,11 @@ import turtle
 import snake
 import time
 import food
-from scoreboard import Scoreboard
+import scoreboard
 
 # todo better document
 # todo test snek more
+# todo add high scores for each difficulty
 
 # Set initial conditions
 screen = turtle.Screen()
@@ -21,7 +22,7 @@ screen.tracer(0)  # only updates on screen.update()
 snek = snake.Snake()
 difficulty = snake.difficulty()
 food = food.Food()
-scoreboard = Scoreboard()
+scoreboard = scoreboard.Scoreboard()
 
 # "Listens" for keystrokes
 screen.listen()
@@ -46,13 +47,13 @@ while game_on:
 
     # Detect collision with wall
     if snek.head.xcor() > 300 or snek.head.xcor() < -300 or snek.head.ycor() > 300 or snek.head.ycor() < -280:
-        game_on = False
-        scoreboard.game_over()
+        scoreboard.reset()
+        snek.reset()
 
     # Detect collision with tail
     for segment in snek.segments[1:]:
         if snek.head.distance(segment) < 5:
-            game_on = False
-            scoreboard.game_over()
+            scoreboard.reset()
+            snek.reset()
 
 screen.exitonclick()
