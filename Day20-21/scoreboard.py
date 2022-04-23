@@ -1,13 +1,16 @@
 from turtle import Turtle
 
-with open('data.txt', 'w') as file:
-    previous_high_score = file.read()
+with open('data.txt', 'r') as file:
+    data = file.read()
+    previous_high_score_string = data.split(':')
+    print(previous_high_score_string)
+    previous_high_score = int(previous_high_score_string[1])
 
 class Scoreboard(Turtle):
     def __init__(self):
         super().__init__()
         self.score = 0
-        self.high_score = 0
+        self.high_score = previous_high_score
         self.color('white')
         self.penup()
         self.goto(0, 260)
