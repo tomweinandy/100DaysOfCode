@@ -1,16 +1,16 @@
 from turtle import Turtle
+import json
 
 with open('data.txt', 'r') as file:
     data = file.read()
-    previous_high_score_string = data.split(':')
-    print(previous_high_score_string)
-    previous_high_score = int(previous_high_score_string[1])
+    score_dict = json.loads(data)
 
 class Scoreboard(Turtle):
     def __init__(self):
         super().__init__()
         self.score = 0
-        self.high_score = previous_high_score
+        self.high_score = score_dict['High Score (normal mode)']
+        # self.high_score = previous_high_score
         self.color('white')
         self.penup()
         self.goto(0, 260)
@@ -29,6 +29,12 @@ class Scoreboard(Turtle):
     def reset(self):
         if self.score > self.high_score:
             self.high_score = self.score
+
+            score_dict['High Score (normal mode)'] = self.high_score
+            with open('data.txt', 'w') as outfile:
+                json.dump(score_dict, outfile)
+
         self.score = 0
         self.update_scoreboard()
+
 

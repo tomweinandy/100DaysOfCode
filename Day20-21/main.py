@@ -10,6 +10,9 @@ import scoreboard
 # todo better document
 # todo test snek more
 # todo add high scores for each difficulty
+# todo add high scorer
+# todo add play again
+
 
 # Set initial conditions
 screen = turtle.Screen()
@@ -31,7 +34,6 @@ screen.onkey(snek.turn_down, "Down")
 screen.onkey(snek.turn_left, "Left")
 screen.onkey(snek.turn_right, "Right")
 
-# todo add play again
 # Begin the game
 game_on = True
 while game_on:
