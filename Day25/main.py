@@ -4,6 +4,17 @@ Day 25: U.S. States Game
 import turtle
 import pandas as pd
 
+
+def print_state(data, state):
+    answer_data = data[data['state'] == state]
+    location = (answer_data['x'], answer_data['y'])
+
+    t = turtle.Turtle()
+    t.penup()
+    t.goto(location)
+    t.write(state)
+
+
 screen = turtle.Screen()
 screen.title('U.S. States Game')
 image = 'blank_states_img.gif'
@@ -30,6 +41,9 @@ while game_on:
     if len(answer_df) > 0:
         correct_answer_index = answer_df.index[0]
         df.at[correct_answer_index, 'guessed'] = 1
+        # print_state(df, answer_state)
+
+
 
     print(df[df['state'] == answer_state])
 
