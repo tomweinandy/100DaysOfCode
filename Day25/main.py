@@ -55,6 +55,7 @@ while game_on:
     if len(answer_df) > 0:
         correct_answer_index = answer_df.index[0]
         df.at[correct_answer_index, 'guessed'] = 1
+        print_state(df, answer_state)
         print(f'{answer_state} is a match!')
     else:
         print(f'"{answer_state}" does not exist (check your spelling)')
