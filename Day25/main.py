@@ -19,12 +19,21 @@ print(df.head())
 game_on = True
 while game_on:
 
-    correct_guesses = sum(df["guessed"])
+    correct_guesses = sum(df['guessed'])
     title_str = f'{correct_guesses}/50 States Correct'
-    answer_state = screen.textinput(title=title_str, prompt='What\'s another state\'s name?').lower()
+    answer_state = screen.textinput(title=title_str, prompt='What\'s another state\'s name?')
+    answer_state = answer_state.lower().title()
 
-    if answer_state in df['state'].lower():
-        print(answer_state)
+    answer_df = df[df['state'] == answer_state]
+    print(answer_df)
+
+    if len(answer_df) > 0:
+        correct_answer_index = answer_df.index[0]
+        df.at[correct_answer_index, 'guessed'] = 1
+
+    print(df[df['state'] == answer_state])
+
+
 
     if answer_state == 'quit' or correct_guesses == 50:
         game_on = False
