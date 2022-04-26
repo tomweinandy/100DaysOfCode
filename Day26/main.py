@@ -1,27 +1,22 @@
-student_dict = {
-    "student": ["Angela", "James", "Lily"], 
-    "score": [56, 76, 98]
-}
+"""
+Day 26: NATO Phonetic Alphabet Converter
+"""
+import pandas as pd
 
-#Looping through dictionaries:
-for (key, value) in student_dict.items():
-    #Access key and value
-    pass
+# Read dataframe and create dictionary
+df = pd.read_csv('nato_phonetic_alphabet.csv')
+nato_dict = {row.letter: row.code for (index, row) in df.iterrows()}
 
-import pandas
-student_data_frame = pandas.DataFrame(student_dict)
+# Continue the program until stopped
+proceed = True
+while proceed:
+    input_word = input('Type a word to convert to the NATO phonetic alphabet: ').upper()
 
-#Loop through rows of a data frame
-for (index, row) in student_data_frame.iterrows():
-    #Access index and row
-    #Access row.student or row.score
-    pass
+    # Break loop with 'quit'
+    if input_word == 'QUIT':
+        proceed = False
 
-# Keyword Method with iterrows()
-# {new_key:new_value for (index, row) in df.iterrows()}
-
-#TODO 1. Create a dictionary in this format:
-{"A": "Alfa", "B": "Bravo"}
-
-#TODO 2. Create a list of the phonetic code words from a word that the user inputs.
-
+    # Create a list of the phonetic code words from a word that the user inputs.
+    input_list = [letter for letter in input_word]
+    output = [nato_dict[letter] for letter in input_list if letter in nato_dict.keys()]
+    print(output)
