@@ -15,8 +15,6 @@ class Car(Turtle):
         self.color(random.choice(COLORS))
         self.goto(360, random.randint(-240, 240))
 
-        # self.backward(STARTING_MOVE_DISTANCE)
-
     def move(self):
         new_x = self.xcor() - MOVE_INCREMENT
         self.goto(new_x, self.ycor())
