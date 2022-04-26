@@ -57,11 +57,22 @@ while game_on:
         df.at[correct_answer_index, 'guessed'] = 1
         print_state(df, answer_state)
         print(f'{answer_state} is a match!')
+    elif answer_state == 'Exit':
+        print('Saving list of remaining states to csv')
     else:
         print(f'"{answer_state}" does not exist (check your spelling)')
 
-    # Game ends when player types 'Quit' or guesses all 50 states
-    if answer_state == 'Quit' or correct_guesses == 50:
+    # End game when player guesses all 50 states
+    if correct_guesses == 50:
+        game_on = False
+        break
+
+    # End game when player types 'exit' and save list of states to learn
+    if answer_state == 'Exit':
+        states_to_learn = df[df['guessed']==0]['state']
+        states_to_learn = states_to_learn.reset_index(drop=True)
+        states_to_learn.to_csv('states_to_learn.csv')
+
         game_on = False
         break
 
