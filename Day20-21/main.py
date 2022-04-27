@@ -8,8 +8,6 @@ import food
 import scoreboard
 
 # todo better document
-# todo test snek more
-
 
 # Set initial conditions
 screen = turtle.Screen()
@@ -38,7 +36,7 @@ while game_on:
     snek.move()
 
     # Detect collision with food
-    if snek.head.distance(food) <= 15:
+    if snek.head.distance(food) <= 18:
         snek.extend()
         food.refresh()
         scoreboard.refresh()
@@ -50,7 +48,7 @@ while game_on:
         snek.reset()
 
     # Detect collision with tail
-    for segment in snek.segments[1:]:
+    for segment in snek.segments[4:]:
         if snek.head.distance(segment) < 5:
             game_on = snake.play_again()
             scoreboard.reset()
