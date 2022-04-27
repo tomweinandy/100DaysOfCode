@@ -72,18 +72,6 @@ class Snake:
             # self.segments[0].setheading(0)
 
 
-def difficulty():
-    screen = turtle.Screen()
-    mode = screen.textinput(title='Mode', prompt='Set level of difficulty (easy/normal/hard): ').lower()
-    if mode == 'easy':
-        pause_length = 0.15
-    elif mode == 'hard':
-        pause_length = 0.05
-    else:
-        pause_length = 0.1
-    return pause_length
-
-
 def play_again():
     # Prompt player if they want to play again
     screen = turtle.Screen()

@@ -1,1 +1,1 @@
-{"High Score (easy mode)": 0, "High Score (normal mode)": 24, "High Score (hard mode)": 0}
+{"easy": [0, "Aaron"], "normal": [0, "Aaron"], "hard": [0, "Aaron"], "High Score (normal mode)": 1}

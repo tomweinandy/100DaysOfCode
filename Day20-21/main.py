@@ -10,7 +10,6 @@ import scoreboard
 # todo better document
 # todo test snek more
 # todo add high scores for each difficulty
-# todo add high scorer
 
 
 # Set initial conditions
@@ -22,20 +21,20 @@ screen.tracer(0)  # only updates on screen.update()
 
 # My pet snake is named "snek"
 snek = snake.Snake()
-difficulty = snake.difficulty()
+difficulty = scoreboard.difficulty()
 food = food.Food()
 scoreboard = scoreboard.Scoreboard()
-
-# "Listens" for keystrokes
-screen.listen()
-screen.onkey(snek.turn_up, "Up")
-screen.onkey(snek.turn_down, "Down")
-screen.onkey(snek.turn_left, "Left")
-screen.onkey(snek.turn_right, "Right")
 
 # Begin the game
 game_on = True
 while game_on:
+    # "Listens" for keystrokes
+    screen.listen()
+    screen.onkey(snek.turn_up, "Up")
+    screen.onkey(snek.turn_down, "Down")
+    screen.onkey(snek.turn_left, "Left")
+    screen.onkey(snek.turn_right, "Right")
+
     screen.update()
     time.sleep(difficulty)
     snek.move()
