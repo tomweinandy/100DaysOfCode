@@ -11,7 +11,6 @@ import scoreboard
 # todo test snek more
 # todo add high scores for each difficulty
 # todo add high scorer
-# todo add play again
 
 
 # Set initial conditions
@@ -49,12 +48,14 @@ while game_on:
 
     # Detect collision with wall
     if snek.head.xcor() > 300 or snek.head.xcor() < -300 or snek.head.ycor() > 300 or snek.head.ycor() < -280:
+        game_on = snake.play_again()
         scoreboard.reset()
         snek.reset()
 
     # Detect collision with tail
     for segment in snek.segments[1:]:
         if snek.head.distance(segment) < 5:
+            game_on = snake.play_again()
             scoreboard.reset()
             snek.reset()
 

@@ -82,3 +82,14 @@ def difficulty():
     else:
         pause_length = 0.1
     return pause_length
+
+
+def play_again():
+    # Prompt player if they want to play again
+    screen = turtle.Screen()
+    play = screen.textinput(title='Play again',
+                                  prompt='Press "enter"/"return" to play again or type "quit" to end.')
+    if play == 'quit':
+        return False
+    else:
+        return True
