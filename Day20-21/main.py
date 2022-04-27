@@ -7,8 +7,6 @@ import time
 import food
 import scoreboard
 
-# todo better document
-
 # Set initial conditions
 screen = turtle.Screen()
 screen.setup(width=600, height=600)
