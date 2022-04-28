@@ -12,7 +12,16 @@ LONG_BREAK_MIN = 20
 
 # ---------------------------- TIMER RESET ------------------------------- # 
 
+
+def reset_clicked():
+    pass
+
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
+
+
+def start_clicked():
+    pass
+
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 
@@ -35,13 +44,18 @@ canvas.create_text(102, 130, text='00:00', fill='white', font=(FONT_NAME, 35, 'b
 canvas.grid(row=1, column=1)
 
 # Add start button
-
+start_button = tkinter.Button(text='Start', command=start_clicked, font=FONT_NAME)
+start_button.grid(row=2, column=0)
 
 # Add reset button
-
+start_button = tkinter.Button(text='Reset', command=reset_clicked, font=FONT_NAME)
+start_button.grid(row=2, column=2)
 
 # Add checkmarks
-
+checkmark = '✅'
+checks_string = ''
+checks = tkinter.Label(text=checks_string, bg=YELLOW)
+checks.grid(row=3, column=1)
 
 # Add main while loop to keep window open
 window.mainloop()
