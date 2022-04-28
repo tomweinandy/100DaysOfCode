@@ -2,10 +2,11 @@
 
 An asterisk (*) indicates favorite projects
 
+* [Day 28: Pomodoro Time Tracker*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day27)
 * [Day 27: GUI Miles to Kilometers Converter](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day27)
 * [Day 26: NATO Phonetic Alphabet Converter](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day26)
 * [Day 25: U.S. States Game*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day25)
-* [Day 24: Mail Merge](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day24) (need to clean up, document)
+* [Day 24: Mail Merge](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day24)
 * [Day 23: Turtle Crossing*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day23) (need to clean up, document)
 * [Day 22: Pong Game*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day22) (need to clean up, document)
 * [Day 20-21: Snake Game*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day20-21)
