@@ -1,23 +1,25 @@
 import tkinter
 
-# ---------------------------- CONSTANTS ------------------------------- #
+# ---------------------------- VARIABLES ------------------------------- #
 # Color pallet and hex codes come from colorhunt.co
 PINK = "#e2979c"
 RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 9
-SHORT_BREAK_MIN = 3
-LONG_BREAK_MIN = 6
+WORK_SECONDS = 25 * 60
+SHORT_BREAK_SECONDS = 5 * 60
+LONG_BREAK_SECONDS = 20 * 60
 
 reps = 0
 timer = None
 
-# ---------------------------- TIMER RESET ------------------------------- # 
 
-
+# ---------------------------- TIMER RESET ------------------------------- #
 def reset_clicked():
+    """
+    Resets global variables and features of timer
+    """
     global reps, checkmarks
     reps = 0
     checkmarks = ''
@@ -26,50 +28,47 @@ def reset_clicked():
     canvas.itemconfig(timer_text, text='00:00')
     checks.config(text=checkmarks)
 
-# ---------------------------- TIMER MECHANISM ------------------------------- # 
 
-# def change_label(new_label):
-#     timer_label.config(text=new_label)
-
+# ---------------------------- TIMER MECHANISM ------------------------------- #
 def start_timer():
+    """
+    Tracks reps and begins timer according to current rep
+    """
     global reps, checkmarks
     reps += 1
 
-    # If reps = 1, 3, 5, 7, 9, 11, 13, 15, 17...
-    work_seconds = WORK_MIN
-
-    # If reps = 2, 4, 6, 10, 12, 14...
-    short_break_seconds = SHORT_BREAK_MIN
-
     # If reps = 8, 16...
-    long_break_seconds = LONG_BREAK_MIN
-
     if reps % 8 == 0:
-        countdown(long_break_seconds)
+        countdown(LONG_BREAK_SECONDS)
         new_label = 'Break Time'
         timer_label.config(text=new_label, fg=RED)
 
         checkmarks += checkmark + '\n'
         checks.config(text=checkmarks)
 
+    # If reps = 2, 4, 6, 10, 12, 14...
     elif reps % 2 == 0:
-        countdown(short_break_seconds)
+        countdown(SHORT_BREAK_SECONDS)
         new_label = 'Break Time'
         timer_label.config(text=new_label, fg=PINK)
 
         checkmarks += checkmark
         checks.config(text=checkmarks)
 
+    # If reps = 1, 3, 5, 7, 9, 11, 13, 15, 17...
     else:
-        countdown(work_seconds)
+        countdown(WORK_SECONDS)
         new_label = ' Work Time'
         timer_label.config(text=new_label, fg=GREEN)
 
 
-
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
-
 def countdown(count):
+    """
+    Changes the countdown timer
+    :param count: How many seconds to count down from
+    :return:
+    """
     global timer
 
     minutes_left = str(count // 60)
@@ -80,7 +79,7 @@ def countdown(count):
     new_time = f'{minutes_left}:{seconds_left}'
     canvas.itemconfig(timer_text, text=new_time)
     if count > 0:
-        timer = window.after(1000, countdown, count-1)  # time is in milliseconds
+        timer = window.after(1000, countdown, count-1)  # time is in milliseconds, so 1000ms = 1 second
     else:
         start_timer()
 
@@ -93,7 +92,7 @@ window.config(padx=100, pady=50, bg=YELLOW)  # bg is 'background'
 
 
 # Add timer label
-label = '  Timer   '  #spaces added to match length of other labels
+label = '  Timer   '  # spaces added to match length of other labels
 timer_label = tkinter.Label(text=label, bg=YELLOW, fg=GREEN, font=(FONT_NAME, 36))
 timer_label.grid(row=0, column=1)
 
