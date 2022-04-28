@@ -1,3 +1,6 @@
+"""
+Day 28: Pomodoro Time Tracker
+"""
 import tkinter
 
 # ---------------------------- VARIABLES ------------------------------- #
