@@ -99,25 +99,26 @@ while game_on:
         if ball.ycor() > 280 or ball.ycor() < -280:
             ball.bounce(y=True)
 
-        # Detect if the ball hits a paddle
-        if ball.distance(right_paddle.position()) < 50 and ball.xcor() > 320 or \
-                ball.distance(left_paddle.position()) < 50 and ball.xcor() < -320:
+        # Detect if the ball hits a paddle (three conditions must be met for right paddle or left)
+        if ball.distance(right_paddle.position()) < 60 and ball.xcor() > 320 and ball.x_direction == 1 or \
+                ball.distance(left_paddle.position()) < 60 and ball.xcor() < -320 and ball.x_direction == -1:
             ball.bounce(x=True)
             ball.increase_speed()
     #
         # Detect if a paddle misses
         if ball.xcor() > 350:
             scoreboard.point('left')
-            ball.reset_position()
-            ball.reset_speed()
-            ball.pause()
+            ball.color('red')
+            screen.update()
+            ball.reset()
 
         if ball.xcor() < -350:
             scoreboard.point('right')
-            ball.reset_position()
-            ball.reset_speed()
-            ball.pause()
+            ball.color('red')
+            screen.update()
+            ball.reset()
 
-# ball.color('red')
+
+ball.color('red')
 screen.update()
 screen.exitonclick()

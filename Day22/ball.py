@@ -1,4 +1,5 @@
 from turtle import Turtle
+import time
 
 
 class Ball(Turtle):
@@ -31,13 +32,15 @@ class Ball(Turtle):
         if y:
             self.y_direction *= -1
 
-    def reset_position(self):
-        self.goto(0, 0)
-        self.bounce(x=True, y=True)
 
     def increase_speed(self):
         self.speed *= 0.9
 
-    def reset_speed(self):
+    def reset(self):
+        time.sleep(1)
         self.speed = 1
+        self.color('white')
+        self.goto(0, 0)
+        self.bounce(x=True, y=True)
+
 
