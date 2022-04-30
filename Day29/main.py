@@ -27,6 +27,8 @@ def generate_password():
     random.shuffle(password_list)
     password = ''.join(password_list)
 
+    password_entry.insert(0, password)
+
     print(f"Your password is: {password}")
 
 
@@ -57,6 +59,7 @@ def add_password():
 
     else:
         messagebox.showerror(title='Invalid Entry', message='You may not have an empty entry.')
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 # Initialize window
@@ -99,12 +102,9 @@ password_entry.grid(row=3, column=1)
 password_button = tkinter.Button(text='Generate Password', command=generate_password)
 password_button.grid(row=3, column=2)
 
-# Add add row
+# Add addition row
 password_button = tkinter.Button(text='Add', command=add_password, width=36)
 password_button.grid(row=4, column=1, columnspan=2)
-
-
-
 
 
 # Add main while loop to keep window open
