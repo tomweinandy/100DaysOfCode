@@ -16,7 +16,10 @@ while proceed:
     if input_word == 'QUIT':
         proceed = False
 
-    # Create a list of the phonetic code words from a word that the user inputs.
-    input_list = [letter for letter in input_word]
-    output = [nato_dict[letter] for letter in input_list if letter in nato_dict.keys()]
-    print(output)
+    try:
+        # Create a list of the phonetic code words from a word that the user inputs.
+        input_list = [letter for letter in input_word]
+        output = [nato_dict[letter] for letter in input_list]
+        print(output)
+    except KeyError:
+        print('Sorry, input may only include letters in the English alphabet.')
