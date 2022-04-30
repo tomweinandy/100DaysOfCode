@@ -4,33 +4,41 @@ Day 29: Password Manager
 import tkinter
 from tkinter import messagebox
 import random
+import pyperclip
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
-    # Password Generator Project
+    """
+    Generates a strong password of 8-10 letters, 2-4 symbols, and 2-4 numbers
+    """
+    # Lists of characters
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
                'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
                'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
+    # Select number of characters within defined range
     nr_letters = random.randint(8, 10)
     nr_symbols = random.randint(2, 4)
     nr_numbers = random.randint(2, 4)
 
+    # Randomly select characters
     list_letters = [random.choice(letters) for letter in range(nr_letters)]
     list_symbols = [random.choice(symbols) for symbol in range(nr_symbols)]
     list_numbers = [random.choice(numbers) for number in range(nr_numbers)]
 
+    # Combine three lists into string
     password_list = list_letters + list_symbols + list_numbers
     random.shuffle(password_list)
     password = ''.join(password_list)
 
+    # Add to entry box in popup
     password_entry.insert(0, password)
 
-    print(f"Your password is: {password}")
-
+    # Save to clipboard
+    pyperclip.copy(password)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def add_password():
