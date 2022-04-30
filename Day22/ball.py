@@ -1,5 +1,6 @@
 from turtle import Turtle
 import time
+import random
 
 
 class Ball(Turtle):
@@ -29,9 +30,9 @@ class Ball(Turtle):
     def bounce(self, x=False, y=False):
         if x:
             self.x_direction *= -1
+            self.turn(10)
         if y:
             self.y_direction *= -1
-
 
     def increase_speed(self):
         self.speed *= 0.9
@@ -40,7 +41,8 @@ class Ball(Turtle):
         time.sleep(1)
         self.speed = 1
         self.color('white')
-        self.goto(0, 0)
+        # Appears within a random point on the y-axis
+        self.goto(0, random.randint(-250, 250))
         self.bounce(x=True, y=True)
 
 

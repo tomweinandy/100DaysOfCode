@@ -1,3 +1,4 @@
+import turtle
 from turtle import Turtle
 
 class Scoreboard(Turtle):
@@ -23,3 +24,7 @@ class Scoreboard(Turtle):
         elif player == 'right':
             self.right_score += 1
         self.update_scoreboard()
+
+    def win(self, player):
+        self.goto (0, 0)
+        self.write(f'{player.title()} Player wins!', align='center', font=('Courier', 36, 'normal'))

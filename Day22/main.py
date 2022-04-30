@@ -8,11 +8,6 @@ import ball
 import scoreboard
 import time
 
-# todo fix glitch of ball sticking to paddle
-# todo have ball appear at random point in center
-# todo Add game over at 10 points
-# todo add random spin to ball
-
 screen = turtle.Screen()
 screen.title('Pong')
 screen.setup(width=800, height=600)
@@ -31,14 +26,10 @@ scoreboard = scoreboard.Scoreboard()
 t = turtle.Turtle()
 t.color('white')
 t.penup()
-t.goto(-328, -290)
-instructions = 'Left player moves with Esc/Tab. Right player moves with Up/Down. Press Space to pause/unpause.'
-t.write(instructions, font=('Courier', 12, 'normal'))
+t.goto(0, -290)
+instructions = 'Left moves with Esc/Tab. Right moves with Up/Down. Best of 11 points wins. Press Backspace to begin.'
+t.write(instructions, align='center', font=('Courier', 12, 'normal'))
 t.goto(0, 1000)
-
-######################### test
-# State machine to track which keys are pressed
-keys_pressed = {}
 
 
 # Callback for KeyPress event listener. Sets key pressed state to True
@@ -60,6 +51,9 @@ def set_key_binds():
         keys_pressed[key] = False
 
 
+# State machine to track which keys are pressed
+keys_pressed = {}
+
 # Begin listening
 screen.listen()
 set_key_binds()
@@ -67,11 +61,16 @@ set_key_binds()
 game_on = True
 while game_on:
     # Check state of keypresses and respond accordingly
-    if keys_pressed["Escape"]: left_paddle.move_up()
-    if keys_pressed["Tab"]: left_paddle.move_down()
-    if keys_pressed["Up"]: right_paddle.move_up()
-    if keys_pressed["Down"]: right_paddle.move_down()
-    if keys_pressed["BackSpace"]: ball.pause()
+    if keys_pressed["Escape"]:
+        left_paddle.move_up()
+    if keys_pressed["Tab"]:
+        left_paddle.move_down()
+    if keys_pressed["Up"]:
+        right_paddle.move_up()
+    if keys_pressed["Down"]:
+        right_paddle.move_down()
+    if keys_pressed["BackSpace"]:
+        ball.pause()
 
     screen.update()
     time.sleep(0.1 * ball.speed)
@@ -110,15 +109,32 @@ while game_on:
             scoreboard.point('left')
             ball.color('red')
             screen.update()
-            ball.reset()
+
+            if scoreboard.left_score + scoreboard.right_score > 10:
+                scoreboard.win('left')
+                ball.pause()
+                game_on = False
+
+            else:
+                ball.reset()
+                screen.update()
+                time.sleep(1)
 
         if ball.xcor() < -350:
             scoreboard.point('right')
             ball.color('red')
             screen.update()
-            ball.reset()
 
+            if scoreboard.left_score + scoreboard.right_score > 10:
+                scoreboard.win('right')
+                ball.pause()
+                game_on = False
 
-ball.color('red')
+            else:
+                ball.reset()
+                screen.update()
+                time.sleep(1)
+
+# ball.color('red')
 screen.update()
 screen.exitonclick()
