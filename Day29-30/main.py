@@ -41,6 +41,7 @@ def generate_password():
     # Save to clipboard
     pyperclip.copy(password)
 
+
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def add_password():
     # Compile entry
@@ -89,6 +90,23 @@ def add_password():
         messagebox.showerror(title='Invalid Entry', message='You may not have an empty entry.')
 
 
+# ------------------------- WEBSITE SEARCH ---------------------------- #
+def find_password():
+    try:
+        website = website_entry.get()
+        with open('data.json', 'r') as file:
+            data = json.load(file)
+
+        messagebox.showinfo(message=f'{website}'
+                                    f'\nUsername: {data[website]["username"]}'
+                                    f'\n Password: {data[website]["password"]}')
+
+    except FileNotFoundError:
+        messagebox.showerror(message='No Data File Found')
+
+    except KeyError:
+        messagebox.showerror(title='ERROR', message='Do details for the website exists')
+
 # ---------------------------- UI SETUP ------------------------------- #
 # Initialize window
 window = tkinter.Tk()
@@ -106,9 +124,12 @@ website_text = 'Website:'
 website_label = tkinter.Label(text=website_text)
 website_label.grid(row=1, column=0)
 
-website_entry = tkinter.Entry(width=35)
-website_entry.grid(row=1, column=1, columnspan=2)
+website_entry = tkinter.Entry(width=21)
+website_entry.grid(row=1, column=1)
 website_entry.focus()
+
+website_button = tkinter.Button(text='Search', command=find_password, width=13)
+website_button.grid(row=1, column=2)
 
 # Add username row
 username_text = 'Email/Username:'
