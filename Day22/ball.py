@@ -1,5 +1,6 @@
 from turtle import Turtle
 
+
 class Ball(Turtle):
     def __init__(self):
         super().__init__()
@@ -9,6 +10,15 @@ class Ball(Turtle):
         self.x_direction = 1
         self.y_direction = 1
         self.speed = 1
+        self.paused = True
+
+    def pause(self):
+        if self.paused:
+            self.paused = False
+            print('pause off')
+        else:
+            self.paused = True
+            print('pause on')
 
     def move(self):
         new_x = self.xcor() + 10*self.x_direction

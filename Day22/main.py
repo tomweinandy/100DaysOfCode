@@ -8,6 +8,11 @@ import ball
 import scoreboard
 import time
 
+# todo fix glitch of ball sticking to paddle
+# todo have ball appear at random point in center
+# todo Add game over at 10 points
+# todo add random spin to ball
+
 screen = turtle.Screen()
 screen.title('Pong')
 screen.setup(width=800, height=600)
@@ -18,8 +23,6 @@ screen.tracer(0)  # only updates on screen.update()
 right_paddle = paddle.Paddle(350, 0)
 left_paddle = paddle.Paddle(-350, 0)
 
-print(left_paddle.position(), right_paddle.position())
-
 # Create ball and scoreboard
 ball = ball.Ball()
 scoreboard = scoreboard.Scoreboard()
@@ -28,52 +31,93 @@ scoreboard = scoreboard.Scoreboard()
 t = turtle.Turtle()
 t.color('white')
 t.penup()
-t.goto(-300, -290)
-instructions = 'Left player moves with A/Z. Right player moves with Up/Down. Press space bar to begin.'
-t.write(instructions, font=('Courier', 12))
+t.goto(-328, -290)
+instructions = 'Left player moves with Esc/Tab. Right player moves with Up/Down. Press Space to pause/unpause.'
+t.write(instructions, font=('Courier', 12, 'normal'))
 t.goto(0, 1000)
 
-# "Listens" for keystrokes
-screen.listen()
-screen.onkey(right_paddle.move_up, "Up")
-screen.onkey(right_paddle.move_down, "Down")
-screen.onkey(left_paddle.move_up, "a")
-screen.onkey(left_paddle.move_down, "z")
+######################### test
+# State machine to track which keys are pressed
+keys_pressed = {}
 
-# todo start with the space bar
-# todo limit paddle movement to stay on screen
-# todo fix glitch of ball sticking to paddle
-# todo have ball appear at random point in center
-# todo Add game over at 10 points
+
+# Callback for KeyPress event listener. Sets key pressed state to True
+def pressed(event):
+    keys_pressed[event.keysym] = True
+
+
+# Callback for KeyRelease event listener. Sets key pressed state to False
+def released(event):
+    keys_pressed[event.keysym] = False
+
+
+# Set up the event listeners, bypassing the Turtle Screen to use the underlying TKinter canvas directly
+# This needs to be done to get access to the event object so the state machine can determine which key was pressed
+def set_key_binds():
+    for key in ["Up", "Down", "Escape", "Tab", "BackSpace"]:
+        screen.getcanvas().bind(f"<KeyPress-{key}>", pressed)
+        screen.getcanvas().bind(f"<KeyRelease-{key}>", released)
+        keys_pressed[key] = False
+
+
+# Begin listening
+screen.listen()
+set_key_binds()
 
 game_on = True
 while game_on:
+    # Check state of keypresses and respond accordingly
+    if keys_pressed["Escape"]: left_paddle.move_up()
+    if keys_pressed["Tab"]: left_paddle.move_down()
+    if keys_pressed["Up"]: right_paddle.move_up()
+    if keys_pressed["Down"]: right_paddle.move_down()
+    if keys_pressed["BackSpace"]: ball.pause()
 
     screen.update()
     time.sleep(0.1 * ball.speed)
-    ball.move()
+    screen.listen()
 
-    # Detect if the ball hits the ceiling or floor
-    if ball.ycor() > 280 or ball.ycor() < -280:
-        ball.bounce(y=True)
+    # Ball does not move when paused
+    while not ball.paused:
+        # Check state of keypresses and respond accordingly
+        if keys_pressed["Escape"]:
+            left_paddle.move_up()
+        if keys_pressed["Tab"]:
+            left_paddle.move_down()
+        if keys_pressed["Up"]:
+            right_paddle.move_up()
+        if keys_pressed["Down"]:
+            right_paddle.move_down()
+        if keys_pressed["BackSpace"]:
+            ball.pause()
 
-    # Detect if the ball hits a paddle
-    if ball.distance(right_paddle.position()) < 50 and ball.xcor() > 320 or \
-            ball.distance(left_paddle.position()) < 50 and ball.xcor() < -320:
-        ball.bounce(x=True)
-        ball.increase_speed()
+        screen.update()
+        time.sleep(0.1 * ball.speed)
+        ball.move()
 
-    # Detect if a paddle misses
-    if ball.xcor() > 350:
-        scoreboard.point('left')
-        ball.reset_position()
-        ball.reset_speed()
+        # Detect if the ball hits the ceiling or floor
+        if ball.ycor() > 280 or ball.ycor() < -280:
+            ball.bounce(y=True)
 
-    if ball.xcor() < -350:
-        scoreboard.point('right')
-        ball.reset_position()
-        ball.reset_speed()
+        # Detect if the ball hits a paddle
+        if ball.distance(right_paddle.position()) < 50 and ball.xcor() > 320 or \
+                ball.distance(left_paddle.position()) < 50 and ball.xcor() < -320:
+            ball.bounce(x=True)
+            ball.increase_speed()
+    #
+        # Detect if a paddle misses
+        if ball.xcor() > 350:
+            scoreboard.point('left')
+            ball.reset_position()
+            ball.reset_speed()
+            ball.pause()
 
-ball.color('red')
+        if ball.xcor() < -350:
+            scoreboard.point('right')
+            ball.reset_position()
+            ball.reset_speed()
+            ball.pause()
+
+# ball.color('red')
 screen.update()
 screen.exitonclick()
