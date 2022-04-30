@@ -1,13 +1,13 @@
 """
 Day 22: Pong
 """
-
 import turtle
 import paddle
 import ball
 import scoreboard
 import time
 
+# Initialize screen
 screen = turtle.Screen()
 screen.title('Pong')
 screen.setup(width=800, height=600)
@@ -32,19 +32,30 @@ t.write(instructions, align='center', font=('Courier', 12, 'normal'))
 t.goto(0, 1000)
 
 
-# Callback for KeyPress event listener. Sets key pressed state to True
+# Use solution by Joseph to allow for both paddles to move at once
+    # Details: https://www.udemy.com/course/100-days-of-code/learn/lecture/20414753#questions/13216834
 def pressed(event):
+    """
+    Callback for KeyPress event listener. Sets key pressed state to True
+    :param event: A key press
+    """
     keys_pressed[event.keysym] = True
 
 
-# Callback for KeyRelease event listener. Sets key pressed state to False
 def released(event):
+    """
+    Callback for KeyPress event listener. Sets key pressed state to False
+    :param event: A key press
+    """
     keys_pressed[event.keysym] = False
 
 
 # Set up the event listeners, bypassing the Turtle Screen to use the underlying TKinter canvas directly
 # This needs to be done to get access to the event object so the state machine can determine which key was pressed
 def set_key_binds():
+    """
+    Bind together key presses into single input
+    """
     for key in ["Up", "Down", "Escape", "Tab", "BackSpace"]:
         screen.getcanvas().bind(f"<KeyPress-{key}>", pressed)
         screen.getcanvas().bind(f"<KeyRelease-{key}>", released)
@@ -103,18 +114,18 @@ while game_on:
                 ball.distance(left_paddle.position()) < 60 and ball.xcor() < -320 and ball.x_direction == -1:
             ball.bounce(x=True)
             ball.increase_speed()
-    #
+
         # Detect if a paddle misses
         if ball.xcor() > 350:
             scoreboard.point('left')
             ball.color('red')
             screen.update()
 
+            # Check if 11 points reached
             if scoreboard.left_score + scoreboard.right_score > 10:
                 scoreboard.win('left')
                 ball.pause()
                 game_on = False
-
             else:
                 ball.reset()
                 screen.update()
@@ -125,16 +136,15 @@ while game_on:
             ball.color('red')
             screen.update()
 
+            # Check if 11 points reached
             if scoreboard.left_score + scoreboard.right_score > 10:
                 scoreboard.win('right')
                 ball.pause()
                 game_on = False
-
             else:
                 ball.reset()
                 screen.update()
                 time.sleep(1)
 
-# ball.color('red')
 screen.update()
 screen.exitonclick()
