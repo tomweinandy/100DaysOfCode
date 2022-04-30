@@ -2,7 +2,8 @@
 
 An asterisk (*) indicates favorite projects
 
-* [Day 28: Pomodoro Time Tracker*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day27)
+* [Day 29-30: Password Manager*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day29-30)
+* [Day 28: Pomodoro Time Tracker*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day28)
 * [Day 27: GUI Miles to Kilometers Converter](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day27)
 * [Day 26: NATO Phonetic Alphabet Converter](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day26)
 * [Day 25: U.S. States Game*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day25)

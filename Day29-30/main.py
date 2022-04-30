@@ -44,6 +44,9 @@ def generate_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def add_password():
+    """
+    Saves password as a json file
+    """
     # Compile entry
     website = website_entry.get()
     username = username_entry.get()
@@ -56,15 +59,15 @@ def add_password():
     }
 
     # Ask user with pop-up if info correct
-    is_ok = messagebox.askokcancel(message=f'Website: {website} \nEmail/Username: {username}'
+    is_ok = messagebox.askokcancel(message=f'Website: {website}'
+                                           f'\nEmail/Username: {username}'
                                            f'\nPassword: {password} \nIs it okay to save?')
 
     # Check for non-empty entries
     if len(website) > 0 and len(username) > 0 and len(password) > 0:
 
-        # If two checks pass
         if is_ok:
-
+            # If file exists
             try:
                 # Open txt file of passwords
                 with open('data.json', 'r') as file:
@@ -73,10 +76,9 @@ def add_password():
                     # Update new dats
                     data.update(new_entry)
 
+            # If file does not exist
             except FileNotFoundError:
                 data = new_entry
-
-            print(data)
 
             with open('data.json', 'w') as file:
                 # Save update to file
@@ -92,7 +94,11 @@ def add_password():
 
 # ------------------------- WEBSITE SEARCH ---------------------------- #
 def find_password():
+    """
+    Searches for the username and password from the json file
+    """
     try:
+        # Show website details in a popup
         website = website_entry.get()
         with open('data.json', 'r') as file:
             data = json.load(file)
@@ -101,11 +107,14 @@ def find_password():
                                     f'\nUsername: {data[website]["username"]}'
                                     f'\n Password: {data[website]["password"]}')
 
+    # Show error in popup
     except FileNotFoundError:
         messagebox.showerror(message='No Data File Found')
 
+    # Show error in popup
     except KeyError:
         messagebox.showerror(title='ERROR', message='Do details for the website exists')
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 # Initialize window
