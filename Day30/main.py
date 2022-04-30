@@ -63,12 +63,20 @@ def add_password():
 
         # If two checks pass
         if is_ok:
-            # Open txt file of passwords
-            with open('data.json', 'r') as file:
-                # Read old data
-                data = json.load(file)
-                # Update new dats
-                data.update(new_entry)
+
+            try:
+                # Open txt file of passwords
+                with open('data.json', 'r') as file:
+                    # Read old data
+                    data = json.load(file)
+                    # Update new dats
+                    data.update(new_entry)
+
+            except FileNotFoundError:
+                data = new_entry
+
+            print(data)
+
             with open('data.json', 'w') as file:
                 # Save update to file
                 json.dump(data, file, indent=4)
