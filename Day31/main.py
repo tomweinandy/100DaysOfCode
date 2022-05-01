@@ -27,12 +27,26 @@ card_status_front = True
 
 # Set definitions
 def add_data(data_path):
+    """
+    Read in data and create a column where the status of each item is 'Unknown'
+    :param data_path: path to csv file with first column as the item to be placed on the front of the card and the
+    second column the item to be placed on the back.
+    :return: Dataframe with a 'Status' column (if one did not previously exist)
+    """
     data = pd.read_csv(data_path)
-    data['Status'] = 'Unknown'
+
+    if 'Status' not in data.columns:
+        data['Status'] = 'Unknown'
+
     return data
 
 
 def select_random_unknown_item(data):
+    """
+    Select a random item from the dataframe that has an 'Unknown' status
+    :param data: dataframe read in using add_data()
+    :return: 1) randomly selected index, 2) corresponding item for the card front, 3) corresponding item for card back
+    """
     front_card_col = df.columns[0]
     back_card_col = df.columns[1]
     data_unknown = data[data['Status'] == 'Unknown']
@@ -48,6 +62,9 @@ def select_random_unknown_item(data):
 
 
 def flip_card():
+    """
+    Flips the card to back (if on front) or front (if on back). Changes card_status_front accordingly.
+    """
     global card_status_front
 
     if card_status_front:
@@ -64,6 +81,9 @@ def flip_card():
 
 
 def get_new_card():
+    """
+    Selects a new item from the dataframe and shows the front of the card.
+    """
     global idx, front_item, back_item, card_status_front
     idx, front_item, back_item = select_random_unknown_item(df)
 
@@ -74,16 +94,22 @@ def get_new_card():
 
 
 def mark_right():
+    """
+    Changes the status of that item to 'Known' and gets next card. NOTE: result is only saved into csv if prompted at
+    end of session.
+    """
     # Mark word as 'known'
     global idx, DATA_PATH
     df.iloc[idx]['Status'] = 'Known'
     get_new_card()
 
 
-def quit():
+def quit_app():
+    """
+    Prompts the user if they want to save the session's results, then quits the window.
+    """
     # Ask if results today should be saved
     save_results = messagebox.askyesno(message='Want to save your progress?')
-
     if save_results:
         df.to_csv(DATA_PATH)
         print('Saved progress')
@@ -133,7 +159,7 @@ right_button = tkinter.Button(image=right_image, highlightthickness=0, command=m
 right_button.grid(row=2, column=2)
 
 # Add quit button
-quit_button = tkinter.Button(text='Quit', bg=BACKGROUND_COLOR, highlightthickness=0, command=quit)
+quit_button = tkinter.Button(text='Quit', bg=BACKGROUND_COLOR, highlightthickness=0, command=quit_app)
 quit_button.grid(row=0, column=4)
 
 tkinter.mainloop()
