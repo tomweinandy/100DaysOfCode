@@ -6,6 +6,7 @@ Day 32: Automated Birthday Wisher
 import smtplib
 import datetime as dt
 import random
+import pandas as pd
 
 #
 # # Add email (split up so the bots can't find me)
@@ -36,25 +37,17 @@ import random
 #                         msg='Subject: Subject line\n\nThis is the body of the email.'
 #                         )
 
-quote_list = []
-
-with open('quotes.txt') as file:
-    data = file.readlines()
-    for quote in data:
-        quote_list.append(quote)
-
-random_quote = random.choice(quote_list)
-
-
-
 now = dt.datetime.now()
-now.weekday()
 
-print(random_quote)
+# Read in csv of birthdays
+birthdays = pd.read_csv('birthdays.csv')
+for idx, person in birthdays.iterrows():
+    if person.day == now.day and person.month == now.month:
+        print(person)
+    else:
+        print('No match today.')
 
 
-
-# todo 1. Update the birthdays.csv
 
 # todo 2. Check if today matches a birthday in the birthdays.csv
 
