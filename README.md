@@ -2,6 +2,7 @@
 
 An asterisk (*) indicates favorite projects
 
+* [Day 31: Flash Card App](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day31)
 * [Day 29-30: Password Manager*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day29-30)
 * [Day 28: Pomodoro Time Tracker*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day28)
 * [Day 27: GUI Miles to Kilometers Converter](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day27)
@@ -9,7 +10,7 @@ An asterisk (*) indicates favorite projects
 * [Day 25: U.S. States Game*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day25)
 * [Day 24: Mail Merge](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day24)
 * [Day 23: Turtle Crossing*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day23) (need to clean up, document)
-* [Day 22: Pong Game*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day22) (need to clean up, document)
+* [Day 22: Pong Game*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day22)
 * [Day 20-21: Snake Game*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day20-21)
 * [Day 19: Etch-A-Sketch & Turtle Race](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day19)
 * [Day 18: Hirst & Pollock Art*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day18)
