@@ -8,6 +8,19 @@ import datetime as dt
 import random
 import pandas as pd
 
+
+def write_letter(birthday_person):
+    # Select a random letter
+    random_number = random.randint(1, 3)
+    with open(f'letter_templates/letter_{random_number}.txt') as file:
+        letter = file.read()
+
+    # Personalize letter
+    letter = letter.replace('[NAME]', birthday_person)
+    letter = letter.replace('Angela', 'Thomas')
+
+    return letter
+
 #
 # # Add email (split up so the bots can't find me)
 # dummy_username = 'ignorethistest2022'
@@ -42,16 +55,16 @@ now = dt.datetime.now()
 # Read in csv of birthdays
 birthdays = pd.read_csv('birthdays.csv')
 for idx, person in birthdays.iterrows():
-    if person.day == now.day and person.month == now.month:
-        print(person)
+
+    # Check if birthday is today
+    if not person.day == now.day and not person.month == now.month:
+        # Write a letter
+        letter = write_letter(person['name'])
+        print(letter)
+
     else:
         print('No match today.')
 
-
-
-# todo 2. Check if today matches a birthday in the birthdays.csv
-
-# todo 3. If step 2 is true, pick a random letter from letter templates and replace the [NAME] with the person's actual name from birthdays.csv
 
 # todo 4. Send the letter generated in step 3 to that person's email address.
 
