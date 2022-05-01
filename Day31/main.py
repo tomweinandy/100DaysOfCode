@@ -4,6 +4,7 @@ Day 31: Flash Card App
 import tkinter
 import pandas as pd
 import random
+from tkinter import messagebox
 
 # Define variables
 BACKGROUND_COLOR = "#B1DDC6"
@@ -22,6 +23,7 @@ TITLE_TEXT_FONT = ('Ariel', 40, 'italic')
 ITEM_TEXT_FONT = ('Ariel', 60, 'bold')
 
 card_status_front = True
+
 
 # Set definitions
 def add_data(data_path):
@@ -60,6 +62,7 @@ def flip_card():
         canvas.itemconfig(item_text, text=front_item, fill='black')
         card_status_front = True
 
+
 def get_new_card():
     global idx, front_item, back_item, card_status_front
     idx, front_item, back_item = select_random_unknown_item(df)
@@ -74,8 +77,20 @@ def mark_right():
     # Mark word as 'known'
     global idx, DATA_PATH
     df.iloc[idx]['Status'] = 'Known'
-    df.to_csv(DATA_PATH)
     get_new_card()
+
+
+def quit():
+    # Ask if results today should be saved
+    save_results = messagebox.askyesno(message='Want to save your progress?')
+
+    if save_results:
+        df.to_csv(DATA_PATH)
+        print('Saved progress')
+    else:
+        print('Did not save progress')
+
+    window.destroy()
 
 
 # Read in dataset
@@ -96,26 +111,29 @@ back_image = tkinter.PhotoImage(file=BACK_IMAGE_PATH)
 
 # Add front image
 canvas_image = canvas.create_image(400, 263, image=front_image)
-canvas.grid(row=0, column=0, columnspan=3)
+canvas.grid(row=1, column=0, columnspan=3)
 
 # Add front text
 title_text = canvas.create_text(400, 150, text=FRONT_TITLE_TEXT, font=TITLE_TEXT_FONT)
 item_text = canvas.create_text(400, 263, text=front_item, font=ITEM_TEXT_FONT)
 
-
 # Add wrong button
 wrong_image = tkinter.PhotoImage(file=WRONG_IMAGE_PATH)
 wrong_button = tkinter.Button(image=wrong_image, highlightthickness=0, command=get_new_card)
-wrong_button.grid(row=1, column=0)
+wrong_button.grid(row=2, column=0)
 
 # Add view button
 view_image = tkinter.PhotoImage(file=VIEW_IMAGE_PATH)
 view_button = tkinter.Button(image=view_image, bg=BACKGROUND_COLOR, highlightthickness=0, command=flip_card)
-view_button.grid(row=1, column=1)
+view_button.grid(row=2, column=1)
 
-# Add right buttton
+# Add right button
 right_image = tkinter.PhotoImage(file=RIGHT_IMAGE_PATH)
 right_button = tkinter.Button(image=right_image, highlightthickness=0, command=mark_right)
-right_button.grid(row=1, column=2)
+right_button.grid(row=2, column=2)
+
+# Add quit button
+quit_button = tkinter.Button(text='Quit', bg=BACKGROUND_COLOR, highlightthickness=0, command=quit)
+quit_button.grid(row=0, column=4)
 
 tkinter.mainloop()
