@@ -60,13 +60,22 @@ def flip_card():
         canvas.itemconfig(item_text, text=front_item, fill='black')
         card_status_front = True
 
-def mark_right():
+def get_new_card():
+    global idx, front_item, back_item, card_status_front
     idx, front_item, back_item = select_random_unknown_item(df)
-    canvas.itemconfig(item_text, text=front_item)
+
+    canvas.itemconfig(canvas_image, image=front_image)
+    canvas.itemconfig(title_text, text=FRONT_TITLE_TEXT, fill='black')
+    canvas.itemconfig(item_text, text=front_item, fill='black')
+    card_status_front = True
 
 
-def mark_wrong():
-    flip_card()
+def mark_right():
+    # Mark word as 'known'
+    global idx, DATA_PATH
+    df.iloc[idx]['Status'] = 'Known'
+    df.to_csv(DATA_PATH)
+    get_new_card()
 
 
 # Read in dataset
@@ -94,24 +103,19 @@ title_text = canvas.create_text(400, 150, text=FRONT_TITLE_TEXT, font=TITLE_TEXT
 item_text = canvas.create_text(400, 263, text=front_item, font=ITEM_TEXT_FONT)
 
 
-# Add buttons
+# Add wrong button
 wrong_image = tkinter.PhotoImage(file=WRONG_IMAGE_PATH)
-wrong_button = tkinter.Button(image=wrong_image, highlightthickness=0, command=mark_wrong)
+wrong_button = tkinter.Button(image=wrong_image, highlightthickness=0, command=get_new_card)
 wrong_button.grid(row=1, column=0)
 
+# Add view button
 view_image = tkinter.PhotoImage(file=VIEW_IMAGE_PATH)
 view_button = tkinter.Button(image=view_image, bg=BACKGROUND_COLOR, highlightthickness=0, command=flip_card)
 view_button.grid(row=1, column=1)
 
-
+# Add right buttton
 right_image = tkinter.PhotoImage(file=RIGHT_IMAGE_PATH)
 right_button = tkinter.Button(image=right_image, highlightthickness=0, command=mark_right)
 right_button.grid(row=1, column=2)
-
-# # Flip the card every 3 seconds
-# window.after(3000, flip_card())
-
-
-
 
 tkinter.mainloop()
