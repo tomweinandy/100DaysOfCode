@@ -2,7 +2,11 @@
 
 An asterisk (*) indicates favorite projects
 
-* [Day 31: Flash Card App](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day31)
+Intermediate+ Projects
+* [Day 32: Automated Birthday Wisher](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day32)
+
+Intermediate Projects
+* [Day 31: Flash Card App*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day31)
 * [Day 29-30: Password Manager*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day29-30)
 * [Day 28: Pomodoro Time Tracker*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day28)
 * [Day 27: GUI Miles to Kilometers Converter](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day27)
@@ -17,6 +21,8 @@ An asterisk (*) indicates favorite projects
 * [Day 17: Geography Quiz*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day17)
 * [Day 16: Coffee Machine Program (Pt II)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day16)
 * [Day 15: Coffee Machine Program (Pt I)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day15)
+
+Beginner Projects
 * [Day 14: Higher Lower Game](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day14)
 * [Day 13: Debugging Exercises](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day13.py)
 * [Day 12: Guess the Movie Year*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day12)

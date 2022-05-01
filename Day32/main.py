@@ -21,6 +21,11 @@ with open(file_path) as file:
 
 # Add helper functions
 def write_letter(birthday_name):
+    """
+    Writes a customized letter to a person on their birthday.
+    :param birthday_name: The name of the birthday person
+    :return: A customized, heartfelt letter
+    """
     # Select a random letter
     random_number = random.randint(1, 3)
     with open(f'letter_templates/letter_{random_number}.txt') as file:
@@ -34,8 +39,13 @@ def write_letter(birthday_name):
 
 
 def send_email(birthday_email, birthday_letter):
-# Had to reduce security level detailed here:
-# https://www.udemy.com/course/100-days-of-code/learn/lecture/21712834#questions/13766454
+    """
+    Sends an email to a person with their birthday letter.
+    Had to reduce security level detailed here:
+    https://www.udemy.com/course/100-days-of-code/learn/lecture/21712834#questions/13766454
+    :param birthday_email: The email address of the birthday person
+    :param birthday_letter: The customeized letter addressed to the birthday person.
+    """
 
     # Set up SMTP connection
     # Gmail is smtp.gmail.com, Hotmail is smtp.live.com, Yahoo is smtp.mail.yahoo.com
@@ -47,6 +57,8 @@ def send_email(birthday_email, birthday_letter):
                             to_addrs=birthday_email,
                             msg=f'Subject: Happy Birthday!\n\n{birthday_letter}')
 
+
+# Identify current date
 now = dt.datetime.now()
 
 # Read in csv of birthdays
@@ -64,4 +76,3 @@ for idx, person in birthdays.iterrows():
 
     else:
         print(f'Today is not {person["name"]}\'s birthday.')
-
