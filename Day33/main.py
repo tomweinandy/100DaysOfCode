@@ -33,7 +33,7 @@ def localize(input_datetime, utc=True):
 
 
 def get_sun(sunrise_or_sunset):
-    sun_full = data['results'][sunrise_or_sunset]
+    sun_full = sun_data['results'][sunrise_or_sunset]
     sun_string = sun_full.split('+')[0]
     sun = dt.datetime.strptime(sun_string, '%Y-%m-%dT%H:%M:%S')
 
@@ -47,9 +47,9 @@ parameters = {
     'formatted': 0
 }
 
-sunrise_response = requests.get('https://api.sunrise-sunset.org/json', params=parameters)
-sunrise_response.raise_for_status()
-data = sunrise_response.json()
+sun_response = requests.get('https://api.sunrise-sunset.org/json', params=parameters)
+sun_response.raise_for_status()
+sun_data = sun_response.json()
 
 sunrise = get_sun('sunrise')
 kzoo_sunrise = localize(sunrise)
@@ -67,16 +67,22 @@ now_offset_aware = localize(now_offset_naive, utc=False)
 print(kzoo_sunrise < now_offset_aware < kzoo_sunset)
 
 
+# Docs: http://open-notify.org/Open-Notify-API/ISS-Location-Now/
+iss_response = requests.get(url='http://api.open-notify.org/iss-now.json')
 
-# # Docs: http://open-notify.org/Open-Notify-API/ISS-Location-Now/
-# response = requests.get(url='http://api.open-notify.org/iss-now.json')
-# print(response.status_code)
-#
-# response.raise_for_status()
-#
-# data = response.json()
-#
-# longitude = data['iss_position']['longitude']
-# latitude = data['iss_position']['latitude']
-#
-# iss_position = (latitude, longitude)
+# Print issues
+print(iss_response.status_code)
+iss_response.raise_for_status()
+
+# Return iss lat/long
+iss_data = iss_response.json()
+iss_lat = float(iss_data['iss_position']['latitude'])
+iss_long = float(iss_data['iss_position']['longitude'])
+iss_position = (iss_lat, iss_long)
+
+distance_lat = iss_lat - KZOO_LAT
+distance_long = iss_long - KZOO_LONG
+
+iss_near_kzoo = abs(distance_lat) < 5 and abs(distance_long) < 5
+
+print(distance_lat, distance_long, iss_near_kzoo)
