@@ -4,12 +4,22 @@ Day 33: ISS Overhead Notifier
 import requests
 import datetime as dt
 from dateutil import tz
+import smtplib
 
 
 # Define variables, set location for Kalamazoo, Michigan, USA
 KZOO_LAT = 42.291707
 KZOO_LONG = -85.5872286
 KZOO_POSITION = (KZOO_LAT, KZOO_LONG)
+
+my_username = 'ignorethistest2022'
+my_domain = '@gmail.com'
+my_email = my_username + my_domain
+
+# Add password (dummy account)
+file_path = 'not_very_secure.txt'
+with open(file_path) as file:
+    my_password = file.read()
 
 
 def localize(input_datetime, utc=True):
@@ -40,6 +50,24 @@ def get_sun(sunrise_or_sunset):
     return sun
 
 
+def send_email():
+    """
+    Sends an email to a person with their birthday letter.
+    Had to reduce security level detailed here:
+    https://www.udemy.com/course/100-days-of-code/learn/lecture/21712834#questions/13766454
+    """
+
+    # Set up SMTP connection
+    # Gmail is smtp.gmail.com, Hotmail is smtp.live.com, Yahoo is smtp.mail.yahoo.com
+    with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
+        # Start Transfer Layer Security encryption
+        connection.starttls()
+        connection.login(user=my_email, password=my_password)
+        connection.sendmail(from_addr=my_email,
+                            to_addrs='tomweinandy@gmail.com',
+                            msg=f'Subject: Look Up!\n\nThe ISS is near Kalamazoo, Michigan.')
+
+
 # Get time of local sunrise and sunset
 parameters = {
     'lat': KZOO_LAT,
@@ -63,9 +91,7 @@ kzoo_sunset = localize(sunset)
 now_offset_naive = dt.datetime.now()
 now_offset_aware = localize(now_offset_naive, utc=False)
 
-
-print(kzoo_sunrise < now_offset_aware < kzoo_sunset)
-
+is_daylight = kzoo_sunrise < now_offset_aware < kzoo_sunset
 
 # Docs: http://open-notify.org/Open-Notify-API/ISS-Location-Now/
 iss_response = requests.get(url='http://api.open-notify.org/iss-now.json')
@@ -85,4 +111,12 @@ distance_long = iss_long - KZOO_LONG
 
 iss_near_kzoo = abs(distance_lat) < 5 and abs(distance_long) < 5
 
+print(kzoo_sunrise < now_offset_aware < kzoo_sunset)
 print(distance_lat, distance_long, iss_near_kzoo)
+
+
+if iss_near_kzoo and not is_daylight:
+    send_email()
+    print('Sent email.')
+else:
+    print(f'Did not send email.\n    Daylight right now: {is_daylight}\n    ISS near Kalamazoo: {iss_near_kzoo}')
