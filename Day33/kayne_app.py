@@ -1,3 +1,6 @@
+"""
+An app that shows a new Kayne West quote each time it is clicked. Not the main project of the day though.
+"""
 from tkinter import *
 import requests
 
