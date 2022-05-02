@@ -1,4 +1,5 @@
 import tkinter
+from quiz_brain import QuizBrain
 
 THEME_COLOR = "#375362"
 SCORE_FONT = ('Arial', 16, 'normal')
@@ -10,7 +11,9 @@ FALSE_IMAGE_PATH = 'images/false.png'
 
 class QuizInterface:
 
-    def __init__(self):
+    def __init__(self, quiz_brain: QuizBrain):
+        self.quiz = quiz_brain
+
         # Initialize window and canvas
         self.window = tkinter.Tk()
         self.window.title('Quizzler')
@@ -18,27 +21,40 @@ class QuizInterface:
         self.canvas = tkinter.Canvas(width=300, height=250)
 
         # Add score
-        self.score_text = tkinter.Label(text=f'Score: ', fg='white', bg=THEME_COLOR, pady=20, font=SCORE_FONT)
+        self.score_text = tkinter.Label(text=f'Score: {quiz_brain.score}', fg='white', bg=THEME_COLOR, pady=20, font=SCORE_FONT)
         self.score_text.grid(row=0, column=1)
 
         # Add canvas with question
-        self.question_text = self.canvas.create_text(100, 100, text='Question', font=QUESTION_FONT)
+        self.question_text = self.canvas.create_text(150, 125, width=280, text='Question', font=QUESTION_FONT)
         self.canvas.grid(row=1, column=0, columnspan=2, padx=20, pady=20)
 
         # Add true, false buttons
-        self.true_image = tkinter.PhotoImage(file=TRUE_IMAGE_PATH)
-        self.true_button = tkinter.Button(image=self.true_image, highlightthickness=0, command=self.click_true)
+        true_image = tkinter.PhotoImage(file=TRUE_IMAGE_PATH)
+        self.true_button = tkinter.Button(image=true_image, highlightthickness=0, command=self.click_true)
         self.true_button.grid(row=2, column=0)
 
-        self.false_image = tkinter.PhotoImage(file=FALSE_IMAGE_PATH)
-        self.false_button = tkinter.Button(image=self.false_image, highlightthickness=0, command=self.click_false)
+        false_image = tkinter.PhotoImage(file=FALSE_IMAGE_PATH)
+        self.false_button = tkinter.Button(image=false_image, highlightthickness=0, command=self.click_false)
         self.false_button.grid(row=2, column=1)
+
+        # Get next question
+        self.get_next_question()
 
         # Keep popup open
         self.window.mainloop()
 
+    def get_next_question(self):
+        q_text = self.quiz.next_question()
+        self.canvas.itemconfig(self.question_text, text=q_text)
+
     def click_true(self):
         print('True clicked')
+        self.quiz.check_answer('True')
+        self.get_next_question()
+        self.score_text.config(text=f'Score: {self.quiz.score}')
 
     def click_false(self):
         print('False clicked')
+        self.quiz.check_answer('False')
+        self.get_next_question()
+        self.score_text.config(text=f'Score: {self.quiz.score}')
