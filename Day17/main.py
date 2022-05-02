@@ -1,5 +1,7 @@
 """
-Day 17: Geography Quiz
+Day 17: True/False Quiz
+
+This is currently set up to support geography-related questions. See Day 34 for Part II.
 """
 from question_model import Question
 from data import *

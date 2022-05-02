@@ -1,16 +1,18 @@
 import tkinter
 from quiz_brain import QuizBrain
 
+# Define variables
 THEME_COLOR = "#375362"
 SCORE_FONT = ('Arial', 16, 'normal')
 QUESTION_FONT = ('Arial', 20, 'italic')
-
 TRUE_IMAGE_PATH = 'images/true.png'
 FALSE_IMAGE_PATH = 'images/false.png'
 
 
 class QuizInterface:
-
+    """
+    Build UI class to generate and update the popup window
+    """
     def __init__(self, quiz_brain: QuizBrain):
         self.quiz = quiz_brain
 
@@ -56,13 +58,11 @@ class QuizInterface:
     def click_true(self):
         is_right = self.quiz.check_answer('True')
         self.give_feedback(is_right)
-        # self.get_next_question()
         self.score_text.config(text=f'Score: {self.quiz.score}')
 
     def click_false(self):
         is_right = self.quiz.check_answer('False')
         self.give_feedback(is_right)
-        # self.get_next_question()
         self.score_text.config(text=f'Score: {self.quiz.score}')
 
     def give_feedback(self, is_right):
@@ -72,4 +72,3 @@ class QuizInterface:
             self.canvas.config(bg='red')
 
         self.window.after(1000, self.get_next_question)
-

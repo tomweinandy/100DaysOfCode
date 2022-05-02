@@ -3,6 +3,7 @@
 An asterisk (*) indicates favorite projects
 
 Intermediate+ Projects
+* [Day 34: True/False Quiz (Pt II)*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day34)
 * [Day 33: ISS Overhead Notifier](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day33)
 * [Day 32: Automated Birthday Wisher](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day32)
 
@@ -19,7 +20,7 @@ Intermediate Projects
 * [Day 20-21: Snake Game*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day20-21)
 * [Day 19: Etch-A-Sketch & Turtle Race](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day19)
 * [Day 18: Hirst & Pollock Art*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day18)
-* [Day 17: Geography Quiz*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day17)
+* [Day 17: True/False Quiz (Pt I)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day17)
 * [Day 16: Coffee Machine Program (Pt II)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day16)
 * [Day 15: Coffee Machine Program (Pt I)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day15)
 
