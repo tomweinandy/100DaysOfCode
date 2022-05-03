@@ -3,8 +3,7 @@ Day 35: SMS Weather Alerts
 
 # Doc: https://openweathermap.org/api/one-call-api
 """
-import os
-
+import ast
 import requests
 from twilio.rest import Client
 
@@ -12,16 +11,21 @@ from twilio.rest import Client
 EXCLUDE = 'current,minutely,daily,alerts'
 KZOO_LAT = 42.291707
 KZOO_LONG = -85.5872286
-OW_KEY = 'bb3d90c7270f80ab31f92b04ac03926c'
-ACCOUNT_SID = 'ACd33664c2011667f5609c2c403195f392'  # use live creds (not test)
-AUTH_TOKEN1 = 'dd697ab918d203f7'
-AUTH_TOKEN2 = 'c4523abe594cc409'
-AUTH_TOKEN = AUTH_TOKEN1 + AUTH_TOKEN2
-PHONE_NUMBER = '+13254137458'
 
+# Read in credential string and save as a dictionary
+with open('../../../Dropbox/100DaysOfPython_PRIVATE/Day35Creds.txt') as file:
+    creds_str = file.read()
+    creds = ast.literal_eval(creds_str)
+
+# Save tokens as variables
+OW_KEY = creds['OW_KEY']
+ACCOUNT_SID = creds['ACCOUNT_SID']  # use live creds (not test)
+AUTH_TOKEN = creds['AUTH_TOKEN']
+PHONE_NUMBER = creds['TWILIO_NUMBER']
+MY_NUMBER = creds['TOMS_NUMBER']
 
 # Get my phone number (saved locally)
-file_path = '../../Downloads/my_number.txt'
+file_path = '../../Dropbox/100DaysOfPython_PRIVATE/my_number.txt'
 with open(file_path) as file:
     my_number = file.read()
 
@@ -36,9 +40,10 @@ client = Client(ACCOUNT_SID, AUTH_TOKEN)
 # client = Client(account_sid, auth_token)
 
 # Alternative 2
-# Step 1: In terminal set 'export OW_KAY=bb3d90c7270f80ab31f92b04ac03926c'
+# Step 1: In terminal set 'export OW_KEY=******'
 # Step 2: In terminal set 'export AUTH_TOKEN=*****'
 # Step 3: Uncomment below
+# import os
 # OW_KEY = os.environ.get('OW_KEY')
 # AUTH_TOKEN = os.environ.get('AUTH_TOKEN')
 
