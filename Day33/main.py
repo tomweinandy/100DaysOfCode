@@ -78,13 +78,12 @@ def send_email():
         connection.login(user=my_email, password=my_password)
         connection.sendmail(from_addr=my_email,
                             to_addrs=destination_email,
-                            msg=f'Subject: Look Up!\n\nThe ISS is near Kalamazoo, Michigan.')
+                            msg=f'Subject: Look Up!'
+                                f'\n\nThe ISS is near Kalamazoo, Michigan! Look at {distance_lat}, {distance_long}.')
 
 
 # Runs loop continuously every minute
 while True:
-    time.sleep(60)
-
     # Get data of local sunrise and sunset times
     parameters = {
         'lat': KZOO_LAT,
@@ -117,7 +116,6 @@ while True:
     iss_response = requests.get(url='http://api.open-notify.org/iss-now.json')
 
     # Print issues
-    print(iss_response.status_code)
     iss_response.raise_for_status()
 
     # Return iss latitude/longitude
@@ -134,12 +132,16 @@ while True:
     iss_near_kzoo = abs(distance_lat) <= 5 and abs(distance_long) <= 5
 
     # Prints some output
-    print(kzoo_sunrise < now_offset_aware < kzoo_sunset)
-    print(distance_lat, distance_long, iss_near_kzoo)
+    print()
 
     # Sends email if it is dark and the ISS is nearby
     if iss_near_kzoo and not is_daylight:
         send_email()
-        print('Sent email.')
+        print(f'Sent email at {dt.datetime.now()}')
     else:
-        print(f'Did not send email.\n    Daylight right now: {is_daylight}\n    ISS near Kalamazoo: {iss_near_kzoo}')
+        print(f'Did not send email at {dt.datetime.now()}'
+              f'\n    Daylight right now: {is_daylight}'
+              f'\n    ISS near Kalamazoo: {iss_near_kzoo}'
+              f'\n    Current ISS location: {distance_lat}, {distance_long}')
+
+    time.sleep(60)
