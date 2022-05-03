@@ -3,10 +3,11 @@ Day 36: Stock Activity Monitor
 """
 import ast
 import requests
+import datetime as dt
 
 # Save variables
 STOCK = "AMZN"
-COMPANY_NAME = "Amazon.com, Inc."
+COMPANY_NAME = "Amazon"
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 
@@ -52,11 +53,27 @@ previous2_close = float(previous2_day['4. close'])
 abs_change = abs((previous2_close - previous_close)/previous2_close)*100
 
 
-## STEP 2: Use https://newsapi.org/docs/endpoints/everything
-# Instead of printing ("Get News"), actually fetch the first 3 articles for the COMPANY_NAME. 
-#HINT 1: Think about using the Python Slice Operator
+## STEP 2: Fetch top three articles that mention the company
+# Use https://newsapi.org/docs/endpoints/everything
 
+# Call Alpha Vantage API to get stock data from previous 100 days
+today = dt.datetime.today().strftime('%Y-%m-%d')
+news_url = f'{NEWS_ENDPOINT}?q={COMPANY_NAME.lower()}&from={today}&sortBy=publishedAt&apiKey={news_key}'
+response = requests.get(news_url)
 
+# Print status, return data
+print('News response status code:', response.status_code)
+response.raise_for_status()
+news_data = response.json()
+news = news_data['articles']
+
+# Save select info from top three articles
+top_three_articles = ''
+for i in range(0, 3):
+    article = news[i]
+    top_three_articles += f'Title: {article["title"]}\nURL: {article["url"]}\nSnippet:{article["content"]}\n\n'
+
+print(top_three_articles)
 
 ## STEP 3: Use twilio.com/docs/sms/quickstart/python
 # Send a separate message with each article's title and description to your phone number. 
