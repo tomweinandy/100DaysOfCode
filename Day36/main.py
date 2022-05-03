@@ -16,18 +16,40 @@ with open('../../../Downloads/Day36Creds.txt') as file:
     creds = ast.literal_eval(creds_str)
 
 # Save tokens as variables
-stock_token = creds['alpha_vantage_api']
-news_token = creds['news_api']
-twilio_token = creds['twilio_api']
+stock_key = creds['alpha_vantage_api']
+news_key = creds['news_api']
+twilio_key = creds['twilio_api']
 
 for key, value in creds.items():
     print(key, value)
 
-## STEP 1: Use https://www.alphavantage.co/documentation/
-# When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
-#HINT 1: Get the closing price for yesterday and the day before yesterday. Find the positive difference between the two prices. e.g. 40 - 20 = -20, but the positive difference is 20.
-#HINT 2: Work out the value of 5% of yesterday's closing stock price.
+# STEP 1: Identify when a stock changes by 5% or more
+# Use https://www.alphavantage.co/documentation/
 
+# Call Alpha Vantage API to get stock data from previous 100 days
+stock_url = f'{STOCK_ENDPOINT}?function=TIME_SERIES_DAILY&symbol={STOCK}&apikey={stock_key}'
+response = requests.get(stock_url)
+
+# Print status, return data
+print('Stock response status code:', response.status_code)
+response.raise_for_status()
+stock_data = response.json()
+
+# Parse data
+stocks = stock_data['Time Series (Daily)']
+day_list = []
+for key, value in stocks.items():
+    day_list.append(key)
+
+# Get previous two days' closing price
+previous_day = stocks[day_list[0]]
+previous2_day = stocks[day_list[1]]
+
+previous_close = float(previous_day['4. close'])
+previous2_close = float(previous2_day['4. close'])
+
+# Calculate the absolute percent change
+abs_change = abs((previous2_close - previous_close)/previous2_close)*100
 
 
 ## STEP 2: Use https://newsapi.org/docs/endpoints/everything
