@@ -19,6 +19,16 @@ AUTH_TOKEN = 'b7191b319cad0fcba4f9b0bff4f1d14d'     # use live creds
 PHONE_NUMBER = '+13254137458'
 MY_NUMBER = '+1419*******'
 
+# Alternative
+# Step 1: Copy below as one line
+# export OW_KAY=bb3d90c7270f80ab31f92b04ac03926c;
+# export AUTH_TOKEN=b7191b319cad0fcba4f9b0bff4f1d14d;
+# python3 main_hosted.py
+
+# Step 2: Uncomment below
+# OW_KEY = os.environ.get('OW_KEY')
+# AUTH_TOKEN = os.environ.get('AUTH_TOKEN')
+
 # Build URL
 url = f'https://api.openweathermap.org/data/2.5/onecall?lat={KZOO_LAT}&lon={KZOO_LONG}&exclude={EXCLUDE}&appid={OW_KEY}'
 print(url)
