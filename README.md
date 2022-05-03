@@ -3,6 +3,7 @@
 An asterisk (*) indicates favorite projects
 
 Intermediate+ Projects
+* [Day 36: Stock Activity Monitor](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day%2036.py)
 * [Day 35: SMS Weather Alert](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day35)
 * [Day 34: True/False Quiz (Pt II)*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day34)
 * [Day 33: ISS Overhead Notifier](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day33)
