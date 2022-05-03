@@ -1,18 +1,32 @@
 """
 Day 36: Stock Activity Monitor
 """
+import ast
+import requests
 
+# Save variables
 STOCK = "AMZN"
 COMPANY_NAME = "Amazon.com, Inc."
-
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 
+# Read in credential string and save as a dictionary
+with open('../../../Downloads/Day36Creds.txt') as file:
+    creds_str = file.read()
+    creds = ast.literal_eval(creds_str)
 
-## STEP 1: Use https://newsapi.org/docs/endpoints/everything
+# Save tokens as variables
+stock_token = creds['alpha_vantage_api']
+news_token = creds['news_api']
+twilio_token = creds['twilio_api']
+
+for key, value in creds.items():
+    print(key, value)
+
+## STEP 1: Use https://www.alphavantage.co/documentation/
 # When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
 #HINT 1: Get the closing price for yesterday and the day before yesterday. Find the positive difference between the two prices. e.g. 40 - 20 = -20, but the positive difference is 20.
-#HINT 2: Work out the value of 5% of yerstday's closing stock price. 
+#HINT 2: Work out the value of 5% of yesterday's closing stock price.
 
 
 
