@@ -4,6 +4,7 @@ Day 36: Stock Activity Monitor
 import ast
 import requests
 import datetime as dt
+from twilio.rest import Client
 
 # Save variables
 STOCK = "AMZN"
@@ -12,14 +13,18 @@ STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 
 # Read in credential string and save as a dictionary
-with open('../../../Downloads/Day36Creds.txt') as file:
+with open('../../../Dropbox/100DaysOfPython_PRIVATE/Day36Creds.txt') as file:
     creds_str = file.read()
     creds = ast.literal_eval(creds_str)
 
 # Save tokens as variables
-stock_key = creds['alpha_vantage_api']
-news_key = creds['news_api']
-twilio_key = creds['twilio_api']
+STOCK_KEY = creds['ALPHA_VANTAGE_API']
+NEWS_KEY = creds['NEWS_API']
+TWILIO_KEY = creds['TWILIO_API']
+TWILIO_NUMBER = creds['TWILIO_NUMBER']
+ACCOUNT_SID = creds['ACCOUNT_SID']
+AUTH_TOKEN = creds['AUTH_TOKEN']
+MY_NUMBER = creds['TOMS_NUMBER']
 
 for key, value in creds.items():
     print(key, value)
@@ -28,7 +33,7 @@ for key, value in creds.items():
 # Use https://www.alphavantage.co/documentation/
 
 # Call Alpha Vantage API to get stock data from previous 100 days
-stock_url = f'{STOCK_ENDPOINT}?function=TIME_SERIES_DAILY&symbol={STOCK}&apikey={stock_key}'
+stock_url = f'{STOCK_ENDPOINT}?function=TIME_SERIES_DAILY&symbol={STOCK}&apikey={STOCK_KEY}'
 response = requests.get(stock_url)
 
 # Print status, return data
@@ -52,13 +57,13 @@ previous2_close = float(previous2_day['4. close'])
 # Calculate the absolute percent change
 abs_change = abs((previous2_close - previous_close)/previous2_close)*100
 
-
-## STEP 2: Fetch top three articles that mention the company
+####################################################################################
+# STEP 2: Fetch top three articles that mention the company
 # Use https://newsapi.org/docs/endpoints/everything
 
 # Call Alpha Vantage API to get stock data from previous 100 days
 today = dt.datetime.today().strftime('%Y-%m-%d')
-news_url = f'{NEWS_ENDPOINT}?q={COMPANY_NAME.lower()}&from={today}&sortBy=publishedAt&apiKey={news_key}'
+news_url = f'{NEWS_ENDPOINT}?q={COMPANY_NAME.lower()}&from={today}&sortBy=publishedAt&apiKey={NEWS_KEY}'
 response = requests.get(news_url)
 
 # Print status, return data
@@ -71,7 +76,8 @@ news = news_data['articles']
 top_three_articles = ''
 for i in range(0, 3):
     article = news[i]
-    top_three_articles += f'Title: {article["title"]}\nURL: {article["url"]}\nSnippet:{article["content"]}\n\n'
+    # top_three_articles += f'Title: {article["title"]}\nURL: {article["url"]}\nSnippet:{article["content"]}\n\n'
+    top_three_articles += f'Title: {article["title"]}\nURL: {article["url"]}\n\n'
 
 print(top_three_articles)
 
@@ -79,6 +85,18 @@ print(top_three_articles)
 # Send a separate message with each article's title and description to your phone number. 
 #HINT 1: Consider using a List Comprehension.
 
+
+# Send SMS if it will rain
+delta_five = True
+client = Client(ACCOUNT_SID, AUTH_TOKEN)
+
+if delta_five:
+    message = client.messages \
+                    .create(
+                         body=top_three_articles,
+                         from_=TWILIO_NUMBER,
+                         to=MY_NUMBER
+                     )
 
 
 #Optional: Format the SMS message like this: 
