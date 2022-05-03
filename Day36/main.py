@@ -23,12 +23,23 @@ NEWS_KEY = creds['NEWS_API']
 TWILIO_KEY = creds['TWILIO_API']
 TWILIO_NUMBER = creds['TWILIO_NUMBER']
 ACCOUNT_SID = creds['ACCOUNT_SID']
-AUTH_TOKEN = creds['AUTH_TOKEN']
 MY_NUMBER = creds['TOMS_NUMBER']
 
 for key, value in creds.items():
     print(key, value)
 
+
+# Helper function
+def triangle_icon(n: float):
+    if n > 0:
+        return '🔺'
+    elif n < 0:
+        return '🔻'
+    else:
+        return 'NC'
+
+
+####################################################################################
 # STEP 1: Identify when a stock changes by 5% or more
 # Use https://www.alphavantage.co/documentation/
 
@@ -55,7 +66,10 @@ previous_close = float(previous_day['4. close'])
 previous2_close = float(previous2_day['4. close'])
 
 # Calculate the absolute percent change
-abs_change = abs((previous2_close - previous_close)/previous2_close)*100
+percent_change = 100*(previous2_close - previous_close)/previous2_close
+
+# Determine of the absolute change was more than 5%
+big_delta = abs(percent_change) >= 5
 
 ####################################################################################
 # STEP 2: Fetch top three articles that mention the company
@@ -63,7 +77,7 @@ abs_change = abs((previous2_close - previous_close)/previous2_close)*100
 
 # Call Alpha Vantage API to get stock data from previous 100 days
 today = dt.datetime.today().strftime('%Y-%m-%d')
-news_url = f'{NEWS_ENDPOINT}?q={COMPANY_NAME.lower()}&from={today}&sortBy=publishedAt&apiKey={NEWS_KEY}'
+news_url = f'{NEWS_ENDPOINT}?q={COMPANY_NAME.lower()}&from={today}&sortBy=publishedAt&apiKey={NEWS_KEY}&language=en'
 response = requests.get(news_url)
 
 # Print status, return data
@@ -76,37 +90,25 @@ news = news_data['articles']
 top_three_articles = ''
 for i in range(0, 3):
     article = news[i]
-    # top_three_articles += f'Title: {article["title"]}\nURL: {article["url"]}\nSnippet:{article["content"]}\n\n'
-    top_three_articles += f'Title: {article["title"]}\nURL: {article["url"]}\n\n'
-
+    top_three_articles += f'Title: {article["title"]}\nURL: {article["url"]}\nBrief:{article["description"]}\n\n'
 print(top_three_articles)
 
-## STEP 3: Use twilio.com/docs/sms/quickstart/python
-# Send a separate message with each article's title and description to your phone number. 
-#HINT 1: Consider using a List Comprehension.
+####################################################################################
+# STEP 3: Send a text of top three articles if the stock changes by 5% or more
+# Use twilio.com/docs/sms/quickstart/python
 
+# Build text of alert
+icon = triangle_icon(percent_change)
+pct_change = round(percent_change, 1)
+message_body = f'\n{STOCK}: {icon}{pct_change}% {top_three_articles}'
 
-# Send SMS if it will rain
-delta_five = True
-client = Client(ACCOUNT_SID, AUTH_TOKEN)
-
-if delta_five:
+# Send out SMS with top three articles
+big_delta = True  # uncomment to test
+client = Client(ACCOUNT_SID, TWILIO_KEY)
+if big_delta:
     message = client.messages \
                     .create(
-                         body=top_three_articles,
+                         body=message_body,
                          from_=TWILIO_NUMBER,
                          to=MY_NUMBER
                      )
-
-
-#Optional: Format the SMS message like this: 
-"""
-TSLA: 🔺2%
-Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
-Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and prominent investors are required to file by the SEC The 13F filings show the funds' and investors' portfolio positions as of March 31st, near the height of the coronavirus market crash.
-or
-"TSLA: 🔻5%
-Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
-Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and prominent investors are required to file by the SEC The 13F filings show the funds' and investors' portfolio positions as of March 31st, near the height of the coronavirus market crash.
-"""
-
