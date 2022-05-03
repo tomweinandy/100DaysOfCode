@@ -3,9 +3,9 @@
 An asterisk (*) indicates favorite projects
 
 Intermediate+ Projects
-* [Day 36: Stock Activity Monitor](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day%2036.py)
+* [Day 36: Stock Activity Monitor](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day36.py)
 * [Day 35: SMS Weather Alert](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day35)
-* [Day 34: True/False Quiz (Pt II)*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day34)
+* [Day 34: True/False Quiz (Pt II)*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day%2034)
 * [Day 33: ISS Overhead Notifier](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day33)
 * [Day 32: Automated Birthday Wisher](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day32)
 
@@ -35,9 +35,9 @@ Beginner Projects
 * [Day 9: First Price, Sealed Bid Auction](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day9.py)
 * [Day 8: Caesar Cipher](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day8.py)
 * [Day 7: Hangman*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Day7)
-* [Day 6: Maze Solver](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day%206.py)
-* [Day 5: Password Generator](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day%205.py)
-* [Day 4: Rock, Paper, Scissors*](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day%204.py)
-* [Day 3: Choose Your Own Adventure](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day%203.py)
-* [Day 2: Tip Calculator](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day%202.py) 
-* [Day 1: Band Name Generator](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day%201.py)
+* [Day 6: Maze Solver](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day6.py)
+* [Day 5: Password Generator](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day5.py)
+* [Day 4: Rock, Paper, Scissors*](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day4.py)
+* [Day 3: Choose Your Own Adventure](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day3.py)
+* [Day 2: Tip Calculator](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day2.py) 
+* [Day 1: Band Name Generator](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day1.py)
