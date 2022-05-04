@@ -1,5 +1,5 @@
 """
-Day 34: True/False Quiz (Part II)
+Day34: True/False Quiz (Part II)
 """
 from question_model import Question
 from data import question_data
