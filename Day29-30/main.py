@@ -14,6 +14,7 @@ def generate_password():
     Generates a strong password of 8-10 letters, 2-4 symbols, and 2-4 numbers
     """
     # Lists of characters
+    # Alternatively, this could have been created using ascii.
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
                'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
                'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -113,7 +114,7 @@ def find_password():
 
     # Show error in popup
     except KeyError:
-        messagebox.showerror(title='ERROR', message='Do details for the website exists')
+        messagebox.showerror(title='ERROR', message='No details for the website exists')
 
 
 # ---------------------------- UI SETUP ------------------------------- #
