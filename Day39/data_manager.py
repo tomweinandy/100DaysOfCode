@@ -8,7 +8,7 @@ class DataManager:
     """
     def __init__(self):
         # Read in credential string and save as a dictionary
-        with open('../../../Dropbox/100DaysOfCodePRIVATE/Day39-40Creds.txt') as file:
+        with open('../../../Dropbox/100DaysOfCodePRIVATE/Day39Creds.txt') as file:
             creds_str = file.read()
             creds = ast.literal_eval(creds_str)
 
@@ -18,6 +18,7 @@ class DataManager:
 
         # Read data from prices sheet
         get_response = requests.get(url=self.SHEETY_ENDPOINT)
+        # get_response.raise_for_status()
         self.sheet_data = get_response.json()
 
     def get_sheet_data(self):
@@ -35,6 +36,6 @@ class DataManager:
             'Authorization': f'Bearer {self.SHEETY_KEY}'
         }
         row_edit_url = f'{self.SHEETY_ENDPOINT}/{row_id}'
-        put_request = requests.put(url=row_edit_url, json=row_edit_json, headers=headers)
 
-        # print(put_request.raise_for_status()
+        put_request = requests.put(url=row_edit_url, json=row_edit_json, headers=headers)
+        # print(put_request.raise_for_status())

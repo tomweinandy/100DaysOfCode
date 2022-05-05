@@ -5,11 +5,12 @@ import requests
 class FlightSearch:
     """
     This class is responsible for talking to the Flight Search API.
+    Doc: https://tequila.kiwi.com/portal/docs/tequila_api/locations_api
     """
 
     def __init__(self):
         # Read in credential string and save as a dictionary
-        with open('../../../Dropbox/100DaysOfCodePRIVATE/Day39-40Creds.txt') as file:
+        with open('../../../Dropbox/100DaysOfCodePRIVATE/Day39Creds.txt') as file:
             creds_str = file.read()
             creds = ast.literal_eval(creds_str)
 
@@ -29,10 +30,9 @@ class FlightSearch:
         headers = {'apikey': self.TEQUILA_KEY}
 
         flight_response = requests.get(url=search_url, headers=headers)
-        flight_data = flight_response.json()['locations']
+        # response.raise_for_status()
+        flight_search = flight_response.json()['locations']
 
-
-
-        iata_code = flight_data[0]['city']['code']
+        iata_code = flight_search[0]['city']['code']
 
         return iata_code
