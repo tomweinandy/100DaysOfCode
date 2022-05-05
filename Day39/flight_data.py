@@ -17,6 +17,12 @@ class FlightData:
         self.TEQUILA_KEY = creds['TEQUILA_KEY']
 
     def get_flight_data(self, fly_from_iata_code, fly_to_iata_code):
+        """
+        Find the best flights between two cities from tomorrow to six months in the future
+        :param fly_from_iata_code: Three-letter code of source city
+        :param fly_to_iata_code: Three-letter code of destination city
+        :return: A json of the lowest-cost flight that meets the stated criteria
+        """
         tomorrow_dt = dt.datetime.today() + dt.timedelta(1)
         six_months_dt = dt.datetime.today() + dt.timedelta(6 * 30)
         tomorrow = tomorrow_dt.strftime('%d/%m/%Y')

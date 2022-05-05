@@ -19,6 +19,11 @@ class FlightSearch:
         self.TEQUILA_KEY = creds['TEQUILA_KEY']
 
     def search_flight(self, term):
+        """
+        Finds the IATA code for a natural-language input
+        :param term: The term to be searched for by the API (in this case, a destination city).
+        :return: The three-letter city IATA code
+        """
         city = term.lower().replace(' ', '%20')
         search_url = f'{self.TEQUILA_ENDPOINT}' \
                      f'?term={city}' \
