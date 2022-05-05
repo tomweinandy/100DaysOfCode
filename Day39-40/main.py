@@ -9,7 +9,7 @@ from pprint import pprint
 # Get data from prices worksheet
 data = data_manager.DataManager()
 sheet_data = data.get_sheet_data()
-# pprint(sheet_data)
+pprint(sheet_data)
 
 sheet_data = {'prices': [{'city': 'Paris', 'iataCode': '', 'id': 2, 'lowestPrice': 54},
             {'city': 'Berlin', 'iataCode': '', 'id': 3, 'lowestPrice': 42},
@@ -34,9 +34,8 @@ sheet_data = {'prices': [{'city': 'Paris', 'iataCode': '', 'id': 2, 'lowestPrice
 # Search flight by city (static for now)
 flight = flight_search.FlightSearch()
 
-# Check if iataCode present
+# Check if iataCode present and add if empty
 for city_dict in sheet_data['prices']:
-    # Add iataCode if empty
     if city_dict['iataCode'] == '':
         # Get iata code
         iata_code = flight.search_flight(city_dict['city'])

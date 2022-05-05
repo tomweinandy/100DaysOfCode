@@ -13,9 +13,7 @@ class DataManager:
             creds = ast.literal_eval(creds_str)
 
         # Save tokens as variables
-        # self.APP_ID = creds['APP_ID']
         self.SHEETY_ENDPOINT = creds['SHEETY_ENDPOINT']
-        # self.API_KEY = creds['API_KEY']
         self.SHEETY_KEY = creds['SHEETY_KEY']
 
         # Read data from prices sheet
@@ -37,6 +35,6 @@ class DataManager:
             'Authorization': f'Bearer {self.SHEETY_KEY}'
         }
         row_edit_url = f'{self.SHEETY_ENDPOINT}/{row_id}'
-        put_request = requests.put(url=row_edit_url, json=row_edit_json)
+        put_request = requests.put(url=row_edit_url, json=row_edit_json, headers=headers)
 
-        print(put_request.raise_for_status())
+        # print(put_request.raise_for_status()
