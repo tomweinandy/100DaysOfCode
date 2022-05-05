@@ -13,7 +13,7 @@ STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 
 # Read in credential string and save as a dictionary
-with open('../../Dropbox/100DaysOfPython_PRIVATE/Day36Creds.txt') as file:
+with open('../../Dropbox/100DaysOfCodePRIVATE/Day36Creds.txt') as file:
     creds_str = file.read()
     creds = ast.literal_eval(creds_str)
 

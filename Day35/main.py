@@ -25,7 +25,7 @@ PHONE_NUMBER = creds['TWILIO_NUMBER']
 MY_NUMBER = creds['TOMS_NUMBER']
 
 # Get my phone number (saved locally)
-file_path = '../../Dropbox/100DaysOfPython_PRIVATE/my_number.txt'
+file_path = '../../Dropbox/100DaysOfCodePRIVATE/my_number.txt'
 with open(file_path) as file:
     my_number = file.read()
 
