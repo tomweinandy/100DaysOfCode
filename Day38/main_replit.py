@@ -1,29 +1,27 @@
 """
 Day 38: Workout Activity Tracker
+
+A copy of main that can be run on Replit
 """
-import ast
 import requests
 import datetime as dt
+import os
 
+# Step 1: Add environment variables
+# Doc: https://docs.replit.com/programming-ide/storing-sensitive-information-environment-variables
 
-# Step 1: Register for APIs and define variables
-APP_ID = '76070878'
+APP_ID = os.environ['APP_ID']
+API_KEY = os.environ['API_KEY']
+SHEETY_ENDPOINT = os.environ['SHEETY_ENDPOINT']
+SHEETY_KEY = os.environ['SHEETY_KEY']
+
 NUTRITIONIX_ENDPOINT = 'https://trackapi.nutritionix.com/v2/natural/exercise'
-SHEETY_ENDPOINT = 'https://api.sheety.co/456c319d2f35d2bab1e1810abb7f6056/myWorkouts/workouts'
+
 
 GENDER = 'male'
 WEIGHT_KG = 74.8
 HEIGHT_CM = 180.3
 AGE = 33
-
-# Read in credential string and save as a dictionary
-with open('../../../Dropbox/100DaysOfCodePRIVATE/Day38Creds.txt') as file:
-    creds_str = file.read()
-    creds = ast.literal_eval(creds_str)
-
-# Save tokens as variables
-API_KEY = creds['API_KEY']
-SHEETY_KEY = creds['SHEETY_KEY']
 
 
 # Step 2: Sample request from NutritionIX
