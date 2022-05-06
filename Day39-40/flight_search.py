@@ -35,7 +35,7 @@ class FlightSearch:
         headers = {'apikey': self.TEQUILA_KEY}
 
         flight_response = requests.get(url=search_url, headers=headers)
-        # response.raise_for_status()
+        response.raise_for_status()
         flight_search = flight_response.json()['locations']
 
         iata_code = flight_search[0]['city']['code']

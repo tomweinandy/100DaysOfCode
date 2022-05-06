@@ -5,6 +5,7 @@ import requests
 class DataManager:
     """
     This class is responsible for talking to the Google Sheet.
+    Doc: https://sheety.co/docs/requests
     """
     def __init__(self):
         # Read in credential string and save as a dictionary

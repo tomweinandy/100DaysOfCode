@@ -1,6 +1,9 @@
 """
 Day 38: Workout Activity Tracker
 """
+
+
+
 import ast
 import requests
 import datetime as dt
@@ -61,6 +64,7 @@ time = dt.datetime.now().strftime('%H:%M:%S')
 
 
 # Step 3 post results to Google Sheets
+# Doc: https://sheety.co/docs/requests
 # Doc: https://sheety.co/docs/authentication.html
 # 'workout' is the name of the active sheet
 row_addition = {
