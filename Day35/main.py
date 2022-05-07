@@ -70,10 +70,7 @@ if will_rain:
                     .create(
                          body="Bring an umbrella",
                          from_=PHONE_NUMBER,
-                         to=my_number
+                         to=MY_NUMBER
                      )
 
     print(message.status)
-
-
-
