@@ -2,9 +2,11 @@
 
 An asterisk (*) indicates favorite projects
 
-Intermediate+ Projects
+Web Foundation Projects
+* [Day 41: HTML Personal Website (test link)](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day39-40)
 
-* [Day 39-40: Cheap Flight Finder* (test link)](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day39-40)
+Intermediate+ Projects
+* [Day 39-40: Cheap Flight Finder*](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day39-40)
 * [Day 38: Workout Activity Tracker](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day38)
 * [Day 37: Pixela Habit Tracker](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day37)
 * [Day 36: Stock Activity Monitor*](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day36.py)
