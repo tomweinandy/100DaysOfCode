@@ -3,7 +3,7 @@
 An asterisk (*) indicates favorite projects
 
 Web Foundation Projects
-* [Day 41: HTML Personal Website (test link)](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day39-40)
+* [Day 41-43: HTML Personal Website (test link)](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day41-43)
 
 Intermediate+ Projects
 * [Day 39-40: Cheap Flight Finder*](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day39-40)
