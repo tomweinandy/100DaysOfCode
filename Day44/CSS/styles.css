@@ -1,0 +1,31 @@
+/*Color pallet from https://colorhunt.co/palette/f6f6f6d6e4f01e56a0163172*/
+/*Color pallet backup https://colorhunt.co/palette/07689fa2d5f2fafafaff7e67*/
+
+:root {
+    --background-color: #F6F6F6;
+    --light-color: #D6E4F0;
+    --bright-color: #1E56A0;
+    --dark-color: #163172;
+}
+
+
+body {
+    background-color: var(--background-color);
+}
+hr {
+    border-color: var(--bright-color);
+    border-style: dotted none none;
+    border-width: 6px;
+    width: 6%;
+}
+h1 {
+    color: var(--bright-color)
+}
+h2 {
+    color: var(--bright-color)
+}
+
+/************** CLASS SELECTORS *****************/
+.circular {
+    border-radius: 100%;
+}
