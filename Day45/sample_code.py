@@ -9,7 +9,7 @@ import requests
 #
 # soup = BeautifulSoup(contents, 'html.parser')
 #
-# # PRint things
+# # Print things
 # # print(soup.title)
 # # print(soup.title.string)
 # # print(soup.prettify())
