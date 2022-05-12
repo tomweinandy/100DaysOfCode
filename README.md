@@ -3,7 +3,8 @@
 An asterisk (*) indicates favorite projects
 
 Web Foundation Projects
-* [Day 45: Top 250 Movies Web Scraper (test link)](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day45)
+* [Day 46: Musical Time Machine (test link)](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day46)
+* [Day 45: Top 250 Movies Web Scraper](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day45)
 * [Day 44: Stylized Personal Website (work in progress)](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day44)
 * [Day 41-43: HTML Personal Website](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day41-43)
 

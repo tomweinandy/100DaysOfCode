@@ -1,3 +1,6 @@
+"""
+Day 46: Musical Time Machine
+"""
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
@@ -14,10 +17,12 @@ def extract_text(scrape: str):
     txt = txt.replace('\t', '')
     return txt
 
-# Save three web scrapes (since list is spread out over all three movies
-response = requests.get('https://www.billboard.com/charts/hot-100/2000-08-12')
-soup = BeautifulSoup(response.text, 'html.parser')
+# Prompt user for an input date
+input_date = input('Want to time travel? Of course you do! Add a date in the format YYYY-MM-DD: ')
 
+# Save three web scrapes (since list is spread out over all three movies
+response = requests.get(f'https://www.billboard.com/charts/hot-100/{input_date}')
+soup = BeautifulSoup(response.text, 'html.parser')
 
 # Scrape songs and add to a list
 scraped_songs = soup.select(selector='li h3')
@@ -50,4 +55,7 @@ df['Rank'] = range(1, 101)
 df['Song'] = song_list
 df['Artist'] = artist_list
 
+df.to_csv(f'Top100_{input_date}.csv')
+
+print(f'Here are on the top 100 songs for {input_date}:')
 print(df)
