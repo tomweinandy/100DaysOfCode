@@ -1,61 +1,55 @@
 """
 Day 46: Musical Time Machine
 """
-from bs4 import BeautifulSoup
-import requests
-import pandas as pd
+# import top_100
+import ast
+from spotipy.oauth2 import SpotifyOAuth
 
 
-def extract_text(scrape: str):
-    """
-    Extract text out of scraped html using BeautifulSoup
-    :param scrape: A string of the scraped html
-    :return: The extracted text
-    """
-    txt = scrape.text
-    txt = txt.replace('\n', '')
-    txt = txt.replace('\t', '')
-    return txt
+# Load and save credentials
 
-# Prompt user for an input date
-input_date = input('Want to time travel? Of course you do! Add a date in the format YYYY-MM-DD: ')
+# Read in credential string and save as a dictionary
+with open('../../../Dropbox/100DaysOfCodePRIVATE/Day46Creds.txt') as file:
+    creds_str = file.read()
+    creds = ast.literal_eval(creds_str)
 
-# Save three web scrapes (since list is spread out over all three movies
-response = requests.get(f'https://www.billboard.com/charts/hot-100/{input_date}')
-soup = BeautifulSoup(response.text, 'html.parser')
+# Save tokens as variables
+SPOTIPY_CLIENT_ID = creds['SPOTIPY_CLIENT_ID']
+SPOTIPY_CLIENT_SECRET = creds['SPOTIPY_CLIENT_SECRET']
+SPOTIPY_REDIRECT_URI = 'http://example.com'
 
-# Scrape songs and add to a list
-scraped_songs = soup.select(selector='li h3')
+auth = SpotifyOAuth(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET, redirect_uri=SPOTIPY_REDIRECT_URI)
 
-song_list = []
-for s in scraped_songs[0:100]:
-    song = extract_text(s)
-    song_list.append(song)
+auth.get_auth_response()
 
-# Scrape artists, taking into account first artist is in a different format
-scraped_first_artist = soup.find_all(
-    class_='c-label a-no-trucate a-font-primary-s lrv-u-font-size-14@mobile-max u-line-height-normal@mobile-max u-letter-spacing-0021 lrv-u-display-block a-truncate-ellipsis-2line u-max-width-330 u-max-width-230@tablet-only u-font-size-20@tablet')
-
-scraped_other_artists = soup.find_all(
-    class_='c-label a-no-trucate a-font-primary-s lrv-u-font-size-14@mobile-max u-line-height-normal@mobile-max u-letter-spacing-0021 lrv-u-display-block a-truncate-ellipsis-2line u-max-width-330 u-max-width-230@tablet-only')
-
-# Create list and add the first artist to it
-artist_list = []
-first_artist = extract_text(scraped_first_artist[0])
-artist_list.append(first_artist)
-
-# Loop through other artists and add them to the list
-for a in scraped_other_artists:
-    artist = extract_text(a)
-    artist_list.append(artist)
-
-# Build dataframe of result
-df = pd.DataFrame()
-df['Rank'] = range(1, 101)
-df['Song'] = song_list
-df['Artist'] = artist_list
-
-df.to_csv(f'Top100_{input_date}.csv')
-
-print(f'Here are on the top 100 songs for {input_date}:')
-print(df)
+# # Creates a playlist for a user
+#
+# import argparse
+# import logging
+#
+# import spotipy
+# from spotipy.oauth2 import SpotifyOAuth
+#
+# logger = logging.getLogger('examples.create_playlist')
+# logging.basicConfig(level='DEBUG')
+#
+#
+# def get_args():
+#     parser = argparse.ArgumentParser(description='Creates a playlist for user')
+#     parser.add_argument('-p', '--playlist', required=True,
+#                         help='Name of Playlist')
+#     parser.add_argument('-d', '--description', required=False, default='',
+#                         help='Description of Playlist')
+#     return parser.parse_args()
+#
+#
+# def main():
+#     args = get_args()
+#     scope = "playlist-modify-public"
+#     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+#     user_id = sp.me()['id']
+#     sp.user_playlist_create(user_id, args.playlist)
+#
+#
+# if __name__ == '__main__':
+#     main()
