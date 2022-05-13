@@ -16,7 +16,7 @@ SPOTIPY_CLIENT_ID = creds['SPOTIPY_CLIENT_ID']
 SPOTIPY_CLIENT_SECRET = creds['SPOTIPY_CLIENT_SECRET']
 
 auth = SpotifyOAuth(
-    scope='playlist-modify-private',
+    scope='playlist-modify-public',
     client_id=SPOTIPY_CLIENT_ID,
     client_secret=SPOTIPY_CLIENT_SECRET,
     redirect_uri='http://example.com',
@@ -26,13 +26,13 @@ auth = SpotifyOAuth(
 sp = spotipy.Spotify(auth_manager=auth)
 
 print(sp.current_user()['id'])
-
+print(input_date)
 
 # Creates a playlist for a user
 playlist = sp.user_playlist_create(
                 user=sp.current_user()['id'],
                 name=f'Top100--{input_date}',
-                description=f'Top 100 Songs (if available) from {input_date}. See source code here https://github.com/tomweinandy/100DaysOfCode/tree/master/Day46'
+                description=f'Top 100 Songs (if available) from {input_date}.'
             )
 
 # todo Troubleshoot Step 3 from here
