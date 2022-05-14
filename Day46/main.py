@@ -15,6 +15,7 @@ with open('../../../Dropbox/100DaysOfCodePRIVATE/Day46Creds.txt') as file:
 SPOTIPY_CLIENT_ID = creds['SPOTIPY_CLIENT_ID']
 SPOTIPY_CLIENT_SECRET = creds['SPOTIPY_CLIENT_SECRET']
 
+# Load authorization and initialize spotipy class
 auth = SpotifyOAuth(
     scope='playlist-modify-public',
     client_id=SPOTIPY_CLIENT_ID,
@@ -22,7 +23,6 @@ auth = SpotifyOAuth(
     redirect_uri='http://example.com',
     show_dialog=True
 )
-
 sp = spotipy.Spotify(auth_manager=auth)
 
 print(sp.current_user()['id'])
