@@ -24,8 +24,9 @@ auth = SpotifyOAuth(
     show_dialog=True
 )
 sp = spotipy.Spotify(auth_manager=auth)
+user_id = sp.current_user()['id']
 
-print(sp.current_user()['id'])
+print(user_id)
 print(input_date)
 
 # Creates a playlist for a user
@@ -36,3 +37,12 @@ playlist = sp.user_playlist_create(
             )
 
 # todo Troubleshoot Step 3 from here
+from pprint import pprint
+playlist_id = playlist['id']
+
+query = sp.search('sampson, regina spektor', limit=1)
+track_id = query['tracks']['items'][0]['id']
+pprint(track_id)
+
+
+sp.playlist_add_items(playlist_id=playlist_id, items=[track_id])
