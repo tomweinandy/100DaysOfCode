@@ -16,7 +16,7 @@ def extract_text(scrape: str):
 
 # Prompt user for an input date
 input_date = input('Want to time travel? Of course you do! Add a date in the format YYYY-MM-DD: ')
-# input_date = '2000-01-01'
+# input_date = '2000-01-01'  # for testing
 
 # Save three web scrapes (since list is spread out over all three movies
 response = requests.get(f'https://www.billboard.com/charts/hot-100/{input_date}')
@@ -56,5 +56,5 @@ df['Artist'] = artist_list
 # Optional: save results
 # df.to_csv(f'Top100_{input_date}.csv')
 
-print(f'Here are on the top 100 songs for {input_date}:')
-print(df)
+# print(f'Here are on the top 100 songs for {input_date}:')
+# print(df)

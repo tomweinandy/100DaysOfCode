@@ -6,6 +6,8 @@ import ast
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
+print('Scraped Billboard Top 100 songs from given date.')
+
 # Read in credential string and save as a dictionary
 with open('../../../Dropbox/100DaysOfCodePRIVATE/Day46Creds.txt') as file:
     creds_str = file.read()
@@ -26,15 +28,15 @@ auth = SpotifyOAuth(
 sp = spotipy.Spotify(auth_manager=auth)
 user_id = sp.current_user()['id']
 
-print(user_id)
-print(input_date)
-
 # Creates a playlist for a user
 playlist = sp.user_playlist_create(
                 user=sp.current_user()['id'],
-                name=f'Top100--{input_date}',
+                name=f'Top 100 from {input_date}',
                 description=f'Top 100 Songs (if available) from {input_date}.'
             )
+
+print('Created empty playlist.')
+print('Searching for Top 100 songs on Spotify...')
 
 # todo Troubleshoot Step 3 from here
 playlist_id = playlist['id']
@@ -45,10 +47,13 @@ for idx in df.index:
     song_artist = f"{row['Song']}, {row['Artist']}"
 
     query = sp.search(song_artist, limit=1)
-    track_id = query['tracks']['items'][0]['id']
 
-    track_list.append(track_id)
+    try:
+        track_id = query['tracks']['items'][0]['id']
+        track_list.append(track_id)
+    except:
+        print(f'Cannot find {son_artist}')
 
 sp.playlist_add_items(playlist_id=playlist_id, items=track_list)
 
-print('Done!')
+print('Finished. See Spotify for 100-song playlist.')
