@@ -1,7 +1,7 @@
 """
 Day 46: Musical Time Machine
 """
-from top_100 import input_date
+from top_100 import input_date, df
 import ast
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
@@ -37,12 +37,18 @@ playlist = sp.user_playlist_create(
             )
 
 # todo Troubleshoot Step 3 from here
-from pprint import pprint
 playlist_id = playlist['id']
+track_list = []
 
-query = sp.search('sampson, regina spektor', limit=1)
-track_id = query['tracks']['items'][0]['id']
-pprint(track_id)
+for idx in df.index:
+    row = df.iloc[idx]
+    song_artist = f"{row['Song']}, {row['Artist']}"
 
+    query = sp.search(song_artist, limit=1)
+    track_id = query['tracks']['items'][0]['id']
 
-sp.playlist_add_items(playlist_id=playlist_id, items=[track_id])
+    track_list.append(track_id)
+
+sp.playlist_add_items(playlist_id=playlist_id, items=track_list)
+
+print('Done!')

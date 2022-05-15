@@ -16,6 +16,7 @@ def extract_text(scrape: str):
 
 # Prompt user for an input date
 input_date = input('Want to time travel? Of course you do! Add a date in the format YYYY-MM-DD: ')
+# input_date = '2000-01-01'
 
 # Save three web scrapes (since list is spread out over all three movies
 response = requests.get(f'https://www.billboard.com/charts/hot-100/{input_date}')
