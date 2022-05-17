@@ -7,7 +7,7 @@ import json
 import smtplib
 
 # Set url and headers
-mixer_url = 'https://www.amazon.com/KitchenAid-KSM150PSER-Artisan-Tilt-Head-Pouring/dp/B00005UP2P/ref=sr_1_3' \
+product_url = 'https://www.amazon.com/KitchenAid-KSM150PSER-Artisan-Tilt-Head-Pouring/dp/B00005UP2P/ref=sr_1_3' \
             '?crid=3W0N492X9XD4I&keywords=kitchenaid%2Bmixer' \
             '&qid=1652645519&s=home-garden' \
             '&sprefix=kitchen%2Cgarden%2C272&sr=1-3&th=1'
@@ -16,7 +16,7 @@ user_agent_header = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit
                     '/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15'
 
 # Scrape website
-response = requests.get(mixer_url,
+response = requests.get(product_url,
                         headers={'Accept-Language': accept_language_header, 'User-Agent': user_agent_header})
 
 # Initialize response in BS class
@@ -51,7 +51,7 @@ if price_float <= reservation_price:
         connection.sendmail(from_addr=DEV_EMAIL,
                             to_addrs=PERSONAL_EMAIL,
                             msg=f'Subject: Reservation Price met!'
-                                f'\n\nCheck out the deal at {mixer_url}')
+                                f'\n\nCheck out the deal at {product_url}')
     print('Email sent.')
 
 else:
