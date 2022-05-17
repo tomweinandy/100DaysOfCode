@@ -32,7 +32,7 @@ price_float = float(price_number_string)
 print(price_float)
 
 # Compare price against reservation price
-reservation_price = 350
+reservation_price = 399
 if price_float <= reservation_price:
     # If reservation price is lower, email myself the url
     # Load credentials
