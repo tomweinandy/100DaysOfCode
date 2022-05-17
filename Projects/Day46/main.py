@@ -9,7 +9,7 @@ from spotipy.oauth2 import SpotifyOAuth
 print('Scraped Billboard Top 100 songs from given date.')
 
 # Read in credential string and save as a dictionary
-with open('../../../Dropbox/100DaysOfCodePRIVATE/Day46Creds.txt') as file:
+with open('../../../../Dropbox/100DaysOfCodePRIVATE/Day46Creds.txt') as file:
     creds_str = file.read()
     creds = ast.literal_eval(creds_str)
 
@@ -51,8 +51,8 @@ for idx in df.index:
     try:
         track_id = query['tracks']['items'][0]['id']
         track_list.append(track_id)
-    except:
-        print(f'Cannot find {son_artist}')
+    except IndexError:
+        print(f'Cannot find {song_artist}')
 
 sp.playlist_add_items(playlist_id=playlist_id, items=track_list)
 
