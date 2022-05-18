@@ -35,10 +35,7 @@ sign_in = driver.find_element(by=By.CLASS_NAME, value='nav__button-secondary')
 sign_in.click()
 time.sleep(1)
 
-# sign_in_with_google = driver.find_element(by=By.ID, value='sign-in-with-google-button')
-# sign_in_with_google.click()
-
-# Slightly obscure email
+# Go through the steps to apply for a job
 enter_email = driver.find_element(by=By.ID, value='username')
 enter_email.send_keys(EMAIL)
 
@@ -57,4 +54,4 @@ xpath = '//*[@id="ember442"]'
 next = driver.find_element(by=By.XPATH, value='//*[@id="ember442"]')
 next.click()
 
-# I am stopping here because I do not actually want to apply to a job
+# I am stopping here because I do not actually want to apply to a job automatically
