@@ -17,7 +17,7 @@ search = flight_search.FlightSearch()
 
 # Check if iataCode present and add if empty
 for city_dict in sheet_data['prices']:
-    if city_dict['iataCode'] == '':
+    if city_dict['iataCode'] == '':  # consider using city_dict.get('iataCode', False) which is better in if conditions
         # Get iata code
         iata_code = search.search_flight(city_dict['city'])
         # Save to dictionary
