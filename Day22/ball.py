@@ -50,7 +50,7 @@ class Ball(Turtle):
 
     def increase_speed(self):
         """
-        Increases speed by decreases the pause between movements by 90%
+        Increases speed by decreasing the pause between movements by 90%
         """
         self.speed *= 0.9
 

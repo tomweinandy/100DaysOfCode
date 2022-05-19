@@ -1,5 +1,5 @@
 """
-Day 48
+Day 48: Automated Game Player
 
 Requires download from https://chromedriver.chromium.org/downloads
 """
@@ -25,8 +25,8 @@ total_clicks = 10**6
 for i in range(total_clicks):
     big_cookie.click()
 
-    # Check every 200 clicks
-    if i % 200 == 0:
+    # Check every 250 clicks
+    if i % 250 == 0:
         # Try to buy the first upgrade
         try:
             upgrade = driver.find_element(by=By.ID, value='upgrade0')
@@ -41,12 +41,13 @@ for i in range(total_clicks):
         except:
             pass
 
-    # Check every 2000 clicks
-    if i % 2000 == 0:
+    # Check every 2500 clicks
+    if i % 2500 == 0:
+        remaining = round(100 * i / total_clicks, 2)
+        print(f'{remaining}% done')
+
         # Buy buildings
         for i in range(20, -1, -1):
-            remaining = round(100*i/total_clicks, 2)
-            print(f'{remaining}% done')
             try:
                 building = driver.find_element(by=By.ID, value=f'product{i}')
                 building.click()
@@ -55,4 +56,3 @@ for i in range(total_clicks):
 
 # Close the web page
 # driver.quit()
-
