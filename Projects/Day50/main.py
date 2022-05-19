@@ -73,4 +73,11 @@ time.sleep(1)
 xpath_accept = '//*[@id="q1028785088"]/div/div[2]/div/div/div[1]/div[1]/button'
 accept = driver.find_element(by=By.XPATH, value=xpath_accept)
 accept.click()
-time.sleep(10)
+time.sleep(10)  # Takes a little time to load singles
+
+# Swipe left
+xpath_dislike = '//*[@id="q1028785088"]/div/div[1]/div/main/div[1]/div/div/div[1]/div[1]/div/div[4]/div/div[2]/button'
+dislike = driver.find_element(by=By.XPATH, value=xpath_dislike)
+for i in range(3):
+    dislike.click()
+    time.sleep(5)

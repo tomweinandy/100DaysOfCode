@@ -3,7 +3,8 @@
 An asterisk (*) indicates favorite projects
 
 Web Foundation Projects
-* [Day 49: Automatic LinkedIn Job Application](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day49)
+* [Day 50: Automated Tinder Swiper (test link)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day50)
+* [Day 49: Automated LinkedIn Job Applier](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day49)
 * [Day 48: Automated Game Player*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day48)
 * [Day 47: Amazon Price Tracker](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day47)
 * [Day 46: Musical Time Machine*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day46)
