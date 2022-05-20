@@ -27,7 +27,7 @@ class InternetSpeedTwitterBot:
         # Opens a website to test the internet speed
         url_speed = 'https://www.speedtest.net'
         self.driver.get(url_speed)
-        time.sleep(10)
+        time.sleep(15)
         print('checkpoint 2')
 
         # Begins speed test (takes 30-40 seconds to run)
@@ -90,7 +90,7 @@ class InternetSpeedTwitterBot:
         xpath_log_in = '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div'
         log_in = self.driver.find_element(by=By.XPATH, value=xpath_log_in)
         log_in.click()
-        time.sleep(5)
+        time.sleep(10)
         print('checkpoint 13')
 
         xpath_compose_tweet = '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/label/div[1]/div/div/div/div/div[2]/div/div/div/div'

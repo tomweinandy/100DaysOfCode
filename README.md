@@ -1,18 +1,17 @@
 # 100DaysOfCode
 
-An asterisk (*) indicates favorite projects
+My favorite projects have an asterisk (*)
 
-Web Foundation Projects
-* [Day 50: Automated Tinder Swiper (test link)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day50)
-* [Day 49: Automated LinkedIn Job Applier](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day49)
-* [Day 48: Automated Game Player*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day48)
+Intermediate+ Projects
+* [Day 51: Internet Speed Twitter Complaint Bot (test link)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day51)
+* [Day 50: Auto Tinder Swiper](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day50)
+* [Day 49: Auto LinkedIn Job Applier](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day49)
+* [Day 48: Auto Game Player*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day48)
 * [Day 47: Amazon Price Tracker](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day47)
 * [Day 46: Musical Time Machine*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day46)
 * [Day 45: Top 250 Movies Web Scraper](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day45)
 * [Day 44: Stylized Personal Website (work in progress)](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day44)
 * [Day 41-43: HTML Personal Website](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day41-43)
-
-Intermediate+ Projects
 * [Day 39-40: Cheap Flight Finder*](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day39-40)
 * [Day 38: Workout Activity Tracker](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day38)
 * [Day 37: Pixela Habit Tracker](https://github.com/tomweinandy/100DaysOfCode/blob/master/Day37)
