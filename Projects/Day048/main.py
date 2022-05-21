@@ -3,8 +3,6 @@ Day 48: Automated Game Player
 
 Requires download from https://chromedriver.chromium.org/downloads
 """
-import datetime
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -28,9 +26,16 @@ stats = driver.find_element(by=By.ID, value='statsButton')
 stats.click()
 
 # Click cookie
-total_clicks = 10**6
+total_clicks = 10**7
 for i in range(total_clicks):
-    big_cookie.click()
+    try:
+        big_cookie.click()
+
+    # If clicking does not work, it may be due to a "cookie storm" where it rains golden cookies
+    except:
+        print('Click exception thrown.')
+        golden_cookie = driver.find_element(by=By.CLASS_NAME, value='shimmer')
+        golden_cookie.click()
 
     # Check every 200 clicks
     if i % 200 == 0:
@@ -45,11 +50,12 @@ for i in range(total_clicks):
         try:
             golden_cookie = driver.find_element(by=By.CLASS_NAME, value='shimmer')
             golden_cookie.click()
+
         except:
             pass
 
-    # Check every 5000 clicks
-    if i % 5000 == 0:
+    # Check every 10000 clicks
+    if i % 10000 == 0:
         # Find total cookie count
         try:
             xpath_cookie = '//*[@id="menu"]/div[3]/div[3]/div'
