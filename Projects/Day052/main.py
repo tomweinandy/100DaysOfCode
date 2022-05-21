@@ -17,8 +17,7 @@ insta.login(USERNAME, PASSWORD)
 
 # Find followers in target account
 target_account = input('Target account to follow followers: ')
-# target_account = 'theonion'  # for testing
 insta.find_followers(target_account)
 
-
-
+# Follow 144 accounts
+insta.follow(144)
