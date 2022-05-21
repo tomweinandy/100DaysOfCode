@@ -46,11 +46,16 @@ class InstaFollowers:
         except:
             pass
 
-    def find_followers(self):
-        pass
-        # # Go to target account
-        # # target_account = input('Target account to follow followers: ')
-        # target_account = 'theonion'
+    def find_followers(self, account):
+        # Go to target account
+        url = f'https://www.instagram.com/{account}'
+        self.driver.get(url)
+        time.sleep(2.5)
+
+        # Select followers
+        xpath_followers = '//*[@id="react-root"]/section/main/div/header/section/ul/li[2]/a/div'
+        followers = self.driver.find_element(by=By.XPATH, value=xpath_followers)
+        followers.click()
 
     def follow(self):
         pass
