@@ -5,6 +5,8 @@ import json
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
+import re
+import numpy as np
 
 # Scrape Zillow data
 url_zillow = 'https://www.zillow.com/homes/for_rent/1-_beds/?searchQueryState=%7B%22pagination%22%3A%7B%7D%2C%22users' \
@@ -26,30 +28,71 @@ user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36
 response = requests.get(url_zillow, headers={'Accept-Language': accept_language, 'User-Agent': user_agent})
 soup = BeautifulSoup(response.text, 'html.parser')
 
-# result = soup.find_all(class_='list-card-link list-card-link-top-margin')
-# result = soup.find_all(class_='list-card-link')
-# result = soup.select(selector='body div div div div div div ul li')
-# result = soup.select(selector='a address')
-# result = soup.find_all(name='cat1')
-
 # Extract json within html cast as string
-result_string_bracketed = soup.find_all(type='application/json')[1].text
+results_string_bracketed = soup.find_all(type='application/json')[1].text
+
 # Remove first and last characters creating brackets
-result_string = result_string_bracketed[4:-3]
+results_string = results_string_bracketed[4:-3]
+
 # Load as dictionary
-result_dict = json.loads(result_string)
-result = result_dict
-result = result_dict['cat1']
+results_dict = json.loads(results_string)
 
-# for key, value in result.items():
-#     print(key)
+# Find list results within
+results_list = results_dict['cat1']['searchResults']['listResults']
 
-print(result)
-print(len(result))
+# Create dataframe
+df = pd.DataFrame(columns=['price', 'address', 'url'])
 
-# todo create a list of addresses
-# todo create a list of links
-# todo create a list of prices
+# Loop through results, adding them to a dataframe
+# result = results_list[0]
+for i in range(len(results_list)):
+    result = results_list[i]
+
+    # 1) Try adding the price
+    try:
+        price = result['unformattedPrice']
+    except:
+        # If 'unformattedPrice' not present, the address may be multi-unit, requiring additional parsing
+        try:
+            # Extract the min price from list of units
+            min_price = 999999999
+            for unit in result['units']:
+                price_string_with_characters = unit['price']
+                # Remove non-numeric characters before casting as integer
+                price_string = re.sub(r'[^0-9]', '', price_string_with_characters)
+                price_int = int(price_string)
+                if price_int < min_price:
+                    min_price = price_int
+            price = min_price
+        except:
+            price = np.nan
+
+    # 2) Try adding address
+    try:
+        # This one is rather straight-forward
+        address = result['address']
+    except:
+        address = ''
+
+    # 3) Try adding url
+    try:
+        url = result['detailUrl']
+        # Add domain to address if it is missing
+        if url[0:5] != 'https':
+            url = 'https://www.zillow.com' + url
+    except:
+        url = ''
+
+    # Append results to dataframe
+    result_df = pd.DataFrame({
+                            'price': [price],
+                            'address': [address],
+                            'url': [url]
+                            })
+    df = df.append(result_df, ignore_index=True)
+
+df.to_csv('data.csv')
+
 # todo fill out form
 url_form = 'https://forms.gle/X7JE2Je17GqGKfyd6'
 # todo go to Google Sheet
