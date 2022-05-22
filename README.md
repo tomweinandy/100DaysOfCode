@@ -1,10 +1,11 @@
 # 100DaysOfCode
 
-My favorite projects have an asterisk (*)
+My favorite projects have one asterisk (*) and capstone projects have two.
 
-Intermediate+ Projects
-* [Day 52: Instagram Follower Bot (test link)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day052)
-* [Day 51: Internet Speed Twitter Complaint Bot](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day051)
+**Intermediate+ Projects**
+* [Day 53: Zillow Data Entry Job Automation (test link)**](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day053)
+* [Day 52: Instagram Follower Bot](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day052)
+* [Day 51: Internet Speed Twitter Complaint Bot*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day051)
 * [Day 50: Auto Tinder Swiper](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day050)
 * [Day 49: Auto LinkedIn Job Applier](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day049)
 * [Day 48: Auto Game Player*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day048)
@@ -22,8 +23,8 @@ Intermediate+ Projects
 * [Day 33: ISS Overhead Notifier](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day033)
 * [Day 32: Automated Birthday Wisher](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day032)
 
-Intermediate Projects
-* [Day 31: Flash Card App*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day031)
+**Intermediate Projects**
+* [Day 31: Flash Card App**](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day031)
 * [Day 29-30: Password Manager*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day029-030)
 * [Day 28: Pomodoro Time Tracker*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day028)
 * [Day 27: GUI Miles to Kilometers Converter](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day027)
@@ -39,11 +40,11 @@ Intermediate Projects
 * [Day 16: Coffee Machine Program (Pt II)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day016)
 * [Day 15: Coffee Machine Program (Pt I)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day015)
 
-Beginner Projects
+**Beginner Projects**
 * [Day 14: Higher Lower Game](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day014)
 * [Day 13: Debugging Exercises](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day013)
 * [Day 12: Guess the Movie Year*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day012)
-* [Day 11: Blackjack*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day011)
+* [Day 11: Blackjack**](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day011)
 * [Day 10: Nine-Function Calculator](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day010)
 * [Day 9: First Price, Sealed Bid Auction](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day009)
 * [Day 8: Caesar Cipher](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day008)
