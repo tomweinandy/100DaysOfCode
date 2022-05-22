@@ -7,6 +7,12 @@ import requests
 import pandas as pd
 import re
 import numpy as np
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
 
 # Scrape Zillow data
 url_zillow = 'https://www.zillow.com/homes/for_rent/1-_beds/?searchQueryState=%7B%22pagination%22%3A%7B%7D%2C%22users' \
@@ -18,7 +24,6 @@ url_zillow = 'https://www.zillow.com/homes/for_rent/1-_beds/?searchQueryState=%7
              '%2C%22pmf%22%3A%7B%22value%22%3Afalse%7D%2C%22pf%22%3A%7B%22value%22%3Afalse%7D%2C%22mp%22%3A%7B%22max%' \
              '22%3A3000%7D%2C%22price%22%3A%7B%22max%22%3A872627%7D%2C%22beds%22%3A%7B%22min%22%3A1%7D%7D%2C%22isList' \
              'Visible%22%3Atrue%2C%22mapZoom%22%3A12%7D'
-# url_trulia = 'https://www.trulia.com/for_rent/San_Francisco,CA/1p_beds/0-3000_price/'
 
 # Define header info so Zillow doesn't think I am a bot
 accept_language = 'en-US,en;q=0.9'
@@ -91,8 +96,35 @@ for i in range(len(results_list)):
                             })
     df = df.append(result_df, ignore_index=True)
 
-df.to_csv('data.csv')
+# Optional: Save as csv
+# df.to_csv('data.csv')
 
 # todo fill out form
-url_form = 'https://forms.gle/X7JE2Je17GqGKfyd6'
-# todo go to Google Sheet
+
+chrome_driver_path = Service('/Applications/chromedriver')
+driver = webdriver.Chrome(service=chrome_driver_path)
+
+
+for row in df.iterrows():
+
+    url_form = 'https://forms.gle/X7JE2Je17GqGKfyd6'
+    driver.get(url_form)
+    time.sleep(2)
+
+    xpath_address = '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input'
+    address_input = driver.find_element(by=By.XPATH, value=xpath_address)
+    address_input.send_keys(row[1]['address'])
+
+    xpath_url = '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div/div[1]/input'
+    url_input = driver.find_element(by=By.XPATH, value=xpath_url)
+    url_input.send_keys(row[1]['url'])
+
+    xpath_price = '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[1]/input'
+    price_input = driver.find_element(by=By.XPATH, value=xpath_price)
+    price_input.send_keys(row[1]['price'])
+    time.sleep(1)
+
+    xpath_submit = '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div'
+    submit = driver.find_element(by=By.XPATH, value=xpath_submit)
+    submit.click()
+    time.sleep(1)
