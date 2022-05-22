@@ -38,7 +38,7 @@ playlist = sp.user_playlist_create(
 print('Created empty playlist.')
 print('Searching for Top 100 songs on Spotify...')
 
-# todo Troubleshoot Step 3 from here
+# Add songs to playlist
 playlist_id = playlist['id']
 track_list = []
 
