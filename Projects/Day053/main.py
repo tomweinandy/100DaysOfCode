@@ -1,5 +1,7 @@
 """
 Day 53: Zillow Data Entry Job Automation
+
+Result: https://docs.google.com/spreadsheets/d/1mOP1uu2uy-iNyir1H0NVLQFmZs-2qKbT0MSEPhFDXFo/edit?usp=sharing
 """
 import json
 from bs4 import BeautifulSoup
@@ -10,8 +12,6 @@ import numpy as np
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import time
 
 # Scrape Zillow data
@@ -99,31 +99,33 @@ for i in range(len(results_list)):
 # Optional: Save as csv
 # df.to_csv('data.csv')
 
-# todo fill out form
-
+# Fill out the Google Form
 chrome_driver_path = Service('/Applications/chromedriver')
 driver = webdriver.Chrome(service=chrome_driver_path)
 
-
+# Loop through rows of the dataframe
 for row in df.iterrows():
-
     url_form = 'https://forms.gle/X7JE2Je17GqGKfyd6'
     driver.get(url_form)
     time.sleep(2)
 
+    # Add entry to address field
     xpath_address = '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input'
     address_input = driver.find_element(by=By.XPATH, value=xpath_address)
     address_input.send_keys(row[1]['address'])
 
+    # Add entry to url field
     xpath_url = '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div/div[1]/input'
     url_input = driver.find_element(by=By.XPATH, value=xpath_url)
     url_input.send_keys(row[1]['url'])
 
+    # Add entry to price field
     xpath_price = '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[1]/input'
     price_input = driver.find_element(by=By.XPATH, value=xpath_price)
     price_input.send_keys(row[1]['price'])
     time.sleep(1)
 
+    # Click 'submit'
     xpath_submit = '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div'
     submit = driver.find_element(by=By.XPATH, value=xpath_submit)
     submit.click()
