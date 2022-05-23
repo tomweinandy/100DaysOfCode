@@ -2,8 +2,9 @@
 
 My favorite projects have one asterisk (*) and capstone projects have two.
 
-**Intermediate+ Projects**
-* [Day 53: Zillow Data Entry Job Automation (test link)**](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day053)
+**Web Foundation / Intermediate+ Projects**
+* [Day 54: Intro to Web Development with Flask (test link)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day054)
+* [Day 53: Zillow Data Entry Job Automation**](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day053)
 * [Day 52: Instagram Follower Bot](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day052)
 * [Day 51: Internet Speed Twitter Complaint Bot*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day051)
 * [Day 50: Auto Tinder Swiper](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day050)
