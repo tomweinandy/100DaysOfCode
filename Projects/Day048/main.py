@@ -25,20 +25,28 @@ big_cookie = driver.find_element(by=By.XPATH, value=xpath)
 stats = driver.find_element(by=By.ID, value='statsButton')
 stats.click()
 
-# Click cookie
-total_clicks = 10**7
+# Define initial variables
+cookie_count = ''
+check_interval = 10_000
+total_clicks = 1_000_000_001
+
+# Click the cookie
 for i in range(total_clicks):
     try:
         big_cookie.click()
 
     # If clicking does not work, it may be due to a "cookie storm" where it rains golden cookies
     except:
-        print('Click exception thrown.')
-        golden_cookie = driver.find_element(by=By.CLASS_NAME, value='shimmer')
-        golden_cookie.click()
+        print('Click exception thrown...')
 
-    # Check every 200 clicks
-    if i % 200 == 0:
+        try:
+            golden_cookie = driver.find_element(by=By.CLASS_NAME, value='shimmer')
+            golden_cookie.click()
+        except:
+            print('...and there is no golden cookie')
+
+    # Check every 100 clicks
+    if i % 100 == 0:
         # Try to buy the first upgrade
         try:
             upgrade = driver.find_element(by=By.ID, value='upgrade0')
@@ -50,12 +58,11 @@ for i in range(total_clicks):
         try:
             golden_cookie = driver.find_element(by=By.CLASS_NAME, value='shimmer')
             golden_cookie.click()
-
         except:
             pass
 
-    # Check every 10000 clicks
-    if i % 10000 == 0:
+    # Periodically buys buildings and prints update
+    if i % check_interval == 0:
         # Find total cookie count
         try:
             xpath_cookie = '//*[@id="menu"]/div[3]/div[3]/div'
@@ -64,8 +71,11 @@ for i in range(total_clicks):
 
         # Common error is that stats page was closed; click to reopen
         except:
-            stats = driver.find_element(by=By.ID, value='statsButton')
-            stats.click()
+            try:
+                stats = driver.find_element(by=By.ID, value='statsButton')
+                stats.click()
+            except:
+                print('Can not click stats button')
 
         # Print status
         remaining = round(100 * i / total_clicks, 2)
@@ -73,7 +83,7 @@ for i in range(total_clicks):
         print(f'{remaining}% done with {cookie_count} cumulative cookies baked as of {now}')
 
         # Buy buildings
-        for j in range(20, -1, -1):
+        for j in range(30, -1, -1):
             try:
                 building = driver.find_element(by=By.ID, value=f'product{j}')
                 building.click()
