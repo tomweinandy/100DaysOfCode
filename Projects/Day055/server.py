@@ -1,5 +1,5 @@
 """
-Day 55: HTML & URL parsing in Flask
+Day 55: High Low Game using HTML & URL parsing in Flask
 
 Quickstart documentation: https://flask.palletsprojects.com/en/2.1.x/quickstart/
 """
@@ -8,11 +8,7 @@ import random
 
 app = Flask(__name__)
 
-# def make_bold(function):
-#     def bold_wrapper():
-#         return f"<b>{function()}</b>"
-#     return bold_wrapper
-
+# Define gifs and random number
 guess_gif = 'https://media2.giphy.com/media/3o6vXUgVMtK64QAezK/giphy.gif'
 correct_gif = 'https://media.giphy.com/media/pwBi3YrGypMyI/giphy.gif'
 wrong_gifs = ['https://media.giphy.com/media/l0MYH5mkQJAxVShqM/giphy.gif',
@@ -21,10 +17,30 @@ wrong_gifs = ['https://media.giphy.com/media/l0MYH5mkQJAxVShqM/giphy.gif',
               'https://media.giphy.com/media/nWCf6ZPW0mRMY/giphy.gif',
               'https://media.giphy.com/media/99tonvXLKv3vG/giphy.gif',
               'https://media.giphy.com/media/l4FGqFsIccGAiLmkE/giphy.gif']
-random_number = random.choice(range(0, 10))
+number = random.choice(range(0, 10))
 
 
-def check_answer(number, guess):
+@app.route("/")
+def hello_world():
+    """
+    Generates a landing page for the number guessing game.
+    :return: html code to generate the page
+    """
+    return "<h1>Guess a number between 0 and 9</h1>" \
+           "<p>In the browser, type '/' followed by your guess to see if you are right </p>" \
+           "<br></br>" \
+           "<br></br>" \
+           f"<center><img src={guess_gif} width=400</img></center>"
+
+
+@app.route("/<guess_string>")
+def check_answer(guess_string):
+    """
+    Generates a saying whether a guess was too low, too high, correct, or invalid
+    :param guess_string: the numeric guess
+    :return: html to generate the page
+    """
+    guess = int(guess_string)
     if guess < number:
         html = "<h1>Your guess was too low. Try again." \
                "<br></br>" \
@@ -48,37 +64,6 @@ def check_answer(number, guess):
     return html
 
 
-@app.route("/")
-def hello_world():
-    return "<h1>Guess a number between 0 and 9</h1>" \
-           "<p>In the browser, type '/' followed by your guess to see if you are right </p>" \
-           "<br></br>" \
-           "<br></br>" \
-           f"<center><img src={guess_gif} width=400</img></center>"
-
-
-@app.route("/<guess>")
-def check_answer(guess):
-    return f"Hello there, {guess}!"
-
-
+# Run Flask
 if __name__ == '__main__':
     app.run(debug=True)
-
-# # Create the logging_decorator() function 👇
-# def logging_decorator(function):
-#     def wrapper(*args):
-#         print(f'You called: {function.__name__}')
-#         result = function(args[0], args[1], args[2])
-#         print(f'It returned: {result}')
-
-#     return wrapper
-
-
-# # Use the decorator 👇
-# @logging_decorator
-# def a_function(a, b, c):
-#     return a + b + c
-
-
-# a_function(1, 2, 3)

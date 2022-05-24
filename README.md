@@ -3,7 +3,8 @@
 My favorite projects have one asterisk (*) and capstone projects have two.
 
 **Web Foundation / Intermediate+ Projects**
-* [Day 54: Intro to Web Development with Flask (test link)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day054)
+* [Day 55: High Low Game using HTML & URL parsing in Flask (test link)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day055)
+* [Day 54: Intro to Web Development with Flask](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day054)
 * [Day 53: Zillow Data Entry Job Automation**](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day053)
 * [Day 52: Instagram Follower Bot](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day052)
 * [Day 51: Internet Speed Twitter Complaint Bot*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day051)
