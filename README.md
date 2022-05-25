@@ -3,7 +3,7 @@
 My favorite projects have one asterisk (*) and capstone projects have two.
 
 **Web Foundation / Intermediate+ Projects**
-* [Day 55: High Low Game using HTML & URL parsing in Flask (test link)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day055)
+* [Day 55: High Low Game using HTML & URL parsing in Flask](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day055)
 * [Day 54: Intro to Web Development with Flask](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day054)
 * [Day 53: Zillow Data Entry Job Automation**](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day053)
 * [Day 52: Instagram Follower Bot](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day052)
@@ -14,8 +14,8 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 * [Day 47: Amazon Price Tracker](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day047)
 * [Day 46: Musical Time Machine*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day046)
 * [Day 45: Top 250 Movies Web Scraper](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day045)
-* [Day 44: Stylized Personal Website (work in progress)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day044)
-* [Day 41-43: HTML Personal Website](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day041-043)
+* [Day 44: Stylized Personal Website](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day044) (in progress)
+* Day 41-43: HTML Personal Website ([code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day041-043)) ([website](https://tomweinandy.github.io/cv/))
 * [Day 39-40: Cheap Flight Finder*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day039-040)
 * [Day 38: Workout Activity Tracker](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day038)
 * [Day 37: Pixela Habit Tracker](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day037)

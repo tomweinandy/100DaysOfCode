@@ -495,7 +495,25 @@ $pattern-background-size: 25em;
 				}
 			}
 
-			&.fa-google-plus-g {
+			&.fa-linkedin {
+				background: _palette(facebook, bg);
+				color: _palette(facebook, fg);
+
+				&:hover {
+					background: lighten(_palette(facebook, bg), 4);
+				}
+			}
+
+			&.fa-google {
+				background: _palette(google-plus, bg);
+				color: _palette(google-plus, fg);
+
+				&:hover {
+					background: lighten(_palette(google-plus, bg), 4);
+				}
+			}
+
+			&.fa-send-o {
 				background: _palette(google-plus, bg);
 				color: _palette(google-plus, fg);
 

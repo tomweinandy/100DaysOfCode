@@ -1952,12 +1952,31 @@ input, select, textarea {
 					background: #829bc9;
 				}
 
-			.icon.circle.fa-google-plus-g {
+			.icon.circle.fa-linkedin {
+				background: #7490c3;
+				color: #fff;
+			}
+
+				.icon.circle.fa-linkedin:hover {
+					background: #829bc9;
+				}
+
+
+			.icon.circle.fa-google {
 				background: #db6b67;
 				color: #fff;
 			}
 
-				.icon.circle.fa-google-plus-g:hover {
+				.icon.circle.fa-google:hover {
+					background: #df7b77;
+				}
+
+			.icon.circle.fa-send-o {
+				background: #db6b67;
+				color: #fff;
+			}
+
+				.icon.circle.fa-send-o:hover {
 					background: #df7b77;
 				}
 
