@@ -25,7 +25,7 @@ url_zillow = 'https://www.zillow.com/homes/for_rent/1-_beds/?searchQueryState=%7
              '22%3A3000%7D%2C%22price%22%3A%7B%22max%22%3A872627%7D%2C%22beds%22%3A%7B%22min%22%3A1%7D%7D%2C%22isList' \
              'Visible%22%3Atrue%2C%22mapZoom%22%3A12%7D'
 
-# Define header info so Zillow doesn't think I am a bot
+# Define header info so Zillow doesn't think I am a bot (found with http://myhttpheader.com)
 accept_language = 'en-US,en;q=0.9'
 user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 ' \
                     '(KHTML, like Gecko) Chrome/101.0.0.0 Safari/537.36'
@@ -60,7 +60,7 @@ for i in range(len(results_list)):
         # If 'unformattedPrice' not present, the address may be multi-unit, requiring additional parsing
         try:
             # Extract the min price from list of units
-            min_price = 999999999
+            min_price = float("inf")
             for unit in result['units']:
                 price_string_with_characters = unit['price']
                 # Remove non-numeric characters before casting as integer
