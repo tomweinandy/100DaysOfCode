@@ -1,5 +1,5 @@
 """
-Day 56:
+Day 56: HTML Name Card
 
 Using the following template: https://html5up.net/twenty
 """
@@ -12,8 +12,6 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     return render_template('index.html')
-
-
 
 
 if __name__ == '__main__':
