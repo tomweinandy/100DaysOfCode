@@ -4,7 +4,7 @@
 @import 'libs/vendor';
 @import 'libs/breakpoints';
 @import 'libs/html-grid';
-@import url("fontawesome-all.min.css");
+@import url("../css/fontawesome-all.min.css");
 @import url("https://fonts.googleapis.com/css?family=Lato:300,400,900");
 
 /*
@@ -408,7 +408,7 @@ $pattern-background-size: 25em;
 		position: relative;
 
 		&:before {
-			background: url('images/overlay.png');
+			background: url('../css/images/overlay.png');
 			content: '';
 			height: 100%;
 			left: 0;
@@ -517,12 +517,21 @@ $pattern-background-size: 25em;
 				background: _palette(google-plus, bg);
 				color: _palette(google-plus, fg);
 
-				&:hover {
-					background: lighten(_palette(google-plus, bg), 4);
-				}
+				//&:hover {
+				//	background: lighten(_palette(google-plus, bg), 4);
+				//}
 			}
 
 			&.fa-github {
+				background: _palette(github, bg);
+				color: _palette(github, fg);
+
+				&:hover {
+					background: lighten(_palette(github, bg), 4);
+				}
+			}
+
+			&.fa-cv {
 				background: _palette(github, bg);
 				color: _palette(github, fg);
 
@@ -759,7 +768,7 @@ $pattern-background-size: 25em;
 
 		&.style2 {
 			background-color: _palette(one, bg);
-			background-image: url('images/light-bl.svg'), url('images/light-br.svg');
+			background-image: url('../css/images/light-bl.svg'), url('../css/images/light-br.svg');
 			background-position: bottom left, bottom right;
 			background-repeat: no-repeat, no-repeat;
 			background-size: $pattern-background-size, $pattern-background-size;
@@ -989,7 +998,7 @@ $pattern-background-size: 25em;
 	#banner {
 		background-attachment: scroll, scroll, scroll, fixed;
 		background-color: _palette(three, bg);
-		background-image: url('images/light-bl.svg'), url('images/light-br.svg'), url('images/overlay.png'), url('../../images/banner.jpg');
+		background-image: url('../css/images/light-bl.svg'), url('../css/images/light-br.svg'), url('../css/images/overlay.png'), url('../../images/banner.jpg');
 		background-position: bottom left, bottom right, top left, top center;
 		background-repeat: no-repeat, no-repeat, repeat, no-repeat;
 		background-size: $pattern-background-size, $pattern-background-size, auto, cover;
@@ -1049,7 +1058,7 @@ $pattern-background-size: 25em;
 /* Main */
 
 	#main {
-		background-image: url('images/dark-tl.svg'), url('images/dark-tr.svg'), url('images/dark-bl.svg'), url('images/dark-br.svg');
+		background-image: url('../css/images/dark-tl.svg'), url('../css/images/dark-tr.svg'), url('../css/images/dark-bl.svg'), url('../css/images/dark-br.svg');
 		background-position: top left, top right, bottom left, bottom right;
 		background-repeat: no-repeat;
 		background-size: $pattern-background-size;
@@ -1083,7 +1092,7 @@ $pattern-background-size: 25em;
 	#cta {
 		background-attachment: scroll, scroll, scroll, fixed;
 		background-color: _palette(three, bg);
-		background-image: url('images/light-tl.svg'), url('images/light-tr.svg'), url('images/overlay.png'), url('../../images/banner.jpg');
+		background-image: url('../css/images/light-tl.svg'), url('../css/images/light-tr.svg'), url('../css/images/overlay.png'), url('../../images/banner.jpg');
 		background-position: top left, top right, top left, bottom center;
 		background-repeat: no-repeat, no-repeat, repeat, no-repeat;
 		background-size: $pattern-background-size, $pattern-background-size, auto, cover;
