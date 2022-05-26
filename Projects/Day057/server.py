@@ -12,7 +12,17 @@ year = dt.datetime.now().year
 
 @app.route('/')
 def home():
-    return render_template("index.html", year=year)
+    return render_template("lesson.html", year=year)
+
+
+@app.route('/blog/<number>')
+def blogger(number):
+    response_blog = requests.get(url='https://api.npoint.io/445214455c1934eb12ff')
+    all_posts = response_blog.json()
+
+    num = int(number)
+
+    return render_template("blog.html", year=year, posts=all_posts, num=num)
 
 
 @app.route('/<name>')
