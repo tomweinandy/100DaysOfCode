@@ -3,7 +3,8 @@
 My favorite projects have one asterisk (*) and capstone projects have two.
 
 **Web Foundation / Intermediate+ Projects**
-* Day 56: HTML Name Card ([code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day056)) ([website](https://tomweinandy.github.io/card/)) test links
+* [Day 57: HTML Blog with Jinja and Flask](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day057) test link
+* Day 56: HTML Name Card ([code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day056)) ([website](https://tomweinandy.github.io/card/))
 * [Day 55: High Low Game using HTML & URL parsing in Flask](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day055)
 * [Day 54: Intro to Web Development with Flask](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day054)
 * [Day 53: Zillow Data Entry Job Automation**](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day053)
