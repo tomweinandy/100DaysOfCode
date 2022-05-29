@@ -2,9 +2,12 @@
 
 My favorite projects have one asterisk (*) and capstone projects have two.
 
+**Advanced Projects**
+* [Day 59: HTML Blog with Jinja and Flask (Pt II)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day059)
+
 **Web Foundation / Intermediate+ Projects**
-* Day 58: Mock Website with Bootstrap ([code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day058)) ([website](https://tomweinandy.github.io/tindog/))
-* [Day 57: HTML Blog with Jinja and Flask](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day057)
+* Day 58: Mock "Tindog" Website with Bootstrap ([code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day058)) ([website](https://tomweinandy.github.io/tindog/))
+* [Day 57: HTML Blog with Jinja and Flask (Pt I)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day057)
 * Day 56: HTML Name Card ([code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day056)) ([website](https://tomweinandy.github.io/card/))
 * [Day 55: High Low Game using HTML & URL parsing in Flask](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day055)
 * [Day 54: Intro to Web Development with Flask](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day054)
