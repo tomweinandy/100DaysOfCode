@@ -22,13 +22,25 @@ def home():
     return render_template('index.html', year=year, posts=all_posts)
 
 
-@app.route('/blog/<number>')
+@app.route('/about')
+def about():
+    return render_template('about.html', year=year)
+
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html', year=year)
+
+
+@app.route('/post/<number>')
 def blogger(number):
-    response_blog = requests.get(url='https://www.npoint.io/docs/dc5220ec8c05b895e7ee')
+    response_blog = requests.get(url='https://api.npoint.io/dc5220ec8c05b895e7ee')
     all_posts = response_blog.json()
     num = int(number)
 
-    return render_template("blog.html", year=year, posts=all_posts, num=num)
+    print('Showing page', num)
+
+    return render_template("post.html", year=year, posts=all_posts, num=num)
 
 
 if __name__ == '__main__':
