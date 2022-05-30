@@ -1,9 +1,11 @@
 """
-Day 59
+Day 59: HTML Blog with Jinja and Flask
 
 Template: https://startbootstrap.com/previews/clean-blog/
 Solution: https://repl.it/@appbrewery/day-59-end.zip
 """
+import json
+import smtplib
 from flask import Flask, render_template, request
 import datetime as dt
 import requests
@@ -16,6 +18,28 @@ year = dt.datetime.now().year
 
 
 def send_email(name, email, phone, message):
+    # Load credentials
+    with open('../../../../Dropbox/100DaysOfCodePRIVATE/Day59Creds.json') as file:
+        creds = json.loads(file.read())
+
+    DEV_EMAIL = creds['EMAIL']
+    DEV_PASSWORD = creds['PASSWORD']
+    TOM_EMAIL = creds['TOM_EMAIL']
+
+    # Set up SMTP connection
+    # Gmail is smtp.gmail.com, Hotmail is smtp.live.com, Yahoo is smtp.mail.yahoo.com
+    with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
+        # Start Transfer Layer Security encryption
+        connection.starttls()
+        connection.login(user=DEV_EMAIL, password=DEV_PASSWORD)
+        connection.sendmail(from_addr=DEV_EMAIL,
+                            to_addrs=TOM_EMAIL,
+                            msg=f'Subject: New Contact Form Message\n\n'
+                                f'Name: {name}\n'
+                                f'Email: {email}\n'
+                                f'Phone: {phone}\n'
+                                f'Message: {message}\n')
+
     print('Send email', name, email, phone, message)
 
 

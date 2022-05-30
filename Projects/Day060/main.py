@@ -1,7 +1,7 @@
 """
-Day 60: Build HTML Form
+Day 60: Responsive HTML forms
 
-Note: Most of the project for this day was to improve the blog from Day 59.
+Note: Most of the project for this day was to improve the contact form from the Day 59 blog.
 
 Example for HTML <form> method attribute: https://www.w3schools.com/tags/att_form_method.asp
 Example for HTML <form> action attribute: https://www.w3schools.com/tags/att_form_action.asp

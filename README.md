@@ -3,6 +3,7 @@
 My favorite projects have one asterisk (*) and capstone projects have two.
 
 **Advanced Projects**
+* [Day 60: Responsive HTML Forms](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day060) test link
 * [Day 59: HTML Blog with Jinja and Flask (Pt II)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day059)
 
 **Web Foundation / Intermediate+ Projects**
