@@ -1,6 +1,8 @@
 """
 Day 60: Build HTML Form
 
+Note: Most of the project for this day was to improve the blog from Day 59.
+
 Example for HTML <form> method attribute: https://www.w3schools.com/tags/att_form_method.asp
 Example for HTML <form> action attribute: https://www.w3schools.com/tags/att_form_action.asp
 More on methods parameter: https://flask.palletsprojects.com/en/1.1.x/quickstart/#http-methods
