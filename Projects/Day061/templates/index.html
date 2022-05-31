@@ -1,15 +1,22 @@
 <!DOCTYPE HTML>
-<html>
-<head>
-	<title>Secrets</title>
-</head>
-<body>
-<div class="jumbotron">
-	<div class="container">
-		<h1>Welcome</h1>
-		<p>Are you ready to discover my secret?</p>
-		<a href=" {{ url_for('login') }} "> <button class= "btn btn-primary btn-lg">Login</button></a>
-	</div>
-</div>
-</body>
+<html lang="en">
+    <head>
+        <title>Secrets</title>
+    </head>
+    <body>
+    <!--This line of code tells the templating engine (Jinja) to use "base.html" as the template for this page.-->
+    {% extends 'bootstrap/base.html' %}
+    <!--This block inserts a custom title into the header of the template.-->
+    {% block title %}Login{% endblock %}
+    <!--This block provides the content of the website. The part that is going to vary between webpages.-->
+    {% block content %}
+    <div class="jumbotron">
+        <div class="container">
+        <h1>Welcome</h1>
+        <p>Are you ready to discover my secret?</p>
+        <a class="btn btn-primary btn-lg" href=" {{ url_for('login') }} ">Login</a>
+        </div>
+    </div>
+    {% endblock %}
+    </body>
 </html>

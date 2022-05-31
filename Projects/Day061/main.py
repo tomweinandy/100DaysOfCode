@@ -4,8 +4,10 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, Length
 from email_validator import validate_email, EmailNotValidError
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
+Bootstrap(app)
 
 # Set secret key
 with open('../../../../Dropbox/100DaysOfCodePRIVATE/Day61Creds.json') as file:
