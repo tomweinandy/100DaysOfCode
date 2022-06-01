@@ -49,15 +49,9 @@ def home():
 def add_cafe():
     form = CafeForm()
     if form.validate_on_submit():
-        print("True")
-        print(form.cafe.data, form.location.data, form.open.data,
-              form.close.data, form.coffee.data, form.wifi.data, form.power.data)
         add_cafe_to_csv(form.cafe.data, form.location.data, form.open.data,
                         form.close.data, form.coffee.data, form.wifi.data, form.power.data)
         return redirect(url_for('add_cafe'))
-    # Exercise:
-    # Make the form write a new row into cafe-data.csv
-    # with   if form.validate_on_submit()
     return render_template('add.html', form=form)
 
 

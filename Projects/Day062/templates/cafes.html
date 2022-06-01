@@ -1,5 +1,10 @@
 {% extends 'bootstrap/base.html' %}
 
+{% block styles %}
+{{ super() }}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
 {% block title %}Cafés{% endblock %}
 
 {% block content %}
@@ -37,7 +42,6 @@
         </table>
 
         <a class="btn btn-warning btn-lg" href="/" role="button">Return Home</a>
-        <a class="btn btn-warning btn-lg" href="/add" role="button">Delete this button</a>
 
     </div>
   </div>
