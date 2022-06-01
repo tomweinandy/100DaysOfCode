@@ -1,3 +1,6 @@
+"""
+Day 62: Coffee and Wifi Website
+"""
 from flask import Flask, render_template, url_for, redirect
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
@@ -26,9 +29,6 @@ class CafeForm(FlaskForm):
     wifi = SelectField('Wifi', choices=wifi_choices, validators=[DataRequired()])
     power = SelectField('Power', choices=power_choices, validators=[DataRequired()])
     submit = SubmitField('Submit')
-
-# todo change background color
-# todo format table
 
 
 def add_cafe_to_csv(cafe, location, open, close, coffee, wifi, power):

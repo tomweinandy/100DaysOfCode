@@ -3,7 +3,8 @@
 My favorite projects have one asterisk (*) and capstone projects have two.
 
 **Advanced Projects**
-* [Day 61: Advanced Forms with Flask-WTForms](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day061) test link
+* [Day 62: Coffee and Wifi Website](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day062) test link
+* [Day 61: Advanced Forms with Flask-WTForms](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day061)
 * [Day 60: Responsive HTML Forms](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day060)
 * [Day 59: HTML Blog with Jinja and Flask (Pt II)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day059)
 
