@@ -1,22 +1,72 @@
 {% extends 'bootstrap/base.html' %}
 
-{% block title %}Restaurants{% endblock %}
+{% block title %}Cafes{% endblock %}
 
 {% block content %}
 
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
+        <h1>All Cafes</h1>
 
-      <h1>All Cafes</h1>
+<!--        <table class="table">-->
+<!--          &lt;!&ndash; This is where you will write the code to render a Bootstrap -->
+<!--          Table that contains all the information from the -->
+<!--          cafe-data.csv file. &ndash;&gt;-->
+<!--  	    </table>-->
 
-	  <table class="table">
-          <!-- This is where you will write the code to render a Bootstrap 
-          Table that contains all the information from the 
-          cafe-data.csv file. -->
-  	  </table>
 
-      <p><a href="#">Return to index page</a></p>
+
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th scope="col">Cafe Name</th>
+              <th scope="col">Location</th>
+              <th scope="col">Open</th>
+              <th scope="col">Close</th>
+              <th scope="col">Coffee</th>
+              <th scope="col">Wifi</th>
+              <th scope="col">Power</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for caf in cafes[1:]: %}
+            <tr>
+              <td>{{caf[0]}}</td>
+              <td> <a href="{{caf[1]}}">Map Link</a> </td>
+              <td>{{caf[2]}}</td>
+              <td>{{caf[3]}}</td>
+              <td>{{caf[4]}}</td>
+              <td>{{caf[5]}}</td>
+              <td>{{caf[6]}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+
+
+<!--          <tbody>-->
+<!--            <tr>-->
+<!--              <th scope="row">1</th>-->
+<!--              <td>Mark</td>-->
+<!--              <td>Otto</td>-->
+<!--              <td>@mdo</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <th scope="row">2</th>-->
+<!--              <td>Jacob</td>-->
+<!--              <td>Thornton</td>-->
+<!--              <td>@fat</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <th scope="row">3</th>-->
+<!--              <td>Larry</td>-->
+<!--              <td>the Bird</td>-->
+<!--              <td>@twitter</td>-->
+<!--            </tr>-->
+<!--          </tbody>-->
+        </table>
+
+        <a class="btn btn-warning btn-lg" href="/" role="button">Return Home</a>
 
     </div>
   </div>
