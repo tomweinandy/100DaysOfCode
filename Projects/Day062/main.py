@@ -1,8 +1,8 @@
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms import StringField, SubmitField, SelectField
+from wtforms.validators import DataRequired, URL
 import csv
 
 app = Flask(__name__)
@@ -11,7 +11,18 @@ Bootstrap(app)
 
 
 class CafeForm(FlaskForm):
-    cafe = StringField('Cafe name', validators=[DataRequired()])
+    cafe = StringField('Café name', validators=[DataRequired()])
+    location = StringField('Location', validators=[DataRequired()])
+    open = StringField('Open', validators=[DataRequired()])
+    close = StringField('Close', validators=[DataRequired()])
+
+    coffee_choices = ['☕️', '☕️☕️', '☕️☕️☕️', '☕️☕️☕️☕️', '☕️☕️☕️☕️☕️', '✘']
+    wifi_choices = ['💪', '💪💪', '💪💪💪', '💪💪💪💪', '💪💪💪💪💪', '✘']
+    power_choices = ['🔌', '🔌🔌', '🔌🔌🔌', '🔌🔌🔌🔌', '🔌🔌🔌🔌🔌', '✘']
+
+    coffee = SelectField('Coffee', choices=coffee_choices, validators=[DataRequired()])
+    wifi = SelectField('Wifi', choices=wifi_choices, validators=[URL()])
+    power = SelectField('Power', choices=power_choices, validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 # Exercise:
@@ -22,7 +33,14 @@ class CafeForm(FlaskForm):
 # use a validator to check that the URL field has a URL entered.
 # ---------------------------------------------------------------------------
 
+#
+# class Inputs(FlaskForm):
+#     myChoices = 3
+#     myField = SelectField(u'Field name', choices=myChoices, validators=[DataRequired()])
+
+
 # todo change background color
+# todo format table
 
 # all Flask routes below
 @app.route("/")
@@ -35,6 +53,8 @@ def add_cafe():
     form = CafeForm()
     if form.validate_on_submit():
         print("True")
+
+
     # Exercise:
     # Make the form write a new row into cafe-data.csv
     # with   if form.validate_on_submit()
