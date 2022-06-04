@@ -23,14 +23,12 @@ class BookForm(FlaskForm):
     submit = SubmitField('Submit')
 
     def add_to_dict(self, title, author, rating):
-        print('1', title, author, rating)
-
         book_dict = {'title': title,
                      'author': author,
                      'rating': rating}
 
         all_books.append(book_dict)
-        print(f'Added {book_dict}')
+        print(all_books)
 
 
 @app.route('/')

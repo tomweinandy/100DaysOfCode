@@ -1,49 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
 
-<head>
-    <meta charset="UTF-8">
-    <title>Add Book</title>
-</head>
-<body>
-    <form action="" method="POST">
-        <label>Book Name</label>
-        <input type="text">
-        <label>Book Author</label>
-        <input type="text">
-        <label>Rating</label>
-        <input type="text">
-        <button type="submit">Add Book</button>
-    </form>
-</body>
-</html>
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Add Book</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <form action="" method="POST">-->
+<!--        <label>Book Name</label>-->
+<!--        <input type="text">-->
+<!--        <label>Book Author</label>-->
+<!--        <input type="text">-->
+<!--        <label>Rating</label>-->
+<!--        <input type="text">-->
+<!--        <button type="submit">Add Book</button>-->
+<!--    </form>-->
+<!--</body>-->
+<!--</html>-->
 
-<!--{% extends 'bootstrap/base.html' %}-->
-<!--{{ print('checkpoint 1') }}-->
-<!--{% import "bootstrap/wtf.html" as wtf %}-->
-<!--{{ print('checkpoint 2') }}-->
+{% extends 'bootstrap/base.html' %}
+{{ print('checkpoint 1') }}
+{% import "bootstrap/wtf.html" as wtf %}
+{{ print('checkpoint 2') }}
 
-<!--{% block styles %}-->
+{% block styles %}
 <!--{{ super() }}-->
-<!--&lt;!&ndash;	<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">&ndash;&gt;-->
-<!--{% endblock %}-->
+<!--	<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">-->
+{% endblock %}
 
-<!--{% block title %}Add A New Café{% endblock %}-->
+{% block title %}Add A New Café{% endblock %}
 
-<!--{% block content %}-->
-<!--<div class="container">-->
-<!--  <div class="row">-->
-<!--    <div class="col-sm-12 col-md-8">-->
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8">
 
-<!--      <h1>Add a new caf into the database</h1>-->
+      <h1>Add a new caf into the database</h1>
 
-<!--        {{ wtf.quick_form(form) }}-->
+        {{ wtf.quick_form(form) }}
 
-<!--      <br>-->
-<!--&lt;!&ndash;      <a class="btn btn-warning btn-lg" href="/cafes" role="button">See All Cafes</a>&ndash;&gt;-->
+      <br>
+<!--      <a class="btn btn-warning btn-lg" href="/cafes" role="button">See All Cafes</a>-->
 
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+    </div>
+  </div>
+</div>
 
-<!--{% endblock %}-->
+{% endblock %}
