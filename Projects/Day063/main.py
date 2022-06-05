@@ -45,7 +45,7 @@ def add():
         form.add_to_dict(form.title.data, form.author.data, form.rating.data)
         return redirect(url_for('add'))
 
-    return render_template('add.html', form=form)
+    return render_template('add.html', form=form, all_books=all_books)
 
 
 if __name__ == "__main__":

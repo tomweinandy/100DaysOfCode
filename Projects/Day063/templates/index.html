@@ -6,10 +6,11 @@
 </head>
 <body>
 <h1>My Library</h1>
+{{ for book in all_books: }}
     <ul>
-        <li></li>
+        <li>{{book}}</li>
     </ul>
-    
+{{ endfor }}
 <a href="/add">Add New Book</a>
 </body>
 </html>
