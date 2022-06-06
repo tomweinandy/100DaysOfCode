@@ -39,7 +39,7 @@ def home():
 @app.route("/add", methods=['POST', 'GET'])
 def add():
     form = BookForm()
-    print()
+    print(len(all_books))
 
     if form.validate_on_submit():
         form.add_to_dict(form.title.data, form.author.data, form.rating.data)
