@@ -13,6 +13,7 @@ app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 Bootstrap(app)
 
 all_books = []
+all_books = [{'title': 'Hatchet', 'author':'Gary Paulsen', 'rating': '⭐⭐⭐⭐⭐'}]
 
 
 class BookForm(FlaskForm):
