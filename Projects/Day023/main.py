@@ -36,11 +36,18 @@ while game_on:
 
     for car in car_manager.cars:
         x_distance = abs(car.position()[0] - player.position()[0])
-        y_distance = abs(car.position()[1] - player.position()[1])
+        distance_above = abs(car.position()[1] - player.position()[1])
+        distance_below = abs(player.position()[1] - car.position()[1])
 
-        if x_distance < 10 and y_distance < 20:
+        if x_distance < 10 and distance_above < 18:
             scoreboard.game_over(traffic_rate)
             game_on = False
+            print(f'ABOVE x_distance: {x_distance}, distance_above: {distance_above}, distance_below: {distance_below}')
+
+        if x_distance < 10 and distance_below < 18:
+            scoreboard.game_over(traffic_rate)
+            game_on = False
+            print(f'BELOW x_distance: {x_distance}, distance_above: {distance_above}, distance_below: {distance_below}')
 
     if player.ycor() > FINISH_LINE_Y:
         scoreboard.level_up(traffic_rate)
@@ -48,9 +55,9 @@ while game_on:
         player.reset_position()
         # print(f'Traffic: {round(car_manager.traffic_rate, 2)}')
 
-    # todo add traffic rate
     # todo test sensitivity
     # todo document
+    # todo fix writing over traffic
 
 
 screen.exitonclick()
