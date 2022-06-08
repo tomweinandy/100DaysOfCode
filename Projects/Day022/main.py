@@ -27,7 +27,7 @@ t = turtle.Turtle()
 t.color('white')
 t.penup()
 t.goto(0, -290)
-instructions = 'Left moves with Esc/Tab. Right moves with Up/Down. Best of 11 points wins. Press Backspace to begin.'
+instructions = 'Left moves with Esc/Tab. Right moves with Up/Down. First to 5 points wins. Press Backspace to begin.'
 t.write(instructions, align='center', font=('Courier', 12, 'normal'))
 t.goto(0, 1000)
 
@@ -121,8 +121,8 @@ while game_on:
             ball.color('red')
             screen.update()
 
-            # Check if 11 points reached
-            if scoreboard.left_score + scoreboard.right_score > 10:
+            # Check if 5 points reached
+            if scoreboard.left_score == 5:
                 scoreboard.win('left')
                 ball.pause()
                 game_on = False
@@ -136,8 +136,8 @@ while game_on:
             ball.color('red')
             screen.update()
 
-            # Check if 11 points reached
-            if scoreboard.left_score + scoreboard.right_score > 10:
+            # Check if 5 points reached
+            if scoreboard.right_score == 5:
                 scoreboard.win('right')
                 ball.pause()
                 game_on = False
