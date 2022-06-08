@@ -19,6 +19,14 @@ class Ball(Turtle):
         self.x_direction = 1
         self.y_direction = 1
 
+    def random_jitter(self):
+        # if random.randint(0,1) == 1:
+        #     self.right(10)
+        # else:
+        #     self.left(10)
+        jitter = random.randint(-20, 20)
+        self.right(jitter)
+
     def pause(self):
         """
         Pause ball movement (a little glitchy)
@@ -44,9 +52,10 @@ class Ball(Turtle):
         """
         if x:
             self.x_direction *= -1
-            self.turn(10)
+            self.random_jitter()
         if y:
             self.y_direction *= -1
+            self.random_jitter()
 
     def increase_speed(self):
         """
