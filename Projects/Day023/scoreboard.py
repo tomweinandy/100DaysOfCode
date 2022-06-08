@@ -21,8 +21,6 @@ class Scoreboard(Turtle):
     def level_up(self, traffic_rate):
         self.level += 1
         self.clear()
-        self.goto(SCOREBOARD_POSITION)
-        self.write(f'Level: {self.level}', font=FONT)
         self.write_traffic(traffic_rate)
 
     def game_over(self, traffic_rate):
