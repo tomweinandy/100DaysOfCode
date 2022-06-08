@@ -91,17 +91,3 @@ class Snake:
         """
         if self.head.heading() != LEFT:
             self.head.setheading(0)
-
-
-def play_again():
-    """
-    Prompt player if they want to play again
-    :return: False for input of "quit", True for any other entry
-    """
-    screen = turtle.Screen()
-    play = screen.textinput(title='Play again',
-                                  prompt='Press "enter"/"return" to play again or type "quit" to end.')
-    if play == 'quit':
-        return False
-    else:
-        return True

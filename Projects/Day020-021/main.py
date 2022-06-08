@@ -7,6 +7,21 @@ import time
 import food
 import scoreboard
 
+
+def play_again():
+    """
+    Prompt player if they want to play again
+    :return: False for input of "quit", True for any other entry
+    """
+    # screen = turtle.Screen()
+    play = screen.textinput(title='Play again',
+                                  prompt='Press "enter"/"return" to play again or type "quit" to end.')
+    if play == 'quit':
+        return False
+    else:
+        return True
+
+
 # Set initial conditions
 screen = turtle.Screen()
 screen.setup(width=600, height=600)
@@ -41,14 +56,14 @@ while game_on:
 
     # Detect collision with wall
     if snek.head.xcor() > 300 or snek.head.xcor() < -300 or snek.head.ycor() > 300 or snek.head.ycor() < -280:
-        game_on = snake.play_again()
+        game_on = play_again()
         scoreboard.reset()
         snek.reset()
 
     # Detect collision with tail
     for segment in snek.segments[3:]:
         if snek.head.distance(segment) < 5:
-            game_on = snake.play_again()
+            game_on = play_again()
             scoreboard.reset()
             snek.reset()
 
