@@ -46,7 +46,7 @@ while game_on:
         snek.reset()
 
     # Detect collision with tail
-    for segment in snek.segments[4:]:
+    for segment in snek.segments[3:]:
         if snek.head.distance(segment) < 5:
             game_on = snake.play_again()
             scoreboard.reset()

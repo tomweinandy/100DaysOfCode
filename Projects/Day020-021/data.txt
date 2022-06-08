@@ -1,1 +1,1 @@
-{"easy": [0, "Aaron"], "normal": [0, "Aaron"], "hard": [0, "Aaron"]}
+{"easy": [0, "Aaron"], "normal": [31, ""], "hard": [0, "Aaron"]}
