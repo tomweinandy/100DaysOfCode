@@ -39,12 +39,12 @@ while game_on:
         distance_above = abs(car.position()[1] - player.position()[1])
         distance_below = abs(player.position()[1] - car.position()[1])
 
-        if x_distance < 10 and distance_above < 18:
+        if x_distance < 19 and distance_above < 20:
             scoreboard.game_over(traffic_rate)
             game_on = False
             print(f'ABOVE x_distance: {x_distance}, distance_above: {distance_above}, distance_below: {distance_below}')
 
-        if x_distance < 10 and distance_below < 18:
+        if x_distance < 19 and distance_below < 19:
             scoreboard.game_over(traffic_rate)
             game_on = False
             print(f'BELOW x_distance: {x_distance}, distance_above: {distance_above}, distance_below: {distance_below}')
