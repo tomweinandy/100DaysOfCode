@@ -7,6 +7,9 @@ FINISH_LINE_Y = 280
 
 class Player(Turtle):
     def __init__(self):
+        """
+        Super class inherited from the Turtle classes used to track the player information and function
+        """
         super().__init__()
         self.shape('turtle')
         self.color('black')
@@ -15,8 +18,14 @@ class Player(Turtle):
         self.left(90)
 
     def move(self):
+        """
+        Moves the player up (turtles never look back)
+        """
         new_y = self.ycor() + MOVE_DISTANCE
         self.goto(0, new_y)
 
     def reset_position(self):
+        """
+        Returns the player to the starting position
+        """
         self.goto(STARTING_POSITION)
