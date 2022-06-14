@@ -50,9 +50,10 @@ while game_on:
             print(f'BELOW x_distance: {x_distance}, distance_above: {distance_above}, distance_below: {distance_below}')
 
     if player.ycor() > FINISH_LINE_Y:
-        scoreboard.level_up(traffic_rate)
+        # scoreboard.clear()
         car_manager.increase_traffic()
         player.reset_position()
+        scoreboard.level_up(traffic_rate)
         # print(f'Traffic: {round(car_manager.traffic_rate, 2)}')
 
     # todo test sensitivity

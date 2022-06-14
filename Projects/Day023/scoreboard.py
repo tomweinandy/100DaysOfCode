@@ -26,7 +26,8 @@ class Scoreboard(Turtle):
         :param traffic_rate: The rate of traffic flow (begins at 0.1)
         """
         self.level += 1
-        self.clear()
+        # self.clear()
+        # self.write_traffic(traffic_rate)
         self.write_level()
         self.write_traffic(traffic_rate)
 
@@ -36,8 +37,9 @@ class Scoreboard(Turtle):
         :param traffic_rate: The rate of traffic flow (begins at 0.1)
         """
         self.clear()
-        self.write_level()
         self.write_traffic(traffic_rate)
+        self.write_level()
+        # self.write_traffic(traffic_rate)
         self.goto(GAME_OVER_POSITION)
         self.write('Game Over.', font=FONT)
 
@@ -46,6 +48,7 @@ class Scoreboard(Turtle):
         Posts the current traffic rate
         :param traffic_rate: The rate of traffic flow (begins at 0.1)
         """
+        # self.clear()
         self.goto(TRAFFIC_POSITION)
         self.write(f'Traffic Rate: {traffic_rate}', font=FONT)
 
