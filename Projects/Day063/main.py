@@ -33,10 +33,34 @@ class Book(db.Model):
 
 db.create_all()
 
-# Add new entry
-book1 = Book(id=1, title='Hatchet', author='Gary Paulsen', rating=10)
-db.session.add(book1)
-db.session.commit()
+# # Create a new record
+# # Alternatively, id is optional and will be auto-generated if excluded
+# new_book = Book(id=1, title='Hatchet', author='Gary Paulsen', rating=10)
+# db.session.add(new_book)
+# db.session.commit()
+
+# # Read all records
+# all_books = db.session.query(Book).all
+
+# # Read a particular book
+# book = Book.query.filter_by(title='Hatchet').first()
+
+# # Update a particular record by query
+# book_to_update = Book.query.filter_by(title='Hatchet').first()
+# book_to_update.title = "Brian's Winter"
+# db.session.commit()
+
+# # Update a record by primary key
+# book_id = 1
+# book_to_update = Book.query.get(book_id)
+# book_to_update.title = 'The River'
+# db.session.commit()
+
+# # Delete a particular record by primary key
+# book_id = 1
+# book_to_delete = Book.query.get(book_id)
+# db.session.commit()
+
 
 
 # ** Code commented out because code is supplanted by SQLAlchemy **
