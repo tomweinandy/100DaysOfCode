@@ -6,14 +6,17 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
+import sqlite3
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 Bootstrap(app)
 
-all_books = []
-all_books = [{'title': 'Hatchet', 'author':'Gary Paulsen', 'rating': '⭐⭐⭐⭐⭐'}]
+db = sqlite3.connect('books-collection.db')
+
+# all_books = []
+all_books = [{'title': 'Hatchet', 'author': 'Gary Paulsen', 'rating': '⭐⭐⭐⭐⭐'}]
 
 
 class BookForm(FlaskForm):
@@ -34,7 +37,7 @@ class BookForm(FlaskForm):
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index.html', all_books=all_books)
 
 
 @app.route("/add", methods=['POST', 'GET'])

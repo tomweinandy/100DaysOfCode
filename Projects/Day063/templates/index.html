@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <title>Library</title>
 </head>
+
 <body>
 <h1>My Library</h1>
 {% for book in all_books: %}
     <ul>
-        <li>{{book['title']}}</li>
-        <li>{{book['author']}}</li>
-        <li>{{book['rating']}}</li>
+        <li> {{ book['title'] }} - {{ book['author'] }} - {{ book['rating'] }} </li>
     </ul>
+
+
 {% endfor %}
 <a href="/add">Add New Book</a>
 </body>
