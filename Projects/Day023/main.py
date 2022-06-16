@@ -34,21 +34,21 @@ while game_on:
     car_manager.add_cars()
     car_manager.green_light()
     traffic_rate = round(car_manager.traffic_rate, 2)
-    scoreboard.write_traffic(traffic_rate)
+    scoreboard.write_traffic()
 
-    # Check deistance between turtle and cars
+    # Check distance between turtle and cars
     for car in car_manager.cars:
         x_distance = abs(car.position()[0] - player.position()[0])
         distance_above = abs(car.position()[1] - player.position()[1])
         distance_below = abs(player.position()[1] - car.position()[1])
 
         if x_distance < 19 and distance_above < 20:
-            scoreboard.game_over(traffic_rate)
+            scoreboard.game_over()
             game_on = False
             print(f'ABOVE x_distance: {x_distance}, distance_above: {distance_above}, distance_below: {distance_below}')
 
         if x_distance < 19 and distance_below < 19:
-            scoreboard.game_over(traffic_rate)
+            scoreboard.game_over()
             game_on = False
             print(f'BELOW x_distance: {x_distance}, distance_above: {distance_above}, distance_below: {distance_below}')
 
@@ -56,12 +56,11 @@ while game_on:
         # scoreboard.clear()
         car_manager.increase_traffic()
         player.reset_position()
-        scoreboard.level_up(traffic_rate)
+        scoreboard.level_up()
         # print(f'Traffic: {round(car_manager.traffic_rate, 2)}')
 
     # todo test sensitivity
     # todo document
-    # todo fix writing over traffic
 
 
 screen.exitonclick()

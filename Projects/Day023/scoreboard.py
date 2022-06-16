@@ -20,37 +20,37 @@ class Scoreboard(Turtle):
         self.goto(RULES_POSITION)
         self.write('Turtles never look back', font=FONT)
 
-    def level_up(self, traffic_rate):
+    def level_up(self):
         """
         Increase the level by one
         :param traffic_rate: The rate of traffic flow (begins at 0.1)
         """
         self.level += 1
-        # self.clear()
+        self.clear()
         # self.write_traffic(traffic_rate)
         self.write_level()
-        self.write_traffic(traffic_rate)
+        self.write_traffic()
 
-    def game_over(self, traffic_rate):
+    def game_over(self):
         """
         Ends the game and prints "game over"
-        :param traffic_rate: The rate of traffic flow (begins at 0.1)
         """
         self.clear()
-        self.write_traffic(traffic_rate)
+        self.write_traffic()
         self.write_level()
         # self.write_traffic(traffic_rate)
         self.goto(GAME_OVER_POSITION)
         self.write('Game Over.', font=FONT)
 
-    def write_traffic(self, traffic_rate):
+    def write_traffic(self):
         """
-        Posts the current traffic rate
-        :param traffic_rate: The rate of traffic flow (begins at 0.1)
+        Posts the current traffic rate (begins at 0.1 and then increases by 10% each level)
         """
         # self.clear()
         self.goto(TRAFFIC_POSITION)
-        self.write(f'Traffic Rate: {traffic_rate}', font=FONT)
+        traffic_rate = 0.1 * (1.1 ** (self.level-1))
+        traffic_rate_rounded = round(traffic_rate, 2)
+        self.write(f'Traffic Rate: {traffic_rate_rounded}', font=FONT)
 
     def write_level(self):
         """
