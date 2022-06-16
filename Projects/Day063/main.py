@@ -7,16 +7,48 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 import sqlite3
+from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///new-books-collection.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # silences warnings
 Bootstrap(app)
 
-db = sqlite3.connect('books-collection.db')
+# Create new database
+db = SQLAlchemy(app)
 
-# all_books = []
-all_books = [{'title': 'Hatchet', 'author': 'Gary Paulsen', 'rating': '⭐⭐⭐⭐⭐'}]
+
+# Create books table
+class Book(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(250), nullable=False, unique=True)
+    author = db.Column(db.String(250), nullable=False)
+    rating = db.Column(db.Float, nullable=False)
+
+    def __repr__(self):
+        return f'<Book {self.title}>'
+
+
+db.create_all()
+
+# Add new entry
+book1 = Book(id=1, title='Hatchet', author='Gary Paulsen', rating=10)
+db.session.add(book1)
+db.session.commit()
+
+
+# ** Code commented out because code is supplanted by SQLAlchemy **
+# # Create a database and cursor
+# db = sqlite3.connect('books-collection.db')
+# cursor = db.cursor()
+#
+# # Create table and add entry
+# cursor.execute("CREATE TABLE books (id INTEGER PRIMARY KEY, title varchar(250) NOT NULL UNIQUE, author varchar(250) NOT NULL, rating FLOAT NOT NULL)")
+# cursor.execute("INSERT INTO books VALUES(1, 'Hatchet', 'Gary Paulsen', '⭐⭐⭐⭐⭐')")
+
+# all_books = [{'title': 'Hatchet', 'author': 'Gary Paulsen', 'rating': '⭐⭐⭐⭐⭐'}]
 
 
 class BookForm(FlaskForm):
