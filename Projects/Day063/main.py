@@ -1,5 +1,5 @@
 """
-Day 63:
+Day 63: Book Review Site with SQLite and SQLAlchemy
 """
 from flask import Flask, render_template, request, redirect, url_for
 from flask_bootstrap import Bootstrap
@@ -70,9 +70,6 @@ all_books = db.session.query(Book).all()
 # book_id = 1
 # book_to_delete = Book.query.get(book_id)
 # db.session.commit()
-
-
-# all_books = [{'title': 'Hatchet', 'author': 'Gary Paulsen', 'rating': '⭐⭐⭐⭐⭐'}]
 
 
 class BookForm(FlaskForm):
