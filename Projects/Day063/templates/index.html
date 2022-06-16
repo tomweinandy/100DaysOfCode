@@ -7,9 +7,10 @@
 
 <body>
 <h1>My Library</h1>
+
 {% for book in all_books: %}
     <ul>
-        <li> {{ book['title'] }} - {{ book['author'] }} - {{ book['rating'] }} </li>
+        <li> {{ book.title }} - {{ book.author }} - {{ book.rating }} </li>
     </ul>
 
 
