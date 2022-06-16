@@ -5,7 +5,6 @@ SCOREBOARD_POSITION = (-280, 260)
 RULES_POSITION = (-50, 260)
 GAME_OVER_POSITION = (125, 260)
 TRAFFIC_POSITION = (-280, -280)
-# TRAFFIC_POSITION = (-280, 260) #todo
 
 
 class Scoreboard(Turtle):
@@ -23,11 +22,9 @@ class Scoreboard(Turtle):
     def level_up(self):
         """
         Increase the level by one
-        :param traffic_rate: The rate of traffic flow (begins at 0.1)
         """
         self.level += 1
         self.clear()
-        # self.write_traffic(traffic_rate)
         self.write_level()
         self.write_traffic()
 
@@ -38,7 +35,6 @@ class Scoreboard(Turtle):
         self.clear()
         self.write_traffic()
         self.write_level()
-        # self.write_traffic(traffic_rate)
         self.goto(GAME_OVER_POSITION)
         self.write('Game Over.', font=FONT)
 
@@ -46,7 +42,6 @@ class Scoreboard(Turtle):
         """
         Posts the current traffic rate (begins at 0.1 and then increases by 10% each level)
         """
-        # self.clear()
         self.goto(TRAFFIC_POSITION)
         traffic_rate = 0.1 * (1.1 ** (self.level-1))
         traffic_rate_rounded = round(traffic_rate, 2)

@@ -43,7 +43,7 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 * [Day 26: NATO Phonetic Alphabet Converter](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day026)
 * [Day 25: U.S. States Game*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day025)
 * [Day 24: Mail Merge](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day024)
-* [Day 23: Turtle Crossing](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day023)
+* [Day 23: Turtle Crossing*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day023)
 * [Day 22: Pong Game*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day022)
 * [Day 20-21: Snake Game*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day020-021)
 * [Day 19: Etch-A-Sketch & Turtle Race](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day019)

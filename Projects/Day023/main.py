@@ -42,25 +42,19 @@ while game_on:
         distance_above = abs(car.position()[1] - player.position()[1])
         distance_below = abs(player.position()[1] - car.position()[1])
 
-        if x_distance < 19 and distance_above < 20:
+        if x_distance < 19 and distance_above < 10:
             scoreboard.game_over()
             game_on = False
             print(f'ABOVE x_distance: {x_distance}, distance_above: {distance_above}, distance_below: {distance_below}')
 
-        if x_distance < 19 and distance_below < 19:
+        if x_distance < 19 and distance_below < 10:
             scoreboard.game_over()
             game_on = False
             print(f'BELOW x_distance: {x_distance}, distance_above: {distance_above}, distance_below: {distance_below}')
 
     if player.ycor() > FINISH_LINE_Y:
-        # scoreboard.clear()
         car_manager.increase_traffic()
         player.reset_position()
         scoreboard.level_up()
-        # print(f'Traffic: {round(car_manager.traffic_rate, 2)}')
-
-    # todo test sensitivity
-    # todo document
-
 
 screen.exitonclick()
