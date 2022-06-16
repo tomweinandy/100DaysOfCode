@@ -24,16 +24,19 @@ car_manager.hideturtle()
 screen.listen()
 screen.onkey(player.move, 'Up')
 
+# Run everything while the game is in play
 game_on = True
 while game_on:
     time.sleep(0.1)
     screen.update()
 
+    # Add traffic and update scoreboard
     car_manager.add_cars()
     car_manager.green_light()
     traffic_rate = round(car_manager.traffic_rate, 2)
     scoreboard.write_traffic(traffic_rate)
 
+    # Check deistance between turtle and cars
     for car in car_manager.cars:
         x_distance = abs(car.position()[0] - player.position()[0])
         distance_above = abs(car.position()[1] - player.position()[1])
