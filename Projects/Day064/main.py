@@ -9,25 +9,37 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, FloatField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired
 import requests
+import json
 
-# Create database
+# Set secret key
+with open('../../../../Dropbox/100DaysOfCodePRIVATE/Day64Creds.json') as file:
+    creds = json.loads(file.read())
+
+MOVIE_DB_API_KEY = creds['KEY']
+MOVIE_DB_SEARCH_URL = "https://api.themoviedb.org/3/search/movie"
+MOVIE_DB_INFO_URL = "https://api.themoviedb.org/3/movie"
+MOVIE_DB_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
+
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+Bootstrap(app)
+
+# Create database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///top-movies.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # silences warnings
-Bootstrap(app)
 db = SQLAlchemy(app)
 
 
 # Create movie table
 class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(250), nullable=False)
     year = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(500), nullable=True)
-    rating = db.Column(db.Float)
+    rating = db.Column(db.Float, nullable=True)
     ranking = db.Column(db.Integer, nullable=True)
-    review = db.Column(db.String(500), nullable=True)
+    review = db.Column(db.String(250), nullable=True)
     img_url = db.Column(db.String, nullable=True)
 
     def __repr__(self):
@@ -44,67 +56,68 @@ class Movie(db.Model):
 
 db.create_all()
 
-# Query database
-movies_db = db.session.query(Movie).all()
+
+class FindMovieForm(FlaskForm):
+    title = StringField("Movie Title", validators=[DataRequired()])
+    submit = SubmitField("Add Movie")
 
 
-# Create movie submission form
-class MovieForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()])
-    year = IntegerField('Year', validators=[DataRequired()])
-    description = TextAreaField('Description', validators=[DataRequired()])
-    rating = FloatField('Rating')
-    ranking = IntegerField('Ranking', validators=[DataRequired()])
-    review = TextAreaField('Review', validators=[DataRequired()])
-    img_url = StringField('Image URL', validators=[DataRequired()])
-    submit = SubmitField()
-
-    def add_to_db(self, title, year, description, ranking, review, img_url, rating=0):
-        new_movie = Movie(title=title, year=year, description=description, ranking=ranking,
-                          review=review, img_url=img_url, rating=rating)
-        db.session.add(new_movie)
-        db.session.commit()
-
-
-# Edit movie submission form
-class MovieFormShort(FlaskForm):
-    rating = FloatField('Rating')
-    review = TextAreaField('Review', validators=[DataRequired()])
-    submit = SubmitField()
-
-    def edit_db(self, movie_to_update, new_rating, new_review):
-        movie_to_update.rating = new_rating
-        movie_to_update.review = new_review
-        db.session.commit()
+class RateMovieForm(FlaskForm):
+    rating = StringField("Your Rating Out of 10 e.g. 7.5")
+    review = TextAreaField("Your Review")
+    submit = SubmitField("Done")
 
 
 @app.route("/")
 def home():
-    return render_template("index.html", movies_db=movies_db)
+    all_movies = Movie.query.order_by(Movie.rating).all()
+    for i in range(len(all_movies)):
+        all_movies[i].ranking = len(all_movies) - i
+    db.session.commit()
+    return render_template("index.html", movies=all_movies)
 
 
-@app.route("/add", methods=['POST', 'GET'])
-def add():
-    form = MovieForm()
+@app.route("/add", methods=["GET", "POST"])
+def add_movie():
+    form = FindMovieForm()
     if form.validate_on_submit():
-        form.add_to_db(form.title.data, form.year.data, form.description.data, form.ranking.data,
-                       form.review.data, form.img_url.data, form.rating.data)
-        return redirect(url_for('home'))
-    return render_template('add.html', form=form)
+        movie_title = form.title.data
+
+        response = requests.get(MOVIE_DB_SEARCH_URL, params={"api_key": MOVIE_DB_API_KEY, "query": movie_title})
+        data = response.json()["results"]
+        return render_template("select.html", options=data)
+    return render_template("add.html", form=form)
 
 
-@app.route("/edit", methods=['POST', 'GET'])
-def edit():
-    # Update a particular record by query
+@app.route("/find")
+def find_movie():
+    movie_api_id = request.args.get("id")
+    if movie_api_id:
+        movie_api_url = f"{MOVIE_DB_INFO_URL}/{movie_api_id}"
+        response = requests.get(movie_api_url, params={"api_key": MOVIE_DB_API_KEY, "language": "en-US"})
+        data = response.json()
+        new_movie = Movie(
+            title=data["title"],
+            year=data["release_date"].split("-")[0],
+            img_url=f"{MOVIE_DB_IMAGE_URL}{data['poster_path']}",
+            description=data["overview"]
+        )
+        db.session.add(new_movie)
+        db.session.commit()
+        return redirect(url_for("rate_movie", id=new_movie.id))
+
+
+@app.route("/edit", methods=["GET", "POST"])
+def rate_movie():
+    form = RateMovieForm()
     movie_id = request.args.get("id")
-    movie_to_update = Movie.query.get(movie_id)
-
-    edit_form = MovieFormShort()
-    if edit_form.validate_on_submit():
-        edit_form.edit_db(movie_to_update, edit_form.rating.data, edit_form.review.data)
-
+    movie = Movie.query.get(movie_id)
+    if form.validate_on_submit():
+        movie.rating = float(form.rating.data)
+        movie.review = form.review.data
+        db.session.commit()
         return redirect(url_for('home'))
-    return render_template('edit.html', edit_form=edit_form, movie=movie_to_update)
+    return render_template("edit.html", movie=movie, form=form)
 
 
 @app.route("/delete")

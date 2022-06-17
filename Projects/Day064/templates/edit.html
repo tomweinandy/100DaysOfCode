@@ -14,6 +14,6 @@
 <div class="content">
   <h1 class="heading">{{ movie.title }} ({{ movie.year }})</h1>
     <p class="description">Edit Movie Rating</p>
-          {{ wtf.quick_form(edit_form) }}
+      {{ wtf.quick_form(form, novalidate=True) }}
   </div>
 {% endblock %}
