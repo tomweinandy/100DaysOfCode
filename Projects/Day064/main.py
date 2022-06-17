@@ -1,7 +1,6 @@
 """
 Day 64: Top 10 Movie Website
 """
-
 from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
@@ -15,12 +14,13 @@ import json
 with open('../../../../Dropbox/100DaysOfCodePRIVATE/Day64Creds.json') as file:
     creds = json.loads(file.read())
 
+# Define URLs for The Movie Data Base
 MOVIE_DB_API_KEY = creds['KEY']
 MOVIE_DB_SEARCH_URL = "https://api.themoviedb.org/3/search/movie"
 MOVIE_DB_INFO_URL = "https://api.themoviedb.org/3/movie"
 MOVIE_DB_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 
-
+# Create Flask application
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 Bootstrap(app)
@@ -57,17 +57,20 @@ class Movie(db.Model):
 db.create_all()
 
 
+# Create form for searching for movies
 class FindMovieForm(FlaskForm):
     title = StringField("Movie Title", validators=[DataRequired()])
     submit = SubmitField("Add Movie")
 
 
+# Create form to rate movies
 class RateMovieForm(FlaskForm):
     rating = StringField("Your Rating Out of 10 e.g. 7.5")
     review = TextAreaField("Your Review")
     submit = SubmitField("Done")
 
 
+# Create homepage
 @app.route("/")
 def home():
     all_movies = Movie.query.order_by(Movie.rating).all()
@@ -77,18 +80,21 @@ def home():
     return render_template("index.html", movies=all_movies)
 
 
+# Create page for adding movies
 @app.route("/add", methods=["GET", "POST"])
 def add_movie():
     form = FindMovieForm()
     if form.validate_on_submit():
         movie_title = form.title.data
 
+        # Search for movie details with API
         response = requests.get(MOVIE_DB_SEARCH_URL, params={"api_key": MOVIE_DB_API_KEY, "query": movie_title})
         data = response.json()["results"]
         return render_template("select.html", options=data)
     return render_template("add.html", form=form)
 
 
+# Create page for searching for movies
 @app.route("/find")
 def find_movie():
     movie_api_id = request.args.get("id")
@@ -107,6 +113,7 @@ def find_movie():
         return redirect(url_for("rate_movie", id=new_movie.id))
 
 
+# Create page for editing movies
 @app.route("/edit", methods=["GET", "POST"])
 def rate_movie():
     form = RateMovieForm()
@@ -120,6 +127,7 @@ def rate_movie():
     return render_template("edit.html", movie=movie, form=form)
 
 
+# Create path for deleting a movie
 @app.route("/delete")
 def delete_movie():
     movie_id = request.args.get("id")
