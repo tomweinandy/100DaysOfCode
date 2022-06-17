@@ -50,7 +50,6 @@ movies_db = db.session.query(Movie).all()
 
 # Create movie submission form
 class MovieForm(FlaskForm):
-    # id = IntegerField('ID')
     title = StringField('Title', validators=[DataRequired()])
     year = IntegerField('Year', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
@@ -67,6 +66,18 @@ class MovieForm(FlaskForm):
         db.session.commit()
 
 
+# Edit movie submission form
+class MovieFormShort(FlaskForm):
+    rating = FloatField('Rating')
+    review = TextAreaField('Review', validators=[DataRequired()])
+    submit = SubmitField()
+
+    def edit_db(self, movie_to_update, new_rating, new_review):
+        movie_to_update.rating = new_rating
+        movie_to_update.review = new_review
+        db.session.commit()
+
+
 @app.route("/")
 def home():
     return render_template("index.html", movies_db=movies_db)
@@ -78,10 +89,22 @@ def add():
     if form.validate_on_submit():
         form.add_to_db(form.title.data, form.year.data, form.description.data, form.ranking.data,
                        form.review.data, form.img_url.data, form.rating.data)
+        return redirect(url_for('home'))
+    return render_template('add.html', form=form)
+
+
+@app.route("/edit", methods=['POST', 'GET'])
+def edit():
+    # Update a particular record by query
+    movie_id = request.args.get("id")
+    movie_to_update = Movie.query.get(movie_id)
+
+    edit_form = MovieFormShort()
+    if edit_form.validate_on_submit():
+        edit_form.edit_db(movie_to_update, edit_form.rating.data, edit_form.review.data)
 
         return redirect(url_for('home'))
-
-    return render_template('add.html', form=form)
+    return render_template('edit.html', edit_form=edit_form, movie=movie_to_update)
 
 
 if __name__ == '__main__':
