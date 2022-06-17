@@ -24,10 +24,10 @@ class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     year = db.Column(db.Integer, nullable=False)
-    description = db.Column(db.String(250), nullable=True)
+    description = db.Column(db.String(500), nullable=True)
     rating = db.Column(db.Float)
     ranking = db.Column(db.Integer, nullable=True)
-    review = db.Column(db.String(250), nullable=True)
+    review = db.Column(db.String(500), nullable=True)
     img_url = db.Column(db.String, nullable=True)
 
     def __repr__(self):
@@ -43,6 +43,9 @@ class Movie(db.Model):
 
 
 db.create_all()
+
+# Query database
+movies_db = db.session.query(Movie).all()
 
 
 # Create movie submission form
@@ -66,7 +69,7 @@ class MovieForm(FlaskForm):
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html", movies_db=movies_db)
 
 
 @app.route("/add", methods=['POST', 'GET'])
