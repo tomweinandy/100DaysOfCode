@@ -63,6 +63,14 @@ def show_post(post_id):
     return render_template("post.html", post=requested_post)
 
 
+@app.route("/delete/<int:post_id>")
+def delete_post(post_id):
+    post_to_delete = BlogPost.query.get(post_id)
+    db.session.delete(post_to_delete)
+    db.session.commit()
+    return redirect(url_for('get_all_posts'))
+
+
 @app.route("/make-post", methods=['GET', 'POST'])
 def make_post():
     form = CreatePostForm()
