@@ -3,7 +3,8 @@
 My favorite projects have one asterisk (*) and capstone projects have two.
 
 **Advanced Projects**
-* [Day 67: HTML Blog with Jinja, Flask and SQLite (Pt III)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day067) test link
+* [Day 68: User Authentication with Flask](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day068) test link
+* [Day 67: HTML Blog with Jinja, Flask and SQLite (Pt III)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day067)
 * Day 66: Build REST API ([code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day066)) ([documentation](https://documenter.getpostman.com/view/21536847/UzBmMnEC))
 * [Day 65: Website Design](https://www.canva.com/design/DAFD81ELklo/M6OQd7n2Km426KaQa12RgA/edit?utm_content=DAFD81ELklo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 * [Day 64: Top 10 Movie Site](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day064)
