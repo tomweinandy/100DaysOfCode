@@ -14,7 +14,7 @@
             <h1>{{post.title}}</h1>
             <h2 class="subheading">{{post.subtitle}}</h2>
             <span class="meta">Posted by
-              {{post.author}}
+              {{post.author.name}}
               on {{post.date}}</span>
           </div>
         </div>
@@ -38,20 +38,30 @@
           {% endif %}
 
 <!--           Comments Area -->
+
+<!--          #Load the CKEditor-->
+            {{ ckeditor.load() }}
+<!--          #Configure it with the name of the form field from CommentForm-->
+            {{ ckeditor.config(name='comment_text') }}
+<!--          #Create the wtf quickform from CommentForm-->
+            {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+
           <div class="col-lg-8 col-md-10 mx-auto comment">
 
-              <ul class="commentList">
-                <li>
-                    <div class="commenterImage">
-                      <img src="https://gist.github.com/angelabauer/223c5e4e1a2ecd0f232f18ab3471733a"/>
-                    </div>
-                    <div class="commentText">
-                      <p>Some comment</p>
-                      <span class="date sub-text">comment author name</span>
+                    {% for comment in post.comments: %}
+                    <ul class="commentList">
+                        <li>
+                            <div class="commenterImage">
+                                <img src="{{ comment.comment_author.email | gravatar }}"/>
+                            </div>
+                            <div class="commentText">
+                                {{comment.text|safe}}
+                                <span class="date sub-text">{{comment.comment_author.name}}</span>
 
-                    </div>
-                </li>
-              </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    {% endfor %}
 
             </div>
           </div>

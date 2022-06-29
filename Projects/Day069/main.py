@@ -9,8 +9,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-from forms import CreatePostForm, RegisterForm, LoginForm
-# from flask_gravatar import Gravatar
+from forms import CreatePostForm, RegisterForm, LoginForm, FlaskForm, CKEditorField, SubmitField, DataRequired
+from flask_gravatar import Gravatar
 from functools import wraps
 
 app = Flask(__name__)
@@ -28,12 +28,18 @@ db = SQLAlchemy(app)
 class BlogPost(db.Model):
     __tablename__ = "blog_posts"
     id = db.Column(db.Integer, primary_key=True)
-    author = db.Column(db.String(250), nullable=False)
+
+    # Create Foreign Key, "users.id" the users refers to the tablename of User.
+    author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    # Create reference to the User object, the "posts" refers to the post's property in the User class.
+    author = relationship("User", back_populates="posts")
+
     title = db.Column(db.String(250), unique=True, nullable=False)
     subtitle = db.Column(db.String(250), nullable=False)
     date = db.Column(db.String(250), nullable=False)
     body = db.Column(db.Text, nullable=False)
     img_url = db.Column(db.String(250), nullable=False)
+    comments = relationship("Comment", back_populates="parent_post")
 
 
 # Create the User Table
@@ -44,6 +50,39 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(100))
 
+    # This will act like a List of BlogPost objects attached to each User.
+    # The "author" refers to the author property in the BlogPost class.
+    posts = relationship("BlogPost", back_populates="author")
+
+    # "comment_author" refers to the comment_author property in the Comment class.
+    comments = relationship("Comment", back_populates="comment_author")
+
+
+# Create a Comments Table
+class Comment(db.Model):
+    __tablename__ = "comments"
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.Text, nullable=False)
+
+    # "users.id" The users refers to the tablename of the Users class.
+    author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
+    # "comments" refers to the comment's property in the User class.
+    comment_author = relationship("User", back_populates="comments")
+
+    # child relationship
+    post_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
+    parent_post = relationship("BlogPost", back_populates="comments")
+    text = db.Column(db.Text, nullable=False)
+
+
+# Create a form for commenting on blog posts
+class CommentForm(FlaskForm):
+    comment_text = CKEditorField("Comment", validators=[DataRequired()])
+    submit = SubmitField("Submit Comment")
+
+# Add Gravatar images
+gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False, base_url=None)
 
 # Create all the tables in the database
 db.create_all()
@@ -143,7 +182,22 @@ def logout():
 
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
 def show_post(post_id):
+    form = CommentForm()
     requested_post = BlogPost.query.get(post_id)
+
+    if form.validate_on_submit():
+        if not current_user.is_authenticated:
+            flash("You need to login or register to comment.")
+            return redirect(url_for("login"))
+
+        new_comment = Comment(
+            text=form.comment_text.data,
+            comment_author=current_user,
+            parent_post=requested_post
+        )
+        db.session.add(new_comment)
+        db.session.commit()
+
     return render_template("post.html", post=requested_post, form=form, current_user=current_user)
 
 
