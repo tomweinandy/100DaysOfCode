@@ -1,5 +1,5 @@
 """
-Day 69: HTML Blog with Jinja, Flask and SQLite (Pt IV)
+Day 69-70: HTML Blog with Jinja, Flask and SQLite (Pt IV)
 """
 from flask import Flask, render_template, redirect, url_for, flash, request, abort
 from flask_bootstrap import Bootstrap
