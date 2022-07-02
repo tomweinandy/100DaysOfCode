@@ -4,7 +4,8 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 
 **Advanced Projects**
 
-* [Day 71: Salaries by Major Pandas Data Exploration](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day071)
+* [Day 72: Programming Language Popularity Over Time (Data Visualization)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day072) test link
+* [Day 71: Salaries by Major (Pandas Data Exploration)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day071) test link
 * Day 69-70: HTML Blog with Jinja, Flask and SQLite (Pt IV)** ([initial code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day069-070)) ([new project code](https://github.com/tomweinandy/blog)) ([website](https://thomas--blog.herokuapp.com))
 * [Day 68: User Authentication with Flask](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day068)
 * [Day 67: HTML Blog with Jinja, Flask and SQLite (Pt III)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day067)
