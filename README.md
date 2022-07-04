@@ -4,7 +4,8 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 
 **Advanced Projects**
 
-* [Day 74: Google Trends (More Data Visualization!)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day074) test link
+* [Day 75: Android App Store (Data Visualization with Plotly)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day074)*
+* [Day 74: Google Trends (More Data Visualization!)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day074)*
 * [Day 73: Exploring LEGO Data (Merging and More Visualization)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day073)
 * [Day 72: Programming Language Popularity Over Time (Data Visualization with Matplotlib)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day072)
 * [Day 71: Salaries by Major (Data Exploration with Pandas)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day071)
