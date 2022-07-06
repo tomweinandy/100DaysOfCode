@@ -4,7 +4,8 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 
 **Advanced Projects**
 
-* [Day 77: Movie Theater Data (Linear Regression with sklearn and seaborn)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day077)* test link
+* [Day 78: Nobel Prize Data (Even More Data Visualization! with Matplotlib, Seaborn and Plotly)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day078)* test link
+* [Day 77: Movie Theater Data (Linear Regression with Sklearn and Seaborn)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day077)*
 * [Day 76: Image Manipulation (Linear Algebra with Numpy)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day076)
 * [Day 75: Android App Store (Data Visualization with Plotly)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day075)*
 * [Day 74: Google Trends (More Data Visualization!)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day074)*
