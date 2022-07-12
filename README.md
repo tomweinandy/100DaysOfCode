@@ -4,7 +4,8 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 
 **Advanced Projects**
 
-* [Day 79: Maternal Death Data (Histograms and T-tests)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day079) test link
+* [Day 80: Predicting House Prices (Multivariate Regression)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day080)** test link
+* [Day 79: Maternal Death Data (Histograms and T-tests)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day079)
 * [Day 78: Nobel Prize Data (Even More Data Visualization! with Matplotlib, Seaborn and Plotly)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day078)*
 * [Day 77: Movie Theater Data (Linear Regression with Sklearn and Seaborn)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day077)*
 * [Day 76: Image Manipulation (Linear Algebra with Numpy)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day076)
