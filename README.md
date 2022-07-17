@@ -4,6 +4,7 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 
 **Portfolio Projects**
 
+* [Day 82: TBA](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day082)
 * [Day 81: String to Morse Code Converter](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day081)
 
 
