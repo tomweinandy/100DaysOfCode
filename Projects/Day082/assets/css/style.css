@@ -67,6 +67,10 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   background-color: #000;
 }
 
+.img-circle {
+  border-radius: 50%;
+}
+
 .item {
   border: none;
   margin-bottom: 30px;
