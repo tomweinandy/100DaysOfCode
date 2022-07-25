@@ -6,20 +6,31 @@ from prettytable import PrettyTable, ALL
 
 def print_board(tic_tac_toe_list: list):
     """
+    Converts list of entries into a printed table
     :param tic_tac_toe_list: list of nine tic-tac-toe positions
     """
+    # Define and format pretty table
     table = PrettyTable()
     table.header = False
     table.hrules = ALL
     table.padding_width = 3
 
+    # Built table from list
     table.add_row(tic_tac_toe_list[0:3])
     table.add_row(tic_tac_toe_list[3:6])
     table.add_row(tic_tac_toe_list[6:])
+
     print(table)
 
 
 def add_emojis(player, winning_index, tic_tac_toe_list):
+    """
+    Replaces the winning set of marks with emojis.
+    :param player: The winning player
+    :param winning_index: The list of three numbers that builds an index for a winning set.
+    :param tic_tac_toe_list: List of entries.
+    :return: The tic_tac_toe_list
+    """
     if player == 'X':
         emoji = '🙅'
     else:
@@ -32,6 +43,11 @@ def add_emojis(player, winning_index, tic_tac_toe_list):
 
 
 def check_for_winner(tic_tac_toe_list):
+    """
+    Checks if there is a winner in the current game
+    :param tic_tac_toe_list: list of entries
+    :return: True/False whether we have a winner.
+    """
     we_have_a_winner = False
 
     # Identify winning permutations
@@ -66,6 +82,11 @@ def check_for_winner(tic_tac_toe_list):
 
 
 def check_for_draw(tic_tac_toe_list):
+    """
+    Checks if there is a draw in the current game
+    :param tic_tac_toe_list: list of entries
+    :return: True/False whether we have a draw.
+    """
     if ' ' in tic_tac_toe_list:
         we_have_a_draw = False
     else:
@@ -77,6 +98,11 @@ def check_for_draw(tic_tac_toe_list):
 
 
 def change_active_player(active_player):
+    """
+    Changes active player
+    :param active_player: Previous active player
+    :return: New active player, opposite of previous
+    """
     if active_player == 'X':
         new_active_player = 'O'
     else:
@@ -98,8 +124,8 @@ coordinates = [key for key in board_dict.keys()]
 
 # Begin game
 game_on = True
-
 while game_on:
+    # Define current game state
     winner = False
     draw = False
 
@@ -113,13 +139,12 @@ while game_on:
 
     # Show instructions
     print_board(coordinates)
-    print('\nUse the above cardinal directions to identify where to place your mark.')
-
-    # print(f'\nPlayer {active_player} goes first.')
+    print('Use the above cardinal directions to identify where to place your mark.')
     print_board(ttt)
 
     # Continue playing until there is a winner or draw
     while not winner and not draw:
+        # Requires user to input valid square
         square = ''
         while square not in coordinates:
             square = input(f'Where does Player {active_player} want to go?: ').lower()
@@ -151,10 +176,4 @@ while game_on:
 
     if play_again == 'n':
         game_on = False
-
-
-
-
-
-
-
+        print('\nThanks for playing!\n')
