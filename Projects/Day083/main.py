@@ -32,6 +32,8 @@ def add_emojis(player, winning_index, tic_tac_toe_list):
 
 
 def check_for_winner(tic_tac_toe_list):
+    we_have_a_winner = False
+
     # Identify winning permutations
     list_of_winning_indices = [
         [0, 1, 2],  # any row
@@ -51,8 +53,7 @@ def check_for_winner(tic_tac_toe_list):
                 tic_tac_toe_list[winning_index[1]] == player and \
                     tic_tac_toe_list[winning_index[2]] == player:
 
-                # Turn off the game
-                game_on = False
+                we_have_a_winner = True
 
                 # Convert winning set to emojis
                 winning_list = add_emojis(player, winning_index, tic_tac_toe_list)
@@ -61,7 +62,18 @@ def check_for_winner(tic_tac_toe_list):
                 print_board(winning_list)
                 print(f'{player} wins!')
 
-                break
+    return we_have_a_winner
+
+
+def check_for_draw(tic_tac_toe_list):
+    if ' ' in tic_tac_toe_list:
+        we_have_a_draw = False
+    else:
+        we_have_a_draw = True
+        print_board(tic_tac_toe_list)
+        print(f'No winner.\n')
+
+    return we_have_a_draw
 
 
 def change_active_player(active_player):
@@ -86,9 +98,11 @@ coordinates = [key for key in board_dict.keys()]
 
 # Begin game
 game_on = True
-winner = False
 
 while game_on:
+    winner = False
+    draw = False
+
     # Make a list of nine blank entries that will serve as the board
     ttt = [' '] * 9
 
@@ -98,17 +112,17 @@ while game_on:
         active_player = input('Which player goes first? ("x" or "o"): ').upper()
 
     # Show instructions
-    print('\nUse the below cardinal directions to identify where to place your mark.')
     print_board(coordinates)
+    print('\nUse the above cardinal directions to identify where to place your mark.')
 
-    print(f'\nPlayer {active_player} goes first.')
+    # print(f'\nPlayer {active_player} goes first.')
     print_board(ttt)
 
-    # Continue playing until a winner is declared
-    while not winner:
+    # Continue playing until there is a winner or draw
+    while not winner and not draw:
         square = ''
         while square not in coordinates:
-            square = input(f'\nWhere does Player {active_player} want to go?: ').lower()
+            square = input(f'Where does Player {active_player} want to go?: ').lower()
 
             # Cancel move if space is occupied
             idx = board_dict[square]
@@ -118,15 +132,27 @@ while game_on:
             else:
                 ttt[idx] = active_player
 
-        # See if there is a winner yet
-        check_for_winner(ttt)
+        # See if there is a winner
+        winner = check_for_winner(ttt)
 
-        if not game_on:
-            # Otherwise, let the next player go
-            active_player = change_active_player(active_player)
-            print_board(ttt)
+        if not winner:
+            # See if there is an empty square left
+            draw = check_for_draw(ttt)
 
-    game_on = False
+            if not draw:
+                # Otherwise, let the next player go
+                active_player = change_active_player(active_player)
+                print_board(ttt)
+
+    # Ask if player wants to play again
+    play_again = ''
+    while play_again not in ['y', 'n']:
+        play_again = input('Play again? (y or n): ').lower()
+
+    if play_again == 'n':
+        game_on = False
+
+
 
 
 
