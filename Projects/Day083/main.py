@@ -58,8 +58,10 @@ def check_for_winner(tic_tac_toe_list):
                 winning_list = add_emojis(player, winning_index, tic_tac_toe_list)
 
                 # Print outcome
-                print(f'{player} wins!')
                 print_board(winning_list)
+                print(f'{player} wins!')
+
+                break
 
 
 def change_active_player(active_player):
@@ -72,14 +74,14 @@ def change_active_player(active_player):
 
 # Create dictionary of coordinates and indices
 board_dict = {'nw': 0,
-               'n': 1,
-               'ne': 2,
-               'w': 3,
-               'c': 4,
-               'e': 5,
-               'sw': 6,
-               's': 7,
-               'se': 8}
+              'n': 1,
+              'ne': 2,
+              'w': 3,
+              'c': 4,
+              'e': 5,
+              'sw': 6,
+              's': 7,
+              'se': 8}
 coordinates = [key for key in board_dict.keys()]
 
 # Begin game
@@ -111,13 +113,18 @@ while game_on:
             # Cancel move if space is occupied
             idx = board_dict[square]
             if ttt[idx] != ' ':
-                print(f'The {square.upper()} square is occupied. Try again Player {active_player}.')
+                print(f'The {square.upper()} square is occupied. Try again.')
                 square = ''
             else:
                 ttt[idx] = active_player
 
+        # See if there is a winner yet
+        check_for_winner(ttt)
 
-        print_board(ttt)
+        if not game_on:
+            # Otherwise, let the next player go
+            active_player = change_active_player(active_player)
+            print_board(ttt)
 
     game_on = False
 
