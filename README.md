@@ -39,23 +39,23 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 * Day 56: HTML Name Card ([code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day056)) ([website](https://tomweinandy.github.io/card/))
 * [Day 55: High Low Game using HTML & URL parsing in Flask](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day055)
 * [Day 54: Intro to Web Development with Flask](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day054)
-* [Day 53: Zillow Data Entry Job Automation**](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day053)
+* [Day 53: Zillow Data Entry Job Automation](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day053)**
 * [Day 52: Instagram Follower Bot](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day052)
-* [Day 51: Internet Speed Twitter Complaint Bot*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day051)
+* [Day 51: Internet Speed Twitter Complaint Bot](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day051)*
 * [Day 50: Auto Tinder Swiper](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day050)
 * [Day 49: Auto LinkedIn Job Applier](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day049)
-* [Day 48: Auto Game Player*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day048)
+* [Day 48: Auto Game Player](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day048)*
 * [Day 47: Amazon Price Tracker](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day047)
-* [Day 46: Musical Time Machine*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day046)
+* [Day 46: Musical Time Machine](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day046)*
 * [Day 45: Top 250 Movies Web Scraper](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day045)
 * [Day 44: Stylized Personal Website](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day044) (in progress)
 * Day 41-43: HTML Personal Website ([code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day041-043)) ([website](https://tomweinandy.github.io/cv/))
-* [Day 39-40: Cheap Flight Finder*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day039-040)
+* [Day 39-40: Cheap Flight Finder](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day039-040)*
 * [Day 38: Workout Activity Tracker](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day038)
 * [Day 37: Pixela Habit Tracker](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day037)
-* [Day 36: Stock Activity Monitor*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day036)
+* [Day 36: Stock Activity Monitor](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day036)*
 * [Day 35: SMS Weather Alert](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day035)
-* [Day 34: True/False Quiz (Pt II)*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day034)
+* [Day 34: True/False Quiz (Pt II)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day034)*
 * [Day 33: ISS Overhead Notifier](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day033)
 * [Day 32: Automated Birthday Wisher](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day032)
 
