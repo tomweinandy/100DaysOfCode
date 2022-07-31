@@ -60,18 +60,18 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 * [Day 32: Automated Birthday Wisher](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day032)
 
 **Intermediate Projects**
-* [Day 31: Flash Card App**](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day031)
-* [Day 29-30: Password Manager*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day029-030)
-* [Day 28: Pomodoro Time Tracker*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day028)
+* [Day 31: Flash Card App](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day031)**
+* [Day 29-30: Password Manager](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day029-030)*
+* [Day 28: Pomodoro Time Tracker](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day028)*
 * [Day 27: GUI Miles to Kilometers Converter](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day027)
 * [Day 26: NATO Phonetic Alphabet Converter](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day026)
-* [Day 25: U.S. States Game*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day025)
+* [Day 25: U.S. States Game](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day025)*
 * [Day 24: Mail Merge](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day024)
-* [Day 23: Turtle Crossing*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day023)
-* [Day 22: Pong Game*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day022)
-* [Day 20-21: Snake Game*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day020-021)
+* [Day 23: Turtle Crossing](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day023)*
+* [Day 22: Pong Game](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day022)*
+* [Day 20-21: Snake Game](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day020-021)*
 * [Day 19: Etch-A-Sketch & Turtle Race](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day019)
-* [Day 18: Hirst & Pollock Art*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day018)
+* [Day 18: Hirst & Pollock Art](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day018)*
 * [Day 17: True/False Quiz (Pt I)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day017)
 * [Day 16: Coffee Machine Program (Pt II)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day016)
 * [Day 15: Coffee Machine Program (Pt I)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day015)
