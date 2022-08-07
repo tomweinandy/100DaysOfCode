@@ -8,7 +8,6 @@ https://docs.python.org/3/library/tkinter.html
 from PIL import Image
 
 # Load images
-filename = 'Eli.png'
 filename = input('What image in your downloads folder would you like to watermark?: ')
 img = Image.open(f'../../../../Downloads/{filename}')
 logo_black = Image.open('pie.png')
@@ -38,6 +37,12 @@ x_placement = img.size[0] - logo.size[0]
 y_placement = img.size[1] - logo.size[1]
 logo_placement = (x_placement, y_placement)
 img.paste(logo, logo_placement, logo)
+
+# Show image
 img.show()
-img.save('watermark.png')
+
+# Save new image in Downloads folder
+name_split = filename.split('.')
+name_watermarked = name_split[0] + '_watermarked.' + name_split[1]
+img.save(f'../../../../Downloads/{name_watermarked}')
 
