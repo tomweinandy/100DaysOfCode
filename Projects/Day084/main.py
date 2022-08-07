@@ -20,11 +20,28 @@ red, green, blue, alpha = data.T                        # Temporarily unpack the
 black_areas = (red == 0) & (blue == 0) & (green == 0)   # Replace black with white... (leaves alpha values alone...)
 data[..., :-1][black_areas.T] = (255, 255, 255)         # Transpose back needed
 logo_white = Image.fromarray(data)
-# logo_white.show()
 
-# print(img.size, logo.size)
-#
-img.paste(logo_white, (0, 0), logo_white)
+
+
+opacity_level = 170 # Opaque is 255, input between 0-255
+opacity = 0.67 # Opaque is 255, input between 0-255
+
+logo = logo_white.convert("RGBA")
+datas = logo.getdata()
+
+newData = []
+for item in datas:
+    new_opacity = int(item[3]*opacity)
+    newData.append((item[0], item[1], item[2], new_opacity))
+
+logo.putdata(newData)
+
+
+
+x_placement = img.size[0] - logo.size[0]
+y_placement = img.size[1] - logo.size[1]
+logo_placement = (x_placement, y_placement)
+img.paste(logo, logo_placement, logo)
 img.show()
 # img.save('watermark.png')
 
