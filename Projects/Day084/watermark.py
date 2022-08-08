@@ -5,10 +5,10 @@ def add(a, b):
     return a + b
 
 
-def watermark(filename, black_or_white='white', opacity=0.65, output_filename='default'):
+def watermark(filepath, black_or_white='white', opacity=0.65, output_filename='default'):
     # Load images
     # filename = input('What image in your downloads folder would you like to watermark?: ')
-    img = Image.open(f'../../../../Downloads/{filename}')
+    img = Image.open(filepath)
     logo_black = Image.open('pie.png')
 
     # Set opacity
@@ -53,8 +53,15 @@ def watermark(filename, black_or_white='white', opacity=0.65, output_filename='d
     img.show()
 
     # Save new image in Downloads folder
+
+    # Select the filename from everything after the last backslash
+    filename = filepath.split('/')[-1]
+
+    # Return the partial filepath as everything before the filename
+    partial_filepath = filepath[:-len(filename)]
+
     if output_filename == 'default':
         name_split = filename.split('.')
         output_filename = name_split[0] + '_watermarked.' + name_split[1]
 
-    img.save(f'../../../../Downloads/{output_filename}')
+    img.save(partial_filepath + output_filename)
