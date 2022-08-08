@@ -14,21 +14,12 @@ import helper_functions
 TAN = '#FCF8E8'
 BROWN = '#ECB390'
 DARK_GREEN = '#94B49F'
-
-PINK = "#e2979c"
-RED = "#e7305b"
-GREEN = "#9bdeac"
-YELLOW = "#f7f5dd"
 FONT_NAME = "Arial"
+
 WORK_SECONDS = 25 * 60
 SHORT_BREAK_SECONDS = 5 * 60
 LONG_BREAK_SECONDS = 20 * 60
 
-def start_timer():
-    print('start timer')
-
-def reset_clicked():
-    print('reset clicked')
 
 # Create window
 window = tkinter.Tk()
@@ -36,48 +27,27 @@ window.title('Make Your Watermark on the World')
 window.config(padx=100, pady=50, bg=TAN)
 
 # Add label
-label = 'Add Pie Logo'
+label = 'Add a Pie Logo to an Image'
 timer_label = tkinter.Label(text=label, bg=TAN, fg=BROWN, font=(FONT_NAME, 36))
-timer_label.grid(row=0, column=1)
+timer_label.grid(row=0, columnspan=2)
 
 # Show pie logo
 canvas = tkinter.Canvas(width=376, height=376, bg=TAN, highlightthickness=0)
 pie_img = tkinter.PhotoImage(file='pie.png')
 canvas.create_image(200, 200, image=pie_img)
-canvas.grid(row=1, column=1)
-
-# # Add timer text over tomato
-# timer_text = canvas.create_text(102, 130, text='00:00', fill='white', font=(FONT_NAME, 35, 'bold'))
-
-# Add checkmarks
-checkmark = '✅'
-checkmarks = ''
-checks = tkinter.Label(text=checkmarks, bg=YELLOW)
-checks.grid(row=3, column=1)
-
-# Add start button
-start_button = tkinter.Button(text='Start', command=start_timer, font=FONT_NAME)
-start_button.grid(row=2, column=0)
-
-# Add reset button
-start_button = tkinter.Button(text='Reset', command=reset_clicked, font=FONT_NAME)
-start_button.grid(row=2, column=2)
-
-# # Add reset button
-# start_button = tkinter.Run(text='Reset', command=watermark, font=FONT_NAME)
-# start_button.grid(row=3, column=1)
-
+canvas.grid(row=1, columnspan=2, column=0)
 
 
 # Add Instructions
 instructions = 'Upload image to be watermarked (must be jpg, jpeg, or png)'
 instructions_label = tkinter.Label(text=instructions, bg=TAN, fg=DARK_GREEN, font=(FONT_NAME, 16))
-instructions_label.grid(row=3, column=1, pady=20)
+instructions_label.grid(row=2, columnspan=2, pady=20)
 
-image_button = tkinter.Button(window, text='Select Image', command=lambda: helper_functions.mark_file())
-image_button.grid(row=4, column=1)
+image_button = tkinter.Button(window, text='Add White Watermark', command=lambda: helper_functions.mark_file('white'))
+image_button.grid(row=3, column=0)
 
-
+image_button = tkinter.Button(window, text='Add Black Watermark', command=lambda: helper_functions.mark_file('black'))
+image_button.grid(row=3, column=1)
 
 # Keep window open
 window.mainloop()

@@ -7,11 +7,11 @@ from tkinter.filedialog import askopenfile
 TAN = '#FCF8E8'
 BROWN = '#ECB390'
 DARK_GREEN = '#94B49F'
+FONT_NAME = "Arial"
 
 
 def watermark(filepath, black_or_white='white', opacity=0.65, output_filename='default'):
     # Load images
-    # filename = input('What image in your downloads folder would you like to watermark?: ')
     img = Image.open(filepath)
     logo_black = Image.open('pie.png')
 
@@ -70,12 +70,12 @@ def watermark(filepath, black_or_white='white', opacity=0.65, output_filename='d
     img.save(partial_filepath + output_filename)
 
 
-def mark_file():
+def mark_file(color):
     file_path = askopenfile(mode='r', filetypes=[('Image Files', '*jpeg'), ('Image Files', '*png')])
     if file_path is not None:
         print(file_path.name)
-        watermark(file_path.name)
+        watermark(file_path.name, black_or_white=color)
 
-    success = 'Image uploaded successfully! Check the source folder of the original image.'
-    success_label = tkinter.Label(text=success, bg=TAN, fg=BROWN, font=(FONT_NAME, 16))
-    success_label.grid(row=5, column=1, pady=20)
+    success = 'Check the source folder of the original image.'
+    success_label = tkinter.Label(text=success, bg=TAN, fg=DARK_GREEN, font=(FONT_NAME, 16))
+    success_label.grid(row=4, columnspan=2, pady=20)
