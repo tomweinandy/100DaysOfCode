@@ -55,27 +55,29 @@ def watermark(filepath, black_or_white='white', opacity=0.65, output_filename='d
     # Show image
     img.show()
 
-    # Save new image in Downloads folder
-
     # Select the filename from everything after the last backslash
     filename = filepath.split('/')[-1]
 
     # Return the partial filepath as everything before the filename
     partial_filepath = filepath[:-len(filename)]
 
+    # Save image
     if output_filename == 'default':
         name_split = filename.split('.')
         output_filename = name_split[0] + '_watermarked.' + name_split[1]
-
     img.save(partial_filepath + output_filename)
 
 
 def mark_file(color):
+    # Identify the filepath of the selected file
     file_path = askopenfile(mode='r', filetypes=[('Image Files', '*jpeg'), ('Image Files', '*png')])
     if file_path is not None:
         print(file_path.name)
+
+        # Add watermark
         watermark(file_path.name, black_or_white=color)
 
+    # On completion or cancellation, guide user where new file is saved
     success = 'Check the source folder of the original image.'
     success_label = tkinter.Label(text=success, bg=TAN, fg=DARK_GREEN, font=(FONT_NAME, 16))
     success_label.grid(row=4, columnspan=2, pady=20)
