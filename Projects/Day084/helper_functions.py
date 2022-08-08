@@ -1,8 +1,12 @@
 from PIL import Image
+import tkinter
+from tkinter.filedialog import askopenfile
 
-
-def add(a, b):
-    return a + b
+# Configurations
+# Color pallet and hex codes come from colorhunt.co
+TAN = '#FCF8E8'
+BROWN = '#ECB390'
+DARK_GREEN = '#94B49F'
 
 
 def watermark(filepath, black_or_white='white', opacity=0.65, output_filename='default'):
@@ -16,7 +20,7 @@ def watermark(filepath, black_or_white='white', opacity=0.65, output_filename='d
     datas = logo.getdata()
 
     # Change colors and make semi-transparent
-    newData = []
+    new_data = []
     for item in datas:
         new_opacity = int(item[3] * opacity)
 
@@ -24,24 +28,23 @@ def watermark(filepath, black_or_white='white', opacity=0.65, output_filename='d
         if black_or_white == 'white':
             # If rbg is black (0,0,0) then make it white (255, 255, 255) and opaque
             if item[0:3] == (0, 0, 0):
-                newData.append((255, 255, 255, new_opacity))
+                new_data.append((255, 255, 255, new_opacity))
 
             # Otherwise, keep colors but make it transparent
             else:
-                newData.append((item[0], item[1], item[2], 0))
+                new_data.append((item[0], item[1], item[2], 0))
 
-        # Otherwise assume 'black' is selected
+        # Otherwise, assume 'black' is selected
         else:
             # If rbg is black (0,0,0) then keep it black but make opaque
             if item[0:3] == (0, 0, 0):
-                newData.append((0, 0, 0, new_opacity))
+                new_data.append((0, 0, 0, new_opacity))
 
             # Otherwise, keep colors but make it transparent
             else:
-                newData.append((item[0], item[1], item[2], 0))
+                new_data.append((item[0], item[1], item[2], 0))
 
-
-    logo.putdata(newData)
+    logo.putdata(new_data)
 
     # Place watermark in the bottom-right corner
     x_placement = img.size[0] - logo.size[0]
@@ -65,3 +68,14 @@ def watermark(filepath, black_or_white='white', opacity=0.65, output_filename='d
         output_filename = name_split[0] + '_watermarked.' + name_split[1]
 
     img.save(partial_filepath + output_filename)
+
+
+def mark_file():
+    file_path = askopenfile(mode='r', filetypes=[('Image Files', '*jpeg'), ('Image Files', '*png')])
+    if file_path is not None:
+        print(file_path.name)
+        watermark(file_path.name)
+
+    success = 'Image uploaded successfully! Check the source folder of the original image.'
+    success_label = tkinter.Label(text=success, bg=TAN, fg=BROWN, font=(FONT_NAME, 16))
+    success_label.grid(row=5, column=1, pady=20)
