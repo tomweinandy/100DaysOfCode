@@ -1,8 +1,9 @@
 """
 Day 85: Typing Speed Desktop App
 """
-with open("the_cask_of_amontillado.txt") as file:
-    story = file.read()
+# with open("the_cask_of_amontillado.txt") as file:
+with open("arrested_development_synopses.txt") as file:
+    synopses = file.read()
     # story = story.replace('\n', ' ')
 
 import tkinter
@@ -13,8 +14,11 @@ import time
 # Color pallet and hex codes come from colorhunt.co
 PINK = "#e2979c"
 RED = "#e7305b"
+
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
+YELLOW = "white"
+ORANGE = "#ed7014"
 FONT_NAME = "Arial"
 
 reps = 0
@@ -69,16 +73,15 @@ def start_timer():
 
 
     # Add text from story to be copied
-    short_story = story
-    story_label = tkinter.Label(text=short_story, bg=YELLOW, fg='dark blue', pady=10, font=(FONT_NAME, 12))
-    story_label.grid(row=3, column=0)
+    synopses_label = tkinter.Label(text=synopses, bg=YELLOW, fg='black', pady=10, font=(FONT_NAME, 15))
+    synopses_label.grid(row=3, column=0)
 
     # Add text box
     from tkinter import scrolledtext
     text_area = scrolledtext.ScrolledText(window,
                                           wrap=tkinter.WORD,
-                                          width=40,
-                                          height=10,
+                                          width=60,
+                                          height=30,
                                           background=YELLOW,
                                           font=(FONT_NAME, 15))
 
@@ -119,10 +122,10 @@ window.config(padx=10, pady=10, bg=YELLOW)  # bg is 'background'
 
 
 # Add timer label
-label = 'Type as much as you can in two minutes.\n' \
-        'Spelling counts but there is no penalty for missed punctuation.\n' \
+label = 'Type as much as you can in two minutes. Spelling counts.\n' \
+        'There is no penalty for missed punctuation or capitalization.\n' \
         'Press "start" to reveal text and begin.'
-timer_label = tkinter.Label(text=label, bg=YELLOW, fg='dark blue', font=(FONT_NAME, 18))
+timer_label = tkinter.Label(text=label, bg=YELLOW, fg=ORANGE, font=(FONT_NAME, 18))
 timer_label.grid(row=0, columnspan=2)
 
 # # Add tomato
@@ -132,7 +135,7 @@ canvas = tkinter.Canvas(width=1000, height=75, bg=YELLOW, highlightthickness=0)
 # canvas.create_image(100, 112, image=tomato_img)
 
 # Add timer text
-timer_text = canvas.create_text(500, 40, text='2:00', fill='dark blue', font=(FONT_NAME, 36))
+timer_text = canvas.create_text(500, 40, text='2:00', fill=ORANGE, font=(FONT_NAME, 36))
 canvas.grid(row=1, columnspan=2)
 
 
