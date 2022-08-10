@@ -3,7 +3,7 @@ Day 85: Typing Speed Desktop App
 """
 with open("the_cask_of_amontillado.txt") as file:
     story = file.read()
-    story = story.replace('\n', ' ')
+    # story = story.replace('\n', ' ')
 
 import tkinter
 import time
@@ -68,6 +68,26 @@ def start_timer():
     # timer_label.config(text=new_label, fg=GREEN)
 
 
+    # Add text from story to be copied
+    short_story = story
+    story_label = tkinter.Label(text=short_story, bg=YELLOW, fg='dark blue', pady=10, font=(FONT_NAME, 12))
+    story_label.grid(row=3, column=0)
+
+    # Add text box
+    from tkinter import scrolledtext
+    text_area = scrolledtext.ScrolledText(window,
+                                          wrap=tkinter.WORD,
+                                          width=40,
+                                          height=10,
+                                          background=YELLOW,
+                                          font=(FONT_NAME, 15))
+
+    text_area.grid(row=3, column=1, pady=10, padx=10)
+
+    # Placing cursor in the text area
+    text_area.focus()
+
+
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
@@ -103,7 +123,7 @@ label = 'Type as much as you can in two minutes.\n' \
         'Spelling counts but there is no penalty for missed punctuation.\n' \
         'Press "start" to reveal text and begin.'
 timer_label = tkinter.Label(text=label, bg=YELLOW, fg='dark blue', font=(FONT_NAME, 18))
-timer_label.grid(row=0, column=1)
+timer_label.grid(row=0, columnspan=2)
 
 # # Add tomato
 # # The tkinter canvas widget lets us overlay objects on top of each other
@@ -113,13 +133,7 @@ canvas = tkinter.Canvas(width=1000, height=75, bg=YELLOW, highlightthickness=0)
 
 # Add timer text
 timer_text = canvas.create_text(500, 40, text='2:00', fill='dark blue', font=(FONT_NAME, 36))
-# timer_text.grid(row=2, column=1)
-canvas.grid(row=1, column=1)
-
-# # Add text from story to be copied
-# short_story = story[0:100]
-# story_label = tkinter.Label(text=short_story, bg=YELLOW, fg='dark blue', pady=10, font=(FONT_NAME, 12))
-# story_label.grid(row=3, columnspan=3)
+canvas.grid(row=1, columnspan=2)
 
 
 # # Add text
@@ -130,7 +144,7 @@ canvas.grid(row=1, column=1)
 
 # Add start button
 start_button = tkinter.Button(text='Start', command=start_timer, font=FONT_NAME)
-start_button.grid(row=2, column=1)
+start_button.grid(row=2, columnspan=2)
 
 # Add main while loop to keep window open
 window.mainloop()
