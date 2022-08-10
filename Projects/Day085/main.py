@@ -58,7 +58,25 @@ def score_typing(attempted_text, original_text):
         if attempted[i] == original[i]:
             matches += 1
 
-    return matches/2
+    score = matches/2
+
+    display_results(score)
+
+
+def display_results(n):
+    synopses_label.destroy()
+    text_area.destroy()
+
+    global start_button
+
+    # Add start button
+    start_button = tkinter.Button(text='Try Again', command=start_timer, font=FONT_NAME)
+    start_button.grid(row=2, columnspan=2)
+
+    score_text = f'You type at a speed of {n} words per minute.'
+    score_label = tkinter.Label(text=score_text, bg=YELLOW, fg=ORANGE, font=(FONT_NAME, 18))
+    score_label.grid(row=3, columnspan=2)
+
 
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
@@ -66,39 +84,16 @@ def start_timer():
     """
     Tracks reps and begins timer according to current rep
     """
-    # global reps, checkmarks
-    # reps += 1
-
-    # # If reps = 8, 16...
-    # if reps % 8 == 0:
-    #     countdown(100)
-    #     new_label = 'Break Time'
-    #     timer_label.config(text=new_label, fg=RED)
-    #
-    #     checkmarks += checkmark + '\n'
-    #     checks.config(text=checkmarks)
-
-    # # If reps = 2, 4, 6, 10, 12, 14...
-    # elif reps % 2 == 0:
-    #     countdown(10)
-    #     new_label = 'Break Time'
-    #     timer_label.config(text=new_label, fg=PINK)
-    #
-    #     checkmarks += checkmark
-    #     checks.config(text=checkmarks)
-
-    # If reps = 1, 3, 5, 7, 9, 11, 13, 15, 17...
-    # else:
+    start_button.destroy()
     countdown(12)
-    # new_label = 'Begin!'
-    # timer_label.config(text=new_label, fg=GREEN)
+
+    global text_area, synopses_label
 
     # Add text from story to be copied
     synopses_label = tkinter.Label(text=synopses, bg=YELLOW, fg='black', pady=10, font=(FONT_NAME, 15))
     synopses_label.grid(row=3, column=0)
 
     # Add text box
-    global text_area
     text_area = scrolledtext.ScrolledText(window,
                                           wrap=tkinter.WORD,
                                           width=60,
