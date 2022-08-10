@@ -4,10 +4,10 @@ Day 85: Typing Speed Desktop App
 # with open("the_cask_of_amontillado.txt") as file:
 with open("arrested_development_synopses.txt") as file:
     synopses = file.read()
-    # story = story.replace('\n', ' ')
 
 import tkinter
-import time
+from tkinter import scrolledtext
+import re
 
 
 # ---------------------------- VARIABLES ------------------------------- #
@@ -39,6 +39,28 @@ def reset_clicked():
     checks.config(text=checkmarks)
 
 
+def wordify(txt):
+    txt = txt.replace('\'', '')
+    txt = re.sub(r'[^a-zA-Z0-9 ]', ' ', txt)
+    txt = txt.lower()
+
+    word_list = txt.split()
+    return word_list
+
+
+def score_typing(attempted_text, original_text):
+    matches = 0
+
+    original = wordify(original_text)
+    attempted = wordify(attempted_text)
+
+    for i in range(len(attempted)):
+        if attempted[i] == original[i]:
+            matches += 1
+
+    return matches/2
+
+
 # ---------------------------- TIMER MECHANISM ------------------------------- #
 def start_timer():
     """
@@ -67,21 +89,20 @@ def start_timer():
 
     # If reps = 1, 3, 5, 7, 9, 11, 13, 15, 17...
     # else:
-    countdown(120)
+    countdown(12)
     # new_label = 'Begin!'
     # timer_label.config(text=new_label, fg=GREEN)
-
 
     # Add text from story to be copied
     synopses_label = tkinter.Label(text=synopses, bg=YELLOW, fg='black', pady=10, font=(FONT_NAME, 15))
     synopses_label.grid(row=3, column=0)
 
     # Add text box
-    from tkinter import scrolledtext
+    global text_area
     text_area = scrolledtext.ScrolledText(window,
                                           wrap=tkinter.WORD,
                                           width=60,
-                                          height=30,
+                                          height=32,
                                           background=YELLOW,
                                           font=(FONT_NAME, 15))
 
@@ -111,7 +132,12 @@ def countdown(count):
     if count > 0:
         timer = window.after(1000, countdown, count-1)  # time is in milliseconds, so 1000ms = 1 second
     else:
-        start_timer()
+        # start_timer()
+        print('Time to score.')
+        input = text_area.get("1.0", "end-1c")
+        print(input)
+        score = score_typing(input, synopses)
+        print(score)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -130,12 +156,12 @@ timer_label.grid(row=0, columnspan=2)
 
 # # Add tomato
 # # The tkinter canvas widget lets us overlay objects on top of each other
-canvas = tkinter.Canvas(width=1000, height=75, bg=YELLOW, highlightthickness=0)
+canvas = tkinter.Canvas(width=1200, height=75, bg=YELLOW, highlightthickness=0)
 # tomato_img = tkinter.PhotoImage(file='tomato.png')
 # canvas.create_image(100, 112, image=tomato_img)
 
 # Add timer text
-timer_text = canvas.create_text(500, 40, text='2:00', fill=ORANGE, font=(FONT_NAME, 36))
+timer_text = canvas.create_text(600, 30, text='2:00', fill=ORANGE, font=(FONT_NAME, 36))
 canvas.grid(row=1, columnspan=2)
 
 
