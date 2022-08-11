@@ -8,24 +8,24 @@ class Paddle(Turtle):
     def __init__(self, x, y):
         super().__init__()
         self.shape('square')
-        self.color('white')
-        self.turtlesize(stretch_len=1, stretch_wid=5)
+        self.color('blue')
+        self.turtlesize(stretch_len=8, stretch_wid=1)
         self.penup()
         self.goto(x, y)
         self.keys_pressed = {}
 
-    def move_up(self):
+    def move_right(self):
         """
-        Action to move a paddle up 20 units (one square)
+        Action to move a paddle right 20 units (one square)
         """
-        if self.ycor() < 250:
-            new_y = self.ycor() + 20
-            self.goto(self.xcor(), new_y)
+        if self.xcor() < 410:
+            new_x = self.xcor() + 20
+            self.goto(new_x, self.ycor())
 
-    def move_down(self):
+    def move_left(self):
         """
-        Action to move a paddle down 20 units (one square)
+        Action to move a paddle left 20 units (one square)
         """
-        if self.ycor() > -250:
-            new_y = self.ycor() - 20
-            self.goto(self.xcor(), new_y)
+        if self.xcor() > -410:
+            new_x = self.xcor() - 20
+            self.goto(new_x, self.ycor())

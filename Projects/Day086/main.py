@@ -5,18 +5,18 @@ import turtle
 import paddle
 import ball
 import scoreboard
+import blocks
 import time
 
 # Initialize screen
 screen = turtle.Screen()
-screen.title('Pong')
-screen.setup(width=800, height=600)
+screen.title('Breakout')
+screen.setup(width=1000, height=1000)
 screen.bgcolor('black')
 screen.tracer(0)  # only updates on screen.update()
 
-# Create two paddles
-right_paddle = paddle.Paddle(350, 0)
-left_paddle = paddle.Paddle(-350, 0)
+# Create a paddle
+game_paddle = paddle.Paddle(0, -340)
 
 # Create ball and scoreboard
 ball = ball.Ball()
@@ -56,7 +56,7 @@ def set_key_binds():
     """
     Bind together key presses into single input
     """
-    for key in ["Up", "Down", "Escape", "Tab", "BackSpace"]:
+    for key in ["Right", "Left", "Escape", "Tab", "BackSpace"]:
         screen.getcanvas().bind(f"<KeyPress-{key}>", pressed)
         screen.getcanvas().bind(f"<KeyRelease-{key}>", released)
         keys_pressed[key] = False
@@ -72,14 +72,10 @@ set_key_binds()
 game_on = True
 while game_on:
     # Check state of keypresses and respond accordingly
-    if keys_pressed["Escape"]:
-        left_paddle.move_up()
-    if keys_pressed["Tab"]:
-        left_paddle.move_down()
-    if keys_pressed["Up"]:
-        right_paddle.move_up()
-    if keys_pressed["Down"]:
-        right_paddle.move_down()
+    if keys_pressed["Right"]:
+        game_paddle.move_right()
+    if keys_pressed["Left"]:
+        game_paddle.move_left()
     if keys_pressed["BackSpace"]:
         ball.pause()
 
@@ -90,14 +86,10 @@ while game_on:
     # Ball does not move when paused
     while not ball.paused:
         # Check state of keypresses and respond accordingly
-        if keys_pressed["Escape"]:
-            left_paddle.move_up()
-        if keys_pressed["Tab"]:
-            left_paddle.move_down()
-        if keys_pressed["Up"]:
-            right_paddle.move_up()
-        if keys_pressed["Down"]:
-            right_paddle.move_down()
+        if keys_pressed["Right"]:
+            game_paddle.move_right()
+        if keys_pressed["Left"]:
+            game_paddle.move_left()
         if keys_pressed["BackSpace"]:
             ball.pause()
 
@@ -110,8 +102,7 @@ while game_on:
             ball.bounce(y=True)
 
         # Detect if the ball hits a paddle (three conditions must be met for right paddle or left)
-        if ball.distance(right_paddle.position()) < 60 and ball.xcor() > 320 and ball.x_direction == 1 or \
-                ball.distance(left_paddle.position()) < 60 and ball.xcor() < -320 and ball.x_direction == -1:
+        if ball.distance(game_paddle.position()) < 60 and ball.xcor() > 320 and ball.x_direction == 1:
             ball.bounce(x=True)
             ball.increase_speed()
 
