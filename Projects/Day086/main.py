@@ -8,6 +8,14 @@ import scoreboard
 import blocks
 import time
 
+# Sets constants
+PADDLE_YCOR = -340
+CEILING_YCOR = 330
+LEFT_WALL_XCOR = -495
+RIGHT_WALL_XCOR = 485
+TEXT_YCOR = 350
+ADJUSTMENT = 25
+
 # Initialize screen
 screen = turtle.Screen()
 screen.title('Breakout')
@@ -15,21 +23,54 @@ screen.setup(width=1000, height=1000)
 screen.bgcolor('black')
 screen.tracer(0)  # only updates on screen.update()
 
-# Create a paddle
-game_paddle = paddle.Paddle(0, -340)
-
-# Create ball and scoreboard
+# Create ball, paddle and scoreboard
 ball = ball.Ball()
+game_paddle = paddle.Paddle(0, PADDLE_YCOR)
 scoreboard = scoreboard.Scoreboard()
 
 # Write instructions on screen
-t = turtle.Turtle()
-t.color('white')
-t.penup()
-t.goto(0, -290)
-instructions = 'Left moves with Esc/Tab. Right moves with Up/Down. First to 5 points wins. Press Backspace to begin.'
-t.write(instructions, align='center', font=('Courier', 12, 'normal'))
-t.goto(0, 1000)
+instructions = turtle.Turtle()
+instructions.color('white')
+instructions.penup()
+instructions.goto(0, TEXT_YCOR)
+instructions_text = 'Press Backspace to begin.'
+instructions.write(instructions_text, align='center', font=('Courier', 12, 'normal'))
+instructions.goto(0, 1000)
+
+# Write labels on screen
+labels = turtle.Turtle()
+labels.color('white')
+labels.penup()
+labels.goto(-450, TEXT_YCOR)
+label_text = 'POINTS'
+labels.write(label_text, align='center', font=('Courier', 18, 'normal'))
+labels.goto(450, TEXT_YCOR)
+label_text = 'LIVES'
+labels.write(label_text, align='center', font=('Courier', 18, 'normal'))
+labels.goto(0, 1000)
+
+# Add horizontal bar for ceiling
+bar = turtle.Turtle()
+bar.goto(0, CEILING_YCOR)
+bar.shape('square')
+bar.color('white')
+bar.turtlesize(stretch_len=50, stretch_wid=0.5)
+
+# Add vertical bar for left wall
+bar = turtle.Turtle()
+bar.goto(LEFT_WALL_XCOR, 0)
+bar.shape('square')
+bar.color('white')
+bar.turtlesize(stretch_len=0.5, stretch_wid=33)
+
+# Add vertical bar for right wall
+bar = turtle.Turtle()
+bar.goto(RIGHT_WALL_XCOR, 0)
+bar.shape('square')
+bar.color('white')
+bar.turtlesize(stretch_len=0.5, stretch_wid=33)
+
+
 
 
 # Use solution by Joseph to allow for both paddles to move at once
@@ -56,7 +97,7 @@ def set_key_binds():
     """
     Bind together key presses into single input
     """
-    for key in ["Right", "Left", "Escape", "Tab", "BackSpace"]:
+    for key in ["Right", "Left", "BackSpace"]:
         screen.getcanvas().bind(f"<KeyPress-{key}>", pressed)
         screen.getcanvas().bind(f"<KeyRelease-{key}>", released)
         keys_pressed[key] = False
@@ -78,6 +119,7 @@ while game_on:
         game_paddle.move_left()
     if keys_pressed["BackSpace"]:
         ball.pause()
+        instructions.clear()
 
     screen.update()
     time.sleep(0.1 * ball.speed)
@@ -97,39 +139,31 @@ while game_on:
         time.sleep(0.1 * ball.speed)
         ball.move()
 
-        # Detect if the ball hits the ceiling or floor
-        if ball.ycor() > 280 or ball.ycor() < -280:
+        # Detect if the ball hits the ceiling
+        if ball.ycor() > CEILING_YCOR - ADJUSTMENT:
             ball.bounce(y=True)
 
-        # Detect if the ball hits a paddle (three conditions must be met for right paddle or left)
-        if ball.distance(game_paddle.position()) < 60 and ball.xcor() > 320 and ball.x_direction == 1:
+        # Detect if the ball hits the left wall
+        if ball.xcor() < LEFT_WALL_XCOR + ADJUSTMENT:
             ball.bounce(x=True)
-            ball.increase_speed()
 
-        # Detect if a paddle misses
-        if ball.xcor() > 350:
-            scoreboard.point('left')
+        # Detect if the ball hits the right wall
+        if ball.xcor() > RIGHT_WALL_XCOR - ADJUSTMENT:
+            ball.bounce(x=True)
+
+        # Detect if the ball hits the paddle
+        if ball.distance(game_paddle.position()) < 60 and ball.ycor() < PADDLE_YCOR + ADJUSTMENT and ball.y_direction == -1:
+            ball.bounce(y=True)
+
+        # Detect if the paddle misses
+        if ball.ycor() < PADDLE_YCOR - 20:
+            scoreboard.lives -= 1
             ball.color('red')
             screen.update()
 
-            # Check if 5 points reached
-            if scoreboard.left_score == 5:
+            # Check if game over
+            if scoreboard.lives < 0:
                 scoreboard.win('left')
-                ball.pause()
-                game_on = False
-            else:
-                ball.reset()
-                screen.update()
-                time.sleep(1)
-
-        if ball.xcor() < -350:
-            scoreboard.point('right')
-            ball.color('red')
-            screen.update()
-
-            # Check if 5 points reached
-            if scoreboard.right_score == 5:
-                scoreboard.win('right')
                 ball.pause()
                 game_on = False
             else:

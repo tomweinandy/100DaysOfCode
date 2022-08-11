@@ -9,7 +9,7 @@ class Paddle(Turtle):
         super().__init__()
         self.shape('square')
         self.color('blue')
-        self.turtlesize(stretch_len=8, stretch_wid=1)
+        self.turtlesize(stretch_len=8, stretch_wid=0.5)
         self.penup()
         self.goto(x, y)
         self.keys_pressed = {}

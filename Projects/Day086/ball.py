@@ -14,8 +14,10 @@ class Ball(Turtle):
         self.penup()
         self.speed = 1
         self.paused = True
+        self.ceiling_hit = False
+        self.orange_row_hit = False
 
-        # Sets x and y direction as positive (i.e., will move in northeast direction)
+        # Sets x and y direction as positive (i.e., is moving in northeast direction)
         self.x_direction = 1
         self.y_direction = 1
 
@@ -47,10 +49,11 @@ class Ball(Turtle):
     def bounce(self, x=False, y=False):
         """
         Flips the x or y direction depending on what it bounces off of
-        :param x: True when bouncing off of ceiling or floor
+        :param x: True when bouncing off of the ceiling
         :param y: True when bouncing off of a paddle
         """
         if x:
+            self.ceiling_hit = True
             self.x_direction *= -1
             self.random_jitter()
         if y:

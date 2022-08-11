@@ -10,8 +10,8 @@ class Scoreboard(turtle.Turtle):
         self.color('white')
         self.penup()
         self.hideturtle()
-        self.left_score = 0
-        self.right_score = 0
+        self.lives = 2
+        self.points = 0
         self.update_scoreboard()
 
     def update_scoreboard(self):
@@ -19,10 +19,10 @@ class Scoreboard(turtle.Turtle):
         Updates the scoreboard after a point is scored
         """
         self.clear()
-        self.goto(-100, 200)
-        self.write(self.left_score, align='center', font=('Courier', 80, 'normal'))
-        self.goto(100, 200)
-        self.write(self.right_score, align='center', font=('Courier', 80, 'normal'))
+        self.goto(-400, 340)
+        self.write(self.points, align='center', font=('Courier', 40, 'normal'))
+        self.goto(400, 340)
+        self.write(self.lives, align='center', font=('Courier', 40, 'normal'))
 
     def point(self, player):
         """
@@ -35,10 +35,18 @@ class Scoreboard(turtle.Turtle):
             self.right_score += 1
         self.update_scoreboard()
 
-    def win(self, player):
+    def end_round(self, outcome):
         """
         Announces which player won
-        :param player: 'left' or 'right'
+        :param player: 'left' or 'right' #todo document
         """
-        self.goto(0, 0)
-        self.write(f'{player.title()} Player wins!', align='center', font=('Courier', 36, 'normal'))
+        if outcome == 'win':
+            self.goto(0, 0)
+            self.write('Player wins!', align='center', font=('Courier', 36, 'normal'))
+        elif outcome == 'lose':
+            self.goto(0, 0)
+            self.write('Player loses.', align='center', font=('Courier', 36, 'normal'))
+        else:
+            # todo add level up result
+            pass
+
