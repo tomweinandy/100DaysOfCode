@@ -71,8 +71,6 @@ bar.color('white')
 bar.turtlesize(stretch_len=0.5, stretch_wid=33)
 
 
-
-
 # Use solution by Joseph to allow for both paddles to move at once
     # Details: https://www.udemy.com/course/100-days-of-code/learn/lecture/20414753#questions/13216834
 def pressed(event):
@@ -110,6 +108,9 @@ keys_pressed = {}
 screen.listen()
 set_key_binds()
 
+screen.update()
+time.sleep(2)
+
 game_on = True
 while game_on:
     # Check state of keypresses and respond accordingly
@@ -123,53 +124,40 @@ while game_on:
 
     screen.update()
     time.sleep(0.1 * ball.speed)
-    screen.listen()
+    ball.move()
 
-    # Ball does not move when paused
-    while not ball.paused:
-        # Check state of keypresses and respond accordingly
-        if keys_pressed["Right"]:
-            game_paddle.move_right()
-        if keys_pressed["Left"]:
-            game_paddle.move_left()
-        if keys_pressed["BackSpace"]:
-            ball.pause()
+    # Detect if the ball hits the ceiling
+    if ball.ycor() > CEILING_YCOR - ADJUSTMENT:
+        ball.bounce(y=True)
 
+    # Detect if the ball hits the left wall
+    if ball.xcor() < LEFT_WALL_XCOR + ADJUSTMENT:
+        ball.bounce(x=True)
+
+    # Detect if the ball hits the right wall
+    if ball.xcor() > RIGHT_WALL_XCOR - ADJUSTMENT:
+        ball.bounce(x=True)
+
+    # Detect if the ball hits the paddle
+    if ball.distance(game_paddle.position()) < 60 and ball.ycor() < PADDLE_YCOR + ADJUSTMENT and ball.y_direction == -1:
+        ball.bounce(y=True)
+
+    # Detect if the ball misses the paddle
+    if ball.ycor() < PADDLE_YCOR - 20:
+        scoreboard.lives -= 1
+        ball.color('red')
         screen.update()
-        time.sleep(0.1 * ball.speed)
-        ball.move()
 
-        # Detect if the ball hits the ceiling
-        if ball.ycor() > CEILING_YCOR - ADJUSTMENT:
-            ball.bounce(y=True)
-
-        # Detect if the ball hits the left wall
-        if ball.xcor() < LEFT_WALL_XCOR + ADJUSTMENT:
-            ball.bounce(x=True)
-
-        # Detect if the ball hits the right wall
-        if ball.xcor() > RIGHT_WALL_XCOR - ADJUSTMENT:
-            ball.bounce(x=True)
-
-        # Detect if the ball hits the paddle
-        if ball.distance(game_paddle.position()) < 60 and ball.ycor() < PADDLE_YCOR + ADJUSTMENT and ball.y_direction == -1:
-            ball.bounce(y=True)
-
-        # Detect if the paddle misses
-        if ball.ycor() < PADDLE_YCOR - 20:
-            scoreboard.lives -= 1
-            ball.color('red')
+        # Check if game over
+        if scoreboard.lives < 0:
+            scoreboard.end_round('lose')
+            ball.pause()
+            game_on = False
+        else:
+            ball.reset()
+            scoreboard.update_scoreboard()
             screen.update()
-
-            # Check if game over
-            if scoreboard.lives < 0:
-                scoreboard.win('left')
-                ball.pause()
-                game_on = False
-            else:
-                ball.reset()
-                screen.update()
-                time.sleep(1)
+            time.sleep(2)
 
 screen.update()
 screen.exitonclick()

@@ -9,7 +9,7 @@ class Paddle(Turtle):
         super().__init__()
         self.shape('square')
         self.color('blue')
-        self.turtlesize(stretch_len=8, stretch_wid=0.5)
+        self.turtlesize(stretch_len=8, stretch_wid=0.5) #todo refactor paddle as list of connected segments
         self.penup()
         self.goto(x, y)
         self.keys_pressed = {}

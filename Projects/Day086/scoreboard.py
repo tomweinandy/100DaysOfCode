@@ -38,7 +38,7 @@ class Scoreboard(turtle.Turtle):
     def end_round(self, outcome):
         """
         Announces which player won
-        :param player: 'left' or 'right' #todo document
+        :param outcome:
         """
         if outcome == 'win':
             self.goto(0, 0)

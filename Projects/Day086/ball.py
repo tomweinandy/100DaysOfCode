@@ -2,6 +2,7 @@ from turtle import Turtle
 import time
 import random
 
+BALL_START_CORS = (-250, 0)
 
 class Ball(Turtle):
     """
@@ -12,14 +13,16 @@ class Ball(Turtle):
         self.color('white')
         self.shape('circle')
         self.penup()
+        self.goto(BALL_START_CORS)
         self.speed = 1
-        self.paused = True
+        self.paddle_hits = 0
+        self.paused = True #todo remove
         self.ceiling_hit = False
         self.orange_row_hit = False
 
         # Sets x and y direction as positive (i.e., is moving in northeast direction)
         self.x_direction = 1
-        self.y_direction = 1
+        self.y_direction = -1
 
     def random_jitter(self):
         # if random.randint(0,1) == 1:
@@ -49,13 +52,15 @@ class Ball(Turtle):
     def bounce(self, x=False, y=False):
         """
         Flips the x or y direction depending on what it bounces off of
-        :param x: True when bouncing off of the ceiling
-        :param y: True when bouncing off of a paddle
+        :param x: True when bouncing off the top or bottom of an object
+        :param y: True when bouncing off the left or right of an object
         """
         if x:
-            self.ceiling_hit = True
+            self.ceiling_hit = True #todo fix
             self.x_direction *= -1
-            self.random_jitter()
+            self.random_jitter() #todo remove jitter everywhere
+            #todo add count if it hits the paddle
+
         if y:
             self.y_direction *= -1
             self.random_jitter()
@@ -73,6 +78,8 @@ class Ball(Turtle):
         time.sleep(1)
         self.speed = 1
         self.color('white')
-        # Appears within a random point on the y-axis
-        self.goto(0, random.randint(-250, 250))
-        self.bounce(x=True, y=True)
+        # Appears at the same point
+        self.goto(BALL_START_CORS)
+        self.x_direction = 1
+        self.y_direction = -1
+        time.sleep(2)
