@@ -124,7 +124,7 @@ while game_on:
 
     screen.update()
     time.sleep(0.1 * ball.speed)
-    ball.move()
+    # ball.move() #todo uncomment
 
     # Detect if the ball hits the ceiling
     if ball.ycor() > CEILING_YCOR - ADJUSTMENT:
