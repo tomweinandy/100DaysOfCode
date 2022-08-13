@@ -14,7 +14,7 @@ CEILING_YCOR = 330
 LEFT_WALL_XCOR = -495
 RIGHT_WALL_XCOR = 485
 TEXT_YCOR = 350
-ADJUSTMENT = 25
+PROX = 20   # proximity
 
 # Initialize screen
 screen = turtle.Screen()
@@ -113,7 +113,7 @@ time.sleep(2)
 
 game_on = True
 while game_on:
-    # Check state of keypresses and respond accordingly
+    # Check state of key presses and respond accordingly
     if keys_pressed["Right"]:
         game_paddle.move_right()
     if keys_pressed["Left"]:
@@ -124,23 +124,26 @@ while game_on:
 
     screen.update()
     time.sleep(0.1 * ball.speed)
-    # ball.move() #todo uncomment
-
-    # Detect if the ball hits the ceiling
-    if ball.ycor() > CEILING_YCOR - ADJUSTMENT:
-        ball.bounce(y=True)
+    ball.move()
 
     # Detect if the ball hits the left wall
-    if ball.xcor() < LEFT_WALL_XCOR + ADJUSTMENT:
-        ball.bounce(x=True)
+    if ball.xcor() < LEFT_WALL_XCOR + PROX:
+        ball.bounce('left')
 
     # Detect if the ball hits the right wall
-    if ball.xcor() > RIGHT_WALL_XCOR - ADJUSTMENT:
-        ball.bounce(x=True)
+    if ball.xcor() > RIGHT_WALL_XCOR - PROX:
+        ball.bounce('right')
+
+    # Detect if the ball hits the ceiling
+    if ball.ycor() > CEILING_YCOR - PROX:
+        ball.bounce('top')
 
     # Detect if the ball hits the paddle
-    if ball.distance(game_paddle.position()) < 60 and ball.ycor() < PADDLE_YCOR + ADJUSTMENT and ball.y_direction == -1:
-        ball.bounce(y=True)
+    for seg in game_paddle.segments:
+
+        if ball.distance(seg.position()) < PROX and ball.ycor() < PADDLE_YCOR + PROX and 180 < ball.orientation < 360:
+            ball.bounce('bottom')
+            ball.paddle_hits += 1
 
     # Detect if the ball misses the paddle
     if ball.ycor() < PADDLE_YCOR - 20:

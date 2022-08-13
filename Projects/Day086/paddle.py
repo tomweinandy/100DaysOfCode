@@ -1,10 +1,10 @@
 from turtle import Turtle
 
 PADDLE_YCOR = -340
-PADDLE_CORS = [(-250, PADDLE_YCOR), (-270, PADDLE_YCOR), (-290, PADDLE_YCOR)]
+PADDLE_CORS = [i for i in range(0, 160, 20)]
 MOVING_DISTANCE = 20
-LEFT_BARRIER = -410
-RIGHT_BARRIER = 410
+LEFT_BARRIER = -490
+RIGHT_BARRIER = 480
 
 
 class Paddle(Turtle):
@@ -13,11 +13,6 @@ class Paddle(Turtle):
     """
     def __init__(self, x, y):
         super().__init__()
-        # self.shape('square')
-        # self.color('blue')
-        # self.turtlesize(stretch_len=8, stretch_wid=0.5) #todo refactor paddle as list of connected segments
-        # self.penup()
-        # self.goto(x, y)
         self.segments = []
         self.create_paddle()
         self.head = self.segments[0]
@@ -31,7 +26,7 @@ class Paddle(Turtle):
             new_turtle = Turtle('square')
             new_turtle.color('blue')
             new_turtle.penup()
-            new_turtle.goto(position)
+            new_turtle.goto(position, PADDLE_YCOR)
             self.segments.append(new_turtle)
 
     def move_right(self):
