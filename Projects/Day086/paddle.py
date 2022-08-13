@@ -2,7 +2,7 @@ from turtle import Turtle
 
 PADDLE_YCOR = -340
 PADDLE_CORS = [i for i in range(0, 160, 20)]
-MOVING_DISTANCE = 20
+MOVING_DISTANCE = 3
 LEFT_BARRIER = -490
 RIGHT_BARRIER = 480
 

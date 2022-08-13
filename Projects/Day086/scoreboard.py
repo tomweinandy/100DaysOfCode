@@ -16,7 +16,7 @@ class Scoreboard(turtle.Turtle):
 
     def update_scoreboard(self):
         """
-        Updates the scoreboard after a point is scored
+        Updates the scoreboard after paddle misses or block is broken
         """
         self.clear()
         self.goto(-400, 340)
@@ -24,29 +24,8 @@ class Scoreboard(turtle.Turtle):
         self.goto(400, 340)
         self.write(self.lives, align='center', font=('Courier', 40, 'normal'))
 
-    def point(self, player):
-        """
-        Assigns a point to a player
-        :param player: 'left' or 'right'
-        """
-        if player == 'left':
-            self.left_score += 1
-        elif player == 'right':
-            self.right_score += 1
-        self.update_scoreboard()
+    def game_over(self):
+        self.goto(0, 0)
+        self.write('Game Over.', align='center', font=('Courier', 36, 'normal'))
 
-    def end_round(self, outcome):
-        """
-        Announces which player won
-        :param outcome:
-        """
-        if outcome == 'win':
-            self.goto(0, 0)
-            self.write('Player wins!', align='center', font=('Courier', 36, 'normal'))
-        elif outcome == 'lose':
-            self.goto(0, 0)
-            self.write('Player loses.', align='center', font=('Courier', 36, 'normal'))
-        else:
-            # todo add level up result
-            pass
 

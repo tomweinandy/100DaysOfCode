@@ -123,8 +123,8 @@ while game_on:
         instructions.clear()
 
     screen.update()
-    time.sleep(0.1 * ball.speed)
-    ball.move()
+    time.sleep(0.0001 / ball.speed)
+    ball.forward(1)
 
     # Detect if the ball hits the left wall
     if ball.xcor() < LEFT_WALL_XCOR + PROX:
@@ -137,6 +137,7 @@ while game_on:
     # Detect if the ball hits the ceiling
     if ball.ycor() > CEILING_YCOR - PROX:
         ball.bounce('top')
+        ball.ceiling_hit = True
 
     # Detect if the ball hits the paddle
     for seg in game_paddle.segments:
@@ -153,7 +154,7 @@ while game_on:
 
         # Check if game over
         if scoreboard.lives < 0:
-            scoreboard.end_round('lose')
+            scoreboard.game_over()
             ball.pause()
             game_on = False
         else:
