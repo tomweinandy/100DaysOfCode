@@ -1,7 +1,7 @@
 from turtle import Turtle
 import time
 
-BALL_START_CORS = (-250, 0)
+BALL_START_CORS = (-250, -50)
 
 
 class Ball(Turtle):

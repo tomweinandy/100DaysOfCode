@@ -64,24 +64,25 @@ def build_level_one():
     # r6 = row.build(-395, 90, 16, 60, 'green')
     # r7 = row.build(-395, 60, 16, 60, 'yellow')
     # r8 = row.build(-395, 30, 16, 60, 'yellow')
-    r1 = blocks.Row()
-    r1.build(-395, 240, 16, 60, 'red')
-    r2 = blocks.Row()
-    r2.build(-395, 210, 16, 60, 'red')
-    r3 = blocks.Row()
-    r3.build(-395, 180, 16, 60, 'orange')
-    r4 = blocks.Row()
-    r4.build(-395, 150, 16, 60, 'orange')
-    r5 = blocks.Row()
-    r5.build(-395, 120, 16, 60, 'green')
-    r6 = blocks.Row()
-    r6.build(-395, 90, 16, 60, 'green')
+    # r1 = blocks.Row()
+    # r1.build(-395, 240, 16, 60, 'red')
+    # r2 = blocks.Row()
+    # r2.build(-395, 210, 16, 60, 'red')
+    # r3 = blocks.Row()
+    # r3.build(-395, 180, 16, 60, 'orange')
+    # r4 = blocks.Row()
+    # r4.build(-395, 150, 16, 60, 'orange')
+    # r5 = blocks.Row()
+    # r5.build(-395, 120, 16, 60, 'green')
+    # r6 = blocks.Row()
+    # r6.build(-395, 90, 16, 60, 'green')
     r7 = blocks.Row()
     r7.build(-395, 60, 16, 60, 'yellow')
     r8 = blocks.Row()
     r8.build(-395, 30, 16, 60, 'yellow')
 
-    list_of_rows = [r1, r2, r3, r4, r5, r6, r7, r8]
+    # list_of_rows = [r1, r2, r3, r4, r5, r6, r7, r8]
+    list_of_rows = [r7, r8]
     return list_of_rows
 
 

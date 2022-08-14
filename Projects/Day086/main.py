@@ -90,10 +90,27 @@ while game_on:
     time.sleep(0.005 / ball.speed)
     ball.forward(5)
 
+
+
     # Detect if ball hits a block
     for row in block_rows:
         for block in row.blocks:
-            if abs(ball.position() - block.position()) < 10:
+            x_diff = block.xcor() - ball.xcor()
+            y_diff = block.ycor() - ball.ycor()
+
+            # Detects if block is hit by the left of the ball
+
+            # Detects if block is hit by the right of the ball
+
+            # Detects if block is hit by the top of the ball
+
+            # Detects if block is hit by the bottom of the ball
+            X_PROX = 30
+            Y_PROX = 20
+
+            if abs(x_diff) < X_PROX and 0 < y_diff < Y_PROX:
+                ball.bounce('top')
+                print(f'Ball coordinates: {ball.position()}, Block coordinates: {block.position()}')
                 print(block.popped_points())
 
     # Detect if the ball hits the left wall
