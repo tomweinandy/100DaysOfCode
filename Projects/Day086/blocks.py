@@ -7,52 +7,38 @@ STARTING_MOVE_DISTANCE = 20
 MOVE_INCREMENT = 10
 
 
-class Car(Turtle):
-    def __init__(self):
+class Block(Turtle):
+    def __init__(self, x, y, color):
         """
         A car class inheriting the turtle class to create cars the form traffic
         """
         super().__init__()
-        # self.hideturtle()
         self.penup()
         self.shape('square')
         self.turtlesize(stretch_len=2)
-        self.color(random.choice(COLORS))
-        self.goto(360, random.randint(-240, 240))
-
-    def move(self):
-        """
-        Moves the car objects left across the screen
-        """
-        new_x = self.xcor() - MOVE_INCREMENT
-        self.goto(new_x, self.ycor())
+        self.color(color)
+        self.goto(x, y)
 
 
-class CarManager(Turtle):
+class Row(Turtle):
     """
     A car class inheriting the turtle class to manage traffic patterns
     """
-    def __init__(self, traffic_rate):
+    def __init__(self):
         super().__init__()
-        self.cars = []
-        self.traffic_rate = traffic_rate
+        # self.starting_x = x
+        # self.starting_y = y
+        # self.width = width
+        # self.color = color
+        # self.spacing = spacing
+        self.blocks = []
 
-    def add_cars(self):
-        """
-        Increases the number of cars
-        """
-        if random.random() < self.traffic_rate:
-            self.cars.append(Car())
+    def build(self, x, y, width, spacing, color):
+        for n in range(width):
+            x_new = x + (n - 1) * spacing
+            block = Block(x_new, y, color)
+            # self.goto(x_new, self.y)
+            # self.color()
+            self.blocks.append(block)
 
-    def green_light(self):
-        """
-        Starts traffic
-        """
-        for car in self.cars:
-            car.move()
 
-    def increase_traffic(self):
-        """
-        Increments the traffic rate by 10%
-        """
-        self.traffic_rate *= 1.1
