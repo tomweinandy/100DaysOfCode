@@ -15,6 +15,7 @@ LEFT_WALL_XCOR = -495
 RIGHT_WALL_XCOR = 485
 TEXT_YCOR = 350
 PROX = 20   # proximity
+SPINDEX = [14.0, 10.0, 6.0, 2.0, -2.0, -6.0, -10.0, -14.0]
 
 # Initialize screen
 screen = turtle.Screen()
@@ -28,6 +29,7 @@ ball = ball.Ball()
 game_paddle = paddle.Paddle(0, PADDLE_YCOR)
 scoreboard = scoreboard.Scoreboard()
 
+# todo move to separate file
 # Write instructions on screen
 instructions = turtle.Turtle()
 instructions.color('white')
@@ -70,7 +72,7 @@ bar.shape('square')
 bar.color('white')
 bar.turtlesize(stretch_len=0.5, stretch_wid=33)
 
-
+# todo move to separate file
 # Use solution by Joseph to allow for both paddles to move at once
     # Details: https://www.udemy.com/course/100-days-of-code/learn/lecture/20414753#questions/13216834
 def pressed(event):
@@ -123,8 +125,8 @@ while game_on:
         instructions.clear()
 
     screen.update()
-    time.sleep(0.0001 / ball.speed)
-    ball.forward(1)
+    time.sleep(0.005 / ball.speed)
+    ball.forward(5)
 
     # Detect if the ball hits the left wall
     if ball.xcor() < LEFT_WALL_XCOR + PROX:
@@ -141,9 +143,11 @@ while game_on:
 
     # Detect if the ball hits the paddle
     for seg in game_paddle.segments:
-
         if ball.distance(seg.position()) < PROX and ball.ycor() < PADDLE_YCOR + PROX and 180 < ball.orientation < 360:
-            ball.bounce('bottom')
+            # Spin ball according to the where it hits on the paddle
+            segment_index = game_paddle.segments.index(seg)
+            spin = SPINDEX[segment_index]
+            ball.bounce('bottom', spin)
             ball.paddle_hits += 1
 
     # Detect if the ball misses the paddle
@@ -155,7 +159,6 @@ while game_on:
         # Check if game over
         if scoreboard.lives < 0:
             scoreboard.game_over()
-            ball.pause()
             game_on = False
         else:
             ball.reset()

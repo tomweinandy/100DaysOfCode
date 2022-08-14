@@ -2,7 +2,7 @@ from turtle import Turtle
 
 PADDLE_YCOR = -340
 PADDLE_CORS = [i for i in range(0, 160, 20)]
-MOVING_DISTANCE = 3
+MOVING_DISTANCE = 5
 LEFT_BARRIER = -490
 RIGHT_BARRIER = 480
 
@@ -15,6 +15,7 @@ class Paddle(Turtle):
         super().__init__()
         self.segments = []
         self.create_paddle()
+        self.length = len(self.segments)
         self.head = self.segments[0]
         self.keys_pressed = {}
 

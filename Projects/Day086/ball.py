@@ -1,8 +1,8 @@
 from turtle import Turtle
 import time
-import random
 
 BALL_START_CORS = (-250, 0)
+
 
 class Ball(Turtle):
     """
@@ -23,25 +23,47 @@ class Ball(Turtle):
 
         self.setheading(self.orientation)
 
-    def bounce(self, wall):
+    def bounce(self, wall, spin=0):
         """
-
         :param wall: 'top', 'bottom', 'left', 'right'
+        :param spin:
         :return:
         """
+        # if wall == 'left':
+        #     if 90 < self.orientation < 180:
+        #         self.orientation = (self.orientation - self.paddle_bounce_angle) % 360
+        #     elif 180 < self.orientation < 270:
+        #         self.orientation = (self.orientation + self.paddle_bounce_angle) % 360
+        #     # self.setheading(self.orientation)
+        #
+        # if wall == 'right':
+        #     if 270 < self.orientation < 360:
+        #         self.orientation = (self.orientation - self.paddle_bounce_angle) % 360
+        #     elif 0 < self.orientation < 90:
+        #         self.orientation = (self.orientation + self.paddle_bounce_angle) % 360
+        #     # self.setheading(self.orientation)
+        #
+        # if wall == 'top':
+        #     bounce_angle = 180 + self.paddle_bounce_angle
+        #
+        #     if 0 < self.orientation <= 90:
+        #         self.orientation = (self.orientation + bounce_angle) % 360
+        #     elif 90 < self.orientation < 180:
+        #         self.orientation = (self.orientation - bounce_angle) % 360
+
         if wall == 'left':
             if 90 < self.orientation < 180:
                 self.orientation = (self.orientation - self.paddle_bounce_angle) % 360
             elif 180 < self.orientation < 270:
                 self.orientation = (self.orientation + self.paddle_bounce_angle) % 360
-            self.setheading(self.orientation)
+            # self.setheading(self.orientation)
 
         if wall == 'right':
             if 270 < self.orientation < 360:
                 self.orientation = (self.orientation - self.paddle_bounce_angle) % 360
             elif 0 < self.orientation < 90:
                 self.orientation = (self.orientation + self.paddle_bounce_angle) % 360
-            self.setheading(self.orientation)
+            # self.setheading(self.orientation)
 
         if wall == 'top':
             bounce_angle = 180 + self.paddle_bounce_angle
@@ -51,19 +73,23 @@ class Ball(Turtle):
             elif 90 < self.orientation < 180:
                 self.orientation = (self.orientation - bounce_angle) % 360
 
-            self.setheading(self.orientation)
+            # self.setheading(self.orientation)
 
         if wall == 'bottom':
-            bounce_angle = 180 + self.paddle_bounce_angle
 
             if 180 < self.orientation <= 270:
+                bounce_angle = 180 + self.paddle_bounce_angle + spin
                 self.orientation = (self.orientation + bounce_angle) % 360
+                self.paddle_bounce_angle = self.paddle_bounce_angle + (spin * 2)
+
             elif 270 < self.orientation < 360:
+                bounce_angle = 180 + self.paddle_bounce_angle - spin
                 self.orientation = (self.orientation - bounce_angle) % 360
+                self.paddle_bounce_angle = self.paddle_bounce_angle - (2 * spin)
 
-            self.setheading(self.orientation)
+        self.setheading(self.orientation)
 
-        print(self.orientation)
+        print(f'Wall: {wall}, Spin: {spin}, Paddle Bounce Angle: {self.paddle_bounce_angle}, Orientation: {self.orientation}')
 
     def reset(self):
         """
