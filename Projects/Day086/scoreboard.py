@@ -19,7 +19,7 @@ class Scoreboard(turtle.Turtle):
         Updates the scoreboard after paddle misses or block is broken
         """
         self.clear()
-        self.goto(-400, 340)
+        self.goto(-350, 340)
         self.write(self.points, align='center', font=('Courier', 40, 'normal'))
         self.goto(400, 340)
         self.write(self.lives, align='center', font=('Courier', 40, 'normal'))

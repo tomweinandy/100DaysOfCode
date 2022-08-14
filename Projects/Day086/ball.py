@@ -31,16 +31,16 @@ class Ball(Turtle):
         """
 
         if wall == 'left':
-            if 90 < self.orientation < 180:
+            if 90 < self.orientation <= 180:
                 self.orientation = (self.orientation - self.paddle_bounce_angle) % 360
             elif 180 < self.orientation < 270:
                 self.orientation = (self.orientation + self.paddle_bounce_angle) % 360
             # self.setheading(self.orientation)
 
         if wall == 'right':
-            if 270 < self.orientation < 360:
+            if 270 < self.orientation <= 360:
                 self.orientation = (self.orientation - self.paddle_bounce_angle) % 360
-            elif 0 < self.orientation < 90:
+            elif 0 <= self.orientation < 90:
                 self.orientation = (self.orientation + self.paddle_bounce_angle) % 360
             # self.setheading(self.orientation)
 
@@ -65,9 +65,12 @@ class Ball(Turtle):
                 self.orientation = (self.orientation - bounce_angle) % 360
                 self.paddle_bounce_angle = self.paddle_bounce_angle - (2 * spin)
 
-        self.setheading(self.orientation)
+        # Force paddle bounce to be non-negative
+        if self.paddle_bounce_angle < 0:
+            self.paddle_bounce_angle = abs(self.paddle_bounce_angle)
 
-        print(f'Wall: {wall}, Spin: {spin}, Paddle Bounce Angle: {self.paddle_bounce_angle}, Orientation: {self.orientation}')
+        self.setheading(self.orientation)
+        # print(f'Wall: {wall}, Spin: {spin}, Paddle Bounce Angle: {self.paddle_bounce_angle}, Orientation: {self.orientation}')
 
     def reset(self):
         """

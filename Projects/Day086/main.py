@@ -15,7 +15,7 @@ LEFT_WALL_XCOR = -495
 RIGHT_WALL_XCOR = 485
 TEXT_YCOR = 350
 PROX = 20   # proximity
-SPINDEX = [14.0, 10.0, 6.0, 2.0, -2.0, -6.0, -10.0, -14.0]
+SPINDEX = [14.0, 10.0, 6.0, 2.0, -2.0, -6.0, -10.0, -14.0]*2
 # SPINDEX = [10, 10, 10, 10, -10, -10, -10, -10]
 
 
@@ -90,28 +90,35 @@ while game_on:
     time.sleep(0.005 / ball.speed)
     ball.forward(5)
 
-
-
     # Detect if ball hits a block
     for row in block_rows:
         for block in row.blocks:
-            x_diff = block.xcor() - ball.xcor()
-            y_diff = block.ycor() - ball.ycor()
+            x_distance = abs(block.xcor() - ball.xcor())
+            y_distance = abs(block.ycor() - ball.ycor())
+            ball_above_block = block.ycor() < ball.ycor()
 
             # Detects if block is hit by the left of the ball
 
             # Detects if block is hit by the right of the ball
 
-            # Detects if block is hit by the top of the ball
-
             # Detects if block is hit by the bottom of the ball
             X_PROX = 30
             Y_PROX = 20
 
-            if abs(x_diff) < X_PROX and 0 < y_diff < Y_PROX:
+            if x_distance < X_PROX and y_distance < Y_PROX and ball_above_block:
+                ball.bounce('bottom')
+                print(f'[BOTTOM] Ball coordinates: {ball.position()}, Block coordinates: {block.position()}')
+
+                scoreboard.points += block.popped_points()
+                scoreboard.update_scoreboard()
+
+            # Detects if block is hit by the top of the ball
+            if x_distance < X_PROX and y_distance < Y_PROX and not ball_above_block:
                 ball.bounce('top')
-                print(f'Ball coordinates: {ball.position()}, Block coordinates: {block.position()}')
-                print(block.popped_points())
+                print(f'[TOP] Ball coordinates: {ball.position()}, Block coordinates: {block.position()}')
+
+                scoreboard.points += block.popped_points()
+                scoreboard.update_scoreboard()
 
     # Detect if the ball hits the left wall
     if ball.xcor() < LEFT_WALL_XCOR + PROX:
@@ -120,6 +127,11 @@ while game_on:
     # Detect if the ball hits the right wall
     if ball.xcor() > RIGHT_WALL_XCOR - PROX:
         ball.bounce('right')
+
+    # If ball goes past either wall (for debugging)
+    if ball.xcor() > RIGHT_WALL_XCOR or ball.xcor() < LEFT_WALL_XCOR:
+        print(f'Paddle Bounce Angle: {ball.paddle_bounce_angle}, Orientation: {ball.orientation}')
+        ball.orientation += 180
 
     # Detect if the ball hits the ceiling
     if ball.ycor() > CEILING_YCOR - PROX:
