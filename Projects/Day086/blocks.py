@@ -1,6 +1,8 @@
 import random
 from turtle import Turtle
 
+ISLAND_OF_MISFIT_TOYS = (1000, 1000)
+
 # todo rewrite this script as blocks, not cars
 
 
@@ -34,6 +36,7 @@ class Row(Turtle):
         # self.width = width
         # self.color = color
         # self.spacing = spacing
+        # self.first_orange_hit = False
         self.blocks = []
 
     def build(self, x, y, width, spacing, color):
@@ -45,5 +48,5 @@ class Row(Turtle):
             self.blocks.append(block)
 
         self.penup()
-        self.goto(1000, 1000)
+        self.goto(ISLAND_OF_MISFIT_TOYS)
 

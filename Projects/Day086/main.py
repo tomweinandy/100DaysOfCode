@@ -49,6 +49,16 @@ def set_key_binds():
         keys_pressed[key] = False
 
 
+def block_hit(side):
+    ball.bounce(side)
+    print(f'[{side.upper()}] Ball coordinates: {ball.position()}, Block coordinates: {block.position()}')
+    add_points = block.popped_points()
+    scoreboard.points += add_points
+    scoreboard.update_scoreboard()
+
+    if add_points == 5:
+        ball.speed_event('orange block')
+
 # Initialize screen
 screen = turtle.Screen()
 screen.title('Breakout')
@@ -95,30 +105,24 @@ while game_on:
         for block in row.blocks:
             x_distance = abs(block.xcor() - ball.xcor())
             y_distance = abs(block.ycor() - ball.ycor())
-            ball_above_block = block.ycor() < ball.ycor()
+            block_below_ball = block.ycor() < ball.ycor()
+            block_left_of_ball = block.xcor() < ball.xcor()
 
-            # Detects if block is hit by the left of the ball
+            # Detects if block is hit by the left of the ball #todo fix left, right sensitivity
+            if x_distance < 25 and y_distance < 10 and block_left_of_ball:
+                block_hit('left')
 
             # Detects if block is hit by the right of the ball
+            if x_distance < 25 and y_distance < 10 and not block_left_of_ball:
+                block_hit('right')
 
             # Detects if block is hit by the bottom of the ball
-            X_PROX = 30
-            Y_PROX = 20
-
-            if x_distance < X_PROX and y_distance < Y_PROX and ball_above_block:
-                ball.bounce('bottom')
-                print(f'[BOTTOM] Ball coordinates: {ball.position()}, Block coordinates: {block.position()}')
-
-                scoreboard.points += block.popped_points()
-                scoreboard.update_scoreboard()
+            if x_distance < 30 and y_distance < 20 and block_below_ball:
+                block_hit('bottom')
 
             # Detects if block is hit by the top of the ball
-            if x_distance < X_PROX and y_distance < Y_PROX and not ball_above_block:
-                ball.bounce('top')
-                print(f'[TOP] Ball coordinates: {ball.position()}, Block coordinates: {block.position()}')
-
-                scoreboard.points += block.popped_points()
-                scoreboard.update_scoreboard()
+            if x_distance < 30 and y_distance < 20 and not block_below_ball:
+                block_hit('top')
 
     # Detect if the ball hits the left wall
     if ball.xcor() < LEFT_WALL_XCOR + PROX:
@@ -145,7 +149,12 @@ while game_on:
             segment_index = game_paddle.segments.index(seg)
             spin = SPINDEX[segment_index]
             ball.bounce('bottom', spin)
+
             ball.paddle_hits += 1
+            if ball.paddle_hits == 4:
+                ball.speed_event('four hits')
+            if ball.paddle_hits == 12:
+                ball.speed_event('twelve hits')
 
     # Detect if the ball misses the paddle
     if ball.ycor() < PADDLE_YCOR - 20:

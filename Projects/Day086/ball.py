@@ -14,7 +14,7 @@ class Ball(Turtle):
         self.shape('circle')
         self.penup()
         self.goto(BALL_START_CORS)
-        self.speed = 1
+        self.speed = 2
         self.paddle_bounce_angle = 90
         self.orientation = 315
         self.paddle_hits = 0
@@ -71,6 +71,21 @@ class Ball(Turtle):
 
         self.setheading(self.orientation)
         # print(f'Wall: {wall}, Spin: {spin}, Paddle Bounce Angle: {self.paddle_bounce_angle}, Orientation: {self.orientation}')
+
+    def speed_event(self, event):
+        if event == 'four hits':
+            self.speed += 1
+            print('FOUR HITS: increase speed by 1')
+        elif event == 'twelve hits':
+            self.speed += 1
+            print('TWELVE HITS: increase speed by 1')
+        elif event == 'orange block':
+            if not self.orange_row_hit:
+                self.speed += 1
+                self.orange_row_hit = True
+                print('FIRST ORANGE BLOCK: increase speed by 1')
+        else:
+            print('INVALID EVENT')
 
     def reset(self):
         """

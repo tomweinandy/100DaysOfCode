@@ -7,6 +7,7 @@ CEILING_YCOR = 330
 LEFT_WALL_XCOR = -495
 RIGHT_WALL_XCOR = 485
 TEXT_YCOR = 350
+ISLAND_OF_MISFIT_TOYS = (1000, 1000)
 
 
 def build_screen():
@@ -34,24 +35,30 @@ def build_screen():
 
     # Add horizontal bar for ceiling
     bar = turtle.Turtle()
+    bar.penup()
     bar.goto(0, CEILING_YCOR)
     bar.shape('square')
     bar.color('white')
     bar.turtlesize(stretch_len=50, stretch_wid=0.5)
+    bar.goto(ISLAND_OF_MISFIT_TOYS)
 
     # Add vertical bar for left wall
     bar = turtle.Turtle()
+    bar.penup()
     bar.goto(LEFT_WALL_XCOR, 0)
     bar.shape('square')
     bar.color('white')
     bar.turtlesize(stretch_len=0.5, stretch_wid=33)
+    bar.goto(ISLAND_OF_MISFIT_TOYS)
 
     # Add vertical bar for right wall
     bar = turtle.Turtle()
+    bar.penup()
     bar.goto(RIGHT_WALL_XCOR, 0)
     bar.shape('square')
     bar.color('white')
     bar.turtlesize(stretch_len=0.5, stretch_wid=33)
+    bar.goto(ISLAND_OF_MISFIT_TOYS)
 
 
 def build_level_one():
@@ -63,6 +70,7 @@ def build_level_one():
     r3.build(-395, 180, 16, 60, 'orange')
     r4 = blocks.Row()
     r4.build(-395, 150, 16, 60, 'orange')
+    r4.first_orange_hit = True
     r5 = blocks.Row()
     r5.build(-395, 120, 16, 60, 'green')
     r6 = blocks.Row()
