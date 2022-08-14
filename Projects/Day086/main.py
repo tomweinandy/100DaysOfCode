@@ -5,7 +5,6 @@ import turtle
 import paddle
 import ball
 import scoreboard
-import blocks
 import build_level
 import time
 
@@ -17,24 +16,9 @@ RIGHT_WALL_XCOR = 485
 TEXT_YCOR = 350
 PROX = 20   # proximity
 SPINDEX = [14.0, 10.0, 6.0, 2.0, -2.0, -6.0, -10.0, -14.0]
+# SPINDEX = [10, 10, 10, 10, -10, -10, -10, -10]
 
-# Initialize screen
-screen = turtle.Screen()
-screen.title('Breakout')
-screen.setup(width=1000, height=1000)
-screen.bgcolor('black')
-screen.tracer(0)  # only updates on screen.update()
 
-# Create ball, paddle and scoreboard
-ball = ball.Ball()
-game_paddle = paddle.Paddle(0, PADDLE_YCOR)
-scoreboard = scoreboard.Scoreboard()
-
-# Add screen elements
-build_level.build_screen()
-build_level.build_level_one()
-
-# todo move to separate file
 # Use solution by Joseph to allow for both paddles to move at once
     # Details: https://www.udemy.com/course/100-days-of-code/learn/lecture/20414753#questions/13216834
 def pressed(event):
@@ -65,6 +49,22 @@ def set_key_binds():
         keys_pressed[key] = False
 
 
+# Initialize screen
+screen = turtle.Screen()
+screen.title('Breakout')
+screen.setup(width=1000, height=1000)
+screen.bgcolor('black')
+screen.tracer(0)  # only updates on screen.update()
+
+# Create ball, paddle and scoreboard
+ball = ball.Ball()
+game_paddle = paddle.Paddle(0, PADDLE_YCOR)
+scoreboard = scoreboard.Scoreboard()
+
+# Add screen elements
+build_level.build_screen()
+block_rows = build_level.build_level_one()
+
 # State machine to track which keys are pressed
 keys_pressed = {}
 
@@ -89,6 +89,12 @@ while game_on:
     screen.update()
     time.sleep(0.005 / ball.speed)
     ball.forward(5)
+
+    # Detect if ball hits a block
+    for row in block_rows:
+        for block in row.blocks:
+            if abs(ball.position() - block.position()) < 10:
+                print(block.popped_points())
 
     # Detect if the ball hits the left wall
     if ball.xcor() < LEFT_WALL_XCOR + PROX:

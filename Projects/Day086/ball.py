@@ -30,7 +30,6 @@ class Ball(Turtle):
         :return:
         """
 
-
         if wall == 'left':
             if 90 < self.orientation < 180:
                 self.orientation = (self.orientation - self.paddle_bounce_angle) % 360

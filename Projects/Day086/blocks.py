@@ -2,13 +2,10 @@ import random
 from turtle import Turtle
 
 # todo rewrite this script as blocks, not cars
-COLORS = ["red", "orange", "yellow", "green", "blue", "purple"]
-STARTING_MOVE_DISTANCE = 20
-MOVE_INCREMENT = 10
 
 
 class Block(Turtle):
-    def __init__(self, x, y, color):
+    def __init__(self, x=0, y=0, color='purple'):
         """
         A car class inheriting the turtle class to create cars the form traffic
         """
@@ -18,6 +15,12 @@ class Block(Turtle):
         self.turtlesize(stretch_len=2.7)
         self.color(color)
         self.goto(x, y)
+        self.points_dict = {'red': 7, 'orange': 5, 'green': 3, 'yellow': 1}
+
+    def popped_points(self):
+        self.goto(1000, 1000)
+        return self.points_dict[self.color()[0]]
+
 
 
 class Row(Turtle):
@@ -43,5 +46,4 @@ class Row(Turtle):
 
         self.penup()
         self.goto(1000, 1000)
-
 
