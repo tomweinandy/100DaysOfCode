@@ -15,7 +15,7 @@ class Block(Turtle):
         super().__init__()
         self.penup()
         self.shape('square')
-        self.turtlesize(stretch_len=2)
+        self.turtlesize(stretch_len=2.7)
         self.color(color)
         self.goto(x, y)
 
@@ -40,5 +40,8 @@ class Row(Turtle):
             # self.goto(x_new, self.y)
             # self.color()
             self.blocks.append(block)
+
+        self.penup()
+        self.goto(1000, 1000)
 
 
