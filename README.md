@@ -4,7 +4,7 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 
 **Portfolio Projects**
 
-* [](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day086)* Test link
+* [Day 86: Breakout](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day086)* Test link
 * [Day 85: Typing Speed Desktop App](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day085)*
 * [Day 84: Desktop App that Adds Image Watermarks](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day084)*
 * [Day 83: Tic-Tac-Toe Game](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day083)* 

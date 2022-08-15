@@ -16,7 +16,7 @@ class Scoreboard(turtle.Turtle):
 
     def update_scoreboard(self):
         """
-        Updates the scoreboard after paddle misses or block is broken
+        Updates the scoreboard after paddle misses (life lost) or block is broken (points gained)
         """
         self.clear()
         self.goto(-350, 340)
@@ -25,11 +25,15 @@ class Scoreboard(turtle.Turtle):
         self.write(self.lives, align='center', font=('Courier', 40, 'normal'))
 
     def game_over(self):
+        """
+        Prints 'game over'
+        """
         self.goto(0, -100)
         self.write('Game Over.', align='center', font=('Courier', 36, 'normal'))
 
     def game_won(self):
+        """
+        Prints 'you win'
+        """
         self.goto(0, 0)
         self.write('You win!', align='center', font=('Courier', 36, 'normal'))
-
-
