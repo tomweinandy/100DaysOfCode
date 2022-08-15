@@ -11,7 +11,7 @@ ISLAND_OF_MISFIT_TOYS = (1000, 1000)
 
 
 def build_screen():
-    # todo move to separate file
+    # todo remove abondonded turtle
     # # Write instructions on screen
     # instructions = turtle.Turtle()
     # instructions.color('white')

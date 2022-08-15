@@ -14,7 +14,7 @@ class Ball(Turtle):
         self.shape('circle')
         self.penup()
         self.goto(BALL_START_CORS)
-        self.speed = 2
+        self.speed = 1
         self.paddle_bounce_angle = 90
         self.orientation = 315
         self.paddle_hits = 0
@@ -72,16 +72,17 @@ class Ball(Turtle):
         self.setheading(self.orientation)
         # print(f'Wall: {wall}, Spin: {spin}, Paddle Bounce Angle: {self.paddle_bounce_angle}, Orientation: {self.orientation}')
 
+    # todo fine tune speed
     def speed_event(self, event):
         if event == 'four hits':
-            self.speed += 1
+            self.speed += 2
             print('FOUR HITS: increase speed by 1')
         elif event == 'twelve hits':
-            self.speed += 1
+            self.speed += 2
             print('TWELVE HITS: increase speed by 1')
         elif event == 'orange block':
             if not self.orange_row_hit:
-                self.speed += 1
+                self.speed += 2
                 self.orange_row_hit = True
                 print('FIRST ORANGE BLOCK: increase speed by 1')
         else:
@@ -92,10 +93,10 @@ class Ball(Turtle):
         Resets the ball after paddle misses
         """
         time.sleep(1)
-        self.speed = 1
         self.color('white')
         # Appears at the same point
         self.goto(BALL_START_CORS)
         self.orientation = 315
+        self.paddle_bounce_angle = 90
         self.setheading(self.orientation)
         time.sleep(2)
