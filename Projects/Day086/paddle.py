@@ -1,7 +1,7 @@
 from turtle import Turtle
 
 PADDLE_YCOR = -340
-PADDLE_CORS = [0, 20, 40, 60, 80, 100, 120, 140, 160]
+PADDLE_CORS = [-80, -60, -40, -20, 0, 20, 40, 60, 80]
 PADDLE_CORS_SHORT = [0, 20, 40, 60, 80]
 MOVING_DISTANCE = 7
 LEFT_BARRIER = -610
@@ -9,7 +9,7 @@ RIGHT_BARRIER = 600
 SPINDEX = [40, 30, 20, 10, 0, -10, -20, -30, -40]
 SPINDEX_SHORT = [30, 15, 0, -15, -30]
 ISLAND_OF_MISFIT_TOYS = (1000, 1000)
-# todo shorten paddle after ceiling hit
+
 
 class Paddle(Turtle):
     """
@@ -40,6 +40,9 @@ class Paddle(Turtle):
             new_turtle.penup()
             new_turtle.goto(self.last_x_cor + position, PADDLE_YCOR)
             self.segments.append(new_turtle)
+
+            self.penup()
+            self.goto(ISLAND_OF_MISFIT_TOYS)
 
     def move_right(self):
         """

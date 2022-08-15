@@ -11,7 +11,6 @@ ISLAND_OF_MISFIT_TOYS = (1000, 1000)
 
 
 def build_screen():
-    # todo remove abondonded turtle
     # # Write instructions on screen
     # instructions = turtle.Turtle()
     # instructions.color('white')
@@ -40,7 +39,7 @@ def build_screen():
     bar.shape('square')
     bar.color('white')
     bar.turtlesize(stretch_len=50, stretch_wid=0.5)
-    bar.goto(ISLAND_OF_MISFIT_TOYS)
+    # bar.goto(ISLAND_OF_MISFIT_TOYS)
 
     # Add vertical bar for left wall
     bar = turtle.Turtle()
@@ -49,7 +48,7 @@ def build_screen():
     bar.shape('square')
     bar.color('white')
     bar.turtlesize(stretch_len=0.5, stretch_wid=33)
-    bar.goto(ISLAND_OF_MISFIT_TOYS)
+    # bar.goto(ISLAND_OF_MISFIT_TOYS)
 
     # Add vertical bar for right wall
     bar = turtle.Turtle()
@@ -58,30 +57,30 @@ def build_screen():
     bar.shape('square')
     bar.color('white')
     bar.turtlesize(stretch_len=0.5, stretch_wid=33)
-    bar.goto(ISLAND_OF_MISFIT_TOYS)
+    # bar.goto(ISLAND_OF_MISFIT_TOYS)
 
 
 def build_level_one():
-    r1 = blocks.Row()
-    r1.build(-395, 240, 16, 60, 'red')
-    r2 = blocks.Row()
-    r2.build(-395, 210, 16, 60, 'red')
-    r3 = blocks.Row()
-    r3.build(-395, 180, 16, 60, 'orange')
-    r4 = blocks.Row()
-    r4.build(-395, 150, 16, 60, 'orange')
-    r4.first_orange_hit = True
-    r5 = blocks.Row()
-    r5.build(-395, 120, 16, 60, 'green')
-    r6 = blocks.Row()
-    r6.build(-395, 90, 16, 60, 'green')
-    r7 = blocks.Row()
-    r7.build(-395, 60, 16, 60, 'yellow')
+    # r1 = blocks.Row()
+    # r1.build(-395, 240, 16, 60, 'red')
+    # r2 = blocks.Row()
+    # r2.build(-395, 210, 16, 60, 'red')
+    # r3 = blocks.Row()
+    # r3.build(-395, 180, 16, 60, 'orange')
+    # r4 = blocks.Row()
+    # r4.build(-395, 150, 16, 60, 'orange')
+    # r4.first_orange_hit = True
+    # r5 = blocks.Row()
+    # r5.build(-395, 120, 16, 60, 'green')
+    # r6 = blocks.Row()
+    # r6.build(-395, 90, 16, 60, 'green')
+    # r7 = blocks.Row()
+    # r7.build(-395, 60, 16, 60, 'yellow')
     r8 = blocks.Row()
     r8.build(-395, 30, 16, 60, 'yellow')
 
-    # list_of_rows = [r8]
-    list_of_rows = [r1, r2, r3, r4, r5, r6, r7, r8]
+    list_of_rows = [r8]
+    # list_of_rows = [r1, r2, r3, r4, r5, r6, r7, r8]
     return list_of_rows
 
 

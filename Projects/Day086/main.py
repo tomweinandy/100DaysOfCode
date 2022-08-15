@@ -1,5 +1,7 @@
 """
-Day 22: Pong
+Day 86: Breakout
+
+https://en.wikipedia.org/wiki/Breakout_(video_game)
 """
 import turtle
 import paddle
@@ -7,8 +9,11 @@ import ball
 import scoreboard
 import build_level
 import time
+import math
 
 # Sets constants
+BALL_START_ORIENTATION = 135
+BALL_START_CORS = (0, -300)
 PADDLE_YCOR = -340
 CEILING_YCOR = 330
 LEFT_WALL_XCOR = -495
@@ -48,7 +53,7 @@ def set_key_binds():
 
 
 def block_hit(side):
-    ball.bounce(side)
+    game_ball.bounce(side)
     print(f'[{side.upper()}] X Distance: {x_distance}, Y Distance: {y_distance}')
     # print(f'[{side.upper()}] Ball coordinates: {ball.position()}, Block coordinates: {block.position()}')
     add_points = block.popped_points()
@@ -56,11 +61,17 @@ def block_hit(side):
     scoreboard.update_scoreboard()
 
     if add_points == 5:
-        ball.speed_event('orange block')
+        game_ball.speed_event('orange block')
 
     # Check if game was won
-    if scoreboard.points >= 512:
+    # if scoreboard.points == 512:
         scoreboard.game_won()
+        for i in range(40, 3600, 10):
+            bonus_ball = ball.Ball((0, 0), i)
+            for j in range(40):
+                screen.update()
+                bonus_ball.forward(2 + 0.004*i)
+        scoreboard.lives += 999
 
 
 # Initialize screen
@@ -71,7 +82,7 @@ screen.bgcolor('black')
 screen.tracer(0)  # only updates on screen.update()
 
 # Create ball, paddle and scoreboard
-ball = ball.Ball()
+game_ball = ball.Ball(BALL_START_CORS, BALL_START_ORIENTATION)
 game_paddle = paddle.Paddle(0, PADDLE_YCOR)
 scoreboard = scoreboard.Scoreboard()
 
@@ -96,21 +107,20 @@ while game_on:
         game_paddle.move_right()
     if keys_pressed["Left"]:
         game_paddle.move_left()
-    if keys_pressed["BackSpace"]:
+    if keys_pressed["BackSpace"]: #todo remove
         ball.pause()
-        # instructions.clear()
 
     screen.update()
-    time.sleep(0.01 / ball.speed)
-    ball.forward(5)
+    time.sleep(0.01 / game_ball.speed)
+    game_ball.forward(5)
 
     # Detect if ball hits a block
     for row in block_rows:
         for block in row.blocks:
-            x_distance = abs(block.xcor() - ball.xcor())
-            y_distance = abs(block.ycor() - ball.ycor())
-            block_below_ball = block.ycor() < ball.ycor()
-            block_left_of_ball = block.xcor() < ball.xcor()
+            x_distance = abs(block.xcor() - game_ball.xcor())
+            y_distance = abs(block.ycor() - game_ball.ycor())
+            block_below_ball = block.ycor() < game_ball.ycor()
+            block_left_of_ball = block.xcor() < game_ball.xcor()
 
             # Detects if block is hit by the left of the ball
             if x_distance < 45 and y_distance < 15 and block_left_of_ball:
@@ -129,48 +139,48 @@ while game_on:
                 block_hit('top')
 
     # Detect if the ball hits the left wall
-    if ball.xcor() < LEFT_WALL_XCOR + PROX:
-        ball.bounce('left')
+    if game_ball.xcor() < LEFT_WALL_XCOR + PROX:
+        game_ball.bounce('left')
 
     # Detect if the ball hits the right wall
-    if ball.xcor() > RIGHT_WALL_XCOR - PROX:
-        ball.bounce('right')
+    if game_ball.xcor() > RIGHT_WALL_XCOR - PROX:
+        game_ball.bounce('right')
 
     # If ball goes past a wall (for debugging)
-    if ball.xcor() > RIGHT_WALL_XCOR or ball.xcor() < LEFT_WALL_XCOR or ball.ycor() > CEILING_YCOR:
-        print(f'Paddle Bounce Angle: {ball.paddle_bounce_angle}, Orientation: {ball.orientation}')
-        ball.orientation += 180
+    if game_ball.xcor() > RIGHT_WALL_XCOR or game_ball.xcor() < LEFT_WALL_XCOR or game_ball.ycor() > CEILING_YCOR:
+        print(f'Paddle Bounce Angle: {game_ball.paddle_bounce_angle}, Orientation: {game_ball.orientation}')
+        game_ball.orientation += 180
 
     # Detect if the ball hits the ceiling
-    if ball.ycor() > CEILING_YCOR - PROX:
-        ball.bounce('top')
-        if not ball.ceiling_hit:
+    if game_ball.ycor() > CEILING_YCOR - PROX:
+        game_ball.bounce('top')
+        if not game_ball.ceiling_hit:
             print('HIT CEILING: Shorten the paddle')
             game_paddle.paddle_cors = game_paddle.paddle_cors_short
             game_paddle.spindex = game_paddle.spindex_short
             game_paddle.last_x_cor = game_paddle.segments[0].xcor()
             game_paddle.banish()
             game_paddle.create_paddle()
-            ball.ceiling_hit = True
+            game_ball.ceiling_hit = True
 
     # Detect if the ball hits the paddle
     for seg in game_paddle.segments:
-        if ball.distance(seg.position()) < PROX and ball.ycor() < PADDLE_YCOR + PROX and 180 < ball.orientation < 360:
+        if game_ball.distance(seg.position()) < PROX and game_ball.ycor() < PADDLE_YCOR + PROX and 180 < game_ball.orientation < 360: #todo fix
             # Spin ball according to the where it hits on the paddle
             segment_index = game_paddle.segments.index(seg)
             spin = game_paddle.spindex[segment_index]
-            ball.bounce('bottom', spin)
+            game_ball.bounce('bottom', spin)
 
-            ball.paddle_hits += 1
-            if ball.paddle_hits == 4:
-                ball.speed_event('four hits')
-            if ball.paddle_hits == 12:
-                ball.speed_event('twelve hits')
+            game_ball.paddle_hits += 1
+            if game_ball.paddle_hits == 4:
+                game_ball.speed_event('four hits')
+            if game_ball.paddle_hits == 12:
+                game_ball.speed_event('twelve hits')
 
     # Detect if the ball misses the paddle
-    if ball.ycor() < PADDLE_YCOR - 20:
+    if game_ball.ycor() < PADDLE_YCOR - 20:
         scoreboard.lives -= 1
-        ball.color('red')
+        game_ball.color('red')
         screen.update()
 
         # Check if game over
@@ -178,7 +188,7 @@ while game_on:
             scoreboard.game_over()
             game_on = False
         else:
-            ball.reset()
+            game_ball.reset(BALL_START_CORS)
             scoreboard.update_scoreboard()
             screen.update()
             time.sleep(2)

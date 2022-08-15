@@ -29,7 +29,7 @@ class Scoreboard(turtle.Turtle):
         self.write('Game Over.', align='center', font=('Courier', 36, 'normal'))
 
     def game_won(self):
-        self.goto(0, -100)
+        self.goto(0, 0)
         self.write('You win!', align='center', font=('Courier', 36, 'normal'))
 
 
