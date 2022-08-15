@@ -15,9 +15,6 @@ LEFT_WALL_XCOR = -495
 RIGHT_WALL_XCOR = 485
 TEXT_YCOR = 350
 PROX = 20   # proximity
-# SPINDEX = [14.0, 10.0, 6.0, 2.0, -2.0, -6.0, -10.0, -14.0]
-# SPINDEX = [40, 30, 20, 10, 0, -10, -20, -30, -40]
-# SPINDEX_SHORT = [40, 20, 0, -20, -40]
 
 
 # Use solution by Joseph to allow for both paddles to move at once
@@ -60,6 +57,10 @@ def block_hit(side):
 
     if add_points == 5:
         ball.speed_event('orange block')
+
+    # Check if game was won
+    if scoreboard.points >= 512:
+        scoreboard.game_won()
 
 
 # Initialize screen
@@ -111,7 +112,7 @@ while game_on:
             block_below_ball = block.ycor() < ball.ycor()
             block_left_of_ball = block.xcor() < ball.xcor()
 
-            # Detects if block is hit by the left of the ball #todo fix left, right sensitivity
+            # Detects if block is hit by the left of the ball
             if x_distance < 45 and y_distance < 15 and block_left_of_ball:
                 block_hit('left')
 

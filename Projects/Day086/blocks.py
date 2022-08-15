@@ -20,7 +20,7 @@ class Block(Turtle):
         self.points_dict = {'red': 7, 'orange': 5, 'green': 3, 'yellow': 1}
 
     def popped_points(self):
-        self.goto(1000, 1000)
+        self.goto(ISLAND_OF_MISFIT_TOYS)
         return self.points_dict[self.color()[0]]
 
 

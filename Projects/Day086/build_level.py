@@ -1,7 +1,7 @@
 import blocks
 import turtle
 
-# Sets constants
+# Set constants
 PADDLE_YCOR = -340
 CEILING_YCOR = 330
 LEFT_WALL_XCOR = -495
@@ -17,7 +17,7 @@ def build_screen():
     # instructions.color('white')
     # instructions.penup()
     # instructions.goto(0, TEXT_YCOR)
-    # instructions_text = 'Press Backspace to begin.'
+    # instructions_text = 'Level 1.'
     # instructions.write(instructions_text, align='center', font=('Courier', 12, 'normal'))
     # instructions.goto(0, 1000)
 
@@ -62,26 +62,26 @@ def build_screen():
 
 
 def build_level_one():
-    # r1 = blocks.Row()
-    # r1.build(-395, 240, 16, 60, 'red')
-    # r2 = blocks.Row()
-    # r2.build(-395, 210, 16, 60, 'red')
-    # r3 = blocks.Row()
-    # r3.build(-395, 180, 16, 60, 'orange')
+    r1 = blocks.Row()
+    r1.build(-395, 240, 16, 60, 'red')
+    r2 = blocks.Row()
+    r2.build(-395, 210, 16, 60, 'red')
+    r3 = blocks.Row()
+    r3.build(-395, 180, 16, 60, 'orange')
     r4 = blocks.Row()
     r4.build(-395, 150, 16, 60, 'orange')
     r4.first_orange_hit = True
-    # r5 = blocks.Row()
-    # r5.build(-395, 120, 16, 60, 'green')
-    # r6 = blocks.Row()
-    # r6.build(-395, 90, 16, 60, 'green')
-    # r7 = blocks.Row()
-    # r7.build(-395, 60, 16, 60, 'yellow')
+    r5 = blocks.Row()
+    r5.build(-395, 120, 16, 60, 'green')
+    r6 = blocks.Row()
+    r6.build(-395, 90, 16, 60, 'green')
+    r7 = blocks.Row()
+    r7.build(-395, 60, 16, 60, 'yellow')
     r8 = blocks.Row()
     r8.build(-395, 30, 16, 60, 'yellow')
 
-    list_of_rows = [r4, r8]
-    # list_of_rows = [r1, r2, r3, r4, r5, r6, r7, r8]
+    # list_of_rows = [r8]
+    list_of_rows = [r1, r2, r3, r4, r5, r6, r7, r8]
     return list_of_rows
 
 
