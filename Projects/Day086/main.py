@@ -16,8 +16,8 @@ RIGHT_WALL_XCOR = 485
 TEXT_YCOR = 350
 PROX = 20   # proximity
 # SPINDEX = [14.0, 10.0, 6.0, 2.0, -2.0, -6.0, -10.0, -14.0]
-SPINDEX = [40, 30, 20, 10, 0, -10, -20, -30, -40]
-SPINDEX_SHORT = [40, 20, 0, -20, -40]
+# SPINDEX = [40, 30, 20, 10, 0, -10, -20, -30, -40]
+# SPINDEX_SHORT = [40, 20, 0, -20, -40]
 
 
 # Use solution by Joseph to allow for both paddles to move at once
@@ -135,22 +135,29 @@ while game_on:
     if ball.xcor() > RIGHT_WALL_XCOR - PROX:
         ball.bounce('right')
 
-    # If ball goes past either wall (for debugging)
-    if ball.xcor() > RIGHT_WALL_XCOR or ball.xcor() < LEFT_WALL_XCOR:
+    # If ball goes past a wall (for debugging)
+    if ball.xcor() > RIGHT_WALL_XCOR or ball.xcor() < LEFT_WALL_XCOR or ball.ycor() > CEILING_YCOR:
         print(f'Paddle Bounce Angle: {ball.paddle_bounce_angle}, Orientation: {ball.orientation}')
         ball.orientation += 180
 
     # Detect if the ball hits the ceiling
     if ball.ycor() > CEILING_YCOR - PROX:
         ball.bounce('top')
-        ball.ceiling_hit = True
+        if not ball.ceiling_hit:
+            print('HIT CEILING: Shorten the paddle')
+            game_paddle.paddle_cors = game_paddle.paddle_cors_short
+            game_paddle.spindex = game_paddle.spindex_short
+            game_paddle.last_x_cor = game_paddle.segments[0].xcor()
+            game_paddle.banish()
+            game_paddle.create_paddle()
+            ball.ceiling_hit = True
 
     # Detect if the ball hits the paddle
     for seg in game_paddle.segments:
         if ball.distance(seg.position()) < PROX and ball.ycor() < PADDLE_YCOR + PROX and 180 < ball.orientation < 360:
             # Spin ball according to the where it hits on the paddle
             segment_index = game_paddle.segments.index(seg)
-            spin = SPINDEX[segment_index]
+            spin = game_paddle.spindex[segment_index]
             ball.bounce('bottom', spin)
 
             ball.paddle_hits += 1

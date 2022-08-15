@@ -75,14 +75,14 @@ class Ball(Turtle):
     # todo fine tune speed
     def speed_event(self, event):
         if event == 'four hits':
-            self.speed += 2
+            self.speed += 1.5
             print('FOUR HITS: increase speed by 1')
         elif event == 'twelve hits':
-            self.speed += 2
+            self.speed += 1.5
             print('TWELVE HITS: increase speed by 1')
         elif event == 'orange block':
             if not self.orange_row_hit:
-                self.speed += 2
+                self.speed += 1.5
                 self.orange_row_hit = True
                 print('FIRST ORANGE BLOCK: increase speed by 1')
         else:
