@@ -15,8 +15,16 @@ Resources:
 import random
 from flask import Flask, jsonify, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, BooleanField
+from wtforms.validators import DataRequired, URL
 
+
+# Initialize Flask
 app = Flask(__name__)
+## app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+## ckeditor = CKEditor(app)
+## Bootstrap(app)
 
 # Connect to Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cafes.db'
@@ -47,6 +55,29 @@ class Cafe(db.Model):
         return dictionary
 
 
+# WTForm
+class CreatePostForm(FlaskForm):
+    name = StringField("Cafe Name", validators=[DataRequired()])
+    map_url = StringField("Cafe Map URL", validators=[DataRequired(), URL()])
+    img_url = StringField("Cafe Image URL", validators=[DataRequired(), URL()])
+    location = StringField("Cafe Address", validators=[DataRequired()])
+    seats = StringField("Approximate Cafe Seats", validators=[DataRequired()])
+    has_toilet = BooleanField("Cafe Has a Toilet", validators=[DataRequired()])
+    has_wifi = BooleanField("Cafe Has Wifi", validators=[DataRequired()])
+    has_sockets = BooleanField("Cafe Has Sockets", validators=[DataRequired()])
+    can_take_calls = BooleanField("Can Take Calls in the Cafe", validators=[DataRequired()])
+    coffee_price = StringField("Coffee Price", validators=[DataRequired()])
+    submit = SubmitField("Submit Post")
+
+    @staticmethod
+    def add_to_db(name, map_url, img_url, location, seats, has_toilet, has_wifi, has_sockets, can_take_calls,
+                  coffee_price):
+        new_cafe = Cafe(name=name, map_url=map_url, img_url=img_url, location=location, seats=seats,
+                        has_toilet=has_toilet, has_wifi=has_wifi, has_sockets=has_sockets,
+                        can_take_calls=can_take_calls, coffee_price=coffee_price)
+        db.session.add(new_cafe)
+        db.session.commit()
+
 # Query all cafés
 cafes = db.session.query(Cafe).all()
 
@@ -65,7 +96,8 @@ def get_random():
 
 @app.route("/all", methods=['GET'])
 def get_all():
-    return jsonify(cafes=[cafe.to_dict() for cafe in cafes])
+    all_cafes = Cafe.query.all()
+    return render_template("index.html", all_cafes=all_cafes)
 
 
 @app.route("/search", methods=['GET'])
