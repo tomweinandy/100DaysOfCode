@@ -6,6 +6,11 @@ Included in this assignment is an SQLite database called cafes.db that lists all
 Using this database and what you learnt about REST APIs and web development, create a website that uses this data. It should display the cafes, but it could also allow people to add new cafes or delete cafes.
 For example, this startup in London has a website that does exactly this:
 https://laptopfriendly.co/london
+
+Resources:
+* Day 62: cafe website
+* Day 66: REST API
+* Day 67: Blog with SQLite
 """
 import random
 from flask import Flask, jsonify, render_template, request

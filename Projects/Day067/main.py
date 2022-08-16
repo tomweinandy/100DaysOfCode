@@ -1,5 +1,5 @@
 """
-Day 67:
+Day 67: HTML Blog with Jinja, Flask and SQLite (Pt III)
 """
 from flask import Flask, render_template, redirect, url_for
 from flask_bootstrap import Bootstrap

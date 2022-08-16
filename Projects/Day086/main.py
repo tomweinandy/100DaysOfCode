@@ -25,9 +25,10 @@ RIGHT_WALL_XCOR = 485
 TEXT_YCOR = 350
 PROXIMITY = 20
 
-# ------------------------------------------  Define Helper Functions  ----------------------------------------------------
+
+# ------------------------------------------  Define Helper Functions  ------------------------------------------------
 # Use solution by Joseph to allow for both paddles to move at once
-    # Details: https://www.udemy.com/course/100-days-of-code/learn/lecture/20414753#questions/13216834
+# Details: https://www.udemy.com/course/100-days-of-code/learn/lecture/20414753#questions/13216834
 def pressed(event):
     """
     Callback for KeyPress event listener. Sets key pressed state to True

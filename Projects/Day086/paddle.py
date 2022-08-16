@@ -15,7 +15,7 @@ class Paddle(Turtle):
     """
     Build a Paddle class inherited from the Turtle class
     """
-    def __init__(self, x, y):
+    def __init__(self):
         super().__init__()
         self.segments = []
         self.paddle_cors = PADDLE_CORS
