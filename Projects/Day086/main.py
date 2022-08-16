@@ -1,13 +1,12 @@
 """
-Day 86: Breakout
+Day 86: Breakout Game
 
 RULES OUTLINED BY https://en.wikipedia.org/wiki/Breakout_(video_game)
-1. Ball speed increases after the paddle it hit four times
-2. Ball speed increases after the paddle it hit twelve times
+1. Ball speed increases after four paddle hits
+2. Ball speed increases after twelve paddle hits
 3. Ball speed increases after the first red or orange block is broken
 4. The paddle is shorted after the ceiling is hit
 5. The game is won when all blocks are cleared
-
 """
 import turtle
 import paddle
