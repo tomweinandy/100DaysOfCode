@@ -104,10 +104,24 @@ def get_random():
     return jsonify(random_cafe.to_dict())
 
 
-@app.route("/all", methods=['GET'])
+# @app.route("/all", methods=['GET'])
+# def get_all():
+#     all_cafes = Cafe.query.all()
+#     return render_template("index.html", all_cafes=all_cafes)
+
+@app.route("/cafes", methods=['GET'])
 def get_all():
     all_cafes = Cafe.query.all()
-    return render_template("index.html", all_cafes=all_cafes)
+    return render_template("cafes.html", all_cafes=all_cafes)
+
+# @app.route('/cafes')
+# def cafes():
+#     with open('cafe-data.csv', newline='') as csv_file:
+#         csv_data = csv.reader(csv_file, delimiter=',')
+#         list_of_rows = []
+#         for row in csv_data:
+#             list_of_rows.append(row)
+#     return render_template('cafes.html', cafes=list_of_rows)
 
 
 @app.route("/search", methods=['GET'])
