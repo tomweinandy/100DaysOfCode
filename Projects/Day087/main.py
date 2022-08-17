@@ -12,19 +12,23 @@ Resources:
 * Day 66: REST API
 * Day 67: Blog with SQLite
 """
-import random
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
+from flask_bootstrap import Bootstrap
+from flask_ckeditor import CKEditor
 from wtforms import StringField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, URL
+
+import random
+from datetime import date
 
 
 # Initialize Flask
 app = Flask(__name__)
-## app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
-## ckeditor = CKEditor(app)
-## Bootstrap(app)
+app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+ckeditor = CKEditor(app)
+Bootstrap(app)
 
 # Connect to Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cafes.db'
@@ -35,6 +39,7 @@ db = SQLAlchemy(app)
 # Café TABLE Configuration
 class Cafe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    # date = db.Column(db.String(250), nullable=False)
     name = db.Column(db.String(250), unique=True, nullable=False)
     map_url = db.Column(db.String(500), nullable=False)
     img_url = db.Column(db.String(500), nullable=False)
@@ -56,7 +61,7 @@ class Cafe(db.Model):
 
 
 # WTForm
-class CreatePostForm(FlaskForm):
+class CafeForm(FlaskForm):
     name = StringField("Cafe Name", validators=[DataRequired()])
     map_url = StringField("Cafe Map URL", validators=[DataRequired(), URL()])
     img_url = StringField("Cafe Image URL", validators=[DataRequired(), URL()])
@@ -67,7 +72,7 @@ class CreatePostForm(FlaskForm):
     has_sockets = BooleanField("Cafe Has Sockets", validators=[DataRequired()])
     can_take_calls = BooleanField("Can Take Calls in the Cafe", validators=[DataRequired()])
     coffee_price = StringField("Coffee Price", validators=[DataRequired()])
-    submit = SubmitField("Submit Post")
+    submit = SubmitField("Submit Submission")
 
     @staticmethod
     def add_to_db(name, map_url, img_url, location, seats, has_toilet, has_wifi, has_sockets, can_take_calls,
@@ -77,6 +82,7 @@ class CreatePostForm(FlaskForm):
                         can_take_calls=can_take_calls, coffee_price=coffee_price)
         db.session.add(new_cafe)
         db.session.commit()
+
 
 # Query all cafés
 cafes = db.session.query(Cafe).all()
@@ -109,25 +115,48 @@ def search():
     else:
         return jsonify(error={"Not Found": "Sorry, we don't have a cafe at that location."})
 
+# @app.route('/add', methods=['POST', 'GET'])
+# def add_cafe():
+#     form = CafeForm()
+#     if form.validate_on_submit():
+#         add_cafe_to_csv(form.cafe.data, form.location.data, form.open.data,
+#                         form.close.data, form.coffee.data, form.wifi.data, form.power.data)
+#         return redirect(url_for('add_cafe'))
+#     return render_template('add.html', form=form)
 
 ## HTTP POST - Create Record
-@app.route("/add", methods=["POST"])
-def post_new_cafe():
-    new_cafe = Cafe(
-        name=request.form.get("name"),
-        map_url=request.form.get("map_url"),
-        img_url=request.form.get("img_url"),
-        location=request.form.get("location"),
-        has_sockets=bool(request.form.get("sockets")),
-        has_toilet=bool(request.form.get("toilet")),
-        has_wifi=bool(request.form.get("wifi")),
-        can_take_calls=bool(request.form.get("calls")),
-        seats=request.form.get("seats"),
-        coffee_price=request.form.get("coffee_price"),
-    )
-    db.session.add(new_cafe)
-    db.session.commit()
-    return jsonify(response={"success": "Successfully added the new cafe."})
+@app.route("/add-cafe", methods=['GET', 'POST'])
+def add_cafe():
+    form = CafeForm()
+
+    if form.validate_on_submit():
+        # today = date.today().strftime('%B %d, %Y')
+        form.add_to_db(form.name.data, form.map_url.data, form.img_url.data, form.location.data, form.seats.data,
+                       form.has_toilet.data, form.has_wifi.data, form.has_sockets.data, form.can_take_calls.data,
+                       form.coffee_price.data)
+        return redirect(url_for('get_all_posts'))
+
+    return render_template('add-cafe.html', form=form)
+
+
+#
+# @app.route("/add", methods=["POST"])
+# def post_new_cafe():
+#     new_cafe = Cafe(
+#         name=request.form.get("name"),
+#         map_url=request.form.get("map_url"),
+#         img_url=request.form.get("img_url"),
+#         location=request.form.get("location"),
+#         has_sockets=bool(request.form.get("sockets")),
+#         has_toilet=bool(request.form.get("toilet")),
+#         has_wifi=bool(request.form.get("wifi")),
+#         can_take_calls=bool(request.form.get("calls")),
+#         seats=request.form.get("seats"),
+#         coffee_price=request.form.get("coffee_price"),
+#     )
+#     db.session.add(new_cafe)
+#     db.session.commit()
+#     return jsonify(response={"success": "Successfully added the new cafe."})
 
 
 ## HTTP PUT/PATCH - Update Record
