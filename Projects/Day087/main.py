@@ -67,10 +67,14 @@ class CafeForm(FlaskForm):
     img_url = StringField("Cafe Image URL", validators=[DataRequired(), URL()])
     location = StringField("Cafe Address", validators=[DataRequired()])
     seats = StringField("Approximate Cafe Seats", validators=[DataRequired()])
-    has_toilet = BooleanField("Cafe Has a Toilet", validators=[DataRequired()])
-    has_wifi = BooleanField("Cafe Has Wifi", validators=[DataRequired()])
-    has_sockets = BooleanField("Cafe Has Sockets", validators=[DataRequired()])
-    can_take_calls = BooleanField("Can Take Calls in the Cafe", validators=[DataRequired()])
+    has_toilet = BooleanField("Cafe Has a Toilet")
+    has_wifi = BooleanField("Cafe Has Wifi")
+    has_sockets = BooleanField("Cafe Has Sockets")
+    can_take_calls = BooleanField("Can Take Calls in the Cafe")
+    # has_toilet = BooleanField("Cafe Has a Toilet", validators=[DataRequired()])
+    # has_wifi = BooleanField("Cafe Has Wifi", validators=[DataRequired()])
+    # has_sockets = BooleanField("Cafe Has Sockets", validators=[DataRequired()])
+    # can_take_calls = BooleanField("Can Take Calls in the Cafe", validators=[DataRequired()])
     coffee_price = StringField("Coffee Price", validators=[DataRequired()])
     submit = SubmitField("Submit Submission")
 
@@ -134,9 +138,24 @@ def add_cafe():
         form.add_to_db(form.name.data, form.map_url.data, form.img_url.data, form.location.data, form.seats.data,
                        form.has_toilet.data, form.has_wifi.data, form.has_sockets.data, form.can_take_calls.data,
                        form.coffee_price.data)
-        return redirect(url_for('get_all_posts'))
+        return redirect(url_for('add_another_cafe'))
 
     return render_template('add-cafe.html', form=form)
+
+
+## HTTP POST - Create Record
+@app.route("/add-another-cafe", methods=['GET', 'POST'])
+def add_another_cafe():
+    form = CafeForm()
+
+    if form.validate_on_submit():
+        # today = date.today().strftime('%B %d, %Y')
+        form.add_to_db(form.name.data, form.map_url.data, form.img_url.data, form.location.data, form.seats.data,
+                       form.has_toilet.data, form.has_wifi.data, form.has_sockets.data, form.can_take_calls.data,
+                       form.coffee_price.data)
+        return redirect(url_for('add_another_cafe'))
+
+    return render_template('add-another-cafe.html', form=form)
 
 
 #
