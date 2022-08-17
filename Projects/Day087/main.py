@@ -143,6 +143,12 @@ def add_another_cafe():
     return render_template('add-another-cafe.html', form=form)
 
 
+@app.route("/cafe/<int:cafe_id>")
+def show_cafe(cafe_id):
+    requested_cafe = Cafe.query.get(cafe_id)
+    return render_template("cafe.html", cafe=requested_cafe)
+
+
 ## HTTP PUT/PATCH - Update Record
 @app.route("/update-price/<int:cafe_id>", methods=["PATCH"])
 def update_price(cafe_id):
