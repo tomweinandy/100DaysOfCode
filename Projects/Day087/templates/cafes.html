@@ -1,22 +1,18 @@
-<!--{% include "header.html" %}-->
-<!--{% extends 'bootstrap/base.html' %}-->
-
-{% block styles %}
-{{ super() }}
-<!--&lt;!&ndash;	<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">&ndash;&gt;-->
-<!--	<link rel="stylesheet" href="{{ url_for('static', filename='css/clean-blog.css') }}">-->
-{% endblock %}
-
-{% block title %}Cafés{% endblock %}
+{% include "header.html" %}
 
 {% block content %}
+
+<div class="jumbotron text-center">
+    <div class="container">
+    </div>
+</div>
 
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
         <h1>All Cafés</h1>
 
-        <table class="table table-dark">
+        <table class="table">
           <thead>
             <tr>
               <th scope="col">Café Name</th>
@@ -33,7 +29,7 @@
             {% for cafe in all_cafes: %}
             <tr>
               <td>{{cafe['name']}}</td>
-              <td> <a href="{{cafe['map_url']}}">{{cafe['location']}}</a> </td>
+              <td> <a href="{{cafe['map_url']}}" target="_blank" rel="noopener noreferrer">{{cafe['location']}}</a> </td>
               <td>{{cafe['seats']}}</td>
               <td>{{cafe['has_toilet']}}</td>
               <td>{{cafe['has_wifi']}}</td>
@@ -53,4 +49,4 @@
 
 {% endblock %}
 
-<!--{% include "footer.html" %}-->
+{% include "footer.html" %}
