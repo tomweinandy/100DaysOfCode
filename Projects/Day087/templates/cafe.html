@@ -9,9 +9,6 @@
 				<div class="post-heading">
 					<h1>{{cafe.name}}</h1>
 					<h2 class="subheading">{{cafe.location}}</h2>
-					<span class="meta">Posted by
-              <a href="#">{{cafe.coffee_price}}</a>
-              on {{cafe.seats}}</span>
           </div>
         </div>
       </div>
@@ -23,13 +20,14 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-          <p>
-            {{  cafe.location|safe  }} <br>
-            Has Toilets: {{cafe.has_toilet}} <br>
-            Has Wifi: {{cafe.has_wifi}} <br>
-            Has Sockets: {{cafe.has_sockets}} <br>
-            Can Take Calls: {{cafe.can_take_calls}}
-          </p>
+            <p>Map Link: <b><a href="{{cafe.map_url}}" target="_blank" rel="noopener noreferrer">{{cafe.location}}</a></b> </p>
+            <p>Coffee Price: <b>{{cafe.coffee_price}}</b> </p>
+            <p>Seating: <b>{{cafe.seats}}</b> </p>
+            <p>Has Toilets: <b>{{cafe.has_toilet}}</b> </p>
+            <p>Has Wifi: <b>{{cafe.has_wifi}}</b> </p>
+            <p>Has Sockets: <b>{{cafe.has_sockets}}</b> </p>
+            <p>Can Take Calls: <b>{{cafe.can_take_calls}}</b> </p>
+            <br><br>
            <hr>
            <div class="clearfix">
                <a class="btn btn-primary float-left" href="{{url_for('edit_cafe', cafe_id=cafe.id)}}">Edit Cafe Details</a>

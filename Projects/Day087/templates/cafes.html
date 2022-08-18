@@ -28,7 +28,7 @@
           <tbody>
             {% for cafe in all_cafes: %}
             <tr>
-              <td>{{cafe['name']}}</td>
+              <td> <a href="cafe/{{cafe['id']}}">{{cafe['name']}}</a> </td>
               <td> <a href="{{cafe['map_url']}}" target="_blank" rel="noopener noreferrer">{{cafe['location']}}</a> </td>
               <td>{{cafe['seats']}}</td>
               <td>{{cafe['has_toilet']}}</td>
