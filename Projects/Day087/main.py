@@ -91,7 +91,7 @@ def home():
     return render_template("index.html")
 
 
-## HTTP GET - Read Record
+# HTTP GET - Read Record
 @app.route("/random", methods=['GET'])
 def get_random():
     random_cafe = random.choice(cafes)
@@ -114,30 +114,29 @@ def search():
         return jsonify(error={"Not Found": "Sorry, we don't have a cafe at that location."})
 
 
-## HTTP POST - Create Record
+# HTTP POST - Create Record
 @app.route("/add-cafe", methods=['GET', 'POST'])
 def add_cafe():
     form = CafeForm()
 
     if form.validate_on_submit():
         form.add_to_db(form.name.data, form.map_url.data, form.img_url.data, form.location.data, form.seats.data,
-                       form.has_toilet.data, form.has_wifi.data, form.has_sockets.data, form.can_take_calls.data,
-                       form.coffee_price.data)
+                       form.coffee_price.data, form.has_toilet.data, form.has_wifi.data, form.has_sockets.data,
+                       form.can_take_calls.data)
         return redirect(url_for('add_another_cafe'))
 
     return render_template('add-cafe.html', form=form)
 
 
-## HTTP POST - Create Record
+# HTTP POST - Create Record
 @app.route("/add-another-cafe", methods=['GET', 'POST'])
 def add_another_cafe():
     form = CafeForm()
 
     if form.validate_on_submit():
-        # today = date.today().strftime('%B %d, %Y')
         form.add_to_db(form.name.data, form.map_url.data, form.img_url.data, form.location.data, form.seats.data,
-                       form.has_toilet.data, form.has_wifi.data, form.has_sockets.data, form.can_take_calls.data,
-                       form.coffee_price.data)
+                       form.coffee_price.data, form.has_toilet.data, form.has_wifi.data, form.has_sockets.data,
+                       form.can_take_calls.data)
         return redirect(url_for('add_another_cafe'))
 
     return render_template('add-another-cafe.html', form=form)
@@ -149,7 +148,38 @@ def show_cafe(cafe_id):
     return render_template("cafe.html", cafe=requested_cafe)
 
 
-## HTTP PUT/PATCH - Update Record
+@app.route("/edit-cafe/<int:cafe_id>", methods=['GET', 'POST'])
+def edit_cafe(cafe_id):
+    cafe = Cafe.query.get(cafe_id)
+    edit_form = CafeForm(
+        name=cafe.name,
+        map_url=cafe.map_url,
+        img_url=cafe.img_url,
+        location=cafe.location,
+        seats=cafe.seats,
+        coffee_price=cafe.coffee_price,
+        has_toilet=cafe.has_toilet,
+        has_wifi=cafe.has_wifi,
+        has_sockets=cafe.has_sockets,
+        can_take_calls=cafe.can_take_calls
+    )
+    if edit_form.validate_on_submit():
+        cafe.name = edit_form.name.data
+        cafe.map_url = edit_form.map_url.data
+        cafe.img_url = edit_form.img_url.data
+        cafe.location = edit_form.location.data
+        cafe.seats = edit_form.seats.data
+        cafe.coffee_price = edit_form.coffee_price.data
+        cafe.has_toilet = edit_form.has_toilet.data
+        cafe.has_wifi = edit_form.has_wifi.data
+        cafe.has_sockets = edit_form.has_sockets.data
+        cafe.can_take_calls = edit_form.can_take_calls.data
+        db.session.commit()
+        return redirect(url_for("show_cafe", cafe_id=cafe_id))
+    return render_template("add-cafe.html", form=edit_form, is_edit=True)
+
+
+# HTTP PUT/PATCH - Update Record
 @app.route("/update-price/<int:cafe_id>", methods=["PATCH"])
 def update_price(cafe_id):
     new_price = request.args.get("new_price")
@@ -167,20 +197,28 @@ def update_price(cafe_id):
         return jsonify(error={"Not Found": "Sorry a cafe with that id was not found in the database."}), 404
 
 
-## HTTP DELETE - Delete Record
-@app.route("/report-closed/<int:cafe_id>", methods=["DELETE"])
+@app.route("/delete-cafe/<int:cafe_id>")
 def delete_cafe(cafe_id):
-    api_key = request.args.get("api-key")
-    if api_key == "NothingGoldCanStay":
-        cafe = db.session.query(Cafe).get(cafe_id)
-        if cafe:
-            db.session.delete(cafe)
-            db.session.commit()
-            return jsonify(response={"success": "Successfully deleted the cafe from the database."}), 200
-        else:
-            return jsonify(error={"Not Found": "Sorry a cafe with that id was not found in the database."}), 404
-    else:
-        return jsonify(error={"Forbidden": "Sorry, that's not allowed. Make sure you have the correct api_key."}), 403
+    cafe_to_delete = Cafe.query.get(cafe_id)
+    db.session.delete(cafe_to_delete)
+    db.session.commit()
+    return redirect(url_for('get_all'))
+
+
+# # HTTP DELETE - Delete Record
+# @app.route("/delete-cafe/<int:cafe_id>", methods=["DELETE"])
+# def delete_cafe(cafe_id):
+#     api_key = request.args.get("api-key")
+#     if api_key == "NothingGoldCanStay":
+#         cafe = db.session.query(Cafe).get(cafe_id)
+#         if cafe:
+#             db.session.delete(cafe)
+#             db.session.commit()
+#             return jsonify(response={"success": "Successfully deleted the cafe from the database."}), 200
+#         else:
+#             return jsonify(error={"Not Found": "Sorry a cafe with that id was not found in the database."}), 404
+#     else:
+#         return jsonify(error={"Forbidden": "Sorry, that's not allowed. Make sure you have the correct api_key."}), 403
 
 
 if __name__ == '__main__':
