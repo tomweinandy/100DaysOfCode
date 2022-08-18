@@ -1,27 +1,14 @@
 """
 Day 87: Café Website with REST API & SQLite Database
-
-On day 66, we create an API that serves data on cafes with wifi and good coffee. Today, you're going to use the data from that project to build a fully-fledged website to display the information.
-Included in this assignment is an SQLite database called cafes.db that lists all the cafe data.
-Using this database and what you learnt about REST APIs and web development, create a website that uses this data. It should display the cafes, but it could also allow people to add new cafes or delete cafes.
-For example, this startup in London has a website that does exactly this:
-https://laptopfriendly.co/london
-
-Resources:
-* Day 62: cafe website
-* Day 66: REST API
-* Day 67: Blog with SQLite
 """
-from flask import Flask, jsonify, render_template, request, redirect, url_for
+from flask import Flask, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
 from wtforms import StringField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, URL
-
 import random
-
 
 # Initialize Flask
 app = Flask(__name__)
