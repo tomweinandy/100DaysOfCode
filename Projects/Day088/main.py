@@ -10,15 +10,15 @@ from wtforms.validators import DataRequired
 import requests
 import json
 
-# Set secret key
-with open('../../../../Dropbox/100DaysOfCodePRIVATE/Day64Creds.json') as file:
-    creds = json.loads(file.read())
+# # Set secret key
+# with open('../../../../Dropbox/100DaysOfCodePRIVATE/Day64Creds.json') as file:
+#     creds = json.loads(file.read())
 
-# Define URLs for The Movie Data Base
-MOVIE_DB_API_KEY = creds['KEY']
-MOVIE_DB_SEARCH_URL = "https://api.themoviedb.org/3/search/movie"
-MOVIE_DB_INFO_URL = "https://api.themoviedb.org/3/movie"
-MOVIE_DB_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
+# # Define URLs for The Movie Data Base
+# MOVIE_DB_API_KEY = creds['KEY']
+# MOVIE_DB_SEARCH_URL = "https://api.themoviedb.org/3/search/movie"
+# MOVIE_DB_INFO_URL = "https://api.themoviedb.org/3/movie"
+# MOVIE_DB_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 
 # Create Flask application
 app = Flask(__name__)
@@ -26,41 +26,39 @@ app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 Bootstrap(app)
 
 # Create database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///top-movies.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # silences warnings
 db = SQLAlchemy(app)
 
 
 # Create movie table
-class Movie(db.Model):
+class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(250), nullable=False)
-    year = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(500), nullable=True)
-    rating = db.Column(db.Float, nullable=True)
-    ranking = db.Column(db.Integer, nullable=True)
-    review = db.Column(db.String(250), nullable=True)
-    img_url = db.Column(db.String, nullable=True)
+    urgency = db.Column(db.Float, nullable=True)
+    importance = db.Column(db.Float, nullable=True)
+    tags = db.Column(db.String(250), nullable=True)
+    status = db.Column(db.String(250), nullable=True)
 
     def __repr__(self):
-        movie_dict = {'id': id,
-                      'title': title,
-                      'year': year,
-                      'description': description,
-                      'rating': rating,
-                      'ranking': ranking,
-                      'review': review,
-                      'img_url': img_url}
-        return movie_dict
+        task_dict = {'id': id,
+                     'title': title,
+                     'description': description,
+                     'urgency': urgency,
+                     'importance': importance,
+                     'tags': tags,
+                     'status': status}
+        return task_dict
 
 
 db.create_all()
 
 
-# Create form for searching for movies
-class FindMovieForm(FlaskForm):
-    title = StringField("Movie Title", validators=[DataRequired()])
-    submit = SubmitField("Add Movie")
+# Create form for searching for tasks
+class FindTaskForm(FlaskForm):
+    title = StringField("Task Title", validators=[DataRequired()])
+    submit = SubmitField("Add Task")
 
 
 # Create form to rate movies
