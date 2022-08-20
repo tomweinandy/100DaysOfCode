@@ -53,33 +53,32 @@ class Task(db.Model):
 db.create_all()
 
 
-# Create form for searching for tasks
-class FindTaskForm(FlaskForm):
-    title = StringField("Task Title", validators=[DataRequired()])
+# Create form to add tasks
+class TaskForm(FlaskForm):
+    title = StringField("Task Name", validators=[DataRequired()])
     description = TextAreaField("Task Description", validators=[DataRequired()])
-    urgency = StringField("Task Urgency", validators=[DataRequired()])
-    importance = StringField("Task Importance", validators=[DataRequired()])
-    status = StringField("Task Status", validators=[DataRequired()])
+    urgency = StringField("Urgency: 1 (low) to 5 (high)", validators=[DataRequired()])
+    importance = StringField("Importance: 1 (low) to 5 (high)", validators=[DataRequired()])
+    status = StringField('Status: "to begin", "in progress", or "done"', validators=[DataRequired()])
     submit = SubmitField("Add Task")
 
 
-# Create form to rate movies
-class TaskForm(FlaskForm):
-    title = StringField("Task Name")
-    description = TextAreaField("Task Description")
-    urgency = StringField("Urgency from 1 (low) to 5 (high)")
-    importance = StringField("Importance from 1 (low) to 5 (high)")
-    status = StringField("'Waiting', 'Progressing', or 'Done'")
-    submit = SubmitField("Done")
+# Create form to add tasks
+class EditTaskForm(FlaskForm):
+    title = StringField("Task Name", validators=[DataRequired()])
+    description = TextAreaField("Task Description", validators=[DataRequired()])
+    urgency = StringField("Urgency: 1 (low) to 5 (high)", validators=[DataRequired()])
+    importance = StringField("Importance: 1 (low) to 5 (high)", validators=[DataRequired()])
+    status = StringField('Status: "to begin", "in progress", or "done"', validators=[DataRequired()])
+    submit = SubmitField("Update Task")
 
 
 # Create homepage
 @app.route("/")
 def home():
-    all_tasks = Task.query.order_by(Task.urgency).all()
-    for i in range(len(all_tasks)):
-        all_tasks[i].ranking = len(all_tasks) - i
-    db.session.commit()
+    # Return non-completed tasks in descending order of combined urgency and importance
+    all_tasks = Task.query.filter(Task.status != 'done' and Task.status != 'Done')\
+        .order_by((Task.urgency + Task.importance).desc()).all()
     return render_template("index.html", tasks=all_tasks)
 
 
@@ -134,7 +133,7 @@ def add_task():
 def edit_task():
     task_id = request.args.get("id")
     task = Task.query.get(task_id)
-    edit_form = TaskForm(
+    edit_form = EditTaskForm(
         title=task.title,
         description=task.description,
         urgency=task.urgency,
@@ -166,7 +165,7 @@ def delete_task():
 @app.route('/done')
 def get_all():
     # completed_tasks = Task.query.all()
-    completed_tasks = Task.query.filter(Task.status == 'Done').all()
+    completed_tasks = Task.query.filter(Task.status == 'done' or Task.status == 'Done').all()
     return render_template("done.html", completed_tasks=completed_tasks)
 
 

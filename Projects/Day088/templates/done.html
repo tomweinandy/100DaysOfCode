@@ -29,7 +29,7 @@
             {% for task in completed_tasks: %}
             <tr>
               <td>{{ task.id }}</td>
-              <td>{{ task.title }}</td>
+              <td><a href="/edit?id={{task.id}}">{{ task.title }}</a></td>
               <td>{{ task.description }}</td>
               <td>{{ task.urgency }}</td>
               <td>{{ task.importance }}</td>
@@ -39,7 +39,8 @@
           </tbody>
         </table>
 
-<!--        <a class="btn btn-warning btn-lg" href="/" role="button">Return Home</a>-->
+        <br><br>
+        <a class="button" href="/" role="button">Return Home</a>
 
     </div>
   </div>

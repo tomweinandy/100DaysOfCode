@@ -14,7 +14,7 @@
 {% block content %}
 <div class="container">
   <h1 class="heading">My To-Do List</h1>
-  <p class="description">Another day, another dollar.</p>
+  <p class="description">It always seems impossible until it's done.</p>
 
   {% for task in tasks: %}
       <div class="card" >
@@ -22,23 +22,25 @@
             <p class="large">{{ task.title }}</p>
             <br>
             <p class="medium">Urgency: <b>{{ task.urgency }}</b>, Importance: <b>{{ task.importance }}</b></p>
-            <p class="medium"></p>
         </div>
         <div class="back">
-          <div>
-        <div class="title">{{ task.title }} <span class="release_date">({{ task.importance }})</span></div>
-            <div class="rating">
-                <label>{{ task.urgency }}</label>
-              <i class="fas fa-star star"></i>
-            </div>
-              <p class="review">"{{ task.tags }}"</p>
-            <p class="overview">{{ task.description }}</p>
+                  <div>
+                      <br>
+                <div class="title">{{ task.title }}</div>
+                      <p><i>{{ task.description }}</i></p>
+                      <div class="overview"></div>
+                        Urgency: <b>{{ task.urgency }}</b>
+                        <br>
+                        Importance: <b>{{ task.importance }}</b>
+                        <br>
+                        Status: <b>{{ task.status }}</b>
+                      </div>
+                      <br>
+                    <a href="{{ url_for('edit_task', id=task.id) }}" class="button">Update</a>
+                    <a href="{{ url_for('delete_task', id=task.id) }}" class="button delete-button">Delete</a>
 
-            <a href="{{ url_for('edit_task', id=task.id) }}" class="button">Update</a>
-            <a href="{{ url_for('delete_task', id=task.id) }}" class="button delete-button">Delete</a>
+                  </div>
 
-          </div>
-        </div>
       </div>
     {% endfor %}
 </div>
