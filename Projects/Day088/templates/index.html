@@ -18,7 +18,7 @@
 
   {% for task in tasks: %}
       <div class="card" >
-        <div class="front">  <!--style="background-image: url('{{ movie.img_url }}');">-->
+        <div class="front">
             <p class="large">{{ task.urgency }}</p>
         </div>
         <div class="back">
@@ -31,7 +31,7 @@
               <p class="review">"{{ task.tags }}"</p>
             <p class="overview">{{ task.description }}</p>
 
-            <a href="{{ url_for('rate_task', id=task.id) }}" class="button">Update</a>
+            <a href="{{ url_for('show_task', task_id=task.id) }}" class="button">Update</a>
             <a href="{{ url_for('delete_task', id=task.id) }}" class="button delete-button">Delete</a>
 
           </div>

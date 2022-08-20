@@ -67,7 +67,7 @@ class FindTaskForm(FlaskForm):
 
 
 # Create form to rate movies
-class RateTaskForm(FlaskForm):
+class TaskForm(FlaskForm):
     title = StringField("Task Name")
     description = TextAreaField("Task Description")
     urgency = StringField("Urgency from 1 (low) to 5 (high)")
@@ -90,7 +90,7 @@ def home():
 # Create page for adding tasks
 @app.route("/add", methods=["GET", "POST"])
 def add_task():
-    form = RateTaskForm()
+    form = TaskForm()
     if form.validate_on_submit():
         task_title = form.title.data
         task_description = form.description.data
@@ -132,23 +132,28 @@ def add_task():
 
 
 # Create page for editing movies
-@app.route("/edit", methods=["GET", "POST"])
-def rate_task():
-    form = RateTaskForm()
-    task_id = request.args.get("id")
+@app.route("/edit/<int:task_id>", methods=["GET", "POST"])
+def show_task(task_id):
     task = Task.query.get(task_id)
-    if form.validate_on_submit():
-        # task.rating = float(form.rating.data)
-        # task.review = form.review.data
-        task.title = form.title.data
-        task.description = form.description.data
-        task.urgency = form.urgency.data
-        task.importance = form.importance.data
-        task.tags = form.tags.data
-        task.status = form.status.data
+    edit_form = TaskForm(
+        title=task.title,
+        description=task.description,
+        urgency=task.urgency,
+        importance=task.importance,
+        tags=task.tags,
+        status=task.status
+    )
+
+    if edit_form.validate_on_submit():
+        task.title = edit_form.title.data
+        task.description = edit_form.description.data
+        task.urgency = edit_form.urgency.data
+        task.importance = edit_form.importance.data
+        task.tags = edit_form.tags.data
+        task.status = edit_form.status.data
         db.session.commit()
         return redirect(url_for('home'))
-    return render_template("edit.html", task=task, form=form)
+    return render_template("edit.html", task=task, form=edit_form)
 
 
 # Create path for deleting a movie
