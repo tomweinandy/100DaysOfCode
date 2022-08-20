@@ -132,9 +132,14 @@ def add_task():
 
 
 # Create page for editing movies
-@app.route("/edit/<int:task_id>", methods=["GET", "POST"])
-def show_task(task_id):
+@app.route("/edit", methods=["GET", "POST"])
+def edit_task():
+    task_id = request.args.get("id")
+    print(task_id)
     task = Task.query.get(task_id)
+    print('checkpoint')
+    # edit_form = TaskForm(title=task.title,
+    #                      )
     edit_form = TaskForm(
         title=task.title,
         description=task.description,
@@ -154,6 +159,30 @@ def show_task(task_id):
         db.session.commit()
         return redirect(url_for('home'))
     return render_template("edit.html", task=task, form=edit_form)
+
+# # Create page for editing movies
+# @app.route("/edit/<int:task_id>", methods=["GET", "POST"])
+# def show_task(task_id):
+#     task = Task.query.get(task_id)
+#     edit_form = TaskForm(
+#         title=task.title,
+#         description=task.description,
+#         urgency=task.urgency,
+#         importance=task.importance,
+#         tags=task.tags,
+#         status=task.status
+#     )
+#
+#     if edit_form.validate_on_submit():
+#         task.title = edit_form.title.data
+#         task.description = edit_form.description.data
+#         task.urgency = edit_form.urgency.data
+#         task.importance = edit_form.importance.data
+#         task.tags = edit_form.tags.data
+#         task.status = edit_form.status.data
+#         db.session.commit()
+#         return redirect(url_for('home'))
+#     return render_template("edit.html", task=task, form=edit_form)
 
 
 # Create path for deleting a movie
