@@ -72,7 +72,7 @@ class RateTaskForm(FlaskForm):
     description = TextAreaField("Task Description")
     urgency = StringField("Urgency from 1 (low) to 5 (high)")
     importance = StringField("Importance from 1 (low) to 5 (high)")
-    tags = StringField("Task tags, separated by a comma")
+    tags = StringField("Task Tags, separated by a comma")
     status = StringField("'Waiting', 'Progressing', or 'Done'")
     submit = SubmitField("Done")
 
@@ -99,10 +99,16 @@ def add_task():
         task_tags = form.tags.data
         task_status = form.status.data
 
-        # # Search for task details with API
-        # response = requests.get(MOVIE_DB_SEARCH_URL, params={"api_key": MOVIE_DB_API_KEY, "query": task_title})
-        # data = response.json()["results"]
-        # return render_template("select.html", options=data)
+        # Package submission and add to database
+        new_task = Task(title=task_title, description=task_description, urgency=task_urgency,
+                        importance=task_importance, tags=task_tags, status=task_status)
+
+        db.session.add(new_task)
+        db.session.commit()
+
+        # Clear form on submission
+        return redirect(url_for('add_task'))
+
     return render_template("add.html", form=form)
 
 
@@ -132,8 +138,14 @@ def rate_task():
     task_id = request.args.get("id")
     task = Task.query.get(task_id)
     if form.validate_on_submit():
-        task.rating = float(form.rating.data)
-        task.review = form.review.data
+        # task.rating = float(form.rating.data)
+        # task.review = form.review.data
+        task.title = form.title.data
+        task.description = form.description.data
+        task.urgency = form.urgency.data
+        task.importance = form.importance.data
+        task.tags = form.tags.data
+        task.status = form.status.data
         db.session.commit()
         return redirect(url_for('home'))
     return render_template("edit.html", task=task, form=form)
