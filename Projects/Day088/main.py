@@ -38,7 +38,6 @@ class Task(db.Model):
     description = db.Column(db.String(500), nullable=True)
     urgency = db.Column(db.Float, nullable=True)
     importance = db.Column(db.Float, nullable=True)
-    tags = db.Column(db.String(250), nullable=True)
     status = db.Column(db.String(250), nullable=True)
 
     def __repr__(self):
@@ -47,7 +46,6 @@ class Task(db.Model):
                      'description': description,
                      'urgency': urgency,
                      'importance': importance,
-                     'tags': tags,
                      'status': status}
         return task_dict
 
@@ -61,7 +59,6 @@ class FindTaskForm(FlaskForm):
     description = TextAreaField("Task Description", validators=[DataRequired()])
     urgency = StringField("Task Urgency", validators=[DataRequired()])
     importance = StringField("Task Importance", validators=[DataRequired()])
-    tags = StringField("Task Tags", validators=[DataRequired()])
     status = StringField("Task Status", validators=[DataRequired()])
     submit = SubmitField("Add Task")
 
@@ -72,7 +69,6 @@ class TaskForm(FlaskForm):
     description = TextAreaField("Task Description")
     urgency = StringField("Urgency from 1 (low) to 5 (high)")
     importance = StringField("Importance from 1 (low) to 5 (high)")
-    tags = StringField("Task Tags, separated by a comma")
     status = StringField("'Waiting', 'Progressing', or 'Done'")
     submit = SubmitField("Done")
 
@@ -96,12 +92,14 @@ def add_task():
         task_description = form.description.data
         task_urgency = form.urgency.data
         task_importance = form.importance.data
-        task_tags = form.tags.data
         task_status = form.status.data
 
         # Package submission and add to database
-        new_task = Task(title=task_title, description=task_description, urgency=task_urgency,
-                        importance=task_importance, tags=task_tags, status=task_status)
+        new_task = Task(title=task_title,
+                        description=task_description,
+                        urgency=task_urgency,
+                        importance=task_importance,
+                        status=task_status)
 
         db.session.add(new_task)
         db.session.commit()
@@ -135,17 +133,12 @@ def add_task():
 @app.route("/edit", methods=["GET", "POST"])
 def edit_task():
     task_id = request.args.get("id")
-    print(task_id)
     task = Task.query.get(task_id)
-    print('checkpoint')
-    # edit_form = TaskForm(title=task.title,
-    #                      )
     edit_form = TaskForm(
         title=task.title,
         description=task.description,
         urgency=task.urgency,
         importance=task.importance,
-        tags=task.tags,
         status=task.status
     )
 
@@ -154,35 +147,10 @@ def edit_task():
         task.description = edit_form.description.data
         task.urgency = edit_form.urgency.data
         task.importance = edit_form.importance.data
-        task.tags = edit_form.tags.data
         task.status = edit_form.status.data
         db.session.commit()
         return redirect(url_for('home'))
     return render_template("edit.html", task=task, form=edit_form)
-
-# # Create page for editing movies
-# @app.route("/edit/<int:task_id>", methods=["GET", "POST"])
-# def show_task(task_id):
-#     task = Task.query.get(task_id)
-#     edit_form = TaskForm(
-#         title=task.title,
-#         description=task.description,
-#         urgency=task.urgency,
-#         importance=task.importance,
-#         tags=task.tags,
-#         status=task.status
-#     )
-#
-#     if edit_form.validate_on_submit():
-#         task.title = edit_form.title.data
-#         task.description = edit_form.description.data
-#         task.urgency = edit_form.urgency.data
-#         task.importance = edit_form.importance.data
-#         task.tags = edit_form.tags.data
-#         task.status = edit_form.status.data
-#         db.session.commit()
-#         return redirect(url_for('home'))
-#     return render_template("edit.html", task=task, form=edit_form)
 
 
 # Create path for deleting a movie
@@ -193,6 +161,13 @@ def delete_task():
     db.session.delete(task)
     db.session.commit()
     return redirect(url_for("home"))
+
+
+@app.route('/done')
+def get_all():
+    # completed_tasks = Task.query.all()
+    completed_tasks = Task.query.filter(Task.status == 'Done').all()
+    return render_template("done.html", completed_tasks=completed_tasks)
 
 
 if __name__ == '__main__':
