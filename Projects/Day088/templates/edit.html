@@ -12,8 +12,19 @@
 
 {% block content %}
 <div class="content">
-  <h1 class="heading">{{ task.id }}) {{ task.title }}</h1>
-    <p class="description">Edit Task</p>
+  <h1 class="heading">Edit Task</h1>
       {{ wtf.quick_form(form, novalidate=True) }}
   </div>
+
+<br><br>
+
+<div class="container text-center add">
+<a href="/" class="button">Return Home</a>
+    &nbsp; &nbsp;
+<a href="/add" class="button">Add Task</a>
+  &nbsp; &nbsp;
+<a href="/done" class="button">Completed Tasks</a>
+</div>
+<br><br>
 {% endblock %}
+
