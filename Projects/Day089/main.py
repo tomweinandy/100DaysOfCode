@@ -1,6 +1,7 @@
 """
 Day 89: Disappearing Writing App
 """
+import time
 import tkinter
 
 # ---------------------------- VARIABLES ------------------------------- #
@@ -46,37 +47,41 @@ def start_timer():
     global reps, checkmarks
     reps += 1
 
-    session_length = session_length_entry.get()
-    session_length = int(session_length)
-    #todo split into hours, minutes, seconds
-    print(type(session_length), session_length)
+    session_length_in_minutes = session_length_entry.get()     # In minutes
+    session_length_in_seconds = ((float(session_length_in_minutes) * 60) // 1)     # Multiply minutes by 60, cut off to the nearest second
 
-    # If reps = 8, 16...
-    if reps % 8 == 0:
-        countdown(LONG_BREAK_SECONDS)
-        new_label = 'Break Time'
-        timer_label.config(text=new_label, fg=BLUE)
+    session_length_entry.delete(0, 999)
+    countdown(session_length_in_seconds)
 
-        checkmarks += checkmark + '\n'
-        checks.config(text=checkmarks)
-
-    # If reps = 2, 4, 6, 10, 12, 14...
-    elif reps % 2 == 0:
-        countdown(SHORT_BREAK_SECONDS)
-        new_label = 'Break Time'
-        timer_label.config(text=new_label, fg=BLUE)
-
-        checkmarks += checkmark
-        checks.config(text=checkmarks)
-
-    # If reps = 1, 3, 5, 7, 9, 11, 13, 15, 17...
-    else:
-        countdown(WORK_SECONDS)
-        new_label = 'Time to Write'
-        timer_label.config(text=new_label, fg=BLUE)
+    # # If reps = 8, 16...
+    # if reps % 8 == 0:
+    #     countdown(LONG_BREAK_SECONDS)
+    #     new_label = 'Break Time'
+    #     timer_label.config(text=new_label, fg=BLUE)
+    #
+    #     checkmarks += checkmark + '\n'
+    #     checks.config(text=checkmarks)
+    #
+    # # If reps = 2, 4, 6, 10, 12, 14...
+    # elif reps % 2 == 0:
+    #     countdown(SHORT_BREAK_SECONDS)
+    #     new_label = 'Break Time'
+    #     timer_label.config(text=new_label, fg=BLUE)
+    #
+    #     checkmarks += checkmark
+    #     checks.config(text=checkmarks)
+    #
+    # # If reps = 1, 3, 5, 7, 9, 11, 13, 15, 17...
+    # else:
+    #     countdown(WORK_SECONDS)
+    #     new_label = 'Time to Write'
+    #     timer_label.config(text=new_label, fg=BLUE)
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
+def strint(n):
+    return str(int(n))
+
 def countdown(count):
     """
     Changes the countdown timer
@@ -85,25 +90,49 @@ def countdown(count):
     """
     global timer
 
-    minutes_left = str(count // 60)
-    seconds_left = str(count % 60)
-    if len(seconds_left) == 1:
-        seconds_left = '0' + seconds_left
+    # todo split into hours, minutes, seconds
+    hours = strint(count // (60 * 60))  # Cut off to the nearest hour
+    minutes = strint((count // 60) % 60)  # Cut off to the nearest minute, remove whole hours
+    seconds = strint(count % 60)  # Remove whole minutes
 
-    new_time = f'{minutes_left}:{seconds_left}'
+
+    # hours = strint(total_seconds // (60 * 60))     # Cut off to the nearest hour
+    # minutes = strint((total_seconds // 60) % 60)   # Cut off to the nearest minute, remove whole hours
+    # seconds = strint(total_seconds % 60)           # Remove whole minutes
+
+    # session_length_in_seconds = ((float(count) * 60) // 1) * 60
+    # hours = strint(session_length // 60)               # Round to whole hour
+    # minutes = strint(session_length % 60 // 1)         # Remove hours, round to whole minute
+    # seconds = strint(60 * (session_length % 1) // 1)   # Fractional minutes, times 60, round to whole number
+
+    print(count, hours, minutes, seconds)
+
+    # Give single-digit time units a leading 0
+    if len(hours) == 1:
+        hours = '0' + hours
+    if len(minutes) == 1:
+        minutes = '0' + minutes
+    if len(seconds) == 1:
+        seconds = '0' + seconds
+
+    new_time = f'{hours}:{minutes}:{seconds}'
     canvas.itemconfig(timer_text, text=new_time)
     if count > 0:
         timer = window.after(1000, countdown, count-1)  # time is in milliseconds, so 1000ms = 1 second
+        # seconds_left -= 1
+        # time.sleep(1)
     else:
         start_timer()
 
 
 # ---------------------------- UI SETUP ------------------------------- #
-# Initialize window
+# Initialize window #todo update
 window = tkinter.Tk()
+# window.geometry("650x250")
 window.title('Pomodoro')
 window.config(padx=100, pady=50, bg=SAND)  # bg is 'background'
 
+#todo add text box
 
 # Add timer label
 label = '   Writers UN-block   '  # spaces added to match length of other labels
@@ -113,8 +142,6 @@ timer_label.grid(row=0, column=1)
 # Add tomato
 # The tkinter canvas widget lets us overlay objects on top of each other
 canvas = tkinter.Canvas(width=200, height=224, bg=SAND, highlightthickness=0)
-# tomato_img = tkinter.PhotoImage(file='tomato.png')
-# canvas.create_image(100, 112, image=tomato_img)
 canvas.grid(row=1, column=1)
 
 # Add checkmarks
@@ -131,7 +158,6 @@ timer_label.grid(columnspan=2, row=1)
 # Adds entry
 session_length_entry = tkinter.Entry(width=10, bg=BEIGE, font=FONT_NAME)
 session_length_entry.insert(tkinter.END, string='0')
-print(session_length_entry.get())
 session_length_entry.grid(row=1, column=2)
 
 # Add start button
@@ -143,8 +169,7 @@ start_button = tkinter.Button(text='Reset', command=reset_clicked, font=FONT_NAM
 start_button.grid(row=2, column=2)
 
 # Add timer text
-timer_text = canvas.create_text(100, 200, text='00:00', fill=BLUE, font=(FONT_NAME, 24, 'bold'))
-
+timer_text = canvas.create_text(100, 200, text='00:00:00', fill=BLUE, font=(FONT_NAME, 24, 'bold'))
 
 
 # Add main while loop to keep window open
