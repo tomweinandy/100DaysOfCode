@@ -53,59 +53,34 @@ def start_timer():
     session_length_entry.delete(0, 999)
     countdown(session_length_in_seconds)
 
-    # # If reps = 8, 16...
-    # if reps % 8 == 0:
-    #     countdown(LONG_BREAK_SECONDS)
-    #     new_label = 'Break Time'
-    #     timer_label.config(text=new_label, fg=BLUE)
-    #
-    #     checkmarks += checkmark + '\n'
-    #     checks.config(text=checkmarks)
-    #
-    # # If reps = 2, 4, 6, 10, 12, 14...
-    # elif reps % 2 == 0:
-    #     countdown(SHORT_BREAK_SECONDS)
-    #     new_label = 'Break Time'
-    #     timer_label.config(text=new_label, fg=BLUE)
-    #
-    #     checkmarks += checkmark
-    #     checks.config(text=checkmarks)
-    #
-    # # If reps = 1, 3, 5, 7, 9, 11, 13, 15, 17...
-    # else:
-    #     countdown(WORK_SECONDS)
-    #     new_label = 'Time to Write'
-    #     timer_label.config(text=new_label, fg=BLUE)
+# todo detect if there is writing
+
+# todo set second timer if writing stops
+
+# todo add warning and timer if writing stops
+
+# todo add pre-start instructions
+
+# todo add post-start instructions
+
+# todo save results to downloads after end of session
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 def strint(n):
     return str(int(n))
 
+
 def countdown(count):
     """
     Changes the countdown timer
     :param count: How many seconds to count down from
-    :return:
     """
     global timer
 
-    # todo split into hours, minutes, seconds
-    hours = strint(count // (60 * 60))  # Cut off to the nearest hour
-    minutes = strint((count // 60) % 60)  # Cut off to the nearest minute, remove whole hours
-    seconds = strint(count % 60)  # Remove whole minutes
-
-
-    # hours = strint(total_seconds // (60 * 60))     # Cut off to the nearest hour
-    # minutes = strint((total_seconds // 60) % 60)   # Cut off to the nearest minute, remove whole hours
-    # seconds = strint(total_seconds % 60)           # Remove whole minutes
-
-    # session_length_in_seconds = ((float(count) * 60) // 1) * 60
-    # hours = strint(session_length // 60)               # Round to whole hour
-    # minutes = strint(session_length % 60 // 1)         # Remove hours, round to whole minute
-    # seconds = strint(60 * (session_length % 1) // 1)   # Fractional minutes, times 60, round to whole number
-
-    print(count, hours, minutes, seconds)
+    hours = strint(count // (60 * 60))     # Cut off to the nearest hour
+    minutes = strint((count // 60) % 60)   # Cut off to the nearest minute, remove whole hours
+    seconds = strint(count % 60)           # Remove whole minutes
 
     # Give single-digit time units a leading 0
     if len(hours) == 1:
@@ -119,8 +94,6 @@ def countdown(count):
     canvas.itemconfig(timer_text, text=new_time)
     if count > 0:
         timer = window.after(1000, countdown, count-1)  # time is in milliseconds, so 1000ms = 1 second
-        # seconds_left -= 1
-        # time.sleep(1)
     else:
         start_timer()
 
