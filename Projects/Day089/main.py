@@ -48,6 +48,7 @@ def start_timer():
     reps += 1
 
     session_length_in_minutes = session_length_entry.get()     # In minutes
+    print(session_length_in_minutes)
     session_length_in_seconds = ((float(session_length_in_minutes) * 60) // 1)     # Multiply minutes by 60, cut off to the nearest second
 
     session_length_entry.delete(0, 999)
@@ -94,56 +95,71 @@ def countdown(count):
     canvas.itemconfig(timer_text, text=new_time)
     if count > 0:
         timer = window.after(1000, countdown, count-1)  # time is in milliseconds, so 1000ms = 1 second
-    else:
-        start_timer()
+    # else:
+    #     start_timer()
 
 
 # ---------------------------- UI SETUP ------------------------------- #
 # Initialize window #todo update
 window = tkinter.Tk()
-# window.geometry("650x250")
-window.title('Pomodoro')
+# window.geometry("1000x500")
+window.title('Disappearing Notepad')
 window.config(padx=100, pady=50, bg=SAND)  # bg is 'background'
-
-#todo add text box
 
 # Add timer label
 label = '   Writers UN-block   '  # spaces added to match length of other labels
 timer_label = tkinter.Label(text=label, bg=SAND, fg=BLUE, font=(FONT_NAME, 36))
-timer_label.grid(row=0, column=1)
+timer_label.grid(row=0, columnspan=5)
 
-# Add tomato
-# The tkinter canvas widget lets us overlay objects on top of each other
-canvas = tkinter.Canvas(width=200, height=224, bg=SAND, highlightthickness=0)
-canvas.grid(row=1, column=1)
-
-# Add checkmarks
-checkmark = '✅'
-checkmarks = ''
-checks = tkinter.Label(text=checkmarks, bg=SAND)
-checks.grid(row=3, column=1)
+# # Add checkmarks
+# checkmark = '✅'
+# checkmarks = ''
+# checks = tkinter.Label(text=checkmarks, bg=SAND)
+# checks.grid(row=3, column=1)
 
 # Add input label
-input_label = 'Select the number of minutes for this session:'
-timer_label = tkinter.Label(text=input_label, bg=SAND, fg=BLUE, font=(FONT_NAME, 16))
-timer_label.grid(columnspan=2, row=1)
+set_time_text = 'Select the number of minutes for this session:'
+set_time_label = tkinter.Label(text=set_time_text, bg=SAND, fg=BLUE, font=(FONT_NAME, 16))
+set_time_label.grid(row=1, columnspan=3)
 
 # Adds entry
-session_length_entry = tkinter.Entry(width=10, bg=BEIGE, font=FONT_NAME)
+session_length_entry = tkinter.Entry(width=5, bg=BEIGE, font=FONT_NAME)
 session_length_entry.insert(tkinter.END, string='0')
-session_length_entry.grid(row=1, column=2)
+session_length_entry.grid(row=1, column=3, pady=20)
 
 # Add start button
 start_button = tkinter.Button(text='Start', command=start_timer, font=FONT_NAME)
-start_button.grid(row=2, column=0)
+start_button.grid(row=1, column=4)
 
-# Add reset button
-start_button = tkinter.Button(text='Reset', command=reset_clicked, font=FONT_NAME)
-start_button.grid(row=2, column=2)
+# # Add reset button
+# start_button = tkinter.Button(text='Reset', command=reset_clicked, font=FONT_NAME)
+# start_button.grid(row=2, column=2)
 
-# Add timer text
-timer_text = canvas.create_text(100, 200, text='00:00:00', fill=BLUE, font=(FONT_NAME, 24, 'bold'))
+# Add timer label
+timer_text = 'Time remaining for this session:'
+timer_label = tkinter.Label(text=timer_text, bg=SAND, fg=BLUE, font=(FONT_NAME, 16))
+timer_label.grid(row=2, columnspan=3)
 
+# The tkinter canvas widget lets us overlay objects on top of each other
+canvas = tkinter.Canvas(width=200, height=50, bg=SAND, highlightthickness=0)
+canvas.grid(row=2, column=3)
+timer_text = canvas.create_text(100, 25, text='00:00:00', fill=BLUE, font=(FONT_NAME, 16, 'bold'))
+
+
+# The tkinter canvas widget lets us overlay objects on top of each other
+canvas2 = tkinter.Canvas(width=200, height=50, bg=SAND, highlightthickness=0)
+canvas2.grid(row=3, column=3)
+
+bomb_timer_text = canvas2.create_text(100, 25, text='00:00:00', fill=NAVY, font=(FONT_NAME, 24, 'bold'))
+bomb_timer_text = 'Time before all work is deleted:'
+bomb_timer_label = tkinter.Label(text=bomb_timer_text, bg=SAND, fg=NAVY, font=(FONT_NAME, 24, 'bold'))
+bomb_timer_label.grid(row=3, columnspan=3)
+
+
+
+#todo add text box
+notepad = tkinter.Entry(window, width=50)
+notepad.grid(row=4, columnspan=5)
 
 # Add main while loop to keep window open
 window.mainloop()
