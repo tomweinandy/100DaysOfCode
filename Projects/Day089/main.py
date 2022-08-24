@@ -5,6 +5,13 @@ import time
 import tkinter
 from tkinter import scrolledtext
 
+# todo detect if there is writing
+# todo set second timer if writing stops
+# todo add warning and timer if writing stops
+# todo add post-start instructions
+# todo save results to downloads after end of session
+# todo clear mentions of reps, checks
+
 # ---------------------------- VARIABLES ------------------------------- #
 # Color pallet and hex codes come from colorhunt.co
 FONT_NAME = 'Arial'
@@ -19,10 +26,11 @@ PINK = "#e2979c"
 RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
-WORK_SECONDS = 25 * 60
-SHORT_BREAK_SECONDS = 5 * 60
-LONG_BREAK_SECONDS = 20 * 60
+GRACE_TIME = 0.25 * 60
+WARNING_TIME = 0.75 * 60
 
+previous_wordcount = 0
+seconds_without_writing = 0
 reps = 0
 session_minutes = 60
 timer = None
@@ -33,22 +41,44 @@ def reset_clicked():
     """
     Resets global variables and features of timer
     """
-    global reps, checkmarks
-    reps = 0
-    checkmarks = ''
+    # global reps, checkmarks
+    # reps = 0
+    # checkmarks = ''
     window.after_cancel(timer)
     # timer_label.config(text='Timer', fg=BLUE)
     canvas.itemconfig(timer_text, text='00:00:00')
     # checks.config(text=checkmarks)
 
 
-# ---------------------------- TIMER MECHANISM ------------------------------- #
+# ---------------------------- CHECK PROGRESS ------------------------------- #
+def check_progress():
+    global previous_wordcount, seconds_without_writing
+
+    current = notepad.get('1.0', tkinter.END)
+    current_wordcount = len(current)
+    progress = current_wordcount - previous_wordcount
+    print(current, current_wordcount, progress, seconds_without_writing)
+
+    previous_wordcount = current_wordcount
+
+    if progress == 0:
+        seconds_without_writing += 1
+    else:
+        seconds_without_writing = 0
+        stop_bomb_timer()
+
+    if seconds_without_writing == GRACE_TIME:
+        start_bomb_timer()
+
+
+
+# ---------------------------- SESSION TIMER MECHANISM ------------------------------- #
 def start_timer():
     """
     Tracks reps and begins timer according to current rep
     """
-    global reps, checkmarks
-    reps += 1
+    # global reps, checkmarks
+    # reps += 1
 
     session_length_in_minutes = session_length_entry.get()     # In minutes
     print(session_length_in_minutes)
@@ -57,13 +87,18 @@ def start_timer():
     session_length_entry.delete(0, 999)
     countdown(session_length_in_seconds)
 
-# todo detect if there is writing
-# todo set second timer if writing stops
-# todo add warning and timer if writing stops
-# todo add pre-start instructions
-# todo add post-start instructions
-# todo save results to downloads after end of session
-# todo clear mentions of reps, checks
+
+# ---------------------------- BOMB TIMER MECHANISM ------------------------------- #
+def start_bomb_timer():
+    """
+    Tracks reps and begins timer according to current rep
+    """
+    session_length_in_minutes = session_length_entry.get('1', tkinter.END)     # In minutes
+    print(session_length_in_minutes)
+    session_length_in_seconds = ((float(session_length_in_minutes) * 60) // 1)     # Multiply minutes by 60, cut off to the nearest second
+
+    session_length_entry.delete(0, 999)
+    countdown(session_length_in_seconds)
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
@@ -94,14 +129,14 @@ def countdown(count):
     canvas.itemconfig(timer_text, text=new_time)
     if count > 0:
         timer = window.after(1000, countdown, count-1)  # time is in milliseconds, so 1000ms = 1 second
+        check_progress()
     # else:
     #     start_timer()
 
 
 # ---------------------------- UI SETUP ------------------------------- #
-# Initialize window #todo update
+# Initialize window
 window = tkinter.Tk()
-# window.geometry("1000x500")
 window.title('Disappearing Notepad')
 window.config(padx=100, pady=50, bg=SAND)  # bg is 'background'
 
@@ -145,18 +180,17 @@ canvas = tkinter.Canvas(width=200, height=50, bg=SAND, highlightthickness=0)
 canvas.grid(row=3, column=3)
 timer_text = canvas.create_text(100, 25, text='00:00:00', fill=BLUE, font=(FONT_NAME, 16, 'bold'))
 
-
 # The tkinter canvas widget lets us overlay objects on top of each other
 canvas2 = tkinter.Canvas(width=200, height=50, bg=SAND, highlightthickness=0)
 canvas2.grid(row=4, column=3)
 
-bomb_timer_text = canvas2.create_text(100, 25, text='00:00:00', fill=NAVY, font=(FONT_NAME, 24, 'bold'))
+bomb_timer_text = canvas2.create_text(100, 25, text='X:XX', fill=NAVY, font=(FONT_NAME, 24, 'bold'))
 bomb_timer_text = 'Time before all work is deleted:'
 bomb_timer_label = tkinter.Label(text=bomb_timer_text, bg=SAND, fg=NAVY, font=(FONT_NAME, 24, 'bold'))
 bomb_timer_label.grid(row=4, columnspan=3)
 
-text_area = scrolledtext.ScrolledText(window, wrap=tkinter.WORD, width=100, height=25, font=(FONT_NAME, 14))
-text_area.grid(row=5, columnspan=5, pady=10, padx=10)
+notepad = scrolledtext.ScrolledText(window, wrap=tkinter.WORD, width=100, height=25, font=(FONT_NAME, 14))
+notepad.grid(row=5, columnspan=5, pady=10, padx=10)
 
 # Add main while loop to keep window open
 window.mainloop()
