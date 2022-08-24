@@ -3,14 +3,17 @@ Day 89: Disappearing Writing App
 """
 import time
 import tkinter
+from tkinter import scrolledtext
 
 # ---------------------------- VARIABLES ------------------------------- #
 # Color pallet and hex codes come from colorhunt.co
 FONT_NAME = 'Arial'
 NAVY = '#1C3879'
 BLUE = '#607EAA'
-BEIGE = '#EAE3D2'
-SAND = '#F9F5EB'
+BEIGE = '#F9F5EB'
+# BEIGE = '#EAE3D2'
+SAND = '#EAE3D2'
+# SAND = '#F9F5EB'
 
 PINK = "#e2979c"
 RED = "#e7305b"
@@ -34,9 +37,9 @@ def reset_clicked():
     reps = 0
     checkmarks = ''
     window.after_cancel(timer)
-    timer_label.config(text='Timer', fg=BLUE)
-    canvas.itemconfig(timer_text, text='00:00')
-    checks.config(text=checkmarks)
+    # timer_label.config(text='Timer', fg=BLUE)
+    canvas.itemconfig(timer_text, text='00:00:00')
+    # checks.config(text=checkmarks)
 
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
@@ -55,16 +58,12 @@ def start_timer():
     countdown(session_length_in_seconds)
 
 # todo detect if there is writing
-
 # todo set second timer if writing stops
-
 # todo add warning and timer if writing stops
-
 # todo add pre-start instructions
-
 # todo add post-start instructions
-
 # todo save results to downloads after end of session
+# todo clear mentions of reps, checks
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
@@ -106,60 +105,58 @@ window = tkinter.Tk()
 window.title('Disappearing Notepad')
 window.config(padx=100, pady=50, bg=SAND)  # bg is 'background'
 
-# Add timer label
+# Add header
 label = '   Writers UN-block   '  # spaces added to match length of other labels
 timer_label = tkinter.Label(text=label, bg=SAND, fg=BLUE, font=(FONT_NAME, 36))
 timer_label.grid(row=0, columnspan=5)
 
-# # Add checkmarks
-# checkmark = '✅'
-# checkmarks = ''
-# checks = tkinter.Label(text=checkmarks, bg=SAND)
-# checks.grid(row=3, column=1)
+# Add instructions
+instructions_text = 'INSTRUCTIONS: Set the timer for your session and begin writing below. All work will be saved to ' \
+                    'your downloads folder \nat the end of the session. But beware! If you stop writing for 5 ' \
+                    'minutes, ALL WORK WILL BE DELETED forever.'
+timer_label = tkinter.Label(text=instructions_text, bg=SAND, fg=NAVY, font=(FONT_NAME, 16, 'italic'))
+timer_label.grid(row=1, columnspan=5)
 
 # Add input label
 set_time_text = 'Select the number of minutes for this session:'
 set_time_label = tkinter.Label(text=set_time_text, bg=SAND, fg=BLUE, font=(FONT_NAME, 16))
-set_time_label.grid(row=1, columnspan=3)
+set_time_label.grid(row=2, columnspan=2)
 
 # Adds entry
 session_length_entry = tkinter.Entry(width=5, bg=BEIGE, font=FONT_NAME)
 session_length_entry.insert(tkinter.END, string='0')
-session_length_entry.grid(row=1, column=3, pady=20)
+session_length_entry.grid(row=2, column=2, pady=20)
 
 # Add start button
 start_button = tkinter.Button(text='Start', command=start_timer, font=FONT_NAME)
-start_button.grid(row=1, column=4)
+start_button.grid(row=2, column=3)
 
-# # Add reset button
-# start_button = tkinter.Button(text='Reset', command=reset_clicked, font=FONT_NAME)
-# start_button.grid(row=2, column=2)
+# Add reset button
+start_button = tkinter.Button(text='Reset', command=reset_clicked, font=FONT_NAME)
+start_button.grid(row=2, column=4)
 
 # Add timer label
 timer_text = 'Time remaining for this session:'
 timer_label = tkinter.Label(text=timer_text, bg=SAND, fg=BLUE, font=(FONT_NAME, 16))
-timer_label.grid(row=2, columnspan=3)
+timer_label.grid(row=3, columnspan=3)
 
 # The tkinter canvas widget lets us overlay objects on top of each other
 canvas = tkinter.Canvas(width=200, height=50, bg=SAND, highlightthickness=0)
-canvas.grid(row=2, column=3)
+canvas.grid(row=3, column=3)
 timer_text = canvas.create_text(100, 25, text='00:00:00', fill=BLUE, font=(FONT_NAME, 16, 'bold'))
 
 
 # The tkinter canvas widget lets us overlay objects on top of each other
 canvas2 = tkinter.Canvas(width=200, height=50, bg=SAND, highlightthickness=0)
-canvas2.grid(row=3, column=3)
+canvas2.grid(row=4, column=3)
 
 bomb_timer_text = canvas2.create_text(100, 25, text='00:00:00', fill=NAVY, font=(FONT_NAME, 24, 'bold'))
 bomb_timer_text = 'Time before all work is deleted:'
 bomb_timer_label = tkinter.Label(text=bomb_timer_text, bg=SAND, fg=NAVY, font=(FONT_NAME, 24, 'bold'))
-bomb_timer_label.grid(row=3, columnspan=3)
+bomb_timer_label.grid(row=4, columnspan=3)
 
-
-
-#todo add text box
-notepad = tkinter.Entry(window, width=50)
-notepad.grid(row=4, columnspan=5)
+text_area = scrolledtext.ScrolledText(window, wrap=tkinter.WORD, width=100, height=25, font=(FONT_NAME, 14))
+text_area.grid(row=5, columnspan=5, pady=10, padx=10)
 
 # Add main while loop to keep window open
 window.mainloop()
