@@ -1,9 +1,9 @@
 """
 Day 89: Disappearing Writing App
 """
-import time
 import tkinter
 from tkinter import scrolledtext
+import datetime
 
 # todo save results to downloads after end of session
 # todo clear mentions of reps, checks
@@ -74,8 +74,10 @@ def check_progress():
 
         try:
             stop_bomb_timer()
+            print('stop bomb timer')
         except:
             pass
+            print('pass')
 
     if seconds_without_writing == GRACE_TIME:
         start_bomb_timer()
@@ -183,6 +185,20 @@ def countdown(count):
     if count > 0:
         timer = window.after(1000, countdown, count-1)  # time is in milliseconds, so 1000ms = 1 second
         check_progress()
+    else:
+        print('Saving results...')
+        
+        current_writing = notepad.get('1.0', tkinter.END)
+
+        timestamp = datetime.datetime.now().strftime('%Y.%m.%d-%H.%M')
+        text_file = open(f"../../../Downloads/writing_session_{timestamp}.txt", "w")
+
+        # write string to file
+        text_file.write(current_writing)
+
+        # close file
+        text_file.close()
+
 
 
 # ---------------------------- UI SETUP ------------------------------- #
