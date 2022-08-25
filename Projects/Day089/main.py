@@ -5,12 +5,9 @@ import time
 import tkinter
 from tkinter import scrolledtext
 
-# todo detect if there is writing
-# todo set second timer if writing stops
-# todo add warning and timer if writing stops
-# todo add post-start instructions
 # todo save results to downloads after end of session
 # todo clear mentions of reps, checks
+# todo move helper functions to separate document
 
 # ---------------------------- VARIABLES ------------------------------- #
 # Color pallet and hex codes come from colorhunt.co
@@ -112,8 +109,15 @@ def strint(n):
 
 
 def motivate():
-    # Placeholder space where lethal countdown starts
-    bomb_timer_label = tkinter.Label(text='Keep up the good work!', bg=SAND, fg=NAVY, font=(FONT_NAME, 24))
+
+    global bomb_timer_label
+
+    seconds_without_writing = 0
+
+    if 'bomb_canvas' in globals():
+        bomb_canvas.delete(bomb_timer_text)
+
+    bomb_timer_label = tkinter.Label(text='Keep up the good work!', bg=SAND, fg=BLUE, font=(FONT_NAME, 24))
     bomb_timer_label.grid(row=4, columnspan=3)
 
 
@@ -122,7 +126,7 @@ def bomb_countdown(count):
     Changes the countdown timer
     :param count: How many seconds to count down from
     """
-    global bomb_timer, bomb_timer_label
+    global bomb_timer, bomb_timer_label, bomb_canvas, bomb_timer_text
 
     bomb_minutes = strint((count // 60) % 60)   # Cut off to the nearest minute, remove whole hours
     bomb_seconds = strint(count % 60)           # Remove whole minutes
@@ -133,9 +137,12 @@ def bomb_countdown(count):
     if len(bomb_seconds) == 1:
         bomb_seconds = '0' + bomb_seconds
 
+    # Clear timer
+    bomb_timer_label.destroy()
+
     # Add bomb timer label
     bomb_timer_label_text = 'Time before all work is deleted:'
-    bomb_timer_label = tkinter.Label(text=bomb_timer_label_text, bg=SAND, fg=NAVY, font=(FONT_NAME, 24))
+    bomb_timer_label = tkinter.Label(text=bomb_timer_label_text, bg=SAND, fg=NAVY, font=(FONT_NAME, 24, 'bold'))
     bomb_timer_label.grid(row=4, columnspan=3)
 
     # The tkinter canvas widget lets us overlay objects on top of each other
@@ -150,6 +157,7 @@ def bomb_countdown(count):
     else:
         bomb_timer = 'NA'
         print('Bomb detonated')
+
 
 def countdown(count):
     """
@@ -226,18 +234,7 @@ timer_text = canvas.create_text(100, 25, text='00:00:00', fill=BLUE, font=(FONT_
 # Placeholder space where lethal countdown starts
 motivate()
 
-
-# -----
-# # Add bomb timer label
-# bomb_timer_label_text = 'Time before all work is deleted:'
-# bomb_timer_label = tkinter.Label(text=bomb_timer_label_text, bg=SAND, fg=NAVY, font=(FONT_NAME, 24, 'bold'))
-# bomb_timer_label.grid(row=4, columnspan=3)
 #
-# # The tkinter canvas widget lets us overlay objects on top of each other
-# bomb_canvas = tkinter.Canvas(width=200, height=50, bg=SAND, highlightthickness=0)
-# bomb_canvas.grid(row=4, column=3)
-# bomb_timer_text = bomb_canvas.create_text(100, 25, text='X:XX', fill=NAVY, font=(FONT_NAME, 24, 'bold'))
-
 notepad = scrolledtext.ScrolledText(window, wrap=tkinter.WORD, width=100, height=25, font=(FONT_NAME, 14))
 notepad.grid(row=5, columnspan=5, pady=10, padx=10)
 
