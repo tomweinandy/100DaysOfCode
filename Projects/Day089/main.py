@@ -5,7 +5,6 @@ import tkinter
 from tkinter import scrolledtext
 import datetime
 
-# todo save results to downloads after end of session
 # todo clear mentions of reps, checks
 # todo move helper functions to separate document
 
@@ -191,7 +190,7 @@ def countdown(count):
         current_writing = notepad.get('1.0', tkinter.END)
 
         timestamp = datetime.datetime.now().strftime('%Y.%m.%d-%H.%M')
-        text_file = open(f"../../../Downloads/writing_session_{timestamp}.txt", "w")
+        text_file = open(f"../../../../Downloads/writers_clock_{timestamp}.txt", "w")
 
         # write string to file
         text_file.write(current_writing)
@@ -208,7 +207,7 @@ window.title('Disappearing Notepad')
 window.config(padx=100, pady=50, bg=SAND)  # bg is 'background'
 
 # Add header
-label = '   Writers UN-block   '  # spaces added to match length of other labels
+label = '   Writers\' Clock   '  # spaces added to match length of other labels
 timer_label = tkinter.Label(text=label, bg=SAND, fg=BLUE, font=(FONT_NAME, 36))
 timer_label.grid(row=0, columnspan=5)
 
