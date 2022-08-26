@@ -5,8 +5,10 @@ import tkinter
 from tkinter import scrolledtext
 import datetime
 
+# todo Redesign
 # todo clear mentions of reps, checks
 # todo move helper functions to separate document
+# todo clean up code, comment
 
 # ---------------------------- VARIABLES ------------------------------- #
 # Color pallet and hex codes come from colorhunt.co
@@ -18,13 +20,16 @@ BEIGE = '#F9F5EB'
 SAND = '#EAE3D2'
 # SAND = '#F9F5EB'
 
+
 PINK = "#e2979c"
 RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
-GRACE_TIME = 0.1 * 60
-WARNING_TIME = 0.1 * 60
+FILEPATH = '../../../../Downloads/'
+MINUTES_BEFORE_BOMB = 5
 
+grace_time = MINUTES_BEFORE_BOMB * 0.2
+warning_time = MINUTES_BEFORE_BOMB * 0.8
 previous_wordcount = 0
 seconds_without_writing = 0
 reps = 0
@@ -37,32 +42,34 @@ def reset_clicked():
     """
     Resets global variables and features of timer
     """
-    # global reps, checkmarks
-    # reps = 0
-    # checkmarks = ''
+    global seconds_without_writing
+    seconds_without_writing = 0
+
+    print('Reset clicked')
     window.after_cancel(timer)
-    # timer_label.config(text='Timer', fg=BLUE)
     canvas.itemconfig(timer_text, text='00:00:00')
-    # checks.config(text=checkmarks)
+    stop_bomb_timer()
 
 
 def stop_bomb_timer():
+    global bomb_timer_label
+
     window.after_cancel(bomb_timer)
     bomb_timer_label.destroy()
+    # bomb_timer_label = tkinter.Label(text='', bg=SAND, fg=BLUE, font=(FONT_NAME, 16)) #todo do i need this?
+    # bomb_timer_label.grid(row=4, columnspan=3)
     motivate()
-    # bomb_canvas.itemconfig(bomb_timer_text, text='00:00:00')
-
 
 
 # ---------------------------- CHECK PROGRESS ------------------------------- #
 def check_progress():
     global previous_wordcount, seconds_without_writing
 
+    print(seconds_without_writing)
+
     current = notepad.get('1.0', tkinter.END)
     current_wordcount = len(current)
     progress = current_wordcount - previous_wordcount
-    # print(current, current_wordcount, progress, seconds_without_writing)
-    print(seconds_without_writing)
 
     previous_wordcount = current_wordcount
 
@@ -78,20 +85,24 @@ def check_progress():
             pass
             print('pass')
 
-    if seconds_without_writing == GRACE_TIME:
+    if seconds_without_writing == grace_time:
         start_bomb_timer()
 
 
 # ---------------------------- SESSION TIMER MECHANISM ------------------------------- #
-def start_timer():
+def start_clicked():
     """
     Tracks reps and begins timer according to current rep
     """
-    # global reps, checkmarks
-    # reps += 1
+    print('Start clicked')
+    if bomb_timer_label in globals():
+        stop_bomb_timer()
+        # global bomb_timer_label
+        # bomb_timer_label.destroy()
+        # bomb_timer_label = tkinter.Label(text='', bg=SAND, fg=BLUE, font=(FONT_NAME, 16)) #todo do i need this?
+        # bomb_timer_label.grid(row=4, columnspan=3)
 
     session_length_in_minutes = session_length_entry.get()     # In minutes
-    print(session_length_in_minutes)
     session_length_in_seconds = ((float(session_length_in_minutes) * 60) // 1)     # Multiply minutes by 60, cut off to the nearest second
 
     session_length_entry.delete(0, 999)
@@ -100,8 +111,11 @@ def start_timer():
 
 # ---------------------------- BOMB TIMER MECHANISM ------------------------------- #
 def start_bomb_timer():
-    print('bombs away!')
-    bomb_countdown(WARNING_TIME)
+    print('Bombs away!')
+    global bomb_timer_label
+    bomb_timer_label = tkinter.Label(text='', bg=SAND, fg=BLUE, font=(FONT_NAME, 16)) #todo do i need this?
+    bomb_timer_label.grid(row=4, columnspan=3)
+    bomb_countdown(warning_time)
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
@@ -110,15 +124,13 @@ def strint(n):
 
 
 def motivate():
-
-    global bomb_timer_label
-
+    global bomb_timer_label, bomb_timer_text
     seconds_without_writing = 0
 
     if 'bomb_canvas' in globals():
         bomb_canvas.delete(bomb_timer_text)
 
-    bomb_timer_label = tkinter.Label(text='Keep up the good work!', bg=SAND, fg=BLUE, font=(FONT_NAME, 24))
+    bomb_timer_label = tkinter.Label(text='', bg=SAND, fg=BLUE, font=(FONT_NAME, 16))
     bomb_timer_label.grid(row=4, columnspan=3)
 
 
@@ -156,8 +168,9 @@ def bomb_countdown(count):
     if count > 0:
         bomb_timer = window.after(1000, bomb_countdown, count-1)  # time is in milliseconds, so 1000ms = 1 second
     else:
-        bomb_timer = 'NA'
         print('Bomb detonated')
+        notepad = scrolledtext.ScrolledText(window, wrap=tkinter.WORD, width=100, height=25, font=(FONT_NAME, 14))
+        notepad.grid(row=5, columnspan=5, pady=10, padx=10)
 
 
 def countdown(count):
@@ -185,20 +198,23 @@ def countdown(count):
         timer = window.after(1000, countdown, count-1)  # time is in milliseconds, so 1000ms = 1 second
         check_progress()
     else:
+        save_results()
+
+
+def save_results():
+    global bomb_timer_label
+
+    current_writing = notepad.get('1.0', tkinter.END)
+
+    if len(current_writing) > 0:
         print('Saving results...')
-        
-        current_writing = notepad.get('1.0', tkinter.END)
-
         timestamp = datetime.datetime.now().strftime('%Y.%m.%d-%H.%M')
-        text_file = open(f"../../../../Downloads/writers_clock_{timestamp}.txt", "w")
-
-        # write string to file
+        text_file = open(f'{FILEPATH}writers_clock_{timestamp}.txt', 'w')
         text_file.write(current_writing)
-
-        # close file
         text_file.close()
 
-
+        bomb_timer_label = tkinter.Label(text='Work saved in Downloads folder', bg=SAND, fg=BLUE, font=(FONT_NAME, 24, 'bold'))
+        bomb_timer_label.grid(row=4, columnspan=3)
 
 # ---------------------------- UI SETUP ------------------------------- #
 # Initialize window
@@ -207,14 +223,14 @@ window.title('Disappearing Notepad')
 window.config(padx=100, pady=50, bg=SAND)  # bg is 'background'
 
 # Add header
-label = '   Writers\' Clock   '  # spaces added to match length of other labels
+label = '   Writer\'s Clock   '  # spaces added to match length of other labels
 timer_label = tkinter.Label(text=label, bg=SAND, fg=BLUE, font=(FONT_NAME, 36))
 timer_label.grid(row=0, columnspan=5)
 
 # Add instructions
 instructions_text = 'INSTRUCTIONS: Set the timer for your session and begin writing below. All work will be saved to ' \
-                    'your downloads folder \nat the end of the session. But beware! If you stop writing for 5 ' \
-                    'minutes, ALL WORK WILL BE DELETED forever.'
+                    'your downloads folder \nat the end of the session. But beware! If you stop writing for ' \
+                    f'{MINUTES_BEFORE_BOMB} minutes, ALL WORK WILL BE DELETED forever.'
 timer_label = tkinter.Label(text=instructions_text, bg=SAND, fg=NAVY, font=(FONT_NAME, 16, 'italic'))
 timer_label.grid(row=1, columnspan=5)
 
@@ -224,17 +240,17 @@ set_time_label = tkinter.Label(text=set_time_text, bg=SAND, fg=BLUE, font=(FONT_
 set_time_label.grid(row=2, columnspan=2)
 
 # Adds entry
-session_length_entry = tkinter.Entry(width=5, bg=BEIGE, font=FONT_NAME)
+session_length_entry = tkinter.Entry(width=5, bg='white', font=FONT_NAME)
 session_length_entry.insert(tkinter.END, string='0')
 session_length_entry.grid(row=2, column=2, pady=20)
 
 # Add start button
-start_button = tkinter.Button(text='Start', command=start_timer, font=FONT_NAME)
+start_button = tkinter.Button(text='Start', command=start_clicked, font=FONT_NAME)
 start_button.grid(row=2, column=3)
 
 # Add reset button
-start_button = tkinter.Button(text='Reset', command=reset_clicked, font=FONT_NAME)
-start_button.grid(row=2, column=4)
+reset_button = tkinter.Button(text='Reset', command=reset_clicked, font=FONT_NAME)
+reset_button.grid(row=2, column=4)
 
 # Add timer label
 timer_label_text = 'Time remaining for this session:'
