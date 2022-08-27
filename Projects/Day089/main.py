@@ -13,7 +13,7 @@ SAND = '#EAE3D2'
 FONT_NAME = 'Arial'
 BLANK = '                                                                                        '
 FILEPATH = '../../../../Downloads/'
-MINUTES_BEFORE_BOMB = 5
+MINUTES_BEFORE_BOMB = 2
 
 grace_time = MINUTES_BEFORE_BOMB * 0.2 * 60
 warning_time = MINUTES_BEFORE_BOMB * 0.8 * 60
