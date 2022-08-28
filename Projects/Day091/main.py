@@ -10,9 +10,17 @@ http://www.coolphptools.com/color_extract#demo
 """
 import colorgram
 
+# todo build stand-along website (look at day 87, sample.html)
+# todo add photo upload
+
+# Convert rbg colors to hex
+def rgb_to_hex(rgb):
+    return '%02x%02x%02x' % rgb
+
+
 # Extract colors from the jpg
 colorgram_list = []
-colors = colorgram.extract('kill_bill.jpeg', 8)
+colors = colorgram.extract('kill_bill.jpeg', 10)
 
 # Convert colors to a list of RGB values
 for color in colors:
@@ -21,3 +29,8 @@ for color in colors:
     b = color.rgb.b
     tup = (r, g, b)
     colorgram_list.append(tup)
+
+hex_list = [rgb_to_hex(c) for c in colorgram_list]
+
+print(hex_list)
+
