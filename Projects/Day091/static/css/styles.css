@@ -1,5 +1,5 @@
 body {
-background-color: #fff3cd;
+background-color: #e5e4e2;
 color: black;
 }
 
@@ -7,8 +7,14 @@ a {
     color: #ffc107;
 }
 
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .container {
-    background-color: #fff3cd;
+    background-color: #e5e4e2;
 }
 
 .jumbotron {
@@ -17,7 +23,7 @@ a {
   margin: 0;
   height: 100vh;
   color: black;
-  background-color: #fff3cd;
+  background-color: #e5e4e2;
 }
 
 .space-above {
