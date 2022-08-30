@@ -30,6 +30,7 @@ def rgb_to_hex(rgb):
 # Extract colors from the jpg
 def extract_colors(img, num):
     color_list = []
+    num = int(num)
     colors = colorgram.extract(img, num)
 
     # Convert colors to a list of RGB values
@@ -88,15 +89,23 @@ def home():
 #     return render_template('add.html', form=form)
 
 
-@app.route('/color_extract', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         f = request.files['imgFile']
-        f.save(f.filename)
-        c = extract_colors(f, 10)
-        print(c)
-        # f.save(secure_filename(f.filename))
-        return 'file uploaded successfully'
+        n = request.form.get('num_results')
+        c = extract_colors(f, n)
+        print(len(c), c)
+        return render_template("index.html", color_list=c)
+
+# @app.route('/color_extract', methods=['GET', 'POST'])
+# def upload_file():
+#     if request.method == 'POST':
+#         f = request.files['imgFile']
+#         n = request.form.get('num_results')
+#         c = extract_colors(f, n)
+#         print(len(c), c)
+#         return 'file uploaded successfully'
 
 
 @app.route('/cafes')
