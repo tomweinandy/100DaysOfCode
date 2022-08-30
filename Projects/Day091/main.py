@@ -1,5 +1,5 @@
 """
-Day 91: Website to
+Day 91: Photo Color Extraction Website
 
 Inspiration from http://www.coolphptools.com/color_extract#demo
 """
@@ -49,14 +49,16 @@ def home():
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        f = request.files['imgFile']
-        filetype = f.filename.split('.')[1]
+        file = request.files['imgFile']
+        filetype = file.filename.split('.')[1]
         new_filename = 'last_photo.' + filetype
-        f.save(f'static/img/{new_filename}')
+
+        # Only saves most recently uploaded photo of that file type
+        file.save(f'static/img/{new_filename}')
+
         n = request.form.get('num_results')
-        c = extract_colors(f, n)
-        print(len(c), c)
-        return render_template("index.html", color_list=c, photo=new_filename)
+        color_list = extract_colors(file, n)
+        return render_template("index.html", color_list=color_list, photo=new_filename)
 
 
 if __name__ == '__main__':
