@@ -18,7 +18,7 @@ def extract_text(scrape: str):
 input_date = input('Want to time travel? Of course you do! Add a date in the format YYYY-MM-DD: ')
 # input_date = '2011-05-01'  # for testing
 
-# Save three web scrapes (since list is spread out over all three movies
+# Save web scrapes
 response = requests.get(f'https://www.billboard.com/charts/hot-100/{input_date}')
 soup = BeautifulSoup(response.text, 'html.parser')
 
