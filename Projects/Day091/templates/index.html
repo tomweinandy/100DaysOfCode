@@ -5,35 +5,26 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 {% endblock %}
 
-{% block title %}Coffee and Wifi{% endblock %}
+{% block title %}Color Extractor{% endblock %}
 
 {% block content %}
-<!--<div class="jumbotron text-center">-->
-<!--    <div class="container">-->
-<!--      <h1 class="display-4">☕️ Coffee & Wifi 💻</h1>-->
-<!--      <p class="lead">Want to work in a café but need power and wifi?</p>-->
-<!--      <hr class="my-4">-->
-<!--      <p>You've found the right place! Checkout my collection of cafés with data on power socket availability, wifi speed and coffee quality.</p>-->
-<!--      <a class="btn btn-warning btn-lg" href="/cafes" role="button">Show Me!</a>-->
-<!--    </div>-->
-<!--</div>-->
-
 
 <section id="demo" class="docs section">
         <div class="container">
             <div class="docs-inner">
-                <h2 class="title">Demo</h2>
+                <h2 class="title">Color Distribution</h2>
                 <div class="block">
 
-    <img src="/static/img/akira.jpg?rand=" width="80%" class="center" alt="test image">
+    <img src="/static/img/{{photo}}" width="80%" class="center" alt="test image">
 
 	<table class="table">
         <thead>
-		<tr><th>Color</th><th></th><th>RGB Code</th><th>Hex Code</th><th>Percentage</th></tr>
+		<tr><th>   </th><th>Color</th><th></th><th>RGB Code</th><th>Hex Code</th><th>Percentage</th></tr>
         </thead>
         <tbody>
 			{% for color in color_list: %}
 		    <tr>
+				<td></td>
 				<td style="background-color:#{{color[1]}}"></td>
 				<td></td>
 				<td>{{color[0]}}</td>
@@ -41,21 +32,11 @@
 				<td>{{color[2]}}</td>
 			</tr>
 			{% endfor %}
-<!--		    <tr><td style="background-color:#f0a800"></td><td>#f0a800</td><td>0.229702</td></tr>-->
-<!--		    <tr><td style="background-color:#606030"></td><td>#606030</td><td>0.175060</td></tr>-->
-<!--		    <tr><td style="background-color:#d87800"></td><td>#d87800</td><td>0.150476</td></tr>-->
-<!--		    <tr><td style="background-color:#484818"></td><td>#484818</td><td>0.100952</td></tr>-->
-<!--		    <tr><td style="background-color:#901818"></td><td>#901818</td><td>0.076726</td></tr>-->
-<!--		    <tr><td style="background-color:#301818"></td><td>#301818</td><td>0.059643</td></tr>-->
-<!--		    <tr><td style="background-color:#787848"></td><td>#787848</td><td>0.045893</td></tr>-->
-<!--		    <tr><td style="background-color:#c03018"></td><td>#c03018</td><td>0.030536</td></tr>-->
-<!--		    <tr><td style="background-color:#d86018"></td><td>#d86018</td><td>0.027500</td></tr>-->
-<!--		    <tr><td style="background-color:#181800"></td><td>#181800</td><td>0.023214</td></tr>-->
+
         </tbody>
 	</table>
 
 	<form action="/" method="post" enctype="multipart/form-data">
-<!--	<form action="/color_extract" method="post" enctype="multipart/form-data">-->
 		<fieldset class="information">
 		<div>
 		<label for="imgFile">File to upload: <input type="file" name="imgFile" id="imgFile" class="form-control"></label>
@@ -64,38 +45,18 @@
 		<label for="num_results">Number of colors:</label>
 			<input type="text" name="num_results" id="num_results" value="10" class="form-control" width="20px">
 		</div>
-<!--		<div>-->
-<!--		<label for="delta">delta:</label>-->
-<!--			<input type="text" name="delta" id="delta" value="24" class="form-control">-->
-<!--			(1-255)-->
-<!--		</div>-->
 		<div class="radio">
          <div class="form-group row">
-<!--    <label class="col-sm-3">Reduce Brightness:</label>-->
-<!--            <label>-->
-<!--			<input type="radio" name="reduce_brightness" checked="checked" value="true">Yes-->
-<!--            <label>-->
-<!--            </label>-->
-<!--			<input type="radio" name="reduce_brightness" value="false">No-->
-<!--            </label>-->
 		</div>
 		</div>
 		<div class="radio">
          <div class="form-group row">
-<!--    <label class="col-sm-3">Reduce gradient:</label>-->
-<!--            <label>-->
-<!--			<input type="radio" name="reduce_gradient" checked="checked" value="true">Yes-->
-<!--            </label>-->
-<!--            <label>-->
-<!--			<input type="radio" name="reduce_gradient" value="false">No-->
-<!--            </label>-->
 		</div>
 		</div>
 		</fieldset>
 		<div class="buttons">
 			<input type="submit" name="submit" value="Submit">
-<!--			<input type="hidden" name="action" value="run">-->
-<!--			<input type="hidden" name="rand" value="">-->
+
 		</div>
 	</form>
                 </div>
@@ -103,16 +64,5 @@
         </div>
     </section>
     <br><br>
-
-<!--	<table class="table">-->
-<!--        <thead>-->
-<!--		    <tr><th>Color</th><th>Color Code</th><th>Percentage</th></tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--			{% for color in color_list: %}-->
-<!--		    <tr><td style="background-color:#{{color[1]}}"></td><td>{{color[1]}}</td><td>{{color[2]}}</td></tr>-->
-<!--		{% endfor %}-->
-<!--        </tbody>-->
-<!--	</table>-->
 
 {% endblock %}
