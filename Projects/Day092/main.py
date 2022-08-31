@@ -51,13 +51,23 @@ page_intervals = [i*24 for i in range(n+1)]
 # Find all product cards
 product_wrapper_list = soup.find_all('div', {'data-test': '@web/site-top-of-funnel/ProductCardWrapper'})
 
-# Scrape image URLs
+name_list = []
 img_list = []
+
 for product in product_wrapper_list:
+    # Scrape product name
+    try:
+        raw_name = product.select(selector='div a')[1]
+    except IndexError:
+        raw_name = product.select(selector='div a')[0]
+    name = extract_text(raw_name)
+    name_list.append(name)
+
+    # Scrape image URLs
     img_url = product.select(selector='div div h3 a')[0]['href']
     img_url = img_url.split('#')[0]
+    # long_url = 'https://target.com' + img_url
     img_list.append(img_url)
-
 
 
 
