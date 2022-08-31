@@ -51,60 +51,48 @@ page_intervals = [i*24 for i in range(n+1)]
 # Find all product cards
 product_wrapper_list = soup.find_all('div', {'data-test': '@web/site-top-of-funnel/ProductCardWrapper'})
 
-name_list = []
-img_list = []
+n# Create empty dataframe
+df = pd.DataFrame()
 
 for product in product_wrapper_list:
-    # Scrape product name
-    try:
-        raw_name = product.select(selector='div a')[1]
-    except IndexError:
-        raw_name = product.select(selector='div a')[0]
+    # Get image URLs
+    product_url = product.select(selector='div div h3 a')[0]['href']
+    product_url = product_url.split('#')[0]
+    long_url = 'https://target.com' + product_url
+    # product_list.append(long_url)
+
+    # Scrape entire product page from long_url
+    p_soup = get_dynamic_soup(long_url)
+
+    # Get name
+    raw_name = p_soup.find('h1')
     name = extract_text(raw_name)
-    name_list.append(name)
 
-    # Scrape image URLs
-    img_url = product.select(selector='div div h3 a')[0]['href']
-    img_url = img_url.split('#')[0]
-    # long_url = 'https://target.com' + img_url
-    img_list.append(img_url)
+    # Get price
+    raw_price = p_soup.find('span', {'data-test': 'product-price'})
+    price = extract_text(raw_price)
+
+    # Get stars and ratings
+    raw_reviews = p_soup.find('span', class_=lambda value: value and value.startswith('utils__ScreenReaderOnly'))
+    string_reviews = extract_text(raw_reviews)
+    list_reviews = string_reviews.split(' ')
+    stars = float(list_reviews[0])
+    rating = int(list_reviews[-2])
+
+    # Add it all to a dataframe
+    df_product = pd.DataFrame(data={'name': [name],
+                                    'price': [price],
+                                    'stars': [stars],
+                                    'rating': [rating],
+                                    'url': [long_url]
+                                    })
+    df_product
 
 
 
-# print(soup.prettify())
 
 
-#
-# # Scrape songs and add to a list
-# scraped_songs = soup.select(selector='li h3')
-#
-# song_list = []
-# for s in scraped_songs[0:100]:
-#     song = extract_text(s)
-#     song_list.append(song)
-#
-# # Scrape artists, taking into account first artist is in a different format
-# scraped_first_artist = soup.find_all(
-#     class_='c-label a-no-trucate a-font-primary-s lrv-u-font-size-14@mobile-max u-line-height-normal@mobile-max u-letter-spacing-0021 lrv-u-display-block a-truncate-ellipsis-2line u-max-width-330 u-max-width-230@tablet-only u-font-size-20@tablet')
-#
-# scraped_other_artists = soup.find_all(
-#     class_='c-label a-no-trucate a-font-primary-s lrv-u-font-size-14@mobile-max u-line-height-normal@mobile-max u-letter-spacing-0021 lrv-u-display-block a-truncate-ellipsis-2line u-max-width-330 u-max-width-230@tablet-only')
-#
-# # Create list and add the first artist to it
-# artist_list = []
-# first_artist = extract_text(scraped_first_artist[0])
-# artist_list.append(first_artist)
-#
-# # Loop through other artists and add them to the list
-# for a in scraped_other_artists:
-#     artist = extract_text(a)
-#     artist_list.append(artist)
-#
-# # Build dataframe of result
-# df = pd.DataFrame()
-# df['Rank'] = range(1, 101)
-# df['Song'] = song_list
-# df['Artist'] = artist_list
+
 #
 # # Optional: save results
 # # df.to_csv(f'Top100_{input_date}.csv', index=False)
