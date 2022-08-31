@@ -48,19 +48,20 @@ num_results = int(results.split()[0])
 n = (num_results - 1) // 24
 page_intervals = [i*24 for i in range(n+1)]
 
-# todo loop through each page and scrape results
+# Find all product cards
+product_wrapper_list = soup.find_all('div', {'data-test': '@web/site-top-of-funnel/ProductCardWrapper'})
+
+# Scrape image URLs
+img_list = []
+for product in product_wrapper_list:
+    img_url = product.select(selector='div div h3 a')[0]['href']
+    img_url = img_url.split('#')[0]
+    img_list.append(img_url)
 
 
 
-# # Save web scrapes
-# response = requests.get(url)
-# soup = BeautifulSoup(response.text, 'html.parser')
 
-print(soup.prettify())
-
-
-num_results = (soup.find_all(class_='h-margin-b-tiny')).text
-print(num_results)
+# print(soup.prettify())
 
 
 #
