@@ -1,9 +1,9 @@
 """
 Day 92:
 """
-import time
-
 from bs4 import BeautifulSoup
+from playwright.sync_api import sync_playwright
+import time
 import requests
 import pandas as pd
 
@@ -17,13 +17,8 @@ def extract_text(scrape: str):
     txt = scrape.text
     txt = txt.replace('\n', '')
     txt = txt.replace('\t', '')
+    txt = txt.strip()  # removes leading and trailing whitespaces
     return txt
-
-
-url = 'https://www.target.com/c/craft-beer-wine-liquor-grocery/-/N-o3thc'
-url = 'https://www.target.com/c/craft-beer-wine-liquor-grocery/-/N-o3thc?Nao=0'
-
-from playwright.sync_api import sync_playwright
 
 
 def get_dynamic_soup(url: str) -> BeautifulSoup:
@@ -31,13 +26,31 @@ def get_dynamic_soup(url: str) -> BeautifulSoup:
         browser = p.chromium.launch()
         page = browser.new_page()
         page.goto(url)
-        time.sleep(5)
+        time.sleep(5)   # gives time for page to render
         soup = BeautifulSoup(page.content(), "html.parser")
         browser.close()
         return soup
 
 
+url = 'https://www.target.com/c/craft-beer-wine-liquor-grocery/-/N-o3thc'
+url = 'https://www.target.com/c/craft-beer-wine-liquor-grocery/-/N-o3thc?Nao=0'
+
+# Scrape html
 soup = get_dynamic_soup(url)
+
+# Extract the number of items from the search
+raw_results = soup.find_all(class_='h-margin-b-tiny')[0]
+results = extract_text(raw_results)
+num_results = int(results.split()[0])
+
+# Target only displays 24 products at a time, so page 2 begins with the 25th product (but includes "Nao=24" in url)
+# Take number of results and make a list of 24-item intervals for each page (e.g., n=49 becomes [0, 24, 48])
+n = (num_results - 1) // 24
+page_intervals = [i*24 for i in range(n+1)]
+
+# todo loop through each page and scrape results
+
+
 
 # # Save web scrapes
 # response = requests.get(url)
@@ -46,7 +59,8 @@ soup = get_dynamic_soup(url)
 print(soup.prettify())
 
 
-
+num_results = (soup.find_all(class_='h-margin-b-tiny')).text
+print(num_results)
 
 
 #
