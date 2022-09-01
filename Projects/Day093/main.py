@@ -12,27 +12,40 @@ https://pyautogui.readthedocs.io/en/latest/
 import pyautogui
 import webbrowser
 import time
+import keyboard
 
-# todo open browser and start game
+
+def locate():
+    currentMouseX, currentMouseY = pyautogui.position()
+    print('Current mouse location:', currentMouseX, currentMouseY)
+
 
 # Get the size of the primary monitor
 screenWidth, screenHeight = pyautogui.size()
 print('Screen size:', screenWidth, screenHeight)  # (1440, 900) for me
-
-currentMouseX, currentMouseY = pyautogui.position()  # Get the XY position of the mouse.
-print(currentMouseX, currentMouseY)
 
 url = 'https://elgoog.im/t-rex/'
 chrome_path = 'open -a /Applications/Google\ Chrome.app %s'
 webbrowser.get(chrome_path).open_new(url)
 
 # Allow page to render
-time.sleep(5)
+time.sleep(10)
 
-print(pyautogui.position())
+# todo get this to work or delete
+# Move the mouse to XY coordinates
+pyautogui.moveTo(100, 150)
+locate()
 
-# pyautogui.moveTo(100, 150) # Move the mouse to XY coordinates.
-#
+# NOTE: Had to change system preferences to allow my IDE to control the keyboard
+# Jump every second
+while True:
+    keyboard.send('space')
+    time.sleep(1)
+
+
+
+
+
 # pyautogui.click()          # Click the mouse.
 # pyautogui.click(100, 200)  # Move the mouse to XY coordinates and click it.
 # pyautogui.click('button.png') # Find where button.png appears on the screen and click it.
@@ -52,8 +65,8 @@ print(pyautogui.position())
 #
 # pyautogui.alert('This is the message to display.') # Make an alert box appear and pause the program until OK is clicked.
 
-
-# todo hack jump controls
 # todo take screenshot of browser
 # todo locate pixels within image
 # todo fine tune jump timing
+
+time.sleep(5)
