@@ -72,6 +72,41 @@ for product in product_wrapper_list:
     raw_price = p_soup.find('span', {'data-test': 'product-price'})
     price = extract_text(raw_price)
 
+    # Get alcohol percent
+    specifications = p_soup.find('div', {'data-test': 'item-details-specifications'})
+
+    raw_alcohol = specifications.select(selector='div')[0]
+    string_alcohol = extract_text(raw_alcohol)
+    list_alcohol = string_alcohol.split(' ')
+    alcohol = float(list_alcohol[-1])
+
+    # Get region
+    raw_region = specifications.select(selector='div')[2]
+    string_region = extract_text(raw_region)
+    region = string_region.split(' ')[-1]
+
+    # Get quantity
+    raw_quantity = specifications.select(selector='div')[4]
+    string_quantity = extract_text(raw_quantity)
+    list_quantity = string_quantity.split(' ')
+    quantity = int(list_quantity[-1])
+
+    # Get weight
+    raw_weight = specifications.select(selector='div')[8]
+    string_weight = extract_text(raw_weight)
+    weight = string_weight.split('  ')[-1]
+
+    # Get country
+    raw_country = specifications.select(selector='div')[12]
+    string_country = extract_text(raw_country)
+    country = string_country.split('  ')[-1]
+
+    # Get UPC
+    raw_upc = specifications.select(selector='div')[15]
+    string_upc = extract_text(raw_upc)
+    list_upc = string_upc.split(' ')
+    upc = int(list_upc[-1])
+
     # Get stars and ratings
     raw_reviews = p_soup.find('span', class_=lambda value: value and value.startswith('utils__ScreenReaderOnly'))
     string_reviews = extract_text(raw_reviews)
@@ -79,15 +114,32 @@ for product in product_wrapper_list:
     stars = float(list_reviews[0])
     rating = int(list_reviews[-2])
 
+    # Get description
+    raw_description = p_soup.find('div', {'data-test': 'item-details-description'})
+    description = extract_text(raw_description)
+
+    # Get highlights
+    raw_highlights_list = p_soup.find_all('div', class_='lnzSpN')
+    highlights_list = []
+    for highlight in raw_highlights_list:
+        highlights_list.append(extract_text(highlight))
+    highlights = str(highlights_list)
+
     # Add it all to a dataframe
     df_product = pd.DataFrame(data={'name': [name],
                                     'price': [price],
+                                    'alcohol': [alcohol],
+                                    'region': [region],
+                                    'quantity': [quantity],
+                                    'weight': [weight],
+                                    'country': [country],
+                                    'upc': [upc],
                                     'stars': [stars],
                                     'rating': [rating],
-                                    'url': [long_url]
+                                    'url': [long_url],
+                                    'description': [description],
+                                    'highlights': [highlights]
                                     })
-    df_product
-
 
 
 
