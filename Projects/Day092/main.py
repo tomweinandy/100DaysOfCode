@@ -34,7 +34,6 @@ def get_dynamic_soup(url: str) -> BeautifulSoup:
 
 
 url = 'https://www.target.com/c/craft-beer-wine-liquor-grocery/-/N-o3thc'
-# url = 'https://www.target.com/c/craft-beer-wine-liquor-grocery/-/N-o3thc?Nao=0'
 
 # Scrape html
 soup = get_dynamic_soup(url)
@@ -49,150 +48,129 @@ num_results = int(results.split()[0])
 n = (num_results - 1) // 24
 page_intervals = [i*24 for i in range(n+1)]
 
-# Find all product cards
-product_wrapper_list = soup.find_all('div', {'data-test': '@web/site-top-of-funnel/ProductCardWrapper'})
-
 # Create empty dataframe
 df = pd.DataFrame()
 
-for product in product_wrapper_list:
-    # Get image URLs
-    product_url = product.select(selector='div div h3 a')[0]['href']
-    product_url = product_url.split('#')[0]
-    long_url = 'https://target.com' + product_url
-    # product_list.append(long_url)
+# Loop through all pages
+for interval in page_intervals:
+    print(f'Will scrape {len(interval)} page(s) of products')
 
-    # Scrape entire product page from long_url
-    p_soup = get_dynamic_soup(long_url)
+    # Re-scrape after the first page
+    if interval != 0:
+        # Scrape html
+        url = f'https://www.target.com/c/craft-beer-wine-liquor-grocery/-/N-o3thc?Nao={interval}'
+        soup = get_dynamic_soup(url)
 
-    # Get name
-    raw_name = p_soup.find('h1')
-    name = extract_text(raw_name)
+    # Find all product cards
+    product_wrapper_list = soup.find_all('div', {'data-test': '@web/site-top-of-funnel/ProductCardWrapper'})
 
-    # Get price
-    raw_price = p_soup.find('span', {'data-test': 'product-price'})
-    price = extract_text(raw_price)
+    # Loop through all products
+    for product in product_wrapper_list:
+        # Get image URLs
+        product_url = product.select(selector='div div h3 a')[0]['href']
+        product_url = product_url.split('#')[0]
+        long_url = 'https://target.com' + product_url
 
-    # Get items from Specifications section
-    specifications = p_soup.find('div', {'data-test': 'item-details-specifications'})
-    list_specifications = specifications.select(selector='div')
-    dict = {}
+        # Scrape entire product page from long_url
+        p_soup = get_dynamic_soup(long_url)
 
-    # Loop through each specification and add to dictionary
-    for spec in list_specifications:
-        long_spec = extract_text(spec)
-        list_spec = long_spec.split(':')
-        key = list_spec[0].strip()
-        value = list_spec[-1].strip()
-        dict[key] = value
+        # Get name
+        raw_name = p_soup.find('h1')
+        name = extract_text(raw_name)
 
-    # Store item as variable, if it exists
-    try:
-        alcohol = dict['Alcohol Percentage']
-    except KeyError:
-        alcohol = np.nan
+        # Get price
+        raw_price = p_soup.find('span', {'data-test': 'product-price'})
+        price = extract_text(raw_price)
 
-    try:
-        region = dict['Region']
-    except KeyError:
-        region = np.nan
+        # Get items from Specifications section
+        specifications = p_soup.find('div', {'data-test': 'item-details-specifications'})
+        list_specifications = specifications.select(selector='div')
+        dict = {}
 
-    try:
-        quantity = dict['Package Quantity']
-    except KeyError:
-        quantity = np.nan
+        # Loop through each specification and add to dictionary
+        for spec in list_specifications:
+            long_spec = extract_text(spec)
+            list_spec = long_spec.split(':')
+            key = list_spec[0].strip()
+            value = list_spec[-1].strip()
+            dict[key] = value
 
-    try:
-        weight = dict['Net weight']
-    except KeyError:
-        weight = np.nan
+        # Store item as variable, if it exists
+        try:
+            alcohol = dict['Alcohol Percentage']
+        except KeyError:
+            alcohol = np.nan
 
-    try:
-        country = dict['Country of Origin']
-    except KeyError:
-        country = np.nan
+        try:
+            region = dict['Region']
+        except KeyError:
+            region = np.nan
 
-    try:
-        upc = dict['UPC']
-    except KeyError:
-        upc = np.nan
+        try:
+            quantity = dict['Package Quantity']
+        except KeyError:
+            quantity = np.nan
 
-    # # Get alcohol percent
-    # specifications = p_soup.find('div', {'data-test': 'item-details-specifications'})
-    #
-    # raw_alcohol = specifications.select(selector='div')[0]
-    # string_alcohol = extract_text(raw_alcohol)
-    # list_alcohol = string_alcohol.split(' ')
-    # alcohol = float(list_alcohol[-1])
-    #
-    # # Get region
-    # raw_region = specifications.select(selector='div')[2]
-    # string_region = extract_text(raw_region)
-    # region = string_region.split(' ')[-1]
-    #
-    # # Get quantity
-    # raw_quantity = specifications.select(selector='div')[4]
-    # string_quantity = extract_text(raw_quantity)
-    # list_quantity = string_quantity.split(' ')
-    # quantity = int(list_quantity[-1])
-    #
-    # # Get weight
-    # raw_weight = specifications.select(selector='div')[8]
-    # string_weight = extract_text(raw_weight)
-    # weight = string_weight.split('  ')[-1]
-    #
-    # # Get country
-    # raw_country = specifications.select(selector='div')[12]
-    # string_country = extract_text(raw_country)
-    # country = string_country.split('  ')[-1]
-    #
-    # # Get UPC
-    # raw_upc = specifications.select(selector='div')[15]
-    # string_upc = extract_text(raw_upc)
-    # list_upc = string_upc.split(' ')
-    # upc = int(list_upc[-1])
+        try:
+            weight = dict['Net weight']
+        except KeyError:
+            weight = np.nan
 
-    # Get stars and ratings
-    raw_reviews = p_soup.find('span', class_=lambda value: value and value.startswith('utils__ScreenReaderOnly'))
-    string_reviews = extract_text(raw_reviews)
-    list_reviews = string_reviews.split(' ')
-    stars = float(list_reviews[0])
-    rating = int(list_reviews[-2])
+        try:
+            country = dict['Country of Origin']
+        except KeyError:
+            country = np.nan
 
-    # Get description
-    raw_description = p_soup.find('div', {'data-test': 'item-details-description'})
-    description = extract_text(raw_description)
+        try:
+            upc = dict['UPC']
+        except KeyError:
+            upc = np.nan
 
-    # Get highlights
-    raw_highlights_list = p_soup.find_all('div', class_='lnzSpN')
-    highlights_list = []
-    for highlight in raw_highlights_list:
-        highlights_list.append(extract_text(highlight))
-    highlights = str(highlights_list)
+        # Get stars and ratings
+        try:
+            raw_reviews = p_soup.find('span', class_=lambda value: value and value.startswith('utils__ScreenReaderOnly'))
+            string_reviews = extract_text(raw_reviews)
+            list_reviews = string_reviews.split(' ')
+            stars = float(list_reviews[0])
+            rating = int(list_reviews[-2])
+        except ValueError:
+            stars = np.nan
+            rating = np.nan
 
-    # Add it all to a dataframe
-    df_product = pd.DataFrame(data={'name': [name],
-                                    'price': [price],
-                                    'alcohol': [alcohol],
-                                    'region': [region],
-                                    'quantity': [quantity],
-                                    'weight': [weight],
-                                    'country': [country],
-                                    'upc': [upc],
-                                    'stars': [stars],
-                                    'rating': [rating],
-                                    'url': [long_url],
-                                    'description': [description],
-                                    'highlights': [highlights]
-                                    })
-    print(df_product)
+        # Get description
+        raw_description = p_soup.find('div', {'data-test': 'item-details-description'})
+        description = extract_text(raw_description)
 
-    # Add single-product dataframe to all-product dataframe
-    df = df.append(df_product)
+        # Get highlights
+        raw_highlights_list = p_soup.find_all('div', class_='lnzSpN')
+        highlights_list = []
+        for highlight in raw_highlights_list:
+            highlights_list.append(extract_text(highlight))
+        highlights = str(highlights_list)
+
+        # Add it all to a dataframe
+        df_product = pd.DataFrame(data={'name': [name],
+                                        'price': [price],
+                                        'alcohol': [alcohol],
+                                        'region': [region],
+                                        'quantity': [quantity],
+                                        'weight': [weight],
+                                        'country': [country],
+                                        'upc': [upc],
+                                        'stars': [stars],
+                                        'rating': [rating],
+                                        'url': [long_url],
+                                        'description': [description],
+                                        'highlights': [highlights]
+                                        })
+        print(df_product.to_markdown())
+
+        # Add single-product dataframe to all-product dataframe
+        df = df.append(df_product)
 
 # Save dataframe to csv
 df.reset_index(drop=True)
 df.to_csv('crafty.csv', index=False)
 
-print(df)
+print(df.to_markdown())
 
