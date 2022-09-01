@@ -31,7 +31,7 @@ webbrowser.get(chrome_path).open_new(url)
 
 
 # Allow page to render
-time.sleep(10)
+time.sleep(5)
 
 # todo get this to work or delete
 # Move the mouse to XY coordinates
@@ -40,7 +40,7 @@ locate()
 
 # Find the position of the game title (used to locate other objects)
 title_location = pyautogui.locateOnScreen('title.png')
-print(title_location)
+left, top, width, height = title_location
 
 # NOTE: Had to change system preferences to allow my IDE to control the keyboard
 # Jump every second
@@ -51,9 +51,19 @@ for i in range(5):
 # Take screenshot of browser
 pyautogui.screenshot('screenshot.png')
 
-# todo locate pixels within image
+# Take screenshot of area in front of dino
+# subtract from left to move left, add to top to move down
+scan_box = (left-150, top+500, width-500, height+50)
+pyautogui.screenshot('scan_box.png', region=scan_box)
 
+# Take screenshot of score
+score_box = (left+475, top+280, width-150, height+50)
+pyautogui.screenshot('score_box.png', region=score_box)
 
-# todo fine tune jump timing
+# todo Locate pixels within image
+
+# todo Record score
+
+# todo Fine tune jump timing
 
 time.sleep(5)
