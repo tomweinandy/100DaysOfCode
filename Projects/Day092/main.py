@@ -1,12 +1,13 @@
 """
-Day 92:
+Day 92: Craft Beer Web Scraper
 """
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 import time
-import requests
 import pandas as pd
 import numpy as np
+import tabulate   # not called directly, but required for df.to_markdown()
+# todo can scrape first 24 products but possible being throttled. Keep testing.
 
 
 def extract_text(scrape: str):
@@ -22,15 +23,21 @@ def extract_text(scrape: str):
     return txt
 
 
-def get_dynamic_soup(url: str) -> BeautifulSoup:
+def get_dynamic_soup(url_to_scrape: str, pause=20) -> BeautifulSoup:
+    """
+    Adds a delay within the scraper to allow for page rendering (5s is good) and throttle prevention (plus unknown more)
+    :param url_to_scrape: webpage with products
+    :param pause: delay
+    :return:
+    """
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page()
-        page.goto(url)
-        time.sleep(10)   # time for page rendering and throttle prevention
-        soup = BeautifulSoup(page.content(), "html.parser")
+        page.goto(url_to_scrape)
+        time.sleep(pause)
+        chowder = BeautifulSoup(page.content(), "html.parser")
         browser.close()
-        return soup
+        return chowder
 
 
 url = 'https://www.target.com/c/craft-beer-wine-liquor-grocery/-/N-o3thc'
@@ -53,7 +60,7 @@ df = pd.DataFrame()
 
 # Loop through all pages
 for interval in page_intervals:
-    print(f'Will scrape {len(interval)} page(s) of products')
+    print(f'Will scrape {len(page_intervals)} page(s) of {n} products\n')
 
     # Re-scrape after the first page
     if interval != 0:
@@ -163,7 +170,7 @@ for interval in page_intervals:
                                         'description': [description],
                                         'highlights': [highlights]
                                         })
-        print(df_product.to_markdown())
+        print(df_product.name, '\n')
 
         # Add single-product dataframe to all-product dataframe
         df = df.append(df_product)
@@ -173,4 +180,3 @@ df.reset_index(drop=True)
 df.to_csv('crafty.csv', index=False)
 
 print(df.to_markdown())
-
