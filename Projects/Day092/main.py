@@ -6,6 +6,7 @@ from playwright.sync_api import sync_playwright
 import time
 import requests
 import pandas as pd
+import numpy as np
 
 
 def extract_text(scrape: str):
@@ -26,14 +27,14 @@ def get_dynamic_soup(url: str) -> BeautifulSoup:
         browser = p.chromium.launch()
         page = browser.new_page()
         page.goto(url)
-        time.sleep(5)   # gives time for page to render
+        time.sleep(10)   # time for page rendering and throttle prevention
         soup = BeautifulSoup(page.content(), "html.parser")
         browser.close()
         return soup
 
 
 url = 'https://www.target.com/c/craft-beer-wine-liquor-grocery/-/N-o3thc'
-url = 'https://www.target.com/c/craft-beer-wine-liquor-grocery/-/N-o3thc?Nao=0'
+# url = 'https://www.target.com/c/craft-beer-wine-liquor-grocery/-/N-o3thc?Nao=0'
 
 # Scrape html
 soup = get_dynamic_soup(url)
@@ -51,7 +52,7 @@ page_intervals = [i*24 for i in range(n+1)]
 # Find all product cards
 product_wrapper_list = soup.find_all('div', {'data-test': '@web/site-top-of-funnel/ProductCardWrapper'})
 
-n# Create empty dataframe
+# Create empty dataframe
 df = pd.DataFrame()
 
 for product in product_wrapper_list:
@@ -85,6 +86,36 @@ for product in product_wrapper_list:
         value = list_spec[-1].strip()
         dict[key] = value
 
+    # Store item as variable, if it exists
+    try:
+        alcohol = dict['Alcohol Percentage']
+    except KeyError:
+        alcohol = np.nan
+
+    try:
+        region = dict['Region']
+    except KeyError:
+        region = np.nan
+
+    try:
+        quantity = dict['Package Quantity']
+    except KeyError:
+        quantity = np.nan
+
+    try:
+        weight = dict['Net weight']
+    except KeyError:
+        weight = np.nan
+
+    try:
+        country = dict['Country of Origin']
+    except KeyError:
+        country = np.nan
+
+    try:
+        upc = dict['UPC']
+    except KeyError:
+        upc = np.nan
 
     # # Get alcohol percent
     # specifications = p_soup.find('div', {'data-test': 'item-details-specifications'})
@@ -142,12 +173,12 @@ for product in product_wrapper_list:
     # Add it all to a dataframe
     df_product = pd.DataFrame(data={'name': [name],
                                     'price': [price],
-                                    'alcohol': [dict['Alcohol Percentage']],
-                                    'region': [dict['Region']],
-                                    'quantity': [dict['Package Quantity']],
-                                    'weight': [dict['Net weight']],
-                                    'country': [dict['Country of Origin']],
-                                    'upc': [dict['UPC']],
+                                    'alcohol': [alcohol],
+                                    'region': [region],
+                                    'quantity': [quantity],
+                                    'weight': [weight],
+                                    'country': [country],
+                                    'upc': [upc],
                                     'stars': [stars],
                                     'rating': [rating],
                                     'url': [long_url],
@@ -165,13 +196,3 @@ df.to_csv('crafty.csv', index=False)
 
 print(df)
 
-
-
-#
-# # Optional: save results
-# # df.to_csv(f'Top100_{input_date}.csv', index=False)
-#
-# # print(f'Here are on the top 100 songs for {input_date}:')
-# # print(df)
-#
-#
