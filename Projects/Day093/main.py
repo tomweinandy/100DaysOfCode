@@ -24,9 +24,11 @@ def locate():
 screenWidth, screenHeight = pyautogui.size()
 print('Screen size:', screenWidth, screenHeight)  # (1440, 900) for me
 
+
 url = 'https://elgoog.im/t-rex/'
 chrome_path = 'open -a /Applications/Google\ Chrome.app %s'
 webbrowser.get(chrome_path).open_new(url)
+
 
 # Allow page to render
 time.sleep(10)
@@ -36,37 +38,22 @@ time.sleep(10)
 pyautogui.moveTo(100, 150)
 locate()
 
+# Find the position of the game title (used to locate other objects)
+title_location = pyautogui.locateOnScreen('title.png')
+print(title_location)
+
 # NOTE: Had to change system preferences to allow my IDE to control the keyboard
 # Jump every second
-while True:
+for i in range(5):
     keyboard.send('space')
     time.sleep(1)
 
+# Take screenshot of browser
+pyautogui.screenshot('screenshot.png')
 
-
-
-
-# pyautogui.click()          # Click the mouse.
-# pyautogui.click(100, 200)  # Move the mouse to XY coordinates and click it.
-# pyautogui.click('button.png') # Find where button.png appears on the screen and click it.
-#
-# pyautogui.move(400, 0)      # Move the mouse 400 pixels to the right of its current position.
-# pyautogui.doubleClick()     # Double click the mouse.
-# pyautogui.moveTo(500, 500, duration=2, tween=pyautogui.easeInOutQuad)  # Use tweening/easing function to move mouse over 2 seconds.
-#
-# pyautogui.write('Hello world!', interval=0.25)  # type with quarter-second pause in between each key
-# pyautogui.press('esc')     # Press the Esc key. All key names are in pyautogui.KEY_NAMES
-#
-# with pyautogui.hold('shift'):  # Press the Shift key down and hold it.
-#     pyautogui.press(['left', 'left', 'left', 'left'])  # Press the left arrow key 4 times.
-# # Shift key is released automatically.
-#
-# pyautogui.hotkey('ctrl', 'c') # Press the Ctrl-C hotkey combination.
-#
-# pyautogui.alert('This is the message to display.') # Make an alert box appear and pause the program until OK is clicked.
-
-# todo take screenshot of browser
 # todo locate pixels within image
+
+
 # todo fine tune jump timing
 
 time.sleep(5)
