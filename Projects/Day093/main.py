@@ -1,5 +1,5 @@
 """
-Day 93: T-Rex Run Game Player
+Day 93: T. Rex Run Game Player
 
 NOTE: Had to change system preferences to allow my IDE to control the keyboard and take screenshots
 """
