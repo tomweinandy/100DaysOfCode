@@ -18,6 +18,13 @@ def locate():
     print('Current mouse location:', current_mouse_x, current_mouse_y)
 
 
+def jump():
+    keyboard.press('space')
+    time.sleep(0.01)
+    keyboard.release('space')
+    print('JUMP!')
+
+
 # Get the size of the primary monitor
 screenWidth, screenHeight = pyautogui.size()
 print('Screen size:', screenWidth, screenHeight)  # (1440, 900) for me
@@ -40,22 +47,24 @@ left, top, width, height = title_location
 
 # Define scan and score boxes (subtract from left to move left, add to top to move down)
 # scan_box = (left+100, top+500, width-600, height-0)
-scan_box = (left+150, top+560, 150, 1)
+scan_box = (left+150, top+560, 200, 1)
 w, h = 500, 1000
 # scan_box = (0, 0, w, h)
 # score_box = (left+475, top+280, width-150, height+50)
 
 last_black_ink = 0
-jumps = 0
+no_jumps = 0
 
 # Start game
 keyboard.send('space')
-for i in range(30):
+for i in range(10000):
+    if no_jumps == 15:
+        jump()
+        no_jumps = 0
 
     # Take screenshot of area in front of dino
-    scan = pyautogui.screenshot(f'this_{i}.png', region=scan_box)
-    # scan = pyautogui.screenshot(region=scan_box)
-
+    # scan = pyautogui.screenshot(f'this_{i}.png', region=scan_box)
+    scan = pyautogui.screenshot(region=scan_box)
 
     # Find share pixels within scan box that are black (indicates cactus)
     # Extract colors from scan box
@@ -68,15 +77,13 @@ for i in range(30):
     # if black_ink != last_black_ink and black_ink > 0.03:
     # if black_ink > 0.06:
     if len(colors) == 2:
-        keyboard.press('space')
-        time.sleep(0.01)
-        keyboard.release('space')
-        jumps += 1
+        jump()
+        no_jumps = 0
+        # jumps += 1
         # Take screenshot of score
         # pyautogui.screenshot(f'jump{jumps}.png', region=scan_box)
-
-        print('JUMP')
-
+    else:
+        no_jumps += 1
     # last_black_ink = black_ink
 
 pyautogui.screenshot(SCAN_BOX, region=scan_box)
