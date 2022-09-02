@@ -6,7 +6,8 @@ from playwright.sync_api import sync_playwright
 import time
 import pandas as pd
 import numpy as np
-import tabulate   # not called directly, but required for df.to_markdown()
+import re
+import tabulate   # not called directly, but must be installed for df.to_markdown()
 # todo can scrape first 24 products but possible being throttled. Keep testing.
 
 
@@ -45,22 +46,31 @@ url = 'https://www.target.com/c/craft-beer-wine-liquor-grocery/-/N-o3thc'
 # Scrape html
 soup = get_dynamic_soup(url)
 
-# Extract the number of items from the search
-raw_results = soup.find_all(class_='h-margin-b-tiny')[0]
-results = extract_text(raw_results)
-num_results = int(results.split()[0])
+# Extract the number of items from the search (two separate approaches)
+try:
+    raw_results = soup.find_all(class_='cDsKNn')[-1]
+    results = extract_text(raw_results)
+    print(results)
+    num_only = re.sub(r'[^0-9]', '', results)
+    num_results = int(num_only)
+except ValueError:
+    raw_results = soup.find_all(class_='h-margin-b-tiny')[0]
+    results = extract_text(raw_results)
+    num_results = int(results.split()[0])
+
 
 # Target only displays 24 products at a time, so page 2 begins with the 25th product (but includes "Nao=24" in url)
 # Take number of results and make a list of 24-item intervals for each page (e.g., n=49 becomes [0, 24, 48])
 n = (num_results - 1) // 24
 page_intervals = [i*24 for i in range(n+1)]
+print(page_intervals) #todo remove testing prints
 
 # Create empty dataframe
 df = pd.DataFrame()
 
 # Loop through all pages
-for interval in page_intervals:
-    print(f'Will scrape {len(page_intervals)} page(s) of {n} products\n')
+for interval in page_intervals: #todo find out why this is not looping
+    print(f'Will scrape {len(page_intervals)} page(s) of {num_results} products\n')
 
     # Re-scrape after the first page
     if interval != 0:
