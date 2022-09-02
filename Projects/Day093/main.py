@@ -1,16 +1,13 @@
 """
 Day 93: T-Rex Run Game Player
 
-The original: https://elgoog.im/t-rex/
+NOTE: Had to change system preferences to allow my IDE to control the keyboard and take screenshots
 """
 import pyautogui
 import webbrowser
 import time
 import keyboard
 import colorgram
-
-SCORE_BOX = 'score_box.png'
-SCAN_BOX = 'scan_box.png'
 
 
 def locate():
@@ -37,57 +34,42 @@ webbrowser.get(chrome_path).open_new(url)
 # Allow page to render
 time.sleep(5)
 
-# NOTE: Had to change system preferences to allow my IDE to control the keyboard and take screenshots # todo move note
-
 # Find the position of the game title (used to locate other objects)
 title_location = pyautogui.locateOnScreen('title.png', grayscale=True, confidence=0.8)
 left, top, width, height = title_location
 
-# print(width, height)
-
-# Define scan and score boxes (subtract from left to move left, add to top to move down)
-# scan_box = (left+100, top+500, width-600, height-0)
+# Define scan box relative to the tile. The relative position allows the scan box to be consistent across different
+#   sized screens. This is only theoretical, as it was only tested on one screen. The scan box parameters are (in order)
+#   x_position, y_position, width, height. Subtract from left to move left; add to top to move down.
 scan_box = (left+150, top+560, 200, 1)
-w, h = 500, 1000
-# scan_box = (0, 0, w, h)
-# score_box = (left+475, top+280, width-150, height+50)
-
-last_black_ink = 0
-no_jumps = 0
+score_box = (left+475, top+280, width-150, height+50)
 
 # Start game
+no_jumps = 0
 keyboard.send('space')
+
+# Continue for number of intervals stated in range
 for i in range(10000):
+    # Take screenshot of area in front of dino
+    scan = pyautogui.screenshot(region=scan_box)
+
+    # Extract up to two colors from scan box
+    colors = colorgram.extract(scan, 2)
+
+    # Make dino jump if there are two colors (second color indicates there is a cactus within the scan box)
+    if len(colors) == 2:
+        jump()
+        no_jumps = 0
+    else:
+        no_jumps += 1
+
+    # Jump if the dino has been inactive for 15 intervals
     if no_jumps == 15:
         jump()
         no_jumps = 0
 
-    # Take screenshot of area in front of dino
-    # scan = pyautogui.screenshot(f'this_{i}.png', region=scan_box)
-    scan = pyautogui.screenshot(region=scan_box)
+# Optional: Save a picture of the scan box
+# pyautogui.screenshot('scan_box.png', region=scan_box)
 
-    # Find share pixels within scan box that are black (indicates cactus)
-    # Extract colors from scan box
-    colors = colorgram.extract(scan, 2)
-    # Take last (ie, second) color which will always be black
-    # black_ink = colors[-1].proportion
-    # print(black_ink)
-
-    # Make dino jump if share of black pixels has changed (indicates screen movement) and meets a threshold
-    # if black_ink != last_black_ink and black_ink > 0.03:
-    # if black_ink > 0.06:
-    if len(colors) == 2:
-        jump()
-        no_jumps = 0
-        # jumps += 1
-        # Take screenshot of score
-        # pyautogui.screenshot(f'jump{jumps}.png', region=scan_box)
-    else:
-        no_jumps += 1
-    # last_black_ink = black_ink
-
-pyautogui.screenshot(SCAN_BOX, region=scan_box)
-# pyautogui.screenshot(SCORE_BOX, region=score_box)
-
-
-# time.sleep(5)
+# Optional: Save a screenshot of the score
+# pyautogui.screenshot('score_box.png', region=score_box)
