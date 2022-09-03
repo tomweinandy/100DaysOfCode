@@ -1,103 +1,44 @@
 from turtle import Turtle
 import time
 
+CEILING_YCOR = 330
+FLOOR_YCOR = -330
+ISLAND_OF_MISFIT_TOYS = (1000, 1000)
+
 
 class Laser(Turtle):
     """
     Laser class that inherits Turtle class
     """
-    def __init__(self, laser_start_cors, laser_start_orientation):
+    def __init__(self, invader_or_defender_type, position):
         super().__init__()
-        self.color('white')
-        self.shape('circle')
+        self.shape('square')
+        self.turtlesize(stretch_len=0.1, stretch_wid=1)
         self.penup()
-        self.goto(laser_start_cors)
+        self.goto(position)
+        # self.goto(ISLAND_OF_MISFIT_TOYS)
         self.speed = 2                              # starting speed of the laser
-        self.paddle_bounce_angle = 90               # laser will make 90 degree bounce (changes with spin)
-        self.orientation = laser_start_orientation  # direction laser travels (polar coordinate degrees with 0=360=east)
-        self.setheading(self.orientation)           # orients the laser
-        self.paddle_hits = 0
-        self.ceiling_hit = False
-        self.orange_row_hit = False
+        self.type = invader_or_defender_type
 
-    def bounce(self, wall, spin=0):
-        """
-        Causes the laser to "bounce" by changing orientation and the paddle bounce angle
-        :param wall: Which wall it hits: 'top', 'bottom', 'left' or 'right'
-        :param spin: Amount the laser spins based on part of paddle it hits (default is no spin)
-        """
-        if wall == 'left':
-            # Change orientation based on if laser was travelling in the northwest or southwest direction
-            if 90 < self.orientation <= 180:
-                self.orientation = (self.orientation - self.paddle_bounce_angle) % 360
-            elif 180 < self.orientation < 270:
-                self.orientation = (self.orientation + self.paddle_bounce_angle) % 360
+        if self.type == 'invader':
+            self.color('white')
 
-        if wall == 'right':
-            # Change orientation based on if laser was travelling in the southeast or northeast direction
-            if 270 < self.orientation <= 360:
-                self.orientation = (self.orientation - self.paddle_bounce_angle) % 360
-            elif 0 <= self.orientation < 90:
-                self.orientation = (self.orientation + self.paddle_bounce_angle) % 360
+        elif self.type == 'defender':
+            self.color('green')
 
-        if wall == 'top':
-            bounce_angle = 180 + self.paddle_bounce_angle
+    def fire(self):
 
-            # Change orientation based on if laser was travelling in the northeast or northwest direction
-            if 0 < self.orientation <= 90:
-                self.orientation = (self.orientation + bounce_angle) % 360
-            elif 90 < self.orientation < 180:
-                self.orientation = (self.orientation - bounce_angle) % 360
+        if self.type == 'invader':
+            # while self.ycor() > FLOOR_YCOR:
+            if True:
+                new_y = self.ycor() + 3
+                self.goto(self.xcor(), new_y)
 
-        if wall == 'bottom':
-            # Change orientation based on spin and if laser was travelling in the southwest or southwest direction
-            if 180 < self.orientation <= 270:
-                bounce_angle = 180 + self.paddle_bounce_angle + spin
-                self.orientation = (self.orientation + bounce_angle) % 360
-                self.paddle_bounce_angle = self.paddle_bounce_angle + (2 * spin)
+        elif self.type == 'defender':
+            # while self.ycor() < CEILING_YCOR:
+            if True:
+                new_y = self.ycor() + 3
+                self.goto(self.xcor(), new_y)
 
-            if 270 < self.orientation < 360:
-                bounce_angle = 180 + self.paddle_bounce_angle - spin
-                self.orientation = (self.orientation - bounce_angle) % 360
-                self.paddle_bounce_angle = self.paddle_bounce_angle - (2 * spin)
+        # self.goto(ISLAND_OF_MISFIT_TOYS)
 
-        # Force paddle bounce to be between 0 and 170 degrees
-        if self.paddle_bounce_angle < 0:
-            self.paddle_bounce_angle = abs(self.paddle_bounce_angle)
-        if self.paddle_bounce_angle > 170:
-            self.paddle_bounce_angle = 170
-
-        # Set the new orientation
-        self.setheading(self.orientation)
-        # print(f'Wall: {wall}, Spin: {spin}, Paddle Bounce Angle: {self.paddle_bounce_angle},'
-        #       f' Orientation: {self.orientation}')   # uncomment when debugging
-
-    def speed_event(self, event):
-        """
-        Executes a speed event
-        :param event: An event that increases the laser speed: 'four hits', 'twelve hits' or 'orange block'
-        """
-        if event == 'four hits':
-            self.speed += 1
-            print('FOUR HITS: increase speed by 1')
-        elif event == 'twelve hits':
-            self.speed += 1
-            print('TWELVE HITS: increase speed by 1')
-        elif event == 'orange block':
-            if not self.orange_row_hit:
-                self.speed += 1
-                self.orange_row_hit = True
-                print('FIRST ORANGE BLOCK: increase speed by 1')
-        else:
-            print('INVALID EVENT')
-
-    def reset(self, laser_start_cors):
-        """
-        Resets the laser after paddle misses
-        """
-        self.color('white')
-        self.goto(laser_start_cors)
-        self.orientation = 135
-        self.paddle_bounce_angle = 90
-        self.setheading(self.orientation)
-        time.sleep(3)

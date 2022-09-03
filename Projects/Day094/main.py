@@ -16,8 +16,8 @@ import build_level
 import time
 
 # ------------------------------------------  to do list  ----------------------------------------------------
-# todo change blocks to invaders
 # todo add shooting function from ball
+# todo create a list of laser beams for defender and invader
 # todo make invaders shoot
 # todo detect if invader or defender hit
 # todo lose life if defender hit
@@ -86,21 +86,21 @@ def block_hit(side):
     # scoreboard.points += add_points todo add back
     scoreboard.update_scoreboard()
 
-    # Check if first orange block is popped
-    if add_points == 5:
-        game_ball.speed_event('orange block')
-
-    # Check if game is won
-    if scoreboard.points == 512:
-        scoreboard.game_won()
-
-        # Create animation to celebrate the victory
-        for i in range(40, 3600, 10):
-            bonus_ball = laser.Laser((0, 0), i)
-            for j in range(40):
-                screen.update()
-                bonus_ball.forward(2 + 0.004*i)
-        scoreboard.lives += 999
+    # # Check if first orange block is popped
+    # if add_points == 5:
+    #     game_ball.speed_event('orange block')
+    #
+    # # Check if game is won
+    # if scoreboard.points == 512:
+    #     scoreboard.game_won()
+    #
+    #     # Create animation to celebrate the victory
+    #     for i in range(40, 3600, 10):
+    #         bonus_ball = laser.Laser((0, 0), i)
+    #         for j in range(40):
+    #             screen.update()
+    #             bonus_ball.forward(2 + 0.004*i)
+    #     scoreboard.lives += 999
 
 
 # ------------------------------------------  Create Display and Initialize Key Inputs --------------------------------
@@ -112,9 +112,13 @@ screen.bgcolor('black')
 screen.tracer(0)  # only updates on screen.update()
 
 # Create ball, defender and scoreboard
-game_ball = laser.Laser(BALL_START_CORS, BALL_START_ORIENTATION)
 defender_ship = defender.Defender()
 scoreboard = scoreboard.Scoreboard()
+
+# todo execute on fire
+start = defender_ship.my_blaster.position()
+print(start)
+game_ball = laser.Laser('defender', start)
 
 # Add screen elements
 build_level.build_screen()
@@ -130,6 +134,7 @@ set_key_binds()
 screen.update()
 time.sleep(2)
 
+
 # ------------------------------------------  Begin Game Play  ----------------------------------------------------
 game_on = True
 while game_on:
@@ -142,7 +147,7 @@ while game_on:
     # Slow down updates and add movement to ball
     screen.update()
     time.sleep(0.01 / game_ball.speed)
-    game_ball.forward(5)
+    game_ball.fire()
 
     # ------------------------------------------  Monitor Ball Actions  -----------------------------------------------
     # Detect if ball hits a block
@@ -171,22 +176,18 @@ while game_on:
 
     # Detect if the ball hits the left wall
     if game_ball.xcor() < LEFT_WALL_XCOR + PROXIMITY:
-        game_ball.bounce('left')
+        # game_ball.bounce('left')
+        pass
 
     # Detect if the ball hits the right wall
     if game_ball.xcor() > RIGHT_WALL_XCOR - PROXIMITY:
-        game_ball.bounce('right')
-
-    # If ball goes past a wall (failsafe to fix a glitch)
-    if game_ball.xcor() > RIGHT_WALL_XCOR \
-            or game_ball.xcor() < LEFT_WALL_XCOR \
-            or game_ball.ycor() > CEILING_YCOR:
-        print(f'Paddle Bounce Angle: {game_ball.paddle_bounce_angle}, Orientation: {game_ball.orientation}')
-        game_ball.orientation += 180
+        # game_ball.bounce('right')
+        pass
 
     # Detect if the ball hits the ceiling
     if game_ball.ycor() > CEILING_YCOR - PROXIMITY:
-        game_ball.bounce('top')
+        # game_ball.bounce('top')
+        pass
 
     # Detect if the ball hits the paddle
     if game_ball.distance(defender_ship.position()) < PROXIMITY \
