@@ -38,9 +38,15 @@ time.sleep(5)
 title_location = pyautogui.locateOnScreen('title.png', grayscale=True, confidence=0.8)
 left, top, width, height = title_location
 
-# Define scan box relative to the tile. The relative position allows the scan box to be consistent across different
-#   sized screens. This is only theoretical, as it was only tested on one screen. The scan box parameters are (in order)
-#   x_position, y_position, width, height. Subtract from left to move left; add to top to move down.
+"""
+Define scan box relative to the tile. The relative position allows the scan box to be consistent across different
+sized screens. This is only theoretical, as it was only tested on one screen. The scan box parameters are (in order)
+x_position, y_position, width, height. Subtract from left to move left; add to top to move down.
+
+This solution, though satisfactory, is inferior to just directly reading the pixel color from the screen. Unfortunately,
+I did not manage to disable the security blocks on my computer that preventing screen reading. The current approach 
+relies on screenshots which apparently are fine.
+"""
 scan_box = (left+150, top+560, 200, 1)
 score_box = (left+475, top+280, width-150, height+50)
 
