@@ -25,7 +25,7 @@ class Block(Turtle):
         return self.points_dict[self.color()[0]]
 
 
-class Row(Turtle):
+class Bunker(Turtle):
     """
     Row class that inherits the Turtle class
     """

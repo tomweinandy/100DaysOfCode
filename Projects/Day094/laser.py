@@ -2,39 +2,39 @@ from turtle import Turtle
 import time
 
 
-class Ball(Turtle):
+class Laser(Turtle):
     """
-    Ball class that inherits Turtle class
+    Laser class that inherits Turtle class
     """
-    def __init__(self, ball_start_cors, ball_start_orientation):
+    def __init__(self, laser_start_cors, laser_start_orientation):
         super().__init__()
         self.color('white')
         self.shape('circle')
         self.penup()
-        self.goto(ball_start_cors)
-        self.speed = 2                              # starting speed of the ball
-        self.paddle_bounce_angle = 90               # ball will make 90 degree bounce (changes with spin)
-        self.orientation = ball_start_orientation   # direction ball travels (polar coordinate degrees with 0=360=east)
-        self.setheading(self.orientation)           # orients the ball
+        self.goto(laser_start_cors)
+        self.speed = 2                              # starting speed of the laser
+        self.paddle_bounce_angle = 90               # laser will make 90 degree bounce (changes with spin)
+        self.orientation = laser_start_orientation  # direction laser travels (polar coordinate degrees with 0=360=east)
+        self.setheading(self.orientation)           # orients the laser
         self.paddle_hits = 0
         self.ceiling_hit = False
         self.orange_row_hit = False
 
     def bounce(self, wall, spin=0):
         """
-        Causes the ball to "bounce" by changing orientation and the paddle bounce angle
+        Causes the laser to "bounce" by changing orientation and the paddle bounce angle
         :param wall: Which wall it hits: 'top', 'bottom', 'left' or 'right'
-        :param spin: Amount the ball spins based on part of paddle it hits (default is no spin)
+        :param spin: Amount the laser spins based on part of paddle it hits (default is no spin)
         """
         if wall == 'left':
-            # Change orientation based on if ball was travelling in the northwest or southwest direction
+            # Change orientation based on if laser was travelling in the northwest or southwest direction
             if 90 < self.orientation <= 180:
                 self.orientation = (self.orientation - self.paddle_bounce_angle) % 360
             elif 180 < self.orientation < 270:
                 self.orientation = (self.orientation + self.paddle_bounce_angle) % 360
 
         if wall == 'right':
-            # Change orientation based on if ball was travelling in the southeast or northeast direction
+            # Change orientation based on if laser was travelling in the southeast or northeast direction
             if 270 < self.orientation <= 360:
                 self.orientation = (self.orientation - self.paddle_bounce_angle) % 360
             elif 0 <= self.orientation < 90:
@@ -43,14 +43,14 @@ class Ball(Turtle):
         if wall == 'top':
             bounce_angle = 180 + self.paddle_bounce_angle
 
-            # Change orientation based on if ball was travelling in the northeast or northwest direction
+            # Change orientation based on if laser was travelling in the northeast or northwest direction
             if 0 < self.orientation <= 90:
                 self.orientation = (self.orientation + bounce_angle) % 360
             elif 90 < self.orientation < 180:
                 self.orientation = (self.orientation - bounce_angle) % 360
 
         if wall == 'bottom':
-            # Change orientation based on spin and if ball was travelling in the southwest or southwest direction
+            # Change orientation based on spin and if laser was travelling in the southwest or southwest direction
             if 180 < self.orientation <= 270:
                 bounce_angle = 180 + self.paddle_bounce_angle + spin
                 self.orientation = (self.orientation + bounce_angle) % 360
@@ -75,7 +75,7 @@ class Ball(Turtle):
     def speed_event(self, event):
         """
         Executes a speed event
-        :param event: An event that increases the ball speed: 'four hits', 'twelve hits' or 'orange block'
+        :param event: An event that increases the laser speed: 'four hits', 'twelve hits' or 'orange block'
         """
         if event == 'four hits':
             self.speed += 1
@@ -91,12 +91,12 @@ class Ball(Turtle):
         else:
             print('INVALID EVENT')
 
-    def reset(self, ball_start_cors):
+    def reset(self, laser_start_cors):
         """
-        Resets the ball after paddle misses
+        Resets the laser after paddle misses
         """
         self.color('white')
-        self.goto(ball_start_cors)
+        self.goto(laser_start_cors)
         self.orientation = 135
         self.paddle_bounce_angle = 90
         self.setheading(self.orientation)

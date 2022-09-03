@@ -11,7 +11,7 @@ SPINDEX_SHORT = [30, 15, 0, -15, -30]
 ISLAND_OF_MISFIT_TOYS = (1000, 1000)
 
 
-class Paddle(Turtle):
+class Defender(Turtle):
     """
     Build a Paddle class inherited from the Turtle class
     """
@@ -21,13 +21,13 @@ class Paddle(Turtle):
         self.paddle_cors = PADDLE_CORS
         self.paddle_cors_short = PADDLE_CORS_SHORT   # for when paddle is shortened
         self.last_x_cor = 0                          # tracks the last recorded location of the paddle
-        self.create_paddle()
+        self.create_defender()
         self.spindex = SPINDEX                       # the paddle is "convex" and adds spin based on segment hit
         self.spindex_short = SPINDEX_SHORT           # for when paddle is shortened
         self.length = len(self.segments)
         self.keys_pressed = {}                       # allows for paddle movement
 
-    def create_paddle(self):
+    def create_defender(self):
         """
         Creates the paddle object
         """

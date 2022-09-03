@@ -9,8 +9,8 @@ https://elgoog.im/space-invaders/
 
 """
 import turtle
-import paddle
-import ball
+import defender
+import laser
 import scoreboard
 import build_level
 import time
@@ -84,7 +84,7 @@ def block_hit(side):
     # print(f'[{side.upper()}] X Distance: {x_distance}, Y Distance: {y_distance}') # Uncomment when debugging
 
     # Add points according to value of the block
-    add_points = block.popped_points()
+    add_points = invader.popped_points()
     scoreboard.points += add_points
     scoreboard.update_scoreboard()
 
@@ -98,7 +98,7 @@ def block_hit(side):
 
         # Create animation to celebrate the victory
         for i in range(40, 3600, 10):
-            bonus_ball = ball.Ball((0, 0), i)
+            bonus_ball = laser.Laser((0, 0), i)
             for j in range(40):
                 screen.update()
                 bonus_ball.forward(2 + 0.004*i)
@@ -113,9 +113,9 @@ screen.setup(width=1000, height=1000)
 screen.bgcolor('black')
 screen.tracer(0)  # only updates on screen.update()
 
-# Create ball, paddle and scoreboard
-game_ball = ball.Ball(BALL_START_CORS, BALL_START_ORIENTATION)
-game_paddle = paddle.Paddle()
+# Create ball, defender and scoreboard
+game_ball = laser.Laser(BALL_START_CORS, BALL_START_ORIENTATION)
+defender_ship = defender.Defender()
 scoreboard = scoreboard.Scoreboard()
 
 # Add screen elements
@@ -137,9 +137,9 @@ game_on = True
 while game_on:
     # Check state of key presses and respond accordingly
     if keys_pressed["Right"]:
-        game_paddle.move_right()
+        defender_ship.move_right()
     if keys_pressed["Left"]:
-        game_paddle.move_left()
+        defender_ship.move_left()
 
     # Slow down updates and add movement to ball
     screen.update()
@@ -149,11 +149,11 @@ while game_on:
     # ------------------------------------------  Monitor Ball Actions  -----------------------------------------------
     # Detect if ball hits a block
     for row in block_rows:
-        for block in row.blocks:
-            x_distance = abs(block.xcor() - game_ball.xcor())
-            y_distance = abs(block.ycor() - game_ball.ycor())
-            block_below_ball = block.ycor() < game_ball.ycor()
-            block_left_of_ball = block.xcor() < game_ball.xcor()
+        for invader in row.invaders:
+            x_distance = abs(invader.xcor() - game_ball.xcor())
+            y_distance = abs(invader.ycor() - game_ball.ycor())
+            block_below_ball = invader.ycor() < game_ball.ycor()
+            block_left_of_ball = invader.xcor() < game_ball.xcor()
 
             # Detects if block is hit by the left of the ball
             if x_distance < 45 and y_distance < 15 and block_left_of_ball:
@@ -193,24 +193,24 @@ while game_on:
         # Shorten the paddle if first occurrence
         if not game_ball.ceiling_hit:
             print('HIT CEILING: Shorten the paddle')
-            game_paddle.paddle_cors = game_paddle.paddle_cors_short
-            game_paddle.spindex = game_paddle.spindex_short
+            defender_ship.paddle_cors = defender_ship.paddle_cors_short
+            defender_ship.spindex = defender_ship.spindex_short
 
             # Make the new paddle appear at the location of the old paddle
-            game_paddle.last_x_cor = game_paddle.segments[0].xcor()
-            game_paddle.banish()
-            game_paddle.create_paddle()
+            defender_ship.last_x_cor = defender_ship.segments[0].xcor()
+            defender_ship.banish()
+            defender_ship.create_paddle()
             game_ball.ceiling_hit = True
 
     # Detect if the ball hits the paddle
-    for seg in game_paddle.segments:
+    for seg in defender_ship.segments:
         if game_ball.distance(seg.position()) < PROXIMITY \
                 and game_ball.ycor() < PADDLE_YCOR + PROXIMITY \
                 and 180 < game_ball.orientation < 360:
 
             # Spin ball according to the where it hits on the paddle
-            segment_index = game_paddle.segments.index(seg)
-            spin = game_paddle.spindex[segment_index]
+            segment_index = defender_ship.segments.index(seg)
+            spin = defender_ship.spindex[segment_index]
             game_ball.bounce('bottom', spin)
 
             # Track paddle hits for speed boosts
