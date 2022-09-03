@@ -64,22 +64,11 @@ def build_level_one():
     Build the rows of blocks
     """
     r1 = invaders.Row()
-    r1.build(-395, 240, 16, 60, 'red')
+    r1.build(-160, 240, 8, 60)
     r2 = invaders.Row()
-    r2.build(-395, 210, 16, 60, 'red')
+    r2.build(-160, 210, 8, 60)
     r3 = invaders.Row()
-    r3.build(-395, 180, 16, 60, 'orange')
-    r4 = invaders.Row()
-    r4.build(-395, 150, 16, 60, 'orange')
-    r4.first_orange_hit = True
-    r5 = invaders.Row()
-    r5.build(-395, 120, 16, 60, 'green')
-    r6 = invaders.Row()
-    r6.build(-395, 90, 16, 60, 'green')
-    r7 = invaders.Row()
-    r7.build(-395, 60, 16, 60, 'yellow')
-    r8 = invaders.Row()
-    r8.build(-395, 30, 16, 60, 'yellow')
+    r3.build(-160, 180, 8, 60)
 
-    list_of_rows = [r1, r2, r3, r4, r5, r6, r7, r8]
+    list_of_rows = [r1, r2, r3]
     return list_of_rows

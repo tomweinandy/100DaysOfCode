@@ -30,16 +30,17 @@ class Defender(Turtle):
 
     def create_defender(self):
         """
-        Creates the paddle object
+        Creates the defender object
         """
-        # Store each segment to a list within the paddle object
+        # Make rectangle base of the defender
         new_ship = Turtle('square')
-        new_ship.turtlesize(stretch_len=5, stretch_wid=1)
+        new_ship.turtlesize(stretch_len=3, stretch_wid=1)
         new_ship.color('green')
         new_ship.penup()
         new_ship.goto(0, PADDLE_YCOR)
         self.my_ship = new_ship
 
+        # Add blaster to the defender
         new_blaster = Turtle()
         new_blaster.turtlesize(stretch_len=2, stretch_wid=2)
         new_blaster.color('green')
@@ -47,7 +48,6 @@ class Defender(Turtle):
         new_blaster.left(90)
         new_blaster.goto(0, PADDLE_YCOR + 25)
         self.my_blaster = new_blaster
-
 
         # Send the turtle off the display
         # new_ship.goto(ISLAND_OF_MISFIT_TOYS)
@@ -67,28 +67,28 @@ class Defender(Turtle):
 
     def move_right(self):
         """
-        Action to move a paddle right
+        Action to move the defender (base and blaster) to the right
         """
-        # Only move if the right-most segment is not past the RIGHT_BARRIER limit
+        # Only move defender is not past the RIGHT_BARRIER limit
         if self.my_ship.xcor() < RIGHT_BARRIER:
-            # self.my_ship.forward(MOVING_DISTANCE)
             self.my_ship.setx(self.my_ship.xcor() + 10)
             self.my_blaster.setx(self.my_blaster.xcor() + 10)
 
     def move_left(self):
         """
-        Action to move a paddle left
+        Action to move the defender (base and blaster) to the left
         """
-        # Only move if the left-most segment is not past the LEFT_BARRIER limit
+        # Only move defender is not past the LEFT_BARRIER limit
         if self.my_ship.xcor() > LEFT_BARRIER:
-            # self.my_ship.forward(-MOVING_DISTANCE)
-            # self.my_blaster.forward(-MOVING_DISTANCE)
             self.my_ship.setx(self.my_ship.xcor() - 10)
             self.my_blaster.setx(self.my_blaster.xcor() - 10)
+
+    def fire_laser(self):
+        print('pew pew!')
 
     def banish(self):
         """
         This is what we do to turtles that we do not want or like
         """
-        for seg in self.segments:
-            seg.goto(ISLAND_OF_MISFIT_TOYS)
+        self.my_ship.goto(ISLAND_OF_MISFIT_TOYS)
+        self.my_blaster.goto(ISLAND_OF_MISFIT_TOYS)

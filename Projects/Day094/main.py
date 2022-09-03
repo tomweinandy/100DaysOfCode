@@ -16,7 +16,6 @@ import build_level
 import time
 
 # ------------------------------------------  to do list  ----------------------------------------------------
-# todo change paddle to defender
 # todo change blocks to invaders
 # todo add shooting function from ball
 # todo make invaders shoot
@@ -84,7 +83,7 @@ def block_hit(side):
 
     # Add points according to value of the block
     add_points = invader.popped_points()
-    scoreboard.points += add_points
+    # scoreboard.points += add_points todo add back
     scoreboard.update_scoreboard()
 
     # Check if first orange block is popped
@@ -107,7 +106,7 @@ def block_hit(side):
 # ------------------------------------------  Create Display and Initialize Key Inputs --------------------------------
 # Initialize screen
 screen = turtle.Screen()
-screen.title('Breakout')
+screen.title('Space Turtles!')
 screen.setup(width=1000, height=1000)
 screen.bgcolor('black')
 screen.tracer(0)  # only updates on screen.update()
