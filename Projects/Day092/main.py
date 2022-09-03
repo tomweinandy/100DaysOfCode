@@ -17,16 +17,21 @@ def extract_text(scrape: str):
     :param scrape: A string of the scraped html
     :return: The extracted text
     """
-    txt = scrape.text
-    txt = txt.replace('\n', '')
-    txt = txt.replace('\t', '')
-    txt = txt.strip()  # removes leading and trailing whitespaces
+    try:
+        txt = scrape.text
+        txt = txt.replace('\n', '')
+        txt = txt.replace('\t', '')
+        txt = txt.strip()  # removes leading and trailing whitespaces
+    except AttributeError:
+        txt = np.nan
+
     return txt
 
 
 def get_dynamic_soup(url_to_scrape: str, pause=60) -> BeautifulSoup:
     """
-    Adds a delay within the scraper to allow for page rendering (5s is good) and throttle prevention (plus unknown more)
+    Adds a delay within the scraper to allow for page rendering (5s is good) and throttle prevention (20s was too
+    little; the website seems okay with a 60s delay).
     :param url_to_scrape: webpage with products
     :param pause: delay
     :return:
@@ -65,12 +70,15 @@ n = (num_results - 1) // 24
 page_intervals = [i*24 for i in range(n+1)]
 print(page_intervals) #todo remove testing prints
 
-# Create empty dataframe
+# Create empty dataframe and counter
 df = pd.DataFrame()
+counter = 0
+
+print(f'Will scrape {len(page_intervals)} page(s) of {num_results} products\n')
 
 # Loop through all pages
-for interval in page_intervals: #todo find out why this is not looping
-    print(f'Will scrape {len(page_intervals)} page(s) of {num_results} products\n')
+for interval in page_intervals:
+    print(f'Finished scraping {num_results} products\n')
 
     # Re-scrape after the first page
     if interval != 0:
@@ -78,10 +86,13 @@ for interval in page_intervals: #todo find out why this is not looping
         url = f'https://www.target.com/c/craft-beer-wine-liquor-grocery/-/N-o3thc?Nao={interval}'
         soup = get_dynamic_soup(url)
 
-    print('URL:', soup)
+    print('URL:', url)
 
     # Find all product cards
     product_wrapper_list = soup.find_all('div', {'data-test': '@web/site-top-of-funnel/ProductCardWrapper'})
+
+    if len(product_wrapper_list) == 0:
+        print('No products found on page.')
 
     # Loop through all products
     for product in product_wrapper_list:
@@ -152,7 +163,7 @@ for interval in page_intervals: #todo find out why this is not looping
             list_reviews = string_reviews.split(' ')
             stars = float(list_reviews[0])
             rating = int(list_reviews[-2])
-        except ValueError:
+        except (ValueError, AttributeError):
             stars = np.nan
             rating = np.nan
 
@@ -182,7 +193,11 @@ for interval in page_intervals: #todo find out why this is not looping
                                         'description': [description],
                                         'highlights': [highlights]
                                         })
-        print(df_product.name, '\n')
+        # Print product name and current progress
+        print(df_product.name)
+        counter += 1
+        progress = round(100*(counter/num_results), 2)
+        print(f'Scraped {num_results} products ({progress}% complete)\n')
 
         # Add single-product dataframe to all-product dataframe
         df = df.append(df_product)
