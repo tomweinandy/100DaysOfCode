@@ -15,52 +15,76 @@ class Defender(Turtle):
     """
     Build a Paddle class inherited from the Turtle class
     """
+
     def __init__(self):
         super().__init__()
-        self.segments = []
+        self.my_ship = None
         self.paddle_cors = PADDLE_CORS
-        self.paddle_cors_short = PADDLE_CORS_SHORT   # for when paddle is shortened
-        self.last_x_cor = 0                          # tracks the last recorded location of the paddle
+        self.paddle_cors_short = PADDLE_CORS_SHORT  # for when paddle is shortened
+        self.last_x_cor = 0  # tracks the last recorded location of the paddle
         self.create_defender()
-        self.spindex = SPINDEX                       # the paddle is "convex" and adds spin based on segment hit
-        self.spindex_short = SPINDEX_SHORT           # for when paddle is shortened
-        self.length = len(self.segments)
-        self.keys_pressed = {}                       # allows for paddle movement
+        self.spindex = SPINDEX  # the paddle is "convex" and adds spin based on segment hit
+        self.spindex_short = SPINDEX_SHORT  # for when paddle is shortened
+        # self.length = len(self.segments)
+        self.keys_pressed = {}  # allows for paddle movement
 
     def create_defender(self):
         """
         Creates the paddle object
         """
         # Store each segment to a list within the paddle object
-        self.segments = []
-        for position in self.paddle_cors:
-            new_turtle = Turtle('square')
-            new_turtle.color('blue')
-            new_turtle.penup()
-            new_turtle.goto(self.last_x_cor + position, PADDLE_YCOR)
-            self.segments.append(new_turtle)
+        new_ship = Turtle('square')
+        new_ship.turtlesize(stretch_len=5, stretch_wid=1)
+        new_ship.color('green')
+        new_ship.penup()
+        new_ship.goto(0, PADDLE_YCOR)
+        self.my_ship = new_ship
 
-            # Send the turtle off the display
-            self.penup()
-            self.goto(ISLAND_OF_MISFIT_TOYS)
+        new_blaster = Turtle()
+        new_blaster.turtlesize(stretch_len=2, stretch_wid=2)
+        new_blaster.color('green')
+        new_blaster.penup()
+        new_blaster.left(90)
+        new_blaster.goto(0, PADDLE_YCOR + 25)
+        self.my_blaster = new_blaster
+
+
+        # Send the turtle off the display
+        # new_ship.goto(ISLAND_OF_MISFIT_TOYS)
+
+        # # Store each segment to a list within the paddle object
+        # self.segments = []
+        # for position in self.paddle_cors:
+        #     new_turtle = Turtle('square')
+        #     new_turtle.color('blue')
+        #     new_turtle.penup()
+        #     new_turtle.goto(self.last_x_cor + position, PADDLE_YCOR)
+        #     self.segments.append(new_turtle)
+        #
+        #     # Send the turtle off the display
+        #     self.penup()
+        #     self.goto(ISLAND_OF_MISFIT_TOYS)
 
     def move_right(self):
         """
         Action to move a paddle right
         """
         # Only move if the right-most segment is not past the RIGHT_BARRIER limit
-        if self.segments[-1].xcor() < RIGHT_BARRIER:
-            for seg in self.segments:
-                seg.forward(MOVING_DISTANCE)
+        if self.my_ship.xcor() < RIGHT_BARRIER:
+            # self.my_ship.forward(MOVING_DISTANCE)
+            self.my_ship.setx(self.my_ship.xcor() + 10)
+            self.my_blaster.setx(self.my_blaster.xcor() + 10)
 
     def move_left(self):
         """
         Action to move a paddle left
         """
         # Only move if the left-most segment is not past the LEFT_BARRIER limit
-        if self.segments[0].xcor() > LEFT_BARRIER:
-            for seg in self.segments:
-                seg.forward(-MOVING_DISTANCE)
+        if self.my_ship.xcor() > LEFT_BARRIER:
+            # self.my_ship.forward(-MOVING_DISTANCE)
+            # self.my_blaster.forward(-MOVING_DISTANCE)
+            self.my_ship.setx(self.my_ship.xcor() - 10)
+            self.my_blaster.setx(self.my_blaster.xcor() - 10)
 
     def banish(self):
         """

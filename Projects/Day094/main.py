@@ -16,8 +16,6 @@ import build_level
 import time
 
 # ------------------------------------------  to do list  ----------------------------------------------------
-# todo rename helper files with new function
-# todo remove unused functions
 # todo change paddle to defender
 # todo change blocks to invaders
 # todo add shooting function from ball
@@ -30,6 +28,7 @@ import time
 # todo break bunkers blocks if hit by laser
 # todo make invaders move
 # todo add mothership (optional)
+# todo remove unused functions
 # todo clean up code
 
 # ------------------------------------------  Set Constants  ----------------------------------------------------
@@ -190,35 +189,14 @@ while game_on:
     if game_ball.ycor() > CEILING_YCOR - PROXIMITY:
         game_ball.bounce('top')
 
-        # Shorten the paddle if first occurrence
-        if not game_ball.ceiling_hit:
-            print('HIT CEILING: Shorten the paddle')
-            defender_ship.paddle_cors = defender_ship.paddle_cors_short
-            defender_ship.spindex = defender_ship.spindex_short
-
-            # Make the new paddle appear at the location of the old paddle
-            defender_ship.last_x_cor = defender_ship.segments[0].xcor()
-            defender_ship.banish()
-            defender_ship.create_paddle()
-            game_ball.ceiling_hit = True
-
     # Detect if the ball hits the paddle
-    for seg in defender_ship.segments:
-        if game_ball.distance(seg.position()) < PROXIMITY \
-                and game_ball.ycor() < PADDLE_YCOR + PROXIMITY \
-                and 180 < game_ball.orientation < 360:
+    if game_ball.distance(defender_ship.position()) < PROXIMITY \
+            and game_ball.ycor() < PADDLE_YCOR + PROXIMITY \
+            and 180 < game_ball.orientation < 360:
 
-            # Spin ball according to the where it hits on the paddle
-            segment_index = defender_ship.segments.index(seg)
-            spin = defender_ship.spindex[segment_index]
-            game_ball.bounce('bottom', spin)
-
-            # Track paddle hits for speed boosts
-            game_ball.paddle_hits += 1
-            if game_ball.paddle_hits == 4:
-                game_ball.speed_event('four hits')
-            if game_ball.paddle_hits == 12:
-                game_ball.speed_event('twelve hits')
+        # Track paddle hits for speed boosts
+        game_ball.paddle_hits += 1
+        # todo add penalty for getting hit
 
     # Detect if the ball misses the paddle
     if game_ball.ycor() < PADDLE_YCOR - 20:
