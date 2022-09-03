@@ -7,8 +7,8 @@ import time
 import pandas as pd
 import numpy as np
 import re
-import tabulate   # not called directly, but must be installed for df.to_markdown()
-# todo can scrape first 24 products but possible being throttled. Keep testing.
+
+# todo restart scrape with 1min sleep between products (if it keeps stopping at 24, change the sleep time back to 20s)
 
 
 def extract_text(scrape: str):
@@ -24,7 +24,7 @@ def extract_text(scrape: str):
     return txt
 
 
-def get_dynamic_soup(url_to_scrape: str, pause=20) -> BeautifulSoup:
+def get_dynamic_soup(url_to_scrape: str, pause=60) -> BeautifulSoup:
     """
     Adds a delay within the scraper to allow for page rendering (5s is good) and throttle prevention (plus unknown more)
     :param url_to_scrape: webpage with products
@@ -77,6 +77,8 @@ for interval in page_intervals: #todo find out why this is not looping
         # Scrape html
         url = f'https://www.target.com/c/craft-beer-wine-liquor-grocery/-/N-o3thc?Nao={interval}'
         soup = get_dynamic_soup(url)
+
+    print('URL:', soup)
 
     # Find all product cards
     product_wrapper_list = soup.find_all('div', {'data-test': '@web/site-top-of-funnel/ProductCardWrapper'})
@@ -188,5 +190,3 @@ for interval in page_intervals: #todo find out why this is not looping
 # Save dataframe to csv
 df.reset_index(drop=True)
 df.to_csv('crafty.csv', index=False)
-
-print(df.to_markdown())
