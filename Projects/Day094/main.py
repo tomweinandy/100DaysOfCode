@@ -15,6 +15,23 @@ import scoreboard
 import build_level
 import time
 
+# ------------------------------------------  to do list  ----------------------------------------------------
+# todo rename helper files with new function
+# todo remove unused functions
+# todo change paddle to defender
+# todo change blocks to invaders
+# todo add shooting function from ball
+# todo make invaders shoot
+# todo detect if invader or defender hit
+# todo lose life if defender hit
+# todo pop invader if hit
+# todo update score keeper
+# todo build bunkers from blocks
+# todo break bunkers blocks if hit by laser
+# todo make invaders move
+# todo add mothership (optional)
+# todo clean up code
+
 # ------------------------------------------  Set Constants  ----------------------------------------------------
 BALL_START_ORIENTATION = 135
 BALL_START_CORS = (0, -300)
