@@ -8,8 +8,6 @@ import pandas as pd
 import numpy as np
 import re
 
-# todo restart scrape with 1min sleep between products (if it keeps stopping at 24, change the sleep time back to 20s)
-
 
 def extract_text(scrape: str):
     """
@@ -30,11 +28,11 @@ def extract_text(scrape: str):
 
 def get_dynamic_soup(url_to_scrape: str, pause=60) -> BeautifulSoup:
     """
-    Adds a delay within the scraper to allow for page rendering (5s is good) and throttle prevention (20s was too
-    little; the website seems okay with a 60s delay).
+    Opens a Chrome browser and scrapes html code. Adds a delay  to allow for page rendering (5s is good) and throttle
+    prevention (20s was too little; 60s was okay; didn't test between those values).
     :param url_to_scrape: webpage with products
     :param pause: delay
-    :return:
+    :return: parsed html code
     """
     with sync_playwright() as p:
         browser = p.chromium.launch()
@@ -46,12 +44,13 @@ def get_dynamic_soup(url_to_scrape: str, pause=60) -> BeautifulSoup:
         return chowder
 
 
+# URL for craft beer subcategory on target.com
 url = 'https://www.target.com/c/craft-beer-wine-liquor-grocery/-/N-o3thc'
 
-# Scrape html
+# Scrape and parse html
 soup = get_dynamic_soup(url)
 
-# Extract the number of items from the search (two separate approaches)
+# Extract the number of items from the search (backup approach in case first fails)
 try:
     raw_results = soup.find_all(class_='cDsKNn')[-1]
     results = extract_text(raw_results)
@@ -63,12 +62,11 @@ except ValueError:
     results = extract_text(raw_results)
     num_results = int(results.split()[0])
 
-
 # Target only displays 24 products at a time, so page 2 begins with the 25th product (but includes "Nao=24" in url)
 # Take number of results and make a list of 24-item intervals for each page (e.g., n=49 becomes [0, 24, 48])
 n = (num_results - 1) // 24
 page_intervals = [i*24 for i in range(n+1)]
-print(page_intervals) #todo remove testing prints
+# print(page_intervals)
 
 # Create empty dataframe and counter
 df = pd.DataFrame()

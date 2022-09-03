@@ -4,8 +4,8 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 
 **Portfolio Projects**
 
-* [Day 93: T. Rex Run Game Player](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day093) test link
-* [Day 92: Craft Beer Web Scraper](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day092)* (still fine-tuning)
+* [Day 93: T. Rex Run Game Player](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day093) 
+* [Day 92: Craft Beer Web Scraper](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day092)*
 * [Day 91: Photo Color Extraction Website](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day091)* 
 * [Day 90: PDF to Audiobook Converter](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day090)*
 * [Day 89: Disappearing Writing App](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day089)*
