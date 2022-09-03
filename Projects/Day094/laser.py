@@ -17,7 +17,7 @@ class Laser(Turtle):
         self.penup()
         self.goto(position)
         # self.goto(ISLAND_OF_MISFIT_TOYS)
-        self.speed = 2                              # starting speed of the laser
+        self.speed = 1                              # starting speed of the laser
         self.type = invader_or_defender_type
 
         if self.type == 'invader':
@@ -26,8 +26,7 @@ class Laser(Turtle):
         elif self.type == 'defender':
             self.color('green')
 
-    def fire(self):
-
+    def move(self):
         if self.type == 'invader':
             # while self.ycor() > FLOOR_YCOR:
             if True:

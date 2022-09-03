@@ -1,13 +1,12 @@
 from turtle import Turtle
+import laser
 
 PADDLE_YCOR = -340
 PADDLE_CORS = [-80, -60, -40, -20, 0, 20, 40, 60, 80]
-PADDLE_CORS_SHORT = [0, 20, 40, 60, 80]
 MOVING_DISTANCE = 8
+LASER_RECHARGE = 75
 LEFT_BARRIER = -610
 RIGHT_BARRIER = 600
-SPINDEX = [40, 30, 20, 10, 0, -10, -20, -30, -40]
-SPINDEX_SHORT = [30, 15, 0, -15, -30]
 ISLAND_OF_MISFIT_TOYS = (1000, 1000)
 
 
@@ -18,14 +17,15 @@ class Defender(Turtle):
 
     def __init__(self):
         super().__init__()
-        self.my_ship = None
+        self.blaster = None
+        self.ship = None
+        self.lasers = []
+        self.position_of_last_laser_used = 0
+        self.laser_recharge = 0
         self.paddle_cors = PADDLE_CORS
-        self.paddle_cors_short = PADDLE_CORS_SHORT  # for when paddle is shortened
         self.last_x_cor = 0  # tracks the last recorded location of the paddle
         self.create_defender()
-        self.spindex = SPINDEX  # the paddle is "convex" and adds spin based on segment hit
-        self.spindex_short = SPINDEX_SHORT  # for when paddle is shortened
-        # self.length = len(self.segments)
+        self.create_lasers()
         self.keys_pressed = {}  # allows for paddle movement
 
     def create_defender(self):
@@ -38,7 +38,7 @@ class Defender(Turtle):
         new_ship.color('green')
         new_ship.penup()
         new_ship.goto(0, PADDLE_YCOR)
-        self.my_ship = new_ship
+        self.ship = new_ship
 
         # Add blaster to the defender
         new_blaster = Turtle()
@@ -47,48 +47,44 @@ class Defender(Turtle):
         new_blaster.penup()
         new_blaster.left(90)
         new_blaster.goto(0, PADDLE_YCOR + 25)
-        self.my_blaster = new_blaster
+        self.blaster = new_blaster
 
-        # Send the turtle off the display
-        # new_ship.goto(ISLAND_OF_MISFIT_TOYS)
-
-        # # Store each segment to a list within the paddle object
-        # self.segments = []
-        # for position in self.paddle_cors:
-        #     new_turtle = Turtle('square')
-        #     new_turtle.color('blue')
-        #     new_turtle.penup()
-        #     new_turtle.goto(self.last_x_cor + position, PADDLE_YCOR)
-        #     self.segments.append(new_turtle)
-        #
-        #     # Send the turtle off the display
-        #     self.penup()
-        #     self.goto(ISLAND_OF_MISFIT_TOYS)
+    def create_lasers(self):
+        for i in range(10):
+            new_laser = laser.Laser('defender', ISLAND_OF_MISFIT_TOYS)
+            self.lasers.append(new_laser)
 
     def move_right(self):
         """
         Action to move the defender (base and blaster) to the right
         """
         # Only move defender is not past the RIGHT_BARRIER limit
-        if self.my_ship.xcor() < RIGHT_BARRIER:
-            self.my_ship.setx(self.my_ship.xcor() + 10)
-            self.my_blaster.setx(self.my_blaster.xcor() + 10)
+        if self.ship.xcor() < RIGHT_BARRIER:
+            self.ship.setx(self.ship.xcor() + MOVING_DISTANCE)
+            self.blaster.setx(self.blaster.xcor() + MOVING_DISTANCE)
 
     def move_left(self):
         """
         Action to move the defender (base and blaster) to the left
         """
         # Only move defender is not past the LEFT_BARRIER limit
-        if self.my_ship.xcor() > LEFT_BARRIER:
-            self.my_ship.setx(self.my_ship.xcor() - 10)
-            self.my_blaster.setx(self.my_blaster.xcor() - 10)
+        if self.ship.xcor() > LEFT_BARRIER:
+            self.ship.setx(self.ship.xcor() - MOVING_DISTANCE)
+            self.blaster.setx(self.blaster.xcor() - MOVING_DISTANCE)
 
     def fire_laser(self):
-        print('pew pew!')
+        if self.laser_recharge <= 0:
+            self.laser_recharge = LASER_RECHARGE
+
+            position_of_next_laser = (self.position_of_last_laser_used + 1) % 10
+            self.position_of_last_laser_used = position_of_next_laser
+
+            self.lasers[position_of_next_laser].goto(self.blaster.position())   #todo see if self.position() will work
+            print(position_of_next_laser, 'pew pew!')
 
     def banish(self):
         """
         This is what we do to turtles that we do not want or like
         """
-        self.my_ship.goto(ISLAND_OF_MISFIT_TOYS)
-        self.my_blaster.goto(ISLAND_OF_MISFIT_TOYS)
+        self.ship.goto(ISLAND_OF_MISFIT_TOYS)
+        self.blaster.goto(ISLAND_OF_MISFIT_TOYS)

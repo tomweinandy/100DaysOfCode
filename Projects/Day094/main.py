@@ -39,6 +39,8 @@ LEFT_WALL_XCOR = -495
 RIGHT_WALL_XCOR = 485
 TEXT_YCOR = 350
 PROXIMITY = 20
+ISLAND_OF_MISFIT_TOYS = (1000, 1000)
+
 
 
 # ------------------------------------------  Define Helper Functions  ------------------------------------------------
@@ -66,7 +68,7 @@ def set_key_binds():
     """
     Bind together key presses into single input
     """
-    for key in ["Right", "Left", "BackSpace"]:
+    for key in ["Right", "Left", "Tab"]:
         screen.getcanvas().bind(f"<KeyPress-{key}>", pressed)
         screen.getcanvas().bind(f"<KeyRelease-{key}>", released)
         keys_pressed[key] = False
@@ -116,9 +118,9 @@ defender_ship = defender.Defender()
 scoreboard = scoreboard.Scoreboard()
 
 # todo execute on fire
-start = defender_ship.my_blaster.position()
-print(start)
-game_ball = laser.Laser('defender', start)
+game_ball = laser.Laser('invader', ISLAND_OF_MISFIT_TOYS)
+# game_ball = laser.Laser('defender', defender_ship.blaster.position())
+
 
 # Add screen elements
 build_level.build_screen()
@@ -143,11 +145,22 @@ while game_on:
         defender_ship.move_right()
     if keys_pressed["Left"]:
         defender_ship.move_left()
+    if keys_pressed["Tab"]:
+        # # todo execute on fire
+        # start = defender_ship.blaster.position()
+        # print('Fire laser from', start)
+        # laser.Laser('defender', start).fire()
+        defender_ship.fire_laser()
 
     # Slow down updates and add movement to ball
     screen.update()
     time.sleep(0.01 / game_ball.speed)
-    game_ball.fire()
+    # game_ball.fire()
+
+    defender_ship.laser_recharge -= 1
+
+    for each_laser in defender_ship.lasers:
+        each_laser.move()
 
     # ------------------------------------------  Monitor Ball Actions  -----------------------------------------------
     # Detect if ball hits a block
