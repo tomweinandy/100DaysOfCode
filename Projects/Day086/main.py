@@ -98,7 +98,7 @@ screen.tracer(0)  # only updates on screen.update()
 
 # Create ball, paddle and scoreboard
 game_ball = ball.Ball(BALL_START_CORS, BALL_START_ORIENTATION)
-game_paddle = paddle.Paddle(0, PADDLE_YCOR)
+game_paddle = paddle.Paddle()
 scoreboard = scoreboard.Scoreboard()
 
 # Add screen elements
