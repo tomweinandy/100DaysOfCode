@@ -15,7 +15,7 @@ import build_level
 import time
 
 # ------------------------------------------  to do list  ----------------------------------------------------
-# todo create a list of laser beams for defender and invader
+# todo create a list of laser beams for invader
 # todo make invaders shoot
 # todo detect if invader or defender hit
 # todo lose life if defender hit
@@ -38,7 +38,6 @@ RIGHT_WALL_XCOR = 485
 TEXT_YCOR = 350
 PROXIMITY = 20
 ISLAND_OF_MISFIT_TOYS = (1000, 1000)
-
 
 
 # ------------------------------------------  Define Helper Functions  ------------------------------------------------
@@ -122,7 +121,7 @@ game_ball = laser.Laser('invader', ISLAND_OF_MISFIT_TOYS)
 
 # Add screen elements
 build_level.build_screen()
-block_rows = build_level.build_level_one()
+invader_columns = build_level.build_level_one()
 
 # State machine to track which keys are pressed
 keys_pressed = {}
@@ -155,14 +154,24 @@ while game_on:
     time.sleep(0.01) # / game_ball.speed) todo delete
     # game_ball.fire()
 
+    # Recharge and move defender lasers
     defender_ship.laser_recharge -= 1
-
     for each_laser in defender_ship.lasers:
         each_laser.move()
 
+    # Loop though each invader in each column
+    for col in invader_columns:
+        for invader in col.invaders:
+            invader.laser.move()
+
+            # Only the first invader in the column that's still alive recharges and fires their lasers
+            if invader.alive:
+                invader.laser_recharge -= 1
+                invader.fire_laser()
+
     # ------------------------------------------  Monitor Ball Actions  -----------------------------------------------
     # Detect if ball hits a block
-    for row in block_rows:
+    for row in invader_columns:
         for invader in row.invaders:
             x_distance = abs(invader.xcor() - game_ball.xcor())
             y_distance = abs(invader.ycor() - game_ball.ycor())

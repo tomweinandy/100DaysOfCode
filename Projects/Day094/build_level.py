@@ -13,14 +13,14 @@ def build_screen():
     """
     Adds the on-screen design elements that fill the display
     """
-    # # Write instructions on screen
-    # instructions = turtle.Turtle()
-    # instructions.color('white')
-    # instructions.penup()
-    # instructions.goto(0, TEXT_YCOR)
-    # instructions_text = 'Don\'t let the balloon touch the floor.'
-    # instructions.write(instructions_text, align='center', font=('Courier', 12, 'normal'))
-    # instructions.goto(0, 1000)
+    # Write instructions on screen
+    instructions = turtle.Turtle()
+    instructions.color('white')
+    instructions.penup()
+    instructions.goto(0, TEXT_YCOR)
+    instructions_text = 'It\'s a trap! Press tab to fire laser.'
+    instructions.write(instructions_text, align='center', font=('Courier', 14, 'normal'))
+    instructions.goto(0, 1000)
 
     # Write labels on screen
     labels = turtle.Turtle()
@@ -65,7 +65,7 @@ def build_level_one():
     """
     spacing = 40
     stack = 3
-    ycor = 240
+    ycor = 160
 
     c1 = invaders.Column()
     c1.build(-160, ycor, stack, spacing)
@@ -80,5 +80,5 @@ def build_level_one():
     c6 = invaders.Column()
     c6.build(140, ycor, stack, spacing)
 
-    list_of_rows = [c1, c2, c3, c4, c5, c6]
-    return list_of_rows
+    list_of_columns = [c1, c2, c3, c4, c5, c6]
+    return list_of_columns
