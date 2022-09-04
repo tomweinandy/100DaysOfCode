@@ -15,9 +15,8 @@ import build_level
 import time
 
 # ------------------------------------------  to do list  ----------------------------------------------------
-# todo create a list of laser beams for invader
-# todo make invaders shoot
-# todo detect if invader or defender hit
+# todo detect if invader hit
+# todo detect if defender hit
 # todo lose life if defender hit
 # todo pop invader if hit
 # todo update score keeper
@@ -151,7 +150,7 @@ while game_on:
 
     # Slow down updates and add movement to ball
     screen.update()
-    time.sleep(0.01) # / game_ball.speed) todo delete
+    time.sleep(0.01) # / game_ball.speed) todo delete comment
     # game_ball.fire()
 
     # Recharge and move defender lasers
@@ -161,13 +160,29 @@ while game_on:
 
     # Loop though each invader in each column
     for col in invader_columns:
+        greedo_shot_first = False
         for invader in col.invaders:
             invader.laser.move()
 
-            # Only the first invader in the column that's still alive recharges and fires their lasers
-            if invader.alive:
+            # First living invader in column recharges and fires their laser
+            if invader.alive and not greedo_shot_first:
                 invader.laser_recharge -= 1
                 invader.fire_laser()
+
+                # Stops remaining invaders in column from firing
+                greedo_shot_first = True
+
+            # Check if invader is hit by any of the defender's lasers
+            for pew_pew in defender_ship.lasers:
+                y_proximity = invader.ycor() - pew_pew.ycor()
+                x_proximity = invader.xcor() - pew_pew.xcor()
+                # print(x_proximity, y_proximity)
+
+                if -10 < y_proximity < 10 and -15 < x_proximity < 15:
+                    pew_pew.goto(ISLAND_OF_MISFIT_TOYS)
+                    print('Invader hit')
+
+
 
     # ------------------------------------------  Monitor Ball Actions  -----------------------------------------------
     # Detect if ball hits a block

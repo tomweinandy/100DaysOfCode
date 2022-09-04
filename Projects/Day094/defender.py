@@ -79,7 +79,7 @@ class Defender(Turtle):
             self.position_of_last_laser_used = position_of_next_laser
 
             self.lasers[position_of_next_laser].goto(self.blaster.position())
-            print(position_of_next_laser, 'pew pew!')
+            # print(position_of_next_laser, 'pew pew!')
 
     def banish(self):
         """

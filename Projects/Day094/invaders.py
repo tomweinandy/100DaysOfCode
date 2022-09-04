@@ -17,13 +17,15 @@ class Invader(Turtle):
         self.turtlesize(stretch_len=0.8, stretch_wid=1.4)
         self.color('white')
         self.laser = laser.Laser('invader', ISLAND_OF_MISFIT_TOYS)
+        # Assign random initial condition so lasers fire at different times
         self.laser_recharge = random.choice(range(LASER_RECHARGE_INVADER))
         self.alive = True
         self.goto(x, y)
 
     def fire_laser(self):
         if self.laser_recharge <= 0:
-            self.laser_recharge = LASER_RECHARGE_INVADER
+            # Add random adjustment to recharge time to keep things interesting
+            self.laser_recharge = LASER_RECHARGE_INVADER + random.choice(range(-30, 30))
             self.laser.goto(self.position())
 
     def popped_points(self):
