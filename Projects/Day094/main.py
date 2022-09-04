@@ -15,8 +15,6 @@ import build_level
 import time
 
 # ------------------------------------------  to do list  ----------------------------------------------------
-# todo detect if invader hit
-# todo detect if defender hit
 # todo lose life if defender hit
 # todo pop invader if hit
 # todo update score keeper
@@ -176,12 +174,16 @@ while game_on:
             for pew_pew in defender_ship.lasers:
                 y_proximity = invader.ycor() - pew_pew.ycor()
                 x_proximity = invader.xcor() - pew_pew.xcor()
-                # print(x_proximity, y_proximity)
-
                 if -10 < y_proximity < 10 and -15 < x_proximity < 15:
                     pew_pew.goto(ISLAND_OF_MISFIT_TOYS)
                     print('Invader hit')
 
+            # Check if defender is hit by any of the invaders' lasers
+            y_prox = defender_ship.ship.ycor() - invader.laser.ycor()
+            x_prox = defender_ship.ship.xcor() - invader.laser.xcor()
+            if -10 < y_prox < 10 and -30 < x_prox < 30:
+                invader.laser.goto(ISLAND_OF_MISFIT_TOYS)
+                print('Defender hit')
 
 
     # ------------------------------------------  Monitor Ball Actions  -----------------------------------------------
