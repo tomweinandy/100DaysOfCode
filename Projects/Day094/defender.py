@@ -2,19 +2,18 @@ from turtle import Turtle
 import laser
 
 PADDLE_YCOR = -340
-PADDLE_CORS = [-80, -60, -40, -20, 0, 20, 40, 60, 80]
 MOVING_DISTANCE = 8
-LASER_RECHARGE = 75
-LEFT_BARRIER = -610
-RIGHT_BARRIER = 600
+LEFT_BARRIER = -455
+RIGHT_BARRIER = 445
 ISLAND_OF_MISFIT_TOYS = (1000, 1000)
+LASER_RECHARGE = 75
+LASER_COUNT = 5
 
 
 class Defender(Turtle):
     """
     Build a Paddle class inherited from the Turtle class
     """
-
     def __init__(self):
         super().__init__()
         self.blaster = None
@@ -22,7 +21,7 @@ class Defender(Turtle):
         self.lasers = []
         self.position_of_last_laser_used = 0
         self.laser_recharge = 0
-        self.paddle_cors = PADDLE_CORS
+        # self.paddle_cors = PADDLE_CORS
         self.last_x_cor = 0  # tracks the last recorded location of the paddle
         self.create_defender()
         self.create_lasers()
@@ -50,7 +49,7 @@ class Defender(Turtle):
         self.blaster = new_blaster
 
     def create_lasers(self):
-        for i in range(10):
+        for i in range(LASER_COUNT):
             new_laser = laser.Laser('defender', ISLAND_OF_MISFIT_TOYS)
             self.lasers.append(new_laser)
 
@@ -75,11 +74,11 @@ class Defender(Turtle):
     def fire_laser(self):
         if self.laser_recharge <= 0:
             self.laser_recharge = LASER_RECHARGE
-
-            position_of_next_laser = (self.position_of_last_laser_used + 1) % 10
+            # Go to next laser in list (modulo makes 1 after the total count return to 0)
+            position_of_next_laser = (self.position_of_last_laser_used + 1) % LASER_COUNT
             self.position_of_last_laser_used = position_of_next_laser
 
-            self.lasers[position_of_next_laser].goto(self.blaster.position())   #todo see if self.position() will work
+            self.lasers[position_of_next_laser].goto(self.blaster.position())
             print(position_of_next_laser, 'pew pew!')
 
     def banish(self):

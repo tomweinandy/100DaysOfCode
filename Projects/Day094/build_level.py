@@ -3,7 +3,7 @@ import invaders
 import turtle
 
 # Set constants
-CEILING_YCOR = 330
+CEILING_YCOR = 390
 LEFT_WALL_XCOR = -495
 RIGHT_WALL_XCOR = 485
 TEXT_YCOR = 350
@@ -48,7 +48,7 @@ def build_screen():
     bar.goto(LEFT_WALL_XCOR, 0)
     bar.shape('square')
     bar.color('white')
-    bar.turtlesize(stretch_len=0.5, stretch_wid=33)
+    bar.turtlesize(stretch_len=0.5, stretch_wid=40)
 
     # Add vertical bar for right wall
     bar = turtle.Turtle()
@@ -56,19 +56,29 @@ def build_screen():
     bar.goto(RIGHT_WALL_XCOR, 0)
     bar.shape('square')
     bar.color('white')
-    bar.turtlesize(stretch_len=0.5, stretch_wid=33)
+    bar.turtlesize(stretch_len=0.5, stretch_wid=40)
 
 
 def build_level_one():
     """
-    Build the rows of blocks
+    Build the columns of blocks
     """
-    r1 = invaders.Row()
-    r1.build(-160, 240, 8, 60)
-    r2 = invaders.Row()
-    r2.build(-160, 210, 8, 60)
-    r3 = invaders.Row()
-    r3.build(-160, 180, 8, 60)
+    spacing = 40
+    stack = 3
+    ycor = 240
 
-    list_of_rows = [r1, r2, r3]
+    c1 = invaders.Column()
+    c1.build(-160, ycor, stack, spacing)
+    c2 = invaders.Column()
+    c2.build(-100, ycor, stack, spacing)
+    c3 = invaders.Column()
+    c3.build(-40, ycor, stack, spacing)
+    c4 = invaders.Column()
+    c4.build(20, ycor, stack, spacing)
+    c5 = invaders.Column()
+    c5.build(80, ycor, stack, spacing)
+    c6 = invaders.Column()
+    c6.build(140, ycor, stack, spacing)
+
+    list_of_rows = [c1, c2, c3, c4, c5, c6]
     return list_of_rows

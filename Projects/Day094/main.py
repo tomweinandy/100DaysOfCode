@@ -6,7 +6,6 @@ Space Invaders Wikipedia Page
 Your space ship can move left and right and it can hit some alien ships. Every second the aliens will move closer to your ship. Once the aliens touch your ship then it's game over. There are usually some barriers between you and the aliens which offers you defensive positions.
 You can play the game here:
 https://elgoog.im/space-invaders/
-
 """
 import turtle
 import defender
@@ -16,7 +15,6 @@ import build_level
 import time
 
 # ------------------------------------------  to do list  ----------------------------------------------------
-# todo add shooting function from ball
 # todo create a list of laser beams for defender and invader
 # todo make invaders shoot
 # todo detect if invader or defender hit
@@ -154,7 +152,7 @@ while game_on:
 
     # Slow down updates and add movement to ball
     screen.update()
-    time.sleep(0.01 / game_ball.speed)
+    time.sleep(0.01) # / game_ball.speed) todo delete
     # game_ball.fire()
 
     defender_ship.laser_recharge -= 1

@@ -25,9 +25,9 @@ class Invader(Turtle):
         # return self.points_dict[self.color()[0]]
 
 
-class Row(Turtle):
+class Column(Turtle):
     """
-    Row class that inherits the Turtle class
+    Column class that inherits the Turtle class
     """
     def __init__(self):
         super().__init__()
@@ -35,18 +35,36 @@ class Row(Turtle):
 
     def build(self, x, y, width, spacing):
         """
-        Builds a horizontal row of invaders objects
-        :param x: X coordinate of the first invader in the row
-        :param y: Y coordinate of the first invader in the row
-        :param width: The number of invader that make up a row
+        Builds a vertical column of invader objects
+        :param x: X coordinate of the first invader in the column
+        :param y: Y coordinate of the first invader in the column
+        :param width: The number of invader that make up a column
         :param spacing: The space between each invader
         """
         for n in range(width):
-            x_new = x + (n - 1) * spacing
-            invader = Invader(x_new, y)
+            y_new = y + (n - 1) * spacing
+            invader = Invader(x, y_new)
             invader.right(90)
             self.invaders.append(invader)
 
         # Clears away the turtle
         self.penup()
         self.goto(ISLAND_OF_MISFIT_TOYS)
+
+    # def build(self, x, y, width, spacing):
+    #     """
+    #     Builds a horizontal row of invaders objects
+    #     :param x: X coordinate of the first invader in the row
+    #     :param y: Y coordinate of the first invader in the row
+    #     :param width: The number of invader that make up a row
+    #     :param spacing: The space between each invader
+    #     """
+    #     for n in range(width):
+    #         x_new = x + (n - 1) * spacing
+    #         invader = Invader(x_new, y)
+    #         invader.right(90)
+    #         self.invaders.append(invader)
+    #
+    #     # Clears away the turtle
+    #     self.penup()
+    #     self.goto(ISLAND_OF_MISFIT_TOYS)
