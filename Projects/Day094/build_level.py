@@ -29,8 +29,8 @@ def build_screen():
     labels.goto(-450, TEXT_YCOR)
     label_text = 'POINTS'
     labels.write(label_text, align='center', font=('Courier', 18, 'normal'))
-    labels.goto(450, TEXT_YCOR)
-    label_text = 'LIVES'
+    labels.goto(410, TEXT_YCOR)
+    label_text = 'LIVES LEFT'
     labels.write(label_text, align='center', font=('Courier', 18, 'normal'))
     labels.goto(0, 1000)
 

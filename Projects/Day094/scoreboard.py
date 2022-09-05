@@ -21,7 +21,7 @@ class Scoreboard(turtle.Turtle):
         self.clear()
         self.goto(-350, 340)
         self.write(self.points, align='center', font=('Courier', 40, 'normal'))
-        self.goto(400, 340)
+        self.goto(330, 340)
         self.write(self.lives, align='center', font=('Courier', 40, 'normal'))
 
     def game_over(self):

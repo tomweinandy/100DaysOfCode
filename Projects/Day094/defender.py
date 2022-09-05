@@ -81,6 +81,13 @@ class Defender(Turtle):
             self.lasers[position_of_next_laser].goto(self.blaster.position())
             # print(position_of_next_laser, 'pew pew!')
 
+            # Make defender green (reverts from red color after defender hit)
+            self.change_color('green')
+
+    def change_color(self, color):
+        self.ship.color(color)
+        self.blaster.color(color)
+
     def banish(self):
         """
         This is what we do to turtles that we do not want or like

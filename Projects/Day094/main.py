@@ -182,8 +182,11 @@ while game_on:
             y_prox = defender_ship.ship.ycor() - invader.laser.ycor()
             x_prox = defender_ship.ship.xcor() - invader.laser.xcor()
             if -10 < y_prox < 10 and -30 < x_prox < 30:
-                invader.laser.goto(ISLAND_OF_MISFIT_TOYS)
                 print('Defender hit')
+                invader.laser.goto(ISLAND_OF_MISFIT_TOYS)
+                defender_ship.change_color('red')
+                scoreboard.lives -= 1
+                scoreboard.update_scoreboard()
 
 
     # ------------------------------------------  Monitor Ball Actions  -----------------------------------------------
