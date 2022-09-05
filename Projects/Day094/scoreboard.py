@@ -25,7 +25,7 @@ class Scoreboard(turtle.Turtle):
 
     def update_scoreboard(self):
         """
-        Updates the scoreboard after paddle misses (life lost) or block is broken (points gained)
+        Updates the scoreboard after life lost or points gained
         """
         self.clear()
         self.goto(-350, 340)
@@ -50,7 +50,7 @@ class Scoreboard(turtle.Turtle):
 
 def show_points(color_type, position):
     """
-    Prints the number of points awarded
+    Prints the number of points awarded based on the color (motherships are yellow, invaders are white).
     """
     pointer = turtle.Turtle()
     pointer.penup()

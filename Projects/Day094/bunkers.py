@@ -43,7 +43,7 @@ class Bunker(Turtle):
 
     def build(self, x, y):
         """
-        Builds a horizontal row of block objects
+        Builds a barrier of bunkers
         :param x: X coordinate of the highest, left block
         :param y: Y coordinate of the highest, left block
         """
@@ -51,8 +51,3 @@ class Bunker(Turtle):
             for pair in row:
                 block = Block(pair[0] + x, pair[1] + y)
                 self.blocks.append(block)
-
-        # Clears away the turtle
-        # self.penup()
-        # self.goto(ISLAND_OF_MISFIT_TOYS)
-

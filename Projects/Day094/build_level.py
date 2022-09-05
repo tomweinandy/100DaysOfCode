@@ -60,6 +60,9 @@ def build_screen():
 
 
 def build_bunkers():
+    """
+    Builds a barrier of bunkers, each from a model of blocks
+    """
     ycor = -170
 
     b1 = bunkers.Bunker()
@@ -79,7 +82,7 @@ def build_bunkers():
 
 def build_level_one():
     """
-    Build the columns of blocks
+    Build the columns of invaders
     """
     spacing = 40
     stack = 3

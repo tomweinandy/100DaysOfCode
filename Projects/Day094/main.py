@@ -1,11 +1,5 @@
 """
 Day 94: Space Invaders Game
-
-Using Python Turtle, build the classic shoot 'em up game - space invaders game.
-Space Invaders Wikipedia Page
-Your spaceship can move left and right and it can hit some alien ships. Every second the aliens will move closer to your ship. Once the aliens touch your ship then it's game over. There are usually some barriers between you and the aliens which offers you defensive positions.
-You can play the game here:
-https://elgoog.im/space-invaders/
 """
 import turtle
 import defender
@@ -14,22 +8,10 @@ import mothership
 import build_level
 import time
 
-# ------------------------------------------  to do list  ----------------------------------------------------
-# todo remove unused functions
-# todo clean up code
-
-# ------------------------------------------  Set Constants  ----------------------------------------------------
-CEILING_YCOR = 330 # todo check if these are used
-LEFT_WALL_XCOR = -495
-RIGHT_WALL_XCOR = 485
-TEXT_YCOR = 350
-PROXIMITY = 20
 ISLAND_OF_MISFIT_TOYS = (-1000, 1000)
 
 
-# ------------------------------------------  Define Helper Functions  ------------------------------------------------
-# Use solution by Joseph to allow for both paddles to move at once
-# Details: https://www.udemy.com/course/100-days-of-code/learn/lecture/20414753#questions/13216834
+# --------------------------------------  Define Simultaneous Key Presses  ----------------------------------------
 def pressed(event):
     """
     Callback for KeyPress event listener. Sets key pressed state to True
@@ -66,7 +48,7 @@ screen.setup(width=1000, height=1000)
 screen.bgcolor('black')
 screen.tracer(0)  # only updates on screen.update()
 
-# Create ball, defender and scoreboard
+# Create defender and scoreboard
 defender_ship = defender.Defender()
 game_scoreboard = scoreboard.Scoreboard()
 
@@ -85,7 +67,6 @@ set_key_binds()
 screen.update()
 time.sleep(2)
 
-
 # ------------------------------------------  Begin Game Play  ----------------------------------------------------
 game_on = True
 while game_on:
@@ -97,7 +78,7 @@ while game_on:
     if keys_pressed["Tab"]:
         defender_ship.fire_laser()
 
-    # Slow down updates and add movement to ball
+    # Slow down updates with sleep (may need to be adjusted depending on compute power)
     screen.update()
     time.sleep(0.01)
     game_scoreboard.timer += 1
@@ -113,6 +94,7 @@ while game_on:
         for invader in col.invaders:
             invader.move()
 
+    # ------------------------------------------  Manage Defender Lasers  --------------------------------------------
     # Recharge and move defender lasers
     defender_ship.laser_recharge -= 1
     for each_laser in defender_ship.lasers:
@@ -130,6 +112,7 @@ while game_on:
                         block.hit()
                         each_laser.goto(ISLAND_OF_MISFIT_TOYS)
 
+    # ----------------------------------------  Manage Invaders' Behavior  --------------------------------------------
     # Loop though each invader in each column
     for col in invader_columns:
         greedo_shot_first = False
@@ -213,6 +196,7 @@ while game_on:
                 game_scoreboard.time_when_defender_last_hit = game_scoreboard.timer
                 game_scoreboard.lives -= 1
 
+    # ------------------------------------------  Manage the Mothership  ----------------------------------------------
     # Periodically add a mothership
     if game_scoreboard.timer - game_scoreboard.time_when_last_mothership_appeared >= 1200:
         # If mothership exists, move it; otherwise, create mothership
@@ -225,14 +209,14 @@ while game_on:
 
     # Perform actions if the mothership exists
     try:
-        # Move the ship
+        # Move the mothership
         the_mothership.move()
 
         # Periodically fire a laser
         if game_scoreboard.timer % 25 == 0:
             the_mothership.fire_laser()
 
-        # Move the ship's lasers
+        # Move the mothership's lasers
         for mother_laser in the_mothership.lasers:
             mother_laser.move()
 
@@ -283,7 +267,8 @@ while game_on:
     except NameError:
         pass
 
-    # After 100 units, clear the points text
+    # ------------------------------------------  Manage Game Status  ------------------------------------------------
+    # After 50 time units, clear the points text
     try:
         if game_scoreboard.timer - game_scoreboard.time_when_last_points_displayed >= 50:
             # Clear old points, show new points earned and reset displayed timer
@@ -295,16 +280,17 @@ while game_on:
     if game_scoreboard.lives < 0:
         game_on = False
         game_scoreboard.game_over()
+
     # Check if it's time to update the scoreboard
     elif game_scoreboard.lives_since_last_update != game_scoreboard.lives:
         game_scoreboard.update_scoreboard()
         game_scoreboard.lives_since_last_update = game_scoreboard.lives
+
     # Check if the game has been won
     elif game_scoreboard.invaders_hit == 30:
         game_scoreboard.game_won()
         break
-
-    # ------------------------------------------  Monitor Ball Actions  -----------------------------------------------
+# ------------------------------------------  End Game Play  ----------------------------------------------------
 
 screen.update()
 screen.exitonclick()

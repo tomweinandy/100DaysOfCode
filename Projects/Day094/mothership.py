@@ -24,6 +24,9 @@ class Mothership(Turtle):
         self.goto(500, 300)
 
     def create_lasers(self):
+        """
+        Creates a list of lasers and "stores" them on the island of misfit toys
+        """
         for i in range(LASER_COUNT):
             new_laser = laser.Laser('mothership', ISLAND_OF_MISFIT_TOYS)
             self.lasers.append(new_laser)
@@ -41,25 +44,29 @@ class Mothership(Turtle):
 
     def hit(self):
         """
-        Banishes an invader
+        Banishes the mothership
         """
         self.goto(ISLAND_OF_MISFIT_TOYS)
 
     def move(self):
+        """
+        Moves the mothership, mostly left, but randomly will change direction to psych out opponent. I bet you didn't
+        know a turtle could do that. Well, the mother turtle can!
+        """
         # Move left
         if self.moving_left:
             new_x = self.xcor() - 4
             self.goto(new_x, self.ycor())
 
-            # In 1/40 times, start moving right
+            # In 1/40 of the times, start moving right
             if random.randint(1, 40) == 1:
                 self.moving_left = False
 
+        # Move right
         if not self.moving_left:
-            # Move right
             new_x = self.xcor() + 4
             self.goto(new_x, self.ycor())
 
-            # In 1/20 times, start moving left
+            # In 1/20 of the times, start moving left
             if random.randint(1, 20) == 1:
                 self.moving_left = True
