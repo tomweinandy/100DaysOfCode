@@ -21,8 +21,8 @@ class Defender(Turtle):
         self.lasers = []
         self.position_of_last_laser_used = 0
         self.laser_recharge = 0
-        # self.paddle_cors = PADDLE_CORS
-        self.last_x_cor = 0  # tracks the last recorded location of the paddle
+        # self.last_color_change = 0
+        # self.last_x_cor = 0  # tracks the last recorded location of the paddle
         self.create_defender()
         self.create_lasers()
         self.keys_pressed = {}  # allows for paddle movement
@@ -80,9 +80,6 @@ class Defender(Turtle):
 
             self.lasers[position_of_next_laser].goto(self.blaster.position())
             # print(position_of_next_laser, 'pew pew!')
-
-            # Make defender green (reverts from red color after defender hit)
-            self.change_color('green')
 
     def change_color(self, color):
         self.ship.color(color)

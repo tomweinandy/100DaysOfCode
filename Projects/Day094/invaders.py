@@ -20,6 +20,8 @@ class Invader(Turtle):
         # Assign random initial condition so lasers fire at different times
         self.laser_recharge = random.choice(range(LASER_RECHARGE_INVADER))
         self.alive = True
+        self.moving_left = True
+        self.starting_x = x
         self.goto(x, y)
 
     def fire_laser(self, invaders_hit):
@@ -36,6 +38,19 @@ class Invader(Turtle):
         """
         self.alive = False
         self.goto(ISLAND_OF_MISFIT_TOYS)
+
+    def move(self):
+        if self.moving_left: # and self.starting_x > self.xcor():
+            new_x = self.xcor() - 4
+            self.goto(new_x, self.ycor() - 0.1)
+            if self.starting_x - self.xcor() >= 250:
+                self.moving_left = False
+
+        if not self.moving_left:
+            new_x = self.xcor() + 4
+            self.goto(new_x, self.ycor() - 0.1)
+            if self.xcor() - self.starting_x >= 250:
+                self.moving_left = True
 
 
 class Column(Turtle):

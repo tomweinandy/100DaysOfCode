@@ -14,6 +14,9 @@ class Scoreboard(turtle.Turtle):
         self.lives_since_last_update = 2
         self.points = 0
         self.invaders_hit = 0
+        self.timer = 0
+        self.time_when_defender_last_hit = 0
+        # self.time_when_invaders_last_moved = 0
         self.update_scoreboard()
 
     def update_scoreboard(self):

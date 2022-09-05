@@ -14,8 +14,6 @@ import build_level
 import time
 
 # ------------------------------------------  to do list  ----------------------------------------------------
-# todo build bunkers from blocks
-# todo break bunkers blocks if hit by laser
 # todo make invaders move
 # todo add mothership (optional)
 # todo remove unused functions
@@ -106,6 +104,20 @@ while game_on:
     # Slow down updates and add movement to ball
     screen.update()
     time.sleep(0.01)
+    scoreboard.timer += 1
+
+    # Track last color change
+    if defender_ship.ship.color()[0] == 'red':
+        # Change from red to green if 100 units have passed
+        if scoreboard.timer - scoreboard.time_when_defender_last_hit >= 100:
+            defender_ship.change_color('green')
+
+    # Track last invader movement
+    # if scoreboard.timer - scoreboard.time_when_invaders_last_moved >= 10:
+    for col in invader_columns:
+        for invader in col.invaders:
+            invader.move()
+            scoreboard.time_when_invaders_last_moved = scoreboard.timer
 
     # Recharge and move defender lasers
     defender_ship.laser_recharge -= 1
@@ -123,8 +135,6 @@ while game_on:
                     if -7 < y_proximity_defender < 7 and -7 < x_proximity_defender < 7:
                         block.hit()
                         each_laser.goto(ISLAND_OF_MISFIT_TOYS)
-
-
 
     # Loop though each invader in each column
     for col in invader_columns:
@@ -171,6 +181,7 @@ while game_on:
                 print('Defender hit')
                 invader.laser.goto(ISLAND_OF_MISFIT_TOYS)
                 defender_ship.change_color('red')
+                scoreboard.time_when_defender_last_hit = scoreboard.timer
                 scoreboard.lives -= 1
 
     # Check if game over
