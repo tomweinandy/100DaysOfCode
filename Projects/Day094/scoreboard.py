@@ -16,6 +16,7 @@ class Scoreboard(turtle.Turtle):
         self.invaders_hit = 0
         self.timer = 0
         self.time_when_defender_last_hit = 0
+        self.time_when_last_mothership_appeared = -900 #todo change to 0
         self.update_scoreboard()
 
     def update_scoreboard(self):

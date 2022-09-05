@@ -21,11 +21,9 @@ class Defender(Turtle):
         self.lasers = []
         self.position_of_last_laser_used = 0
         self.laser_recharge = 0
-        # self.last_color_change = 0
-        # self.last_x_cor = 0  # tracks the last recorded location of the paddle
         self.create_defender()
         self.create_lasers()
-        self.keys_pressed = {}  # allows for paddle movement
+        self.keys_pressed = {}  # allows for ship movement
 
     def create_defender(self):
         """
@@ -36,7 +34,7 @@ class Defender(Turtle):
         new_ship.turtlesize(stretch_len=3, stretch_wid=1)
         new_ship.color('green')
         new_ship.penup()
-        new_ship.goto(0, PADDLE_YCOR)
+        new_ship.goto(0, PADDLE_YCOR) #todo fix
         self.ship = new_ship
 
         # Add blaster to the defender

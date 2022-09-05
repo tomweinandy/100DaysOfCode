@@ -10,11 +10,11 @@ https://elgoog.im/space-invaders/
 import turtle
 import defender
 import scoreboard
+import mothership
 import build_level
 import time
 
 # ------------------------------------------  to do list  ----------------------------------------------------
-# todo make invaders move
 # todo add mothership (optional)
 # todo add stars in background (optional)
 # todo remove unused functions
@@ -197,7 +197,6 @@ while game_on:
                     game_on = False
                     scoreboard.game_over()
 
-
             # Check if defender is hit by any of the invaders' lasers
             y_prox = defender_ship.ship.ycor() - invader.laser.ycor()
             x_prox = defender_ship.ship.xcor() - invader.laser.xcor()
@@ -207,6 +206,21 @@ while game_on:
                 defender_ship.change_color('red')
                 scoreboard.time_when_defender_last_hit = scoreboard.timer
                 scoreboard.lives -= 1
+
+    # Periodically add a mothership
+    if scoreboard.timer - scoreboard.time_when_last_mothership_appeared >= 1000:
+        # If mothership exists, move it; otherwise, create mothership
+        try:
+            the_mothership.goto(500, 320)
+        except NameError:
+            the_mothership = mothership.Mothership()
+        scoreboard.time_when_last_mothership_appeared = scoreboard.timer
+
+    # Move said mothership (but only if it exists)
+    try:
+        the_mothership.move()
+    except NameError:
+        pass
 
     # Check if game over
     if scoreboard.lives < 0:

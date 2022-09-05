@@ -44,15 +44,15 @@ class Invader(Turtle):
         self.goto(ISLAND_OF_MISFIT_TOYS)
 
     def move(self):
-        if self.moving_left: # and self.starting_x > self.xcor():
+        if self.moving_left:
             new_x = self.xcor() - 4
-            self.goto(new_x, self.ycor() - 1.1)
+            self.goto(new_x, self.ycor() - 0.1)
             if self.starting_x - self.xcor() >= 250:
                 self.moving_left = False
 
         if not self.moving_left:
             new_x = self.xcor() + 4
-            self.goto(new_x, self.ycor() - 1.1)
+            self.goto(new_x, self.ycor() - 0.1)
             if self.xcor() - self.starting_x >= 250:
                 self.moving_left = True
 
