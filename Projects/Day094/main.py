@@ -68,37 +68,6 @@ def set_key_binds():
         keys_pressed[key] = False
 
 
-def block_hit(side):
-    """
-    Performs checks and actions when a block is hit by the ball
-    :param side: The side of the ball that hits a block, e.g., 'right' is the right side of the ball hitting the left
-                 side of a block.
-    """
-    game_ball.bounce(side)
-    # print(f'[{side.upper()}] X Distance: {x_distance}, Y Distance: {y_distance}') # Uncomment when debugging
-
-    # Add points according to value of the block
-    add_points = invader.popped_points()
-    # scoreboard.points += add_points todo add back
-    scoreboard.update_scoreboard()
-
-    # # Check if first orange block is popped
-    # if add_points == 5:
-    #     game_ball.speed_event('orange block')
-    #
-    # # Check if game is won
-    # if scoreboard.points == 512:
-    #     scoreboard.game_won()
-    #
-    #     # Create animation to celebrate the victory
-    #     for i in range(40, 3600, 10):
-    #         bonus_ball = laser.Laser((0, 0), i)
-    #         for j in range(40):
-    #             screen.update()
-    #             bonus_ball.forward(2 + 0.004*i)
-    #     scoreboard.lives += 999
-
-
 # ------------------------------------------  Create Display and Initialize Key Inputs --------------------------------
 # Initialize screen
 screen = turtle.Screen()
@@ -110,11 +79,6 @@ screen.tracer(0)  # only updates on screen.update()
 # Create ball, defender and scoreboard
 defender_ship = defender.Defender()
 scoreboard = scoreboard.Scoreboard()
-
-# todo execute on fire
-game_ball = laser.Laser('invader', ISLAND_OF_MISFIT_TOYS)
-# game_ball = laser.Laser('defender', defender_ship.blaster.position())
-
 
 # Add screen elements
 build_level.build_screen()
@@ -148,8 +112,7 @@ while game_on:
 
     # Slow down updates and add movement to ball
     screen.update()
-    time.sleep(0.01) # / game_ball.speed) todo delete comment
-    # game_ball.fire()
+    time.sleep(0.01)
 
     # Recharge and move defender lasers
     defender_ship.laser_recharge -= 1
@@ -186,73 +149,23 @@ while game_on:
                 invader.laser.goto(ISLAND_OF_MISFIT_TOYS)
                 defender_ship.change_color('red')
                 scoreboard.lives -= 1
-                scoreboard.update_scoreboard()
+
+    # Check if game over
+    if scoreboard.lives < 0:
+        scoreboard.game_over()
+        game_on = False
+    elif scoreboard.lives_since_last_update != scoreboard.lives:
+        scoreboard.update_scoreboard()
+        scoreboard.lives_since_last_update = scoreboard.lives
+    else:
+    #     screen.update()
+    #     # time.sleep(2)
+        pass
 
 
     # ------------------------------------------  Monitor Ball Actions  -----------------------------------------------
-    # Detect if ball hits a block
-    for row in invader_columns:
-        for invader in row.invaders:
-            x_distance = abs(invader.xcor() - game_ball.xcor())
-            y_distance = abs(invader.ycor() - game_ball.ycor())
-            block_below_ball = invader.ycor() < game_ball.ycor()
-            block_left_of_ball = invader.xcor() < game_ball.xcor()
 
-            # Detects if block is hit by the left of the ball
-            if x_distance < 45 and y_distance < 15 and block_left_of_ball:
-                block_hit('left')
 
-            # Detects if block is hit by the right of the ball
-            if x_distance < 45 and y_distance < 15 and not block_left_of_ball:
-                block_hit('right')
-
-            # Detects if block is hit by the bottom of the ball
-            if x_distance < 30 and y_distance < 20 and block_below_ball:
-                block_hit('bottom')
-
-            # Detects if block is hit by the top of the ball
-            if x_distance < 30 and y_distance < 20 and not block_below_ball:
-                block_hit('top')
-
-    # Detect if the ball hits the left wall
-    if game_ball.xcor() < LEFT_WALL_XCOR + PROXIMITY:
-        # game_ball.bounce('left')
-        pass
-
-    # Detect if the ball hits the right wall
-    if game_ball.xcor() > RIGHT_WALL_XCOR - PROXIMITY:
-        # game_ball.bounce('right')
-        pass
-
-    # Detect if the ball hits the ceiling
-    if game_ball.ycor() > CEILING_YCOR - PROXIMITY:
-        # game_ball.bounce('top')
-        pass
-
-    # Detect if the ball hits the paddle
-    if game_ball.distance(defender_ship.position()) < PROXIMITY \
-            and game_ball.ycor() < PADDLE_YCOR + PROXIMITY \
-            and 180 < game_ball.orientation < 360:
-
-        # Track paddle hits for speed boosts
-        game_ball.paddle_hits += 1
-        # todo add penalty for getting hit
-
-    # Detect if the ball misses the paddle
-    if game_ball.ycor() < PADDLE_YCOR - 20:
-        scoreboard.lives -= 1
-        game_ball.color('red')
-        screen.update()
-
-        # Check if game over
-        if scoreboard.lives < 0:
-            scoreboard.game_over()
-            game_on = False
-        else:
-            game_ball.reset(BALL_START_CORS)
-            scoreboard.update_scoreboard()
-            screen.update()
-            time.sleep(2)
 
 screen.update()
 screen.exitonclick()

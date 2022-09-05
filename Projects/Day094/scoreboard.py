@@ -11,6 +11,7 @@ class Scoreboard(turtle.Turtle):
         self.penup()
         self.hideturtle()
         self.lives = 2
+        self.lives_since_last_update = 2
         self.points = 0
         self.update_scoreboard()
 
