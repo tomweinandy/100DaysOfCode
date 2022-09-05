@@ -2,7 +2,7 @@ from turtle import Turtle
 
 ISLAND_OF_MISFIT_TOYS = (1000, 1000)
 SPACING = 10
-BLOCK_SIZE = 0.4
+BLOCK_SIZE = 0.5
 BUNKER_MOLD = [[(i, 0) for i in range(0, 55, SPACING)],
                [(i, -1*SPACING) for i in range(-5, 60, SPACING)],
                [(i, -2*SPACING) for i in range(-10, 65, SPACING)],

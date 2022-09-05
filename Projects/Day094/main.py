@@ -16,6 +16,7 @@ import time
 # ------------------------------------------  to do list  ----------------------------------------------------
 # todo make invaders move
 # todo add mothership (optional)
+# todo add stars in background (optional)
 # todo remove unused functions
 # todo clean up code
 
@@ -113,11 +114,9 @@ while game_on:
             defender_ship.change_color('green')
 
     # Track last invader movement
-    # if scoreboard.timer - scoreboard.time_when_invaders_last_moved >= 10:
     for col in invader_columns:
         for invader in col.invaders:
             invader.move()
-            scoreboard.time_when_invaders_last_moved = scoreboard.timer
 
     # Recharge and move defender lasers
     defender_ship.laser_recharge -= 1
@@ -162,17 +161,42 @@ while game_on:
                     scoreboard.update_scoreboard()
                     print('Invader hit')
 
-            # Check any bunker blocks are hit by an invader's laser
+            # Check any invader's laser is near the bunkers (otherwise no need to go through expensive loop)
             if -250 < invader.laser.ycor() < -160:
                 # Loop through each block in each bunker
                 for bunker in bunker_barrier:
                     for block in bunker.blocks:
-                        # Check if a block is hit by a defender's laser
-                        x_proximity_defender = block.xcor() - invader.laser.xcor()
-                        y_proximity_defender = block.ycor() - invader.laser.ycor()
-                        if -7 < y_proximity_defender < 7 and -7 < x_proximity_defender < 7:
+                        # Check if a block is hit by an invader's laser
+                        x_proximity_laser = block.xcor() - invader.laser.xcor()
+                        y_proximity_laser = block.ycor() - invader.laser.ycor()
+                        if -7 < y_proximity_laser < 7 and -7 < x_proximity_laser < 7:
                             block.hit()
                             invader.laser.goto(ISLAND_OF_MISFIT_TOYS)
+
+            # Check invader is near the bunkers (otherwise no need to go through expensive loop)
+            if -250 < invader.ycor() < -160:
+                # Loop through each block in each bunker
+                for bunker in bunker_barrier:
+                    for block in bunker.blocks:
+                        # Check if a block is hit by an invader
+                        x_proximity_invader = block.xcor() - invader.xcor()
+                        y_proximity_invader = block.ycor() - invader.ycor()
+                        if -25 < y_proximity_invader < 25 and -10 < x_proximity_invader < 10:
+                            block.hit()
+
+            # Lose life if invader hits defender
+            if invader.ycor() <= -250:
+                x_prox_invader = defender_ship.blaster.xcor() - invader.xcor()
+                y_prox_invader = defender_ship.blaster.ycor() - invader.ycor()
+                if -25 < y_prox_invader < 25 and -40 < x_prox_invader < 40:
+                    defender_ship.change_color('red')
+                    scoreboard.lives -= 1
+
+                # Check if an invader has passed the defenses:
+                if invader.ycor() <= -370:
+                    game_on = False
+                    scoreboard.game_over()
+
 
             # Check if defender is hit by any of the invaders' lasers
             y_prox = defender_ship.ship.ycor() - invader.laser.ycor()
@@ -186,8 +210,8 @@ while game_on:
 
     # Check if game over
     if scoreboard.lives < 0:
-        scoreboard.game_over()
         game_on = False
+        scoreboard.game_over()
     # Check if it's time to update the scoreboard
     elif scoreboard.lives_since_last_update != scoreboard.lives:
         scoreboard.update_scoreboard()

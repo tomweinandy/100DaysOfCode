@@ -25,6 +25,10 @@ class Invader(Turtle):
         self.goto(x, y)
 
     def fire_laser(self, invaders_hit):
+        """
+        Fires a laser beam at the defender. "It's turtles with friggin' lasers on their heads!"
+        :param invaders_hit: Firing frequency increases with the number of invaders hit
+        """
         if self.laser_recharge <= 0:
             # Add random adjustment to recharge time to keep things interesting
             # Add non-random adjustment to decrease recharge time as more invaders are hit
@@ -42,13 +46,13 @@ class Invader(Turtle):
     def move(self):
         if self.moving_left: # and self.starting_x > self.xcor():
             new_x = self.xcor() - 4
-            self.goto(new_x, self.ycor() - 0.1)
+            self.goto(new_x, self.ycor() - 1.1)
             if self.starting_x - self.xcor() >= 250:
                 self.moving_left = False
 
         if not self.moving_left:
             new_x = self.xcor() + 4
-            self.goto(new_x, self.ycor() - 0.1)
+            self.goto(new_x, self.ycor() - 1.1)
             if self.xcor() - self.starting_x >= 250:
                 self.moving_left = True
 
