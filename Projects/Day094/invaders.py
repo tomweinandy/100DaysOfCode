@@ -22,19 +22,22 @@ class Invader(Turtle):
         self.alive = True
         self.goto(x, y)
 
-    def fire_laser(self):
+    def fire_laser(self, invaders_hit):
         if self.laser_recharge <= 0:
             # Add random adjustment to recharge time to keep things interesting
-            self.laser_recharge = LASER_RECHARGE_INVADER + random.choice(range(-30, 30))
+            # Add non-random adjustment to decrease recharge time as more invaders are hit
+            adjustment = random.choice(range(-30, 30)) - 10*invaders_hit
+            self.laser_recharge = LASER_RECHARGE_INVADER + adjustment
             self.laser.goto(self.position())
+            print(adjustment) #todo delete
 
-    def popped_points(self):
+    def hit(self):
         """
         Banishes an invader
-        :return: The point value of the popped invader
         """
+        self.alive = False
         self.goto(ISLAND_OF_MISFIT_TOYS)
-        # return self.points_dict[self.color()[0]]
+
 
 
 class Column(Turtle):

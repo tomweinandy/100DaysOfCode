@@ -3,7 +3,7 @@ Day 94: Space Invaders Game
 
 Using Python Turtle, build the classic shoot 'em up game - space invaders game.
 Space Invaders Wikipedia Page
-Your space ship can move left and right and it can hit some alien ships. Every second the aliens will move closer to your ship. Once the aliens touch your ship then it's game over. There are usually some barriers between you and the aliens which offers you defensive positions.
+Your spaceship can move left and right and it can hit some alien ships. Every second the aliens will move closer to your ship. Once the aliens touch your ship then it's game over. There are usually some barriers between you and the aliens which offers you defensive positions.
 You can play the game here:
 https://elgoog.im/space-invaders/
 """
@@ -15,9 +15,6 @@ import build_level
 import time
 
 # ------------------------------------------  to do list  ----------------------------------------------------
-# todo lose life if defender hit
-# todo pop invader if hit
-# todo update score keeper
 # todo build bunkers from blocks
 # todo break bunkers blocks if hit by laser
 # todo make invaders move
@@ -106,7 +103,7 @@ while game_on:
     if keys_pressed["Tab"]:
         # # todo execute on fire
         # start = defender_ship.blaster.position()
-        # print('Fire laser from', start)
+        # print('Fire laser from', start)`
         # laser.Laser('defender', start).fire()
         defender_ship.fire_laser()
 
@@ -128,7 +125,7 @@ while game_on:
             # First living invader in column recharges and fires their laser
             if invader.alive and not greedo_shot_first:
                 invader.laser_recharge -= 1
-                invader.fire_laser()
+                invader.fire_laser(scoreboard.invaders_hit)
 
                 # Stops remaining invaders in column from firing
                 greedo_shot_first = True
@@ -137,8 +134,12 @@ while game_on:
             for pew_pew in defender_ship.lasers:
                 y_proximity = invader.ycor() - pew_pew.ycor()
                 x_proximity = invader.xcor() - pew_pew.xcor()
-                if -10 < y_proximity < 10 and -15 < x_proximity < 15:
+                if -10 < y_proximity < 10 and -15 < x_proximity < 15 and invader.alive:
                     pew_pew.goto(ISLAND_OF_MISFIT_TOYS)
+                    invader.hit()
+                    scoreboard.points += 5
+                    scoreboard.invaders_hit += 1
+                    scoreboard.update_scoreboard()
                     print('Invader hit')
 
             # Check if defender is hit by any of the invaders' lasers
@@ -154,14 +155,14 @@ while game_on:
     if scoreboard.lives < 0:
         scoreboard.game_over()
         game_on = False
+    # Check if it's time to update the scoreboard
     elif scoreboard.lives_since_last_update != scoreboard.lives:
         scoreboard.update_scoreboard()
         scoreboard.lives_since_last_update = scoreboard.lives
-    else:
-    #     screen.update()
-    #     # time.sleep(2)
-        pass
-
+    # Check if the game has been won
+    elif scoreboard.invaders_hit == 24:
+        scoreboard.game_won()
+        break
 
     # ------------------------------------------  Monitor Ball Actions  -----------------------------------------------
 
