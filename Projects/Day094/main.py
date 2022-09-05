@@ -21,15 +21,15 @@ import time
 # todo clean up code
 
 # ------------------------------------------  Set Constants  ----------------------------------------------------
-BALL_START_ORIENTATION = 135
-BALL_START_CORS = (0, -300)
-PADDLE_YCOR = -340
+# BALL_START_ORIENTATION = 135
+# BALL_START_CORS = (0, -300)
+# PADDLE_YCOR = -340
 CEILING_YCOR = 330
 LEFT_WALL_XCOR = -495
 RIGHT_WALL_XCOR = 485
 TEXT_YCOR = 350
 PROXIMITY = 20
-ISLAND_OF_MISFIT_TOYS = (1000, 1000)
+ISLAND_OF_MISFIT_TOYS = (-1000, 1000)
 
 
 # ------------------------------------------  Define Helper Functions  ------------------------------------------------
@@ -73,7 +73,7 @@ screen.tracer(0)  # only updates on screen.update()
 
 # Create ball, defender and scoreboard
 defender_ship = defender.Defender()
-scoreboard = scoreboard.Scoreboard()
+game_scoreboard = scoreboard.Scoreboard()
 
 # Add screen elements
 build_level.build_screen()
@@ -105,12 +105,12 @@ while game_on:
     # Slow down updates and add movement to ball
     screen.update()
     time.sleep(0.01)
-    scoreboard.timer += 1
+    game_scoreboard.timer += 1
 
     # Track last color change
     if defender_ship.ship.color()[0] == 'red':
         # Change from red to green if 100 units have passed
-        if scoreboard.timer - scoreboard.time_when_defender_last_hit >= 100:
+        if game_scoreboard.timer - game_scoreboard.time_when_defender_last_hit >= 100:
             defender_ship.change_color('green')
 
     # Track last invader movement
@@ -144,7 +144,7 @@ while game_on:
             # First living invader in column recharges and fires their laser
             if invader.alive and not greedo_shot_first:
                 invader.laser_recharge -= 1
-                invader.fire_laser(scoreboard.invaders_hit)
+                invader.fire_laser(game_scoreboard.invaders_hit)
 
                 # Stops remaining invaders in column from firing
                 greedo_shot_first = True
@@ -154,11 +154,22 @@ while game_on:
                 y_proximity = invader.ycor() - pew_pew.ycor()
                 x_proximity = invader.xcor() - pew_pew.xcor()
                 if -10 < y_proximity < 10 and -15 < x_proximity < 15 and invader.alive:
+                    # Clear old points, show new points earned and reset displayed timer
+                    try:
+                        plus_points.clear()
+                    except NameError:
+                        pass
+                    plus_points = scoreboard.show_points('white', invader.position())
+                    game_scoreboard.time_when_last_points_displayed = game_scoreboard.timer
+
+                    # Update scoreboard
+                    game_scoreboard.points += 10
+                    game_scoreboard.invaders_hit += 1
+                    game_scoreboard.update_scoreboard()
+
+                    # Banish items
                     pew_pew.goto(ISLAND_OF_MISFIT_TOYS)
                     invader.hit()
-                    scoreboard.points += 10
-                    scoreboard.invaders_hit += 1
-                    scoreboard.update_scoreboard()
                     print('Invader hit')
 
             # Check any invader's laser is near the bunkers (otherwise no need to go through expensive loop)
@@ -190,12 +201,12 @@ while game_on:
                 y_prox_invader = defender_ship.blaster.ycor() - invader.ycor()
                 if -25 < y_prox_invader < 25 and -40 < x_prox_invader < 40:
                     defender_ship.change_color('red')
-                    scoreboard.lives -= 1
+                    game_scoreboard.lives -= 1
 
                 # Check if an invader has passed the defenses:
                 if invader.ycor() <= -370:
                     game_on = False
-                    scoreboard.game_over()
+                    game_scoreboard.game_over()
 
             # Check if defender is hit by any of the invaders' lasers
             y_prox = defender_ship.ship.ycor() - invader.laser.ycor()
@@ -204,35 +215,98 @@ while game_on:
                 print('Defender hit')
                 invader.laser.goto(ISLAND_OF_MISFIT_TOYS)
                 defender_ship.change_color('red')
-                scoreboard.time_when_defender_last_hit = scoreboard.timer
-                scoreboard.lives -= 1
+                game_scoreboard.time_when_defender_last_hit = game_scoreboard.timer
+                game_scoreboard.lives -= 1
 
     # Periodically add a mothership
-    if scoreboard.timer - scoreboard.time_when_last_mothership_appeared >= 1000:
+    if game_scoreboard.timer - game_scoreboard.time_when_last_mothership_appeared >= 1000:
         # If mothership exists, move it; otherwise, create mothership
         try:
             the_mothership.goto(500, 320)
+            print('A wild Mothership has appeared!')
         except NameError:
             the_mothership = mothership.Mothership()
-        scoreboard.time_when_last_mothership_appeared = scoreboard.timer
+        game_scoreboard.time_when_last_mothership_appeared = game_scoreboard.timer
 
-    # Move said mothership (but only if it exists)
+    # Perform actions if the mothership exists
     try:
+        # Move the ship
         the_mothership.move()
+
+        # Periodically fire a laser
+        if game_scoreboard.timer % 25 == 0:
+            the_mothership.fire_laser()
+
+        # Move the ship's lasers
+        for mother_laser in the_mothership.lasers:
+            mother_laser.move()
+
+            # Check if a laser hits the defender
+            if -380 < mother_laser.ycor() < -320 and -500 < mother_laser.xcor() < 500:
+                y_prox = defender_ship.ship.ycor() - mother_laser.ycor()
+                x_prox = defender_ship.ship.xcor() - mother_laser.xcor()
+                if -10 < y_prox < 10 and -30 < x_prox < 30:
+                    print('Defender hit')
+                    mother_laser.goto(ISLAND_OF_MISFIT_TOYS)
+                    defender_ship.change_color('red')
+                    game_scoreboard.time_when_defender_last_hit = game_scoreboard.timer
+                    game_scoreboard.lives -= 1
+
+            # Check if a laser hits a bunker block
+            if -250 < mother_laser.ycor() < -160 and -450 < mother_laser.xcor() < 450:
+                # Loop through each block in each bunker
+                for bunker in bunker_barrier:
+                    for block in bunker.blocks:
+                        y_prox = block.ycor() - mother_laser.ycor()
+                        x_prox = block.xcor() - mother_laser.xcor()
+                        if -10 < y_prox < 10 and -30 < x_prox < 30:
+                            mother_laser.goto(ISLAND_OF_MISFIT_TOYS)
+                            block.goto(ISLAND_OF_MISFIT_TOYS)
+
+        # Check if laser hits mother turtle
+        for defender_laser in defender_ship.lasers:
+            if 260 < defender_laser.ycor() < 340:
+                y_prox = the_mothership.ycor() - defender_laser.ycor()
+                x_prox = the_mothership.xcor() - defender_laser.xcor()
+                if -20 < y_prox < 20 and -40 < x_prox < 40:
+                    # Clear old points, show new points earned and reset displayed timer
+                    try:
+                        plus_points.clear()
+                    except NameError:
+                        pass
+                    plus_points = scoreboard.show_points('yellow', the_mothership.position())
+                    game_scoreboard.time_when_last_points_displayed = game_scoreboard.timer
+
+                    # Banish items and update score
+                    the_mothership.goto(ISLAND_OF_MISFIT_TOYS)
+                    defender_laser.goto(ISLAND_OF_MISFIT_TOYS)
+                    game_scoreboard.points += 100
+                    game_scoreboard.update_scoreboard()
+                    print('Mothership hit')
+
+    # Pass if no mothership
+    except NameError:
+        pass
+
+    # After 100 units, clear the points text
+    try:
+        if game_scoreboard.timer - game_scoreboard.time_when_last_points_displayed >= 50:
+            # Clear old points, show new points earned and reset displayed timer
+            plus_points.clear()
     except NameError:
         pass
 
     # Check if game over
-    if scoreboard.lives < 0:
+    if game_scoreboard.lives < 0:
         game_on = False
-        scoreboard.game_over()
+        game_scoreboard.game_over()
     # Check if it's time to update the scoreboard
-    elif scoreboard.lives_since_last_update != scoreboard.lives:
-        scoreboard.update_scoreboard()
-        scoreboard.lives_since_last_update = scoreboard.lives
+    elif game_scoreboard.lives_since_last_update != game_scoreboard.lives:
+        game_scoreboard.update_scoreboard()
+        game_scoreboard.lives_since_last_update = game_scoreboard.lives
     # Check if the game has been won
-    elif scoreboard.invaders_hit == 24:
-        scoreboard.game_won()
+    elif game_scoreboard.invaders_hit == 24:
+        game_scoreboard.game_won()
         break
 
     # ------------------------------------------  Monitor Ball Actions  -----------------------------------------------

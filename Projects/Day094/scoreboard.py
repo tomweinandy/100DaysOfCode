@@ -1,5 +1,7 @@
 import turtle
 
+ISLAND_OF_MISFIT_TOYS = (-1000, 1000)
+
 
 class Scoreboard(turtle.Turtle):
     """
@@ -7,6 +9,7 @@ class Scoreboard(turtle.Turtle):
     """
     def __init__(self):
         super().__init__()
+        self.plus100 = None
         self.color('white')
         self.penup()
         self.hideturtle()
@@ -17,6 +20,7 @@ class Scoreboard(turtle.Turtle):
         self.timer = 0
         self.time_when_defender_last_hit = 0
         self.time_when_last_mothership_appeared = -900 #todo change to 0
+        self.time_when_last_points_displayed = 0
         self.update_scoreboard()
 
     def update_scoreboard(self):
@@ -42,3 +46,37 @@ class Scoreboard(turtle.Turtle):
         """
         self.goto(0, 0)
         self.write('You win!', align='center', font=('Courier', 36, 'normal'))
+
+
+    # def plus_100(self, position):
+    #     """
+    #     Prints '+100'
+    #     """
+    #     print('+100')
+    #     plus100 = turtle.Turtle()
+    #     plus100.penup()
+    #     plus100.color('yellow')
+    #     plus100.goto(position)
+    #     plus100.write('+100', align='center', font=('Courier', 14, 'normal'))
+    #     plus100.goto(ISLAND_OF_MISFIT_TOYS)
+    #     self.plus100 = plus100
+    #     # return plus100
+
+def show_points(color_type, position):
+    """
+    Prints the number of points awarded
+    """
+    pointer = turtle.Turtle()
+    pointer.penup()
+    pointer.goto(position)
+    pointer.color(color_type)
+
+    # Prints different amount based on if the white invader was hit or the yellow mothership
+    if color_type == 'yellow':
+        pointer.write('+100', align='center', font=('Courier', 14, 'normal'))
+    elif color_type == 'white':
+        pointer.write('+10', align='center', font=('Courier', 14, 'normal'))
+
+    # Moves turtle object away (but leaves text)
+    pointer.goto(ISLAND_OF_MISFIT_TOYS)
+    return pointer

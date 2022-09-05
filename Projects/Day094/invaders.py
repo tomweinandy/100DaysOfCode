@@ -2,7 +2,7 @@ from turtle import Turtle
 import laser
 import random
 
-ISLAND_OF_MISFIT_TOYS = (1000, 1000)
+ISLAND_OF_MISFIT_TOYS = (-1000, 1000)
 LASER_RECHARGE_INVADER = 300
 
 

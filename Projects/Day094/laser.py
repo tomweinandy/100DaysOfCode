@@ -3,7 +3,7 @@ import time
 
 CEILING_YCOR = 330
 FLOOR_YCOR = -330
-ISLAND_OF_MISFIT_TOYS = (1000, 1000)
+ISLAND_OF_MISFIT_TOYS = (-1000, 1000)
 LASER_SPEED = 7
 
 
@@ -24,9 +24,11 @@ class Laser(Turtle):
             self.color('white')
         elif self.type == 'defender':
             self.color('green')
+        elif self.type == 'mothership':
+            self.color('yellow')
 
     def move(self):
-        if self.type == 'invader':
+        if self.type == 'invader' or self.type == 'mothership':
             new_y = self.ycor() - LASER_SPEED
         elif self.type == 'defender':
             new_y = self.ycor() + LASER_SPEED

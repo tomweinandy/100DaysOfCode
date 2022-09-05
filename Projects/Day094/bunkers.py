@@ -1,6 +1,6 @@
 from turtle import Turtle
 
-ISLAND_OF_MISFIT_TOYS = (1000, 1000)
+ISLAND_OF_MISFIT_TOYS = (-1000, 1000)
 SPACING = 10
 BLOCK_SIZE = 0.5
 BUNKER_MOLD = [[(i, 0) for i in range(0, 55, SPACING)],
