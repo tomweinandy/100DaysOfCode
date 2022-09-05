@@ -271,7 +271,6 @@ while game_on:
     # After 50 time units, clear the points text
     try:
         if game_scoreboard.timer - game_scoreboard.time_when_last_points_displayed >= 50:
-            # Clear old points, show new points earned and reset displayed timer
             plus_points.clear()
     except NameError:
         pass
