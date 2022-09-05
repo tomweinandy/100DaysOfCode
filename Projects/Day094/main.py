@@ -78,7 +78,7 @@ scoreboard = scoreboard.Scoreboard()
 
 # Add screen elements
 build_level.build_screen()
-bunker_row = build_level.build_bunkers()
+bunker_barrier = build_level.build_bunkers()
 invader_columns = build_level.build_level_one()
 
 # State machine to track which keys are pressed
@@ -147,6 +147,18 @@ while game_on:
                 defender_ship.change_color('red')
                 scoreboard.lives -= 1
 
+    # Check if any blocks in the bunkers are hit by a laser
+    for bunker in bunker_barrier:
+        # for row in bunker.blocks:
+        for block in bunker.blocks:
+            # Check if a block is hit by a defender's laser
+            for pew_pew in defender_ship.lasers:
+                x_proximity_defender = block.xcor() - pew_pew.xcor()
+                y_proximity_defender = block.ycor() - pew_pew.ycor()
+                if -10 < y_proximity_defender < 10 and -10 < x_proximity_defender < 10:
+                    block.hit()
+                    pew_pew.goto(ISLAND_OF_MISFIT_TOYS)
+
     # Check if game over
     if scoreboard.lives < 0:
         scoreboard.game_over()
@@ -161,8 +173,6 @@ while game_on:
         break
 
     # ------------------------------------------  Monitor Ball Actions  -----------------------------------------------
-
-
 
 screen.update()
 screen.exitonclick()

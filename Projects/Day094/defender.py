@@ -88,9 +88,9 @@ class Defender(Turtle):
         self.ship.color(color)
         self.blaster.color(color)
 
-    def banish(self):
-        """
-        This is what we do to turtles that we do not want or like
-        """
-        self.ship.goto(ISLAND_OF_MISFIT_TOYS)
-        self.blaster.goto(ISLAND_OF_MISFIT_TOYS)
+    # def banish(self):
+    #     """
+    #     This is what we do to turtles that we do not want or like
+    #     """
+    #     self.ship.goto(ISLAND_OF_MISFIT_TOYS)
+    #     self.blaster.goto(ISLAND_OF_MISFIT_TOYS)

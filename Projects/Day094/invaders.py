@@ -38,7 +38,6 @@ class Invader(Turtle):
         self.goto(ISLAND_OF_MISFIT_TOYS)
 
 
-
 class Column(Turtle):
     """
     Column class that inherits the Turtle class

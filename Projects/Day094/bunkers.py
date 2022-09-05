@@ -1,18 +1,16 @@
 from turtle import Turtle
 
 ISLAND_OF_MISFIT_TOYS = (1000, 1000)
-BUNKER_SHAPE = [[(i, 0) for i in range(0, 55, 5)],
-                [(i, -5) for i in range(-5, 60, 5)],
-                [(i, -10) for i in range(-10, 65, 5)],
-                [(i, -15) for i in range(-15, 70, 5)],
-                [(i, -20) for i in range(-15, 70, 5)],
-                [(i, -25) for i in range(-15, 25, 5)] + [(i, -25) for i in range(30, 70, 5)],
-                [(i, -30) for i in range(-15, 20, 5)] + [(i, -30) for i in range(35, 70, 5)],
-                [(i, -35) for i in range(-15, 15, 5)] + [(i, -35) for i in range(40, 70, 5)],
-                [(i, -40) for i in range(-15, 10, 5)] + [(i, -40) for i in range(45, 70, 5)],
-                [(i, -45) for i in range(-15, 10, 5)] + [(i, -45) for i in range(45, 70, 5)],
-                [(i, -50) for i in range(-15, 10, 5)] + [(i, -50) for i in range(45, 70, 5)],
-                [(i, -55) for i in range(-15, 10, 5)] + [(i, -55) for i in range(45, 70, 5)]]
+SPACING = 10
+BLOCK_SIZE = 0.4
+BUNKER_MOLD = [[(i, 0) for i in range(0, 55, SPACING)],
+               [(i, -1*SPACING) for i in range(-5, 60, SPACING)],
+               [(i, -2*SPACING) for i in range(-10, 65, SPACING)],
+               [(i, -3*SPACING) for i in range(-15, 70, SPACING)],
+               [(i, -4*SPACING) for i in range(-15, 20, SPACING)] + [(i, -4*SPACING) for i in range(35, 70, SPACING)],
+               [(i, -5*SPACING) for i in range(-15, 15, SPACING)] + [(i, -5*SPACING) for i in range(45, 70, SPACING)],
+               [(i, -6*SPACING) for i in range(-15, 10, SPACING)] + [(i, -6*SPACING) for i in range(45, 70, SPACING)],
+               [(i, -7*SPACING) for i in range(-15, 10, SPACING)] + [(i, -7*SPACING) for i in range(45, 70, SPACING)]]
 
 
 class Block(Turtle):
@@ -23,7 +21,7 @@ class Block(Turtle):
         super().__init__()
         self.penup()
         self.shape('square')
-        self.turtlesize(stretch_len=0.2, stretch_wid=0.2)
+        self.turtlesize(stretch_len=BLOCK_SIZE, stretch_wid=BLOCK_SIZE)
         self.color('green')
         self.goto(x, y)
 
@@ -46,12 +44,10 @@ class Bunker(Turtle):
     def build(self, x, y):
         """
         Builds a horizontal row of block objects
-        :param x: X coordinate of the first block in the row
-        :param y: Y coordinate of the first block in the row
-        :param width: The number of blocks that make up a row
-        :param spacing: The space between each block
+        :param x: X coordinate of the highest, left block
+        :param y: Y coordinate of the highest, left block
         """
-        for row in BUNKER_SHAPE:
+        for row in BUNKER_MOLD:
             for pair in row:
                 block = Block(pair[0] + x, pair[1] + y)
                 self.blocks.append(block)
@@ -59,3 +55,4 @@ class Bunker(Turtle):
         # Clears away the turtle
         # self.penup()
         # self.goto(ISLAND_OF_MISFIT_TOYS)
+
