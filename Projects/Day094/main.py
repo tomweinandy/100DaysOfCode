@@ -112,6 +112,20 @@ while game_on:
     for each_laser in defender_ship.lasers:
         each_laser.move()
 
+        # Check if any defender lasers are in the bunker space
+        if -250 < each_laser.ycor() < -160:
+            # Loop through each block in each bunker
+            for bunker in bunker_barrier:
+                for block in bunker.blocks:
+                    # Check if a block is hit by a defender's laser
+                    x_proximity_defender = block.xcor() - each_laser.xcor()
+                    y_proximity_defender = block.ycor() - each_laser.ycor()
+                    if -7 < y_proximity_defender < 7 and -7 < x_proximity_defender < 7:
+                        block.hit()
+                        each_laser.goto(ISLAND_OF_MISFIT_TOYS)
+
+
+
     # Loop though each invader in each column
     for col in invader_columns:
         greedo_shot_first = False
@@ -138,6 +152,18 @@ while game_on:
                     scoreboard.update_scoreboard()
                     print('Invader hit')
 
+            # Check any bunker blocks are hit by an invader's laser
+            if -250 < invader.laser.ycor() < -160:
+                # Loop through each block in each bunker
+                for bunker in bunker_barrier:
+                    for block in bunker.blocks:
+                        # Check if a block is hit by a defender's laser
+                        x_proximity_defender = block.xcor() - invader.laser.xcor()
+                        y_proximity_defender = block.ycor() - invader.laser.ycor()
+                        if -7 < y_proximity_defender < 7 and -7 < x_proximity_defender < 7:
+                            block.hit()
+                            invader.laser.goto(ISLAND_OF_MISFIT_TOYS)
+
             # Check if defender is hit by any of the invaders' lasers
             y_prox = defender_ship.ship.ycor() - invader.laser.ycor()
             x_prox = defender_ship.ship.xcor() - invader.laser.xcor()
@@ -146,18 +172,6 @@ while game_on:
                 invader.laser.goto(ISLAND_OF_MISFIT_TOYS)
                 defender_ship.change_color('red')
                 scoreboard.lives -= 1
-
-    # Check if any blocks in the bunkers are hit by a laser
-    for bunker in bunker_barrier:
-        # for row in bunker.blocks:
-        for block in bunker.blocks:
-            # Check if a block is hit by a defender's laser
-            for pew_pew in defender_ship.lasers:
-                x_proximity_defender = block.xcor() - pew_pew.xcor()
-                y_proximity_defender = block.ycor() - pew_pew.ycor()
-                if -10 < y_proximity_defender < 10 and -10 < x_proximity_defender < 10:
-                    block.hit()
-                    pew_pew.goto(ISLAND_OF_MISFIT_TOYS)
 
     # Check if game over
     if scoreboard.lives < 0:
