@@ -19,7 +19,7 @@ class Scoreboard(turtle.Turtle):
         self.invaders_hit = 0
         self.timer = 0
         self.time_when_defender_last_hit = 0
-        self.time_when_last_mothership_appeared = -900 #todo change to 0
+        self.time_when_last_mothership_appeared = -800
         self.time_when_last_points_displayed = 0
         self.update_scoreboard()
 
@@ -47,20 +47,6 @@ class Scoreboard(turtle.Turtle):
         self.goto(0, 0)
         self.write('You win!', align='center', font=('Courier', 36, 'normal'))
 
-
-    # def plus_100(self, position):
-    #     """
-    #     Prints '+100'
-    #     """
-    #     print('+100')
-    #     plus100 = turtle.Turtle()
-    #     plus100.penup()
-    #     plus100.color('yellow')
-    #     plus100.goto(position)
-    #     plus100.write('+100', align='center', font=('Courier', 14, 'normal'))
-    #     plus100.goto(ISLAND_OF_MISFIT_TOYS)
-    #     self.plus100 = plus100
-    #     # return plus100
 
 def show_points(color_type, position):
     """

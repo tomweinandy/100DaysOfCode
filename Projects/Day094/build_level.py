@@ -86,21 +86,25 @@ def build_level_one():
     ycor = 160
 
     c1 = invaders.Column()
-    c1.build(-220, ycor, stack, spacing)
+    c1.build(-225, ycor, stack, spacing)
     c2 = invaders.Column()
-    c2.build(-160, ycor, stack, spacing)
+    c2.build(-175, ycor, stack, spacing)
     c3 = invaders.Column()
-    c3.build(-100, ycor, stack, spacing)
+    c3.build(-125, ycor, stack, spacing)
     c4 = invaders.Column()
-    c4.build(-40, ycor, stack, spacing)
+    c4.build(-75, ycor, stack, spacing)
     c5 = invaders.Column()
-    c5.build(20, ycor, stack, spacing)
+    c5.build(-25, ycor, stack, spacing)
     c6 = invaders.Column()
-    c6.build(80, ycor, stack, spacing)
+    c6.build(25, ycor, stack, spacing)
     c7 = invaders.Column()
-    c7.build(140, ycor, stack, spacing)
+    c7.build(75, ycor, stack, spacing)
     c8 = invaders.Column()
-    c8.build(200, ycor, stack, spacing)
-    list_of_columns = [c1, c2, c3, c4, c5, c6, c7, c8]
+    c8.build(125, ycor, stack, spacing)
+    c9 = invaders.Column()
+    c9.build(175, ycor, stack, spacing)
+    c10 = invaders.Column()
+    c10.build(225, ycor, stack, spacing)
+    list_of_columns = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10]
 
     return list_of_columns

@@ -3,7 +3,7 @@ import laser
 import random
 
 ISLAND_OF_MISFIT_TOYS = (-1000, 1000)
-LASER_RECHARGE_INVADER = 300
+LASER_RECHARGE_INVADER = 280
 
 
 class Invader(Turtle):
@@ -32,7 +32,7 @@ class Invader(Turtle):
         if self.laser_recharge <= 0:
             # Add random adjustment to recharge time to keep things interesting
             # Add non-random adjustment to decrease recharge time as more invaders are hit
-            adjustment = random.choice(range(-30, 30)) - 10*invaders_hit
+            adjustment = random.choice(range(-20, 20)) - 8*invaders_hit
             self.laser_recharge = LASER_RECHARGE_INVADER + adjustment
             self.laser.goto(self.position())
 

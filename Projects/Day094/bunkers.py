@@ -22,7 +22,7 @@ class Block(Turtle):
         self.penup()
         self.shape('square')
         self.turtlesize(stretch_len=BLOCK_SIZE, stretch_wid=BLOCK_SIZE)
-        self.color('green')
+        self.color('blue')
         self.goto(x, y)
 
     def hit(self):

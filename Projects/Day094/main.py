@@ -15,16 +15,11 @@ import build_level
 import time
 
 # ------------------------------------------  to do list  ----------------------------------------------------
-# todo add mothership (optional)
-# todo add stars in background (optional)
 # todo remove unused functions
 # todo clean up code
 
 # ------------------------------------------  Set Constants  ----------------------------------------------------
-# BALL_START_ORIENTATION = 135
-# BALL_START_CORS = (0, -300)
-# PADDLE_YCOR = -340
-CEILING_YCOR = 330
+CEILING_YCOR = 330 # todo check if these are used
 LEFT_WALL_XCOR = -495
 RIGHT_WALL_XCOR = 485
 TEXT_YCOR = 350
@@ -219,7 +214,7 @@ while game_on:
                 game_scoreboard.lives -= 1
 
     # Periodically add a mothership
-    if game_scoreboard.timer - game_scoreboard.time_when_last_mothership_appeared >= 1000:
+    if game_scoreboard.timer - game_scoreboard.time_when_last_mothership_appeared >= 1200:
         # If mothership exists, move it; otherwise, create mothership
         try:
             the_mothership.goto(500, 320)
@@ -259,7 +254,7 @@ while game_on:
                     for block in bunker.blocks:
                         y_prox = block.ycor() - mother_laser.ycor()
                         x_prox = block.xcor() - mother_laser.xcor()
-                        if -10 < y_prox < 10 and -30 < x_prox < 30:
+                        if -10 < y_prox < 10 and -10 < x_prox < 10:
                             mother_laser.goto(ISLAND_OF_MISFIT_TOYS)
                             block.goto(ISLAND_OF_MISFIT_TOYS)
 
@@ -305,7 +300,7 @@ while game_on:
         game_scoreboard.update_scoreboard()
         game_scoreboard.lives_since_last_update = game_scoreboard.lives
     # Check if the game has been won
-    elif game_scoreboard.invaders_hit == 24:
+    elif game_scoreboard.invaders_hit == 30:
         game_scoreboard.game_won()
         break
 
