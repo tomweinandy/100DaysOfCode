@@ -59,6 +59,24 @@ def build_screen():
     bar.turtlesize(stretch_len=0.5, stretch_wid=40)
 
 
+def build_bunkers():
+    ycor = -170
+
+    b1 = bunkers.Bunker()
+    b1.build(-400, ycor)
+    b2 = bunkers.Bunker()
+    b2.build(-220, ycor)
+    b3 = bunkers.Bunker()
+    b3.build(-40, ycor)
+    b4 = bunkers.Bunker()
+    b4.build(140, ycor)
+    b5 = bunkers.Bunker()
+    b5.build(320, ycor)
+
+    list_of_bunkers = [b1, b2, b3, b4, b5]
+    return list_of_bunkers
+
+
 def build_level_one():
     """
     Build the columns of blocks

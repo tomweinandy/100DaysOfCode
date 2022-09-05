@@ -9,7 +9,6 @@ https://elgoog.im/space-invaders/
 """
 import turtle
 import defender
-import laser
 import scoreboard
 import build_level
 import time
@@ -79,6 +78,7 @@ scoreboard = scoreboard.Scoreboard()
 
 # Add screen elements
 build_level.build_screen()
+bunker_row = build_level.build_bunkers()
 invader_columns = build_level.build_level_one()
 
 # State machine to track which keys are pressed
@@ -101,10 +101,6 @@ while game_on:
     if keys_pressed["Left"]:
         defender_ship.move_left()
     if keys_pressed["Tab"]:
-        # # todo execute on fire
-        # start = defender_ship.blaster.position()
-        # print('Fire laser from', start)`
-        # laser.Laser('defender', start).fire()
         defender_ship.fire_laser()
 
     # Slow down updates and add movement to ball
@@ -137,7 +133,7 @@ while game_on:
                 if -10 < y_proximity < 10 and -15 < x_proximity < 15 and invader.alive:
                     pew_pew.goto(ISLAND_OF_MISFIT_TOYS)
                     invader.hit()
-                    scoreboard.points += 5
+                    scoreboard.points += 10
                     scoreboard.invaders_hit += 1
                     scoreboard.update_scoreboard()
                     print('Invader hit')

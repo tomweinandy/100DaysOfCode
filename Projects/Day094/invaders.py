@@ -29,7 +29,6 @@ class Invader(Turtle):
             adjustment = random.choice(range(-30, 30)) - 10*invaders_hit
             self.laser_recharge = LASER_RECHARGE_INVADER + adjustment
             self.laser.goto(self.position())
-            print(adjustment) #todo delete
 
     def hit(self):
         """
