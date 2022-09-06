@@ -16,14 +16,14 @@ from wtforms.validators import DataRequired, URL
 import random
 
 # Checklist
-#todo Review OG Google Trends website
+# Review OG Google Trends website
+#       Recreate this: https://trends.google.com/trends/explore?q=%2Fm%2F02y17j,%2Fm%2F09gms,%2Fm%2F012y1_&date=all
 #todo Create notebook to explore API trends and get code working
-#todo Redo landing page
-#todo Complete first webpage with API integration
-#todo Figure out how to add plot to webpage
-#todo Complete second webpage with API integration
-#todo Complete third webpage with API integration
-#todo Complete fourth webpage with API integration
+#todo Complete landing page using Google Trends API
+#todo Figure out how to add plot to landing page
+#todo Complete second webpage using news API
+#todo Complete third webpage using Twitter API
+#todo Complete fourth webpage with API integration (optional)
 #todo Update header file with navigation
 #todo Update footer
 #todo Remove cafe.db and all cafe mentions
@@ -96,6 +96,7 @@ cafes = db.session.query(Cafe).all()
 @app.route("/")
 def home():
     return render_template("index.html")
+#todo add trends emoji
 
 
 # HTTP GET - Read Record
