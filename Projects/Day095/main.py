@@ -1,5 +1,10 @@
 """
-Day 87: Café Website with REST API & SQLite Database
+Day 95: Google Trends Website
+
+Improvement on the notebook using static data: https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day074
+Google Trends API documentation: https://lazarinastoy.com/the-ultimate-guide-to-pytrends-google-trends-api-with-python/
+Sample Code 1 (Daily Data): https://github.com/GeneralMills/pytrends/blob/master/pytrends/dailydata.py
+Sample Code 2 (Exploration): https://towardsdatascience.com/google-trends-api-for-python-a84bc25db88f
 """
 from flask import Flask, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -9,6 +14,21 @@ from flask_ckeditor import CKEditor
 from wtforms import StringField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, URL
 import random
+
+# Checklist
+#todo Review OG Google Trends website
+#todo Create notebook to explore API trends and get code working
+#todo Redo landing page
+#todo Complete first webpage with API integration
+#todo Figure out how to add plot to webpage
+#todo Complete second webpage with API integration
+#todo Complete third webpage with API integration
+#todo Complete fourth webpage with API integration
+#todo Update header file with navigation
+#todo Update footer
+#todo Remove cafe.db and all cafe mentions
+#todo Remove unused files
+#todo Clean up code and comment
 
 # Initialize Flask
 app = Flask(__name__)
