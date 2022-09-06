@@ -1,0 +1,59 @@
+{% include "header.html" %}
+
+{% block content %}
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/st_pauls.jpg')}}')">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				<div class="post-heading">
+                  <h1>All Cafés</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Café Name</th>
+              <th scope="col">Location</th>
+              <th scope="col">Seats</th>
+              <th scope="col">Has Toilets?</th>
+              <th scope="col">Has Wifi?</th>
+              <th scope="col">Has Sockets?</th>
+              <th scope="col">Can Take Calls?</th>
+              <th scope="col">Coffee Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for cafe in all_cafes: %}
+            <tr>
+              <td> <a href="cafe/{{cafe['id']}}">{{cafe['name']}}</a> </td>
+              <td> <a href="{{cafe['map_url']}}" target="_blank" rel="noopener noreferrer">{{cafe['location']}}</a> </td>
+              <td>{{cafe['seats']}}</td>
+              <td>{{cafe['has_toilet']}}</td>
+              <td>{{cafe['has_wifi']}}</td>
+              <td>{{cafe['has_sockets']}}</td>
+              <td>{{cafe['can_take_calls']}}</td>
+              <td>{{cafe['coffee_price']}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <a class="btn btn-warning btn-lg" href="/" role="button">Return Home</a>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% include "footer.html" %}

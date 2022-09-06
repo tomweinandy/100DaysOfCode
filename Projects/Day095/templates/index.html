@@ -1,0 +1,30 @@
+{% include "header.html" %}
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/the_tube.jpg')}}')">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				<div class="post-heading">
+					<h1>☕️ Coffee & Wifi 💻</h1>
+					<h2 class="subheading">Want to work in a London café <br> but need power and wifi?</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+{% block content %}
+<div class="jumbotron text-center">
+    <div class="container">
+      <p>You've found the right place! Checkout this collection of cafés relevant data <br>
+          from power socket availability to the price of a coffee.</p>
+      <a class="btn btn-warning btn-lg" href="/cafes" role="button">Show Me!</a>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% include "footer.html" %}

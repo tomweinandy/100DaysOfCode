@@ -1,0 +1,40 @@
+{% include "header.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/empty.jpg')}}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+
+            {% if is_edit: %}
+              <h1>New Café, Who Dis?</h1>
+            {% else: %}
+              <h1>Submission Received!</h1>
+            {% endif %}
+
+            <span class="subheading">Want to add another?</span>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div style="text-align:center">
+  <a class="btn btn-warning btn-lg" href="/" role="button">Take Me Home</a>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+          {{ wtf.quick_form(form)  }}
+
+      </div>
+    </div>
+  </div>
+
+{% include "footer.html" %}
