@@ -90,15 +90,15 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 **Beginner Projects**
 * [Day 14: Higher Lower Game](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day014)
 * [Day 13: Debugging Exercises](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day013)
-* [Day 12: Guess the Movie Year*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day012)
-* [Day 11: Blackjack**](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day011)
+* [Day 12: Guess the Movie Year](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day012)*
+* [Day 11: Blackjack](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day011)**
 * [Day 10: Nine-Function Calculator](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day010)
 * [Day 9: First Price, Sealed Bid Auction](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day009)
 * [Day 8: Caesar Cipher](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day008)
-* [Day 7: Hangman*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day007)
+* [Day 7: Hangman](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day007)*
 * [Day 6: Maze Solver](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day006)
 * [Day 5: Password Generator](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day005)
-* [Day 4: Rock, Paper, Scissors*](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day004)
+* [Day 4: Rock, Paper, Scissors](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day004)*
 * [Day 3: Choose Your Own Adventure](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day003)
 * [Day 2: Tip Calculator](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day002)
 * [Day 1: Band Name Generator](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day001)
