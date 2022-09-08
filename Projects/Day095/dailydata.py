@@ -29,7 +29,7 @@ def convert_dates_to_timeframe(start: date, stop: date) -> str:
 
 
 def _fetch_data(pytrends, build_payload, timeframe: str) -> pd.DataFrame:
-    """Attempts to fecth data and retries in case of a ResponseError."""
+    """Attempts to fetch data and retries in case of a ResponseError."""
     attempts, fetched = 0, False
     while not fetched:
         try:
