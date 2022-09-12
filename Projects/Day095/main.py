@@ -14,11 +14,15 @@ from flask_ckeditor import CKEditor
 from wtforms import StringField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, URL
 import random
+from pytrends.request import TrendReq
+import json
+import requests
+import datetime as dt
+import tweepy
 
 # Checklist
 # Review OG Google Trends website
 #       Recreate this: https://trends.google.com/trends/explore?q=%2Fm%2F02y17j,%2Fm%2F09gms,%2Fm%2F012y1_&date=all
-#todo Create notebook to explore API trends and get code working
 #todo Complete landing page using Google Trends API
 #todo Figure out how to add plot to landing page
 #todo Complete second webpage using news API
@@ -40,6 +44,8 @@ Bootstrap(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cafes.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
+#
 
 
 # Café TABLE Configuration
@@ -95,8 +101,10 @@ cafes = db.session.query(Cafe).all()
 
 @app.route("/")
 def home():
-    return render_template("index.html")
-#todo add trends emoji
+    pytrend = TrendReq()
+    trending = pytrend.trending_searches()
+    return render_template("index.html", trending=trending)
+#todo change image
 
 
 # HTTP GET - Read Record
@@ -105,6 +113,12 @@ def get_random():
     random_cafe = random.choice(cafes)
     return redirect(url_for("show_cafe", cafe_id=random_cafe.id))
 
+
+# # HTTP GET - Read all records
+# @app.route("/cafes", methods=['GET'])
+# def get_all():
+#     all_cafes = Cafe.query.all()
+#     return render_template("cafes.html", all_cafes=all_cafes)
 
 # HTTP GET - Read all records
 @app.route("/cafes", methods=['GET'])

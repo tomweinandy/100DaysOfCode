@@ -8,7 +8,7 @@
 			<div class="col-lg-8 col-md-10 mx-auto">
 				<div class="post-heading">
 					<h1>Trend Finder</h1>
-					<h2 class="subheading">Find what's trending</h2>
+					<h2 class="subheading">Find the next big thing</h2>
           </div>
         </div>
       </div>
@@ -18,8 +18,13 @@
 {% block content %}
 <div class="jumbotron text-center">
     <div class="container">
-      <p>Looking for the next big thing?</p>
       <a class="btn btn-warning btn-lg" href="/cafes" role="button">Show Me!</a>
+        <h2>Search for a topic or select a current trend below</h2>
+
+        {% for trend in trending.iterrows(): %}
+        <p>{{ trend[1][0] }}</p>
+        {% endfor %}
+
     </div>
 </div>
 
