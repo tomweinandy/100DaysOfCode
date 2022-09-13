@@ -18,10 +18,33 @@
   <!-- Post Content -->
   <article>
     <div class="container">
+        <h1>Google Trends</h1>
+        <img src="/static/img/historical.jpg">
+        <br>
+        <img src="/static/img/regions.jpg">
+        <br>
+        <br>
+
+        <h3>Related Queries</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Related Query</th>
+              <th scope="col">Relative Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for query in related.iterrows(): %}
+            <tr>
+              <td> <a href="{{query[1]['query']}}">{{query[1]['query']}}</a> </td>
+              <td>{{query[1]['value']}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <p>{{topic}}</p>
-            <br><br>
            <hr>
           </div>
       </div>

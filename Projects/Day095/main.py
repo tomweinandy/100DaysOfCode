@@ -20,6 +20,8 @@ import requests
 import datetime as dt
 import tweepy
 from string import Template
+import matplotlib.pyplot as plt
+
 
 # Checklist
 # Review OG Google Trends website
@@ -105,19 +107,9 @@ class CafeForm(FlaskForm):
 # Query all cafés
 cafes = db.session.query(Cafe).all()
 
-import cgi
-title = 'Trending Topics'
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    # try:
-    #     form = cgi.FieldStorage()
-    #     name = form.getvalue('q')
-    #     print(name)
-    #     title = name
-    # except NameError:
-    #     title = 'Trending Topics'
-
     pytrend = TrendReq()
     trending = pytrend.trending_searches()
 
@@ -131,10 +123,52 @@ def home():
         print(topic)
         all_cafes = Cafe.query.all()
         # return redirect(url_for("show_test"))
-        return render_template('topic.html', topic=topic)
+        # return render_template('topic.html', topic=topic)
+        return redirect(url_for("show_topic", trend_topic=topic))
 
     return render_template("index.html", trending=trending, form=search_form)
 #todo change image
+
+
+# HTTP GET - Read Record
+@app.route("/topic/<trend_topic>")
+def show_topic(trend_topic):
+    # Find trends
+    print('1', trend_topic)
+    trend_topic = trend_topic.replace('+', ' ')
+    print('2', trend_topic)
+    pytrend = TrendReq()
+    pytrend.build_payload(kw_list=[trend_topic])
+
+    # Plot historical trends
+    historical = pytrend.interest_over_time()[trend_topic]
+    plt.figure(figsize=(5, 2.5), dpi=200)
+    plt.title(f'Historical Popularity for {trend_topic}', fontsize=12)
+    plt.yticks(fontsize=8)
+    plt.xticks(fontsize=8)
+    plt.ylabel('Search Index', fontsize=8)
+    plt.plot(historical.index, historical.values, c='crimson', linewidth=2)
+    plt.savefig('static/img/historical.jpg', bbox_inches='tight')
+
+    # Plot interest by region
+    regions = pytrend.interest_by_region()
+    regions = regions.sort_values(by=trend_topic, ascending=False)
+    regions = regions[0:10]
+    plt.figure(figsize=(5, 2.5), dpi=200)
+    plt.xticks(fontsize=8, rotation=30)
+    plt.yticks(fontsize=8)
+    plt.title(f'Interest by Region for {trend_topic}', fontsize=12)
+    plt.ylabel('Search Index', fontsize=8)
+    plt.bar(regions.index, regions[trend_topic])
+    plt.savefig('static/img/regions.jpg', bbox_inches='tight')
+
+    # Related queries
+    related = pytrend.related_queries()
+    related = related[trend_topic]['top']
+    print(type(related))
+
+
+    return render_template("topic.html", topic=trend_topic, related=related)
 
 
 # HTTP GET - Read Record
@@ -142,17 +176,6 @@ def home():
 def get_random():
     random_cafe = random.choice(cafes)
     return redirect(url_for("show_cafe", cafe_id=random_cafe.id))
-
-
-# HTTP GET - Read all records
-@app.route("/test", methods=['GET', 'POST'])
-def show_test():
-    print('Checkpoint 1')
-
-    all_cafes = Cafe.query.all()
-
-    # return render_template("cafes.html", all_cafes=all_cafes)
-    return render_template("topic.html", topic=topic)
 
 
 # HTTP GET - Read all records
