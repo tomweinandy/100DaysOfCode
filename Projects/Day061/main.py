@@ -17,7 +17,7 @@ app.secret_key = creds['SECRET']
 
 class MyForm(FlaskForm):
     email = StringField(label='Email', validators=[Email()])
-    too_short = 'Field myst be at least 8 characters long.'
+    too_short = 'Field must be at least 8 characters long.'
     password = PasswordField(label='Password', validators=[DataRequired(), Length(min=8)])
     submit = SubmitField(label='Log In')
 
