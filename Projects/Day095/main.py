@@ -72,6 +72,12 @@ class Cafe(db.Model):
 
 
 # WTForm
+class Search(FlaskForm):
+    topic = StringField("Topic", validators=[DataRequired()])
+    enter = SubmitField("Search")
+
+
+# WTForm
 class CafeForm(FlaskForm):
     name = StringField("Cafe Name", validators=[DataRequired()])
     map_url = StringField("Cafe Map URL", validators=[DataRequired(), URL()])
@@ -103,7 +109,16 @@ cafes = db.session.query(Cafe).all()
 def home():
     pytrend = TrendReq()
     trending = pytrend.trending_searches()
-    return render_template("index.html", trending=trending)
+
+    search_form = Search()
+
+    print('Checkpoint 2')
+
+    if search_form.validate_on_submit():
+        print('Checkpoint 3')
+        return redirect(url_for("show_test"))
+
+    return render_template("index.html", trending=trending, form=search_form)
 #todo change image
 
 
@@ -114,11 +129,16 @@ def get_random():
     return redirect(url_for("show_cafe", cafe_id=random_cafe.id))
 
 
-# # HTTP GET - Read all records
-# @app.route("/cafes", methods=['GET'])
-# def get_all():
-#     all_cafes = Cafe.query.all()
-#     return render_template("cafes.html", all_cafes=all_cafes)
+# HTTP GET - Read all records
+@app.route("/test", methods=['GET', 'POST'])
+def show_test():
+    print('Checkpoint 1')
+
+    all_cafes = Cafe.query.all()
+
+    return render_template("cafes.html", all_cafes=all_cafes)
+    # return render_template("test.html", topic=topic)
+
 
 # HTTP GET - Read all records
 @app.route("/cafes", methods=['GET'])
