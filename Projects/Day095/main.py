@@ -19,6 +19,7 @@ import json
 import requests
 import datetime as dt
 import tweepy
+from string import Template
 
 # Checklist
 # Review OG Google Trends website
@@ -104,9 +105,19 @@ class CafeForm(FlaskForm):
 # Query all cafés
 cafes = db.session.query(Cafe).all()
 
+import cgi
+title = 'Trending Topics'
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def home():
+    # try:
+    #     form = cgi.FieldStorage()
+    #     name = form.getvalue('q')
+    #     print(name)
+    #     title = name
+    # except NameError:
+    #     title = 'Trending Topics'
+
     pytrend = TrendReq()
     trending = pytrend.trending_searches()
 
@@ -116,7 +127,11 @@ def home():
 
     if search_form.validate_on_submit():
         print('Checkpoint 3')
-        return redirect(url_for("show_test"))
+        topic = search_form.topic.data
+        print(topic)
+        all_cafes = Cafe.query.all()
+        # return redirect(url_for("show_test"))
+        return render_template('topic.html', topic=topic)
 
     return render_template("index.html", trending=trending, form=search_form)
 #todo change image
@@ -136,8 +151,8 @@ def show_test():
 
     all_cafes = Cafe.query.all()
 
-    return render_template("cafes.html", all_cafes=all_cafes)
-    # return render_template("test.html", topic=topic)
+    # return render_template("cafes.html", all_cafes=all_cafes)
+    return render_template("topic.html", topic=topic)
 
 
 # HTTP GET - Read all records

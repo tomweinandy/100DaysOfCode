@@ -1,5 +1,7 @@
 {% include "header.html" %}
 
+{% import "bootstrap/wtf.html" as wtf %}
+
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/the_tube.jpg')}}')">
 	<div class="overlay"></div>
@@ -8,7 +10,7 @@
 			<div class="col-lg-8 col-md-10 mx-auto">
 				<div class="post-heading">
 					<h1>Trend Finder</h1>
-					<h2 class="subheading">Find the next big thing</h2>
+					<h2 class="subheading">Discover the next big thing</h2>
           </div>
         </div>
       </div>
@@ -19,6 +21,8 @@
 <div class="jumbotron text-center">
     <div class="container">
       <a class="btn btn-warning btn-lg" href="/cafes" role="button">Show Me!</a>
+        <br>
+        {{ wtf.quick_form(form)  }}
         <h2>Search for a topic or select a current trend below</h2>
 
         {% for trend in trending.iterrows(): %}
