@@ -24,7 +24,6 @@ import matplotlib.pyplot as plt
 
 
 # Checklist
-#todo Complete third webpage using Twitter API
 #todo Update header file with navigation
 #todo Update footer
 #todo Remove cafe.db and all cafe mentions
@@ -148,8 +147,16 @@ def home():
 
 
 # HTTP GET - Read Record
-@app.route("/topic/<trend_topic>")
+@app.route("/topic/<trend_topic>", methods=['GET', 'POST'])
 def show_topic(trend_topic):
+    search_form = Search()
+    if search_form.validate_on_submit():
+        topic = search_form.topic.data
+        all_cafes = Cafe.query.all()
+        # return redirect(url_for("show_test"))
+        # return render_template('topic.html', topic=topic)
+        return redirect(url_for("show_topic", trend_topic=topic))
+
     print('1', trend_topic)
 
     # Add back whitespaces removed for url
@@ -164,7 +171,7 @@ def show_topic(trend_topic):
     # Plot historical trends
     historical = pytrend.interest_over_time()[trend_topic]
     plt.figure(figsize=(5, 2.5), dpi=200)
-    plt.title(f'Historical Popularity for {trend_topic}', fontsize=10)
+    plt.title(f'Historical Popularity for "{trend_topic}"', fontsize=10)
     plt.yticks(fontsize=8)
     plt.xticks(fontsize=8)
     plt.ylabel('Search Index', fontsize=8)
@@ -178,7 +185,7 @@ def show_topic(trend_topic):
     plt.figure(figsize=(5, 2.5), dpi=200)
     plt.xticks(fontsize=8, rotation=30)
     plt.yticks(fontsize=8)
-    plt.title(f'Interest by Region for {trend_topic}', fontsize=10)
+    plt.title(f'Interest by Region for "{trend_topic}"', fontsize=10)
     plt.ylabel('Search Index', fontsize=8)
     plt.bar(regions.index, regions[trend_topic])
     plt.savefig('static/img/regions.jpg', bbox_inches='tight')
@@ -230,7 +237,7 @@ def show_topic(trend_topic):
 
     print(twuple_list)
 
-    return render_template("topic.html", topic=trend_topic, related=related, news=top_articles, tweets=twuple_list)
+    return render_template("topic.html", topic=trend_topic, related=related, news=top_articles, tweets=twuple_list, form=search_form)
 
 
 # HTTP GET - Read Record
