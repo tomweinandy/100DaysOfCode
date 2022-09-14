@@ -18,12 +18,11 @@
   <!-- Post Content -->
   <article>
     <div class="container">
-        <h1>Google Trends</h1>
+        <h1>Google Search Trends</h1>
         <img src="/static/img/historical.jpg">
-        <br>
+        <br><br>
         <img src="/static/img/regions.jpg">
-        <br>
-        <br>
+        <br><br>
 
         <h3>Related Queries</h3>
         <table class="table">
@@ -42,6 +41,17 @@
             {% endfor %}
           </tbody>
         </table>
+        <br><br>
+
+        <h1>Recent News Stories</h1>
+            <br>
+            {% for article in news: %}
+                <h5><a href="{{article[1]}}">{{article[0]}}</a></h5>
+                <p>{{article[2]}}</p>
+            {% endfor %}
+        <br><br>
+
+        <h1>Recent Tweets</h1>
 
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">

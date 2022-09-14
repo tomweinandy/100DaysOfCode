@@ -26,11 +26,8 @@ import matplotlib.pyplot as plt
 # Checklist
 # Review OG Google Trends website
 #       Recreate this: https://trends.google.com/trends/explore?q=%2Fm%2F02y17j,%2Fm%2F09gms,%2Fm%2F012y1_&date=all
-#todo Complete landing page using Google Trends API
-#todo Figure out how to add plot to landing page
 #todo Complete second webpage using news API
 #todo Complete third webpage using Twitter API
-#todo Complete fourth webpage with API integration (optional)
 #todo Update header file with navigation
 #todo Update footer
 #todo Remove cafe.db and all cafe mentions
@@ -47,8 +44,6 @@ Bootstrap(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cafes.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-
-#
 
 
 # Café TABLE Configuration
@@ -107,6 +102,13 @@ class CafeForm(FlaskForm):
 # Query all cafés
 cafes = db.session.query(Cafe).all()
 
+# Read in credential string and save as a dictionary
+with open('../../../../Dropbox/100DaysOfCodePRIVATE/Day95Creds.json') as file:
+    creds = json.loads(file.read())
+
+NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
+NEWS_KEY = creds['NEWS_API']
+
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -128,6 +130,7 @@ def home():
 
     return render_template("index.html", trending=trending, form=search_form)
 #todo change image
+#todo add links to main page
 
 
 # HTTP GET - Read Record
@@ -143,7 +146,7 @@ def show_topic(trend_topic):
     # Plot historical trends
     historical = pytrend.interest_over_time()[trend_topic]
     plt.figure(figsize=(5, 2.5), dpi=200)
-    plt.title(f'Historical Popularity for {trend_topic}', fontsize=12)
+    plt.title(f'Historical Popularity for {trend_topic}', fontsize=10)
     plt.yticks(fontsize=8)
     plt.xticks(fontsize=8)
     plt.ylabel('Search Index', fontsize=8)
@@ -157,7 +160,7 @@ def show_topic(trend_topic):
     plt.figure(figsize=(5, 2.5), dpi=200)
     plt.xticks(fontsize=8, rotation=30)
     plt.yticks(fontsize=8)
-    plt.title(f'Interest by Region for {trend_topic}', fontsize=12)
+    plt.title(f'Interest by Region for {trend_topic}', fontsize=10)
     plt.ylabel('Search Index', fontsize=8)
     plt.bar(regions.index, regions[trend_topic])
     plt.savefig('static/img/regions.jpg', bbox_inches='tight')
@@ -167,8 +170,30 @@ def show_topic(trend_topic):
     related = related[trend_topic]['top']
     print(type(related))
 
+    # Fetch top three articles that mention the query
+    today = dt.datetime.today().strftime('%Y-%m-%d')
+    news_url = f'{NEWS_ENDPOINT}?q={trend_topic.lower()}&from={today}&sortBy=publishedAt&apiKey={NEWS_KEY}&language=en'
+    response = requests.get(news_url)
 
-    return render_template("topic.html", topic=trend_topic, related=related)
+    # Print status, return data
+    print('News response status code:', response.status_code)
+    response.raise_for_status()
+    news_data = response.json()
+    news = news_data['articles']
+
+    # Save select info from top five articles
+    top_articles = []
+    if len(news) > 5:
+        for i in range(0, 5):
+            article_tuple = (news[i]['title'], news[i]['url'], news[i]['description'])
+            top_articles.append(article_tuple)
+    else:
+        for i in range(0, len(news)):
+            article_tuple = (news[i]['title'], news[i]['url'], news[i]['description'])
+            top_articles.append(article_tuple)
+
+    print(top_articles)
+    return render_template("topic.html", topic=trend_topic, related=related, news=top_articles)
 
 
 # HTTP GET - Read Record
