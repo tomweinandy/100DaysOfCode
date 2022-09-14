@@ -19,13 +19,13 @@
   <article>
     <div class="container">
         <h1>Google Search Trends</h1>
-        <img src="/static/img/historical.jpg">
+        <img src="/static/img/historical.jpg" style="align-content: center">
         <br><br>
-        <img src="/static/img/regions.jpg">
+        <img src="/static/img/regions.jpg" style="align-content: center">
         <br><br>
 
         <h3>Related Queries</h3>
-        <table class="table">
+        <table class="table" style="align-content: center">
           <thead>
             <tr>
               <th scope="col">Related Query</th>
@@ -35,7 +35,7 @@
           <tbody>
             {% for query in related.iterrows(): %}
             <tr>
-              <td> <a href="{{query[1]['query']}}">{{query[1]['query']}}</a> </td>
+              <td> <a href="{{query[1]['query']}}" style="color:#4682B4">{{query[1]['query']}}</a> </td>
               <td>{{query[1]['value']}}</td>
             </tr>
             {% endfor %}
@@ -51,7 +51,7 @@
             {% endif %}
 
             {% for article in news: %}
-                <h5><a href="{{article[1]}}">{{article[0]}}</a></h5>
+                <h5><a href="{{article[1]}}" style="color:#4682B4">{{article[0]}}</a></h5>
                 <p>{{article[2]}}</p>
             {% endfor %}
         <br><br>
@@ -62,7 +62,7 @@
                 {% for tweet in tweets: %}
                     <li>
                         <span>
-                            Sent <a href="{{tweet[1]}}">{{tweet[0]}}</a>
+                            Sent <a href="{{tweet[1]}}" style="color:#4682B4">{{tweet[0]}}</a>
                             by @{{tweet[2]}} ({{tweet[3]}}) from {{tweet[4]}}
                         </span>
                         <br>

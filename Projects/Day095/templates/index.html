@@ -20,11 +20,11 @@
 <div class="jumbotron text-center">
     <div class="container">
         <h2>Search for a topic or select a current trend below</h2>
-
+        <br>
         {% for trend in trending.iterrows(): %}
-        <p>{{ trend[1][0] }}</p>
+        <a href="/topic/{{ trend[1][0].replace(' ', '%20') }}" style="color:#4682B4">{{ trend[1][0] }}</a>
+        <span>   |   </span>
         {% endfor %}
-
     </div>
 </div>
 {% endblock %}

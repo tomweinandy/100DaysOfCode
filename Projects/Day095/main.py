@@ -7,27 +7,19 @@ Sample Code 1 (Daily Data): https://github.com/GeneralMills/pytrends/blob/master
 Sample Code 2 (Exploration): https://towardsdatascience.com/google-trends-api-for-python-a84bc25db88f
 """
 from flask import Flask, render_template, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
-from wtforms import StringField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, URL
-import random
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
 from pytrends.request import TrendReq
 import json
 import requests
 import datetime as dt
 import tweepy
-from string import Template
 import matplotlib.pyplot as plt
-from markupsafe import Markup
-
 
 # Checklist
-#todo Remove cafe.db and all cafe mentions
-#todo Remove unused files
-#todo make links blue
 #todo Clean up code and comment
 
 # Initialize Flask
@@ -35,34 +27,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 ckeditor = CKEditor(app)
 Bootstrap(app)
-
-# Connect to Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cafes.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-
-
-# Café TABLE Configuration
-class Cafe(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(250), unique=True, nullable=False)
-    map_url = db.Column(db.String(500), nullable=False)
-    img_url = db.Column(db.String(500), nullable=False)
-    location = db.Column(db.String(250), nullable=False)
-    seats = db.Column(db.String(250), nullable=False)
-    has_toilet = db.Column(db.Boolean, nullable=False)
-    has_wifi = db.Column(db.Boolean, nullable=False)
-    has_sockets = db.Column(db.Boolean, nullable=False)
-    can_take_calls = db.Column(db.Boolean, nullable=False)
-    coffee_price = db.Column(db.String(250), nullable=True)
-
-    def to_dict(self):
-        dictionary = {}
-        # Loop through each column in the data record
-        for column in self.__table__.columns:
-            # Create a new dictionary entry; where key is column name and value is column value
-            dictionary[column.name] = getattr(self, column.name)
-        return dictionary
 
 
 # Create search box
@@ -136,7 +100,7 @@ def show_topic(trend_topic):
     plt.yticks(fontsize=8)
     plt.xticks(fontsize=8)
     plt.ylabel('Search Index', fontsize=8)
-    plt.plot(historical.index, historical.values, c='crimson', linewidth=2)
+    plt.plot(historical.index, historical.values, linewidth=2)
     plt.savefig('static/img/historical.jpg', bbox_inches='tight')
 
     # Plot interest by region
