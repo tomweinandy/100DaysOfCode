@@ -21,6 +21,7 @@ import datetime as dt
 import tweepy
 from string import Template
 import matplotlib.pyplot as plt
+from markupsafe import Markup
 
 
 # Checklist
@@ -66,38 +67,12 @@ class Cafe(db.Model):
         return dictionary
 
 
-# WTForm
+# Create search box
 class Search(FlaskForm):
-    topic = StringField("Topic", validators=[DataRequired()])
-    enter = SubmitField("Search")
+    topic = StringField("", validators=[DataRequired()])
+    # submit_value = Markup('<span class_="navbar-brand">Submit</span>')
+    enter = SubmitField("Submit")
 
-
-# WTForm
-class CafeForm(FlaskForm):
-    name = StringField("Cafe Name", validators=[DataRequired()])
-    map_url = StringField("Cafe Map URL", validators=[DataRequired(), URL()])
-    img_url = StringField("Cafe Image URL", validators=[DataRequired(), URL()])
-    location = StringField("Cafe Address", validators=[DataRequired()])
-    seats = StringField("Approximate Cafe Seats", validators=[DataRequired()])
-    coffee_price = StringField("Coffee Price", validators=[DataRequired()])
-    has_toilet = BooleanField("Cafe Has a Toilet")
-    has_wifi = BooleanField("Cafe Has Wifi")
-    has_sockets = BooleanField("Cafe Has Sockets")
-    can_take_calls = BooleanField("Can Take Calls in the Cafe")
-    submit = SubmitField("Submit Submission")
-
-    @staticmethod
-    def add_to_db(name, map_url, img_url, location, seats, coffee_price, has_toilet, has_wifi, has_sockets,
-                  can_take_calls):
-        new_cafe = Cafe(name=name, map_url=map_url, img_url=img_url, location=location, seats=seats,
-                        has_toilet=has_toilet, has_wifi=has_wifi, has_sockets=has_sockets,
-                        can_take_calls=can_take_calls, coffee_price=coffee_price)
-        db.session.add(new_cafe)
-        db.session.commit()
-
-
-# Query all cafés
-cafes = db.session.query(Cafe).all()
 
 # Read in credential string and save as a dictionary
 with open('../../../../Dropbox/100DaysOfCodePRIVATE/Day95Creds.json') as file:
@@ -118,27 +93,21 @@ api = tweepy.API(auth)
 
 try:
     api.verify_credentials()
-    print('Successful Authentication')
+    print('Successful Twitter authentication')
 except:
-    print('Failed authentication')
+    print('Failed Twitter authentication')
 
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
+    # Get trending searches
     pytrend = TrendReq()
     trending = pytrend.trending_searches()
 
+    # Enable search in nav bar
     search_form = Search()
-
-    print('Checkpoint 2')
-
     if search_form.validate_on_submit():
-        print('Checkpoint 3')
         topic = search_form.topic.data
-        print(topic)
-        all_cafes = Cafe.query.all()
-        # return redirect(url_for("show_test"))
-        # return render_template('topic.html', topic=topic)
         return redirect(url_for("show_topic", trend_topic=topic))
 
     return render_template("index.html", trending=trending, form=search_form)
@@ -149,20 +118,15 @@ def home():
 # HTTP GET - Read Record
 @app.route("/topic/<trend_topic>", methods=['GET', 'POST'])
 def show_topic(trend_topic):
+    # Enable search in nav bar
     search_form = Search()
     if search_form.validate_on_submit():
         topic = search_form.topic.data
-        all_cafes = Cafe.query.all()
-        # return redirect(url_for("show_test"))
-        # return render_template('topic.html', topic=topic)
         return redirect(url_for("show_topic", trend_topic=topic))
-
-    print('1', trend_topic)
 
     # Add back whitespaces removed for url
     trend_topic = trend_topic.replace('+', ' ')
     trend_topic = trend_topic.replace('%20', ' ')
-    print('2', trend_topic)
 
     # Find trends
     pytrend = TrendReq()
@@ -221,7 +185,7 @@ def show_topic(trend_topic):
     max_tweets = 20
     searched_tweets = [status for status in tweepy.Cursor(api.search_tweets, q=trend_topic).items(max_tweets)]
     twuple_list = []
-    for i in range(max_tweets):
+    for i in range(len(searched_tweets)):
         t = searched_tweets[i]._json
 
         timestamp = t['created_at']
