@@ -24,14 +24,12 @@ import matplotlib.pyplot as plt
 
 
 # Checklist
-# Review OG Google Trends website
-#       Recreate this: https://trends.google.com/trends/explore?q=%2Fm%2F02y17j,%2Fm%2F09gms,%2Fm%2F012y1_&date=all
-#todo Complete second webpage using news API
 #todo Complete third webpage using Twitter API
 #todo Update header file with navigation
 #todo Update footer
 #todo Remove cafe.db and all cafe mentions
 #todo Remove unused files
+#todo make links blue
 #todo Clean up code and comment
 
 # Initialize Flask
@@ -105,9 +103,25 @@ cafes = db.session.query(Cafe).all()
 # Read in credential string and save as a dictionary
 with open('../../../../Dropbox/100DaysOfCodePRIVATE/Day95Creds.json') as file:
     creds = json.loads(file.read())
-
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 NEWS_KEY = creds['NEWS_API']
+
+# API keys that yous saved earlier
+api_key = creds['TWITTER_KEY']
+api_secrets = creds['TWITTER_SECRET']
+access_token = creds['ACCESS_TOKEN']
+access_secret = creds['ACCESS_SECRET']
+
+# Authenticate to Twitter
+auth = tweepy.OAuthHandler(api_key, api_secrets)
+auth.set_access_token(access_token, access_secret)
+api = tweepy.API(auth)
+
+try:
+    api.verify_credentials()
+    print('Successful Authentication')
+except:
+    print('Failed authentication')
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -136,10 +150,14 @@ def home():
 # HTTP GET - Read Record
 @app.route("/topic/<trend_topic>")
 def show_topic(trend_topic):
-    # Find trends
     print('1', trend_topic)
+
+    # Add back whitespaces removed for url
     trend_topic = trend_topic.replace('+', ' ')
+    trend_topic = trend_topic.replace('%20', ' ')
     print('2', trend_topic)
+
+    # Find trends
     pytrend = TrendReq()
     pytrend.build_payload(kw_list=[trend_topic])
 
@@ -192,8 +210,27 @@ def show_topic(trend_topic):
             article_tuple = (news[i]['title'], news[i]['url'], news[i]['description'])
             top_articles.append(article_tuple)
 
-    print(top_articles)
-    return render_template("topic.html", topic=trend_topic, related=related, news=top_articles)
+    # Get tweets
+    max_tweets = 20
+    searched_tweets = [status for status in tweepy.Cursor(api.search_tweets, q=trend_topic).items(max_tweets)]
+    twuple_list = []
+    for i in range(max_tweets):
+        t = searched_tweets[i]._json
+
+        timestamp = t['created_at']
+        timestamp = timestamp.replace('+0000 ', '')
+
+        twuple = (timestamp,
+                  f"https://twitter.com/{t['user']['screen_name']}/status/{t['id_str']}",
+                  t['user']['screen_name'],
+                  t['user']['name'],
+                  t['user']['location'],
+                  t['text'])
+        twuple_list.append(twuple)
+
+    print(twuple_list)
+
+    return render_template("topic.html", topic=trend_topic, related=related, news=top_articles, tweets=twuple_list)
 
 
 # HTTP GET - Read Record

@@ -52,6 +52,19 @@
         <br><br>
 
         <h1>Recent Tweets</h1>
+            <br>
+            <ul>
+                {% for tweet in tweets: %}
+                    <li>
+                        <span>
+                            Sent <a href="{{tweet[1]}}">{{tweet[0]}}</a>
+                            by @{{tweet[2]}} ({{tweet[3]}}) from {{tweet[4]}}
+                        </span>
+                        <br>
+                        <span>{{tweet[5]}}</span>
+                    </li>
+                {% endfor %}
+            </ul>
 
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
