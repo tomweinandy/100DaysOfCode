@@ -72,8 +72,6 @@ def home():
         return redirect(url_for("show_topic", trend_topic=topic))
 
     return render_template("index.html", trending=trending, form=search_form)
-#todo change image
-#todo add links to main page
 
 
 # HTTP GET - Read Record
@@ -137,6 +135,7 @@ def show_topic(trend_topic):
         for i in range(0, 5):
             article_tuple = (news[i]['title'], news[i]['url'], news[i]['description'])
             top_articles.append(article_tuple)
+    # If not more than five articles, return how ever many there are
     else:
         for i in range(0, len(news)):
             article_tuple = (news[i]['title'], news[i]['url'], news[i]['description'])
@@ -149,9 +148,11 @@ def show_topic(trend_topic):
     for i in range(len(searched_tweets)):
         t = searched_tweets[i]._json
 
+        # Remove extra characters from timestamp
         timestamp = t['created_at']
         timestamp = timestamp.replace('+0000 ', '')
 
+        # Add select tweet elements to a tuple
         twuple = (timestamp,
                   f"https://twitter.com/{t['user']['screen_name']}/status/{t['id_str']}",
                   t['user']['screen_name'],
@@ -159,8 +160,6 @@ def show_topic(trend_topic):
                   t['user']['location'],
                   t['text'])
         twuple_list.append(twuple)
-
-    print(twuple_list)
 
     return render_template("topic.html", topic=trend_topic, related=related, news=top_articles, tweets=twuple_list, form=search_form)
 
