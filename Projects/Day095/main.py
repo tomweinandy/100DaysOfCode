@@ -1,10 +1,7 @@
 """
-Day 95: Google Trends Website
+Day 95: Trending Topics Website
 
-Improvement on the notebook using static data: https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day074
-Google Trends API documentation: https://lazarinastoy.com/the-ultimate-guide-to-pytrends-google-trends-api-with-python/
-Sample Code 1 (Daily Data): https://github.com/GeneralMills/pytrends/blob/master/pytrends/dailydata.py
-Sample Code 2 (Exploration): https://towardsdatascience.com/google-trends-api-for-python-a84bc25db88f
+Built with APIs of Google searches, news articles and tweets
 """
 from flask import Flask, render_template, redirect, url_for
 from flask_wtf import FlaskForm
