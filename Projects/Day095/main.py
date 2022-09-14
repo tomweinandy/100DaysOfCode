@@ -25,8 +25,6 @@ from markupsafe import Markup
 
 
 # Checklist
-#todo Update header file with navigation
-#todo Update footer
 #todo Remove cafe.db and all cafe mentions
 #todo Remove unused files
 #todo make links blue
@@ -70,7 +68,6 @@ class Cafe(db.Model):
 # Create search box
 class Search(FlaskForm):
     topic = StringField("", validators=[DataRequired()])
-    # submit_value = Markup('<span class_="navbar-brand">Submit</span>')
     enter = SubmitField("Submit")
 
 
@@ -202,96 +199,6 @@ def show_topic(trend_topic):
     print(twuple_list)
 
     return render_template("topic.html", topic=trend_topic, related=related, news=top_articles, tweets=twuple_list, form=search_form)
-
-
-# HTTP GET - Read Record
-@app.route("/random", methods=['GET'])
-def get_random():
-    random_cafe = random.choice(cafes)
-    return redirect(url_for("show_cafe", cafe_id=random_cafe.id))
-
-
-# HTTP GET - Read all records
-@app.route("/cafes", methods=['GET'])
-def get_all():
-    all_cafes = Cafe.query.all()
-    return render_template("cafes.html", all_cafes=all_cafes)
-
-
-# HTTP POST - Create Record
-@app.route("/add-cafe", methods=['GET', 'POST'])
-def add_cafe():
-    form = CafeForm()
-
-    if form.validate_on_submit():
-        form.add_to_db(form.name.data, form.map_url.data, form.img_url.data, form.location.data, form.seats.data,
-                       form.coffee_price.data, form.has_toilet.data, form.has_wifi.data, form.has_sockets.data,
-                       form.can_take_calls.data)
-        return redirect(url_for('add_another_cafe'))
-
-    return render_template('add-cafe.html', form=form)
-
-
-# HTTP POST - Create Record
-@app.route("/add-another-cafe", methods=['GET', 'POST'])
-def add_another_cafe():
-    form = CafeForm()
-
-    if form.validate_on_submit():
-        form.add_to_db(form.name.data, form.map_url.data, form.img_url.data, form.location.data, form.seats.data,
-                       form.coffee_price.data, form.has_toilet.data, form.has_wifi.data, form.has_sockets.data,
-                       form.can_take_calls.data)
-        return redirect(url_for('add_another_cafe'))
-
-    return render_template('add-another-cafe.html', form=form)
-
-
-# HTTP GET - Read Record
-@app.route("/cafe/<int:cafe_id>")
-def show_cafe(cafe_id):
-    requested_cafe = Cafe.query.get(cafe_id)
-    return render_template("cafe.html", cafe=requested_cafe)
-
-
-# HTTP PUT/PATCH - Update Record
-@app.route("/edit-cafe/<int:cafe_id>", methods=['GET', 'POST'])
-def edit_cafe(cafe_id):
-    cafe = Cafe.query.get(cafe_id)
-    edit_form = CafeForm(
-        name=cafe.name,
-        map_url=cafe.map_url,
-        img_url=cafe.img_url,
-        location=cafe.location,
-        seats=cafe.seats,
-        coffee_price=cafe.coffee_price,
-        has_toilet=cafe.has_toilet,
-        has_wifi=cafe.has_wifi,
-        has_sockets=cafe.has_sockets,
-        can_take_calls=cafe.can_take_calls
-    )
-    if edit_form.validate_on_submit():
-        cafe.name = edit_form.name.data
-        cafe.map_url = edit_form.map_url.data
-        cafe.img_url = edit_form.img_url.data
-        cafe.location = edit_form.location.data
-        cafe.seats = edit_form.seats.data
-        cafe.coffee_price = edit_form.coffee_price.data
-        cafe.has_toilet = edit_form.has_toilet.data
-        cafe.has_wifi = edit_form.has_wifi.data
-        cafe.has_sockets = edit_form.has_sockets.data
-        cafe.can_take_calls = edit_form.can_take_calls.data
-        db.session.commit()
-        return redirect(url_for("show_cafe", cafe_id=cafe_id))
-    return render_template("add-cafe.html", form=edit_form, is_edit=True)
-
-
-# HTTP DELETE - Delete Record
-@app.route("/delete-cafe/<int:cafe_id>")
-def delete_cafe(cafe_id):
-    cafe_to_delete = Cafe.query.get(cafe_id)
-    db.session.delete(cafe_to_delete)
-    db.session.commit()
-    return redirect(url_for('get_all'))
 
 
 if __name__ == '__main__':
