@@ -81,8 +81,10 @@ class CommentForm(FlaskForm):
     comment_text = CKEditorField("Comment", validators=[DataRequired()])
     submit = SubmitField("Submit Comment")
 
+
 # Add Gravatar images
-gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False, base_url=None)
+gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False,
+                    base_url=None)
 
 # Create all the tables in the database
 db.create_all()
@@ -97,6 +99,7 @@ def admin_only(f):
             return abort(403)
         # Otherwise continue with the route function
         return f(*args, **kwargs)
+
     return decorated_function
 
 
@@ -211,11 +214,24 @@ def contact():
     return render_template("contact.html", current_user=current_user)
 
 
-@app.route("/new-post")
+@app.route("/new-post", methods=['GET', 'POST'])
 @admin_only
 def add_new_post():
+    print('Checkpoint 1') #todo fix
     form = CreatePostForm()
+    print('Checkpoint 2')
+    print(form)
+    print(form.title.data,
+          form.subtitle.data,
+          form.img_url.data,
+          form.body.data,
+          date.today().strftime("%B %d, %Y"),
+          type(current_user),
+          form.validate_on_submit()
+          )
+
     if form.validate_on_submit():
+        print('Checkpoint 3')
         new_post = BlogPost(
             title=form.title.data,
             subtitle=form.subtitle.data,
@@ -224,9 +240,13 @@ def add_new_post():
             author=current_user,
             date=date.today().strftime("%B %d, %Y")
         )
+        print('Checkpoint 4')
         db.session.add(new_post)
+        print('Checkpoint 5')
         db.session.commit()
+        print('Checkpoint 6')
         return redirect(url_for("get_all_posts"))
+    print('Checkpoint 7')
     return render_template("make-post.html", form=form, current_user=current_user)
 
 
