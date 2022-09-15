@@ -16,9 +16,6 @@ import datetime as dt
 import tweepy
 import matplotlib.pyplot as plt
 
-# Checklist
-#todo Clean up code and comment
-
 # Initialize Flask
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
