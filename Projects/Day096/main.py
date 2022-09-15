@@ -1,5 +1,5 @@
 """
-Day 69-70: HTML Blog with Jinja, Flask and SQLite (Pt IV)
+Day 96: "This Old Thing" Online Store
 """
 from flask import Flask, render_template, redirect, url_for, flash, request, abort
 from flask_bootstrap import Bootstrap
@@ -35,7 +35,7 @@ class BlogPost(db.Model):
     author = relationship("User", back_populates="posts")
 
     title = db.Column(db.String(250), unique=True, nullable=False)
-    subtitle = db.Column(db.String(250), nullable=False)
+    price = db.Column(db.String(250), nullable=False)
     date = db.Column(db.String(250), nullable=False)
     body = db.Column(db.Text, nullable=False)
     img_url = db.Column(db.String(250), nullable=False)
@@ -222,7 +222,7 @@ def add_new_post():
     print('Checkpoint 2')
     print(form)
     print(form.title.data,
-          form.subtitle.data,
+          form.price.data,
           form.img_url.data,
           form.body.data,
           date.today().strftime("%B %d, %Y"),
@@ -234,7 +234,7 @@ def add_new_post():
         print('Checkpoint 3')
         new_post = BlogPost(
             title=form.title.data,
-            subtitle=form.subtitle.data,
+            price=form.price.data,
             body=form.body.data,
             img_url=form.img_url.data,
             author=current_user,
@@ -256,14 +256,14 @@ def edit_post(post_id):
     post = BlogPost.query.get(post_id)
     edit_form = CreatePostForm(
         title=post.title,
-        subtitle=post.subtitle,
+        price=post.price,
         img_url=post.img_url,
         author=post.author,
         body=post.body
     )
     if edit_form.validate_on_submit():
         post.title = edit_form.title.data
-        post.subtitle = edit_form.subtitle.data
+        post.price = edit_form.price.data
         post.img_url = edit_form.img_url.data
         post.author = edit_form.author.data
         post.body = edit_form.body.data
