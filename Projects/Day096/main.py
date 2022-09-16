@@ -22,14 +22,14 @@ ckeditor = CKEditor(app)
 Bootstrap(app)
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///this_old_thing.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
 # CONFIGURE TABLES
-class BlogPost(db.Model):
-    __tablename__ = "blog_posts"
+class ProductPost(db.Model):
+    __tablename__ = "products"
     id = db.Column(db.Integer, primary_key=True)
 
     # Create Foreign Key, "users.id" the users refers to the tablename of User.
@@ -53,9 +53,9 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(100))
 
-    # This will act like a List of BlogPost objects attached to each User.
-    # The "author" refers to the author property in the BlogPost class.
-    posts = relationship("BlogPost", back_populates="author")
+    # This will act like a List of ProductPost objects attached to each User.
+    # The "author" refers to the author property in the ProductPost class.
+    posts = relationship("ProductPost", back_populates="author")
 
     # "comment_author" refers to the comment_author property in the Comment class.
     comments = relationship("Comment", back_populates="comment_author")
@@ -74,12 +74,12 @@ class Comment(db.Model):
     comment_author = relationship("User", back_populates="comments")
 
     # child relationship
-    post_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
-    parent_post = relationship("BlogPost", back_populates="comments")
+    post_id = db.Column(db.Integer, db.ForeignKey("products.id"))
+    parent_post = relationship("ProductPost", back_populates="comments")
     text = db.Column(db.Text, nullable=False)
 
 
-# Create a form for commenting on blog posts
+# Create a form for commenting on product posts
 class CommentForm(FlaskForm):
     comment_text = CKEditorField("Comment", validators=[DataRequired()])
     submit = SubmitField("Submit Comment")
@@ -108,7 +108,7 @@ def admin_only(f):
 
 @app.route('/')
 def get_all_posts():
-    posts = BlogPost.query.all()
+    posts = ProductPost.query.all()
     return render_template("index.html", all_posts=posts, current_user=current_user)
 
 
@@ -189,7 +189,7 @@ def logout():
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
 def show_post(post_id):
     form = CommentForm()
-    requested_post = BlogPost.query.get(post_id)
+    requested_post = ProductPost.query.get(post_id)
 
     if form.validate_on_submit():
         if not current_user.is_authenticated:
@@ -235,7 +235,7 @@ def add_new_post():
 
     if form.validate_on_submit():
         print('Checkpoint 3')
-        new_post = BlogPost(
+        new_post = ProductPost(
             title=form.title.data,
             price=form.price.data,
             body=form.body.data,
@@ -256,7 +256,7 @@ def add_new_post():
 @app.route("/edit-post/<int:post_id>", methods=["GET", "POST"])
 @admin_only
 def edit_post(post_id):
-    post = BlogPost.query.get(post_id)
+    post = ProductPost.query.get(post_id)
     edit_form = CreatePostForm(
         title=post.title,
         price=post.price,
@@ -268,7 +268,7 @@ def edit_post(post_id):
         post.title = edit_form.title.data
         post.price = edit_form.price.data
         post.img_url = edit_form.img_url.data
-        post.author = edit_form.author.data
+        # post.author = edit_form.author.data
         post.body = edit_form.body.data
         db.session.commit()
         return redirect(url_for("show_post", post_id=post.id))
@@ -279,7 +279,7 @@ def edit_post(post_id):
 @app.route("/delete/<int:post_id>")
 @admin_only
 def delete_post(post_id):
-    post_to_delete = BlogPost.query.get(post_id)
+    post_to_delete = ProductPost.query.get(post_id)
     db.session.delete(post_to_delete)
     db.session.commit()
     return redirect(url_for('get_all_posts'))

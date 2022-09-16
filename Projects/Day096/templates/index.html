@@ -25,20 +25,21 @@
             <h2 class="post-title">
               {{post.title}}
             </h2>
-            <h3 class="post-subtitle">
+            </a>
+
+            <p class="post-subtitle">
               {{post.price}}
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            {{post.author.name}}
-            on {{post.date}}
 
-<!--        If user id is 1 then they can see the delete button -->
-            {% if current_user.id == 1: %}
-            <a href="{{url_for('delete_post', post_id=post.id) }}">✘</a>
-            {% endif %}
+              <!--        If user id is 1 then they can see the delete button -->
+              {% if current_user.id == 1: %}
+              <a href="{{url_for('delete_post', post_id=post.id) }}">✘</a>
+              {% endif %}
+            </p>
 
-          </p>
+<!--          <p class="post-meta">Posted by-->
+<!--            {{post.author.name}}-->
+<!--            on {{post.date}}-->
+<!--          </p>-->
         </div>
         {% endfor %}
 
