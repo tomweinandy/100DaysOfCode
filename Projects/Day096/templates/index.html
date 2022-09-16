@@ -21,10 +21,13 @@
       <div class="col-lg-8 col-md-10 mx-auto">
         {% for post in all_posts %}
         <div class="post-preview">
+
+          <img src="{{post.img_url}}" width="256" height="128">
+
           <a href="{{ url_for('show_post', post_id=post.id) }}">
-            <h2 class="post-title">
+            <h3 class="post-title">
               {{post.title}}
-            </h2>
+            </h3>
             </a>
 
             <p class="post-subtitle">
