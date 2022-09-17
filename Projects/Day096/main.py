@@ -13,8 +13,6 @@ from forms import CreatePostForm, RegisterForm, LoginForm, FlaskForm, CKEditorFi
 from flask_gravatar import Gravatar
 from functools import wraps
 
-# todo connect payment system
-# todo add buy button
 # todo update About Me
 
 app = Flask(__name__)
