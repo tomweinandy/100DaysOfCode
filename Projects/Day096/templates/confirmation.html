@@ -3,16 +3,15 @@
 
 {% block content %}
 {% include "header.html" %}
-
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/madagascar.jpg')}}')">
+  <header class="masthead" style="background-image: url('https://melmagazine.com/wp-content/uploads/2019/05/plasticbag-1280x533.jpg')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
-            <h1>Log In</h1>
-            <span class="subheading">Welcome Back!</span>
+            <h1>Transaction Complete</h1>
+            <span class="subheading">Thank you for shopping with This Old Thing!</span>
           </div>
         </div>
       </div>
@@ -21,13 +20,11 @@
 
   <div class="container">
     <div class="row">
-
-      <div class="col-lg-8 col-md-10 mx-auto content">
-        {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+      <div class="col-lg-8 col-md-10 mx-auto">
+        Your purchase comes with the most beautiful plastic bag in the world.
       </div>
     </div>
   </div>
-
 
 {% include "footer.html" %}
 {% endblock %}
