@@ -13,10 +13,8 @@ from forms import CreatePostForm, RegisterForm, LoginForm, FlaskForm, CKEditorFi
 from flask_gravatar import Gravatar
 from functools import wraps
 
-# todo add grid format for products
 # todo connect payment system
 # todo add buy button
-# todo add rest of products
 # todo update About Me
 
 app = Flask(__name__)
@@ -213,6 +211,11 @@ def show_post(post_id):
 @app.route("/about")
 def about():
     return render_template("about.html", current_user=current_user)
+
+
+@app.route("/confirmation")
+def confirmation():
+    return render_template("confirmation.html")
 
 
 @app.route("/contact")
