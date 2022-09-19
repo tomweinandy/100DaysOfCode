@@ -1,7 +1,7 @@
 """
 Day 32: Automated Birthday Wisher
 
-# https://docs.python.org/3/library/smtplib.html
+Documentation: https://docs.python.org/3/library/smtplib.html
 """
 import smtplib
 import datetime as dt
@@ -44,7 +44,7 @@ def send_email(birthday_email, birthday_letter):
     Had to reduce security level detailed here:
     https://www.udemy.com/course/100-days-of-code/learn/lecture/21712834#questions/13766454
     :param birthday_email: The email address of the birthday person
-    :param birthday_letter: The customeized letter addressed to the birthday person.
+    :param birthday_letter: The customized letter addressed to the birthday person.
     """
 
     # Set up SMTP connection
