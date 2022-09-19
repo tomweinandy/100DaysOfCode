@@ -6,15 +6,18 @@ Documentation: https://docs.python.org/3/library/smtplib.html
 import smtplib
 import datetime as dt
 import random
+import time
+
 import pandas as pd
 import json
 import textract
 
 
+# Define helper functions
 def salutation(contact_series):
     """
     Converts a contact series into a proper salutation depending on the number of people.
-    :param contact_series: Series taken from the subset of all contacts from the same organziation
+    :param contact_series: Series taken from the subset of all contacts from the same organization
     :return: A string salutation
     """
     # Convert to list
@@ -37,7 +40,7 @@ def salutation(contact_series):
         contact_str = contact_list[0]
 
     # If two contacts
-    elif len(contact_series) == 2:
+    elif len(contact_list) == 2:
         contact_str = contact_list[0] + ' and ' + contact_list[1]
 
     # If more than two contacts
@@ -49,6 +52,54 @@ def salutation(contact_series):
             contact_str = contact.strip() + ', ' + contact_str
 
     return contact_str
+
+
+def get_emails(email_series):
+    """
+    Converts an email series into a string list of emails.
+    :param email_series: Series taken from the subset of all contacts from the same organization
+    :return: A string list of email addresses
+    """
+    # Convert to list
+    email_list = []
+    for email in email_series:
+        # Cast non-string names as an empty string
+        if type(email) != str:
+            email = ''
+
+        # Remove leading/trailing whitespace
+        email = email.strip()
+
+        email_list.append(email)
+
+    # email_string_list = ''
+    # # If there is only one contact
+    # if len(email_list) == 1:
+    #     email_string_list = email_list[0]
+    #
+    # # If two contacts
+    # elif len(email_list) > 1:
+    #     for email in email_list:
+    #         email_string_list += email + ';'
+
+    return email_list
+
+
+def send_email(emails, message):
+    """
+    Had to reduce security level detailed here:
+    https://www.udemy.com/course/100-days-of-code/learn/lecture/21712834#questions/13766454
+    """
+
+    # Set up SMTP connection
+    # Gmail is smtp.gmail.com, Hotmail is smtp.live.com, Yahoo is smtp.mail.yahoo.com
+    with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
+        # Start Transfer Layer Security encryption
+        connection.starttls()
+        connection.login(user=EMAIL, password=EMAIL_KEY)
+        connection.sendmail(from_addr=EMAIL,
+                            to_addrs=emails,
+                            msg=message)
 
 
 # Define folder path of project assets
@@ -74,62 +125,24 @@ text = text_byte.decode("utf-8")
 
 
 for org in org_list:
+    # Filter all contacts in the same organization
     df_subset = df[df['Organization'] == org]
     df_subset = df_subset.reset_index(drop=True)
 
-    print(df_subset['Organization'][0])
-    print(salutation(df_subset['Contact Name']))
+    # Modify text to be used in message
+    new_text = text.replace('<Contact Name>', salutation(df_subset['Contact Name']))
+    new_text = new_text.replace('<Organization Name>', org)
+
+    # Send email
+    org_emails = get_emails(df_subset['Contact Email'])
+    send_email(org_emails, new_text)
+
+    print(f'Sent an email to {org_emails}')
+    time.sleep(10)
 
 
 
 
-    #     print()
-    #
-    # new_text = text.replace('<Contact Name>', contacts)
-    # new_text = new_text.replace('<Organization Name>', org)
-    # print(new_text)
-
-
-
-
-
-# Add helper functions
-# def write_letter(birthday_name):
-#     """
-#     Writes a customized letter to a person on their birthday.
-#     :param birthday_name: The name of the birthday person
-#     :return: A customized, heartfelt letter
-#     """
-#     # Select a random letter
-#     random_number = random.randint(1, 3)
-#     with open(f'letter_templates/letter_{random_number}.txt') as file:
-#         new_letter = file.read()
-#
-#     # Personalize letter
-#     new_letter = new_letter.replace('[NAME]', birthday_name)
-#     new_letter = new_letter.replace('Angela', 'Thomas')
-#
-#     return new_letter
-#
-#
-# def send_email(birthday_email, birthday_letter):
-#     """
-#     Sends an email to a person with their birthday letter.
-#     Had to reduce security level detailed here:
-#     https://www.udemy.com/course/100-days-of-code/learn/lecture/21712834#questions/13766454
-#     :param birthday_email: The email address of the birthday person
-#     :param birthday_letter: The customized letter addressed to the birthday person.
-#     """
-#
-#     # Set up SMTP connection
-#     # Gmail is smtp.gmail.com, Hotmail is smtp.live.com, Yahoo is smtp.mail.yahoo.com
-#     with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
-#         # Start Transfer Layer Security encryption
-#         connection.starttls()
-#         connection.login(user=my_email, password=my_password)
-#         connection.sendmail(from_addr=my_email,
-#                             to_addrs=birthday_email,
-#                             msg=f'Subject: Happy Birthday!\n\n{birthday_letter}')
 #
 #
 # # Identify current date
