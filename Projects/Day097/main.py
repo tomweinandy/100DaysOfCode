@@ -15,6 +15,8 @@ import textract
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.message import EmailMessage
+from os.path import basename
+from email.mime.application import MIMEApplication
 
 
 
@@ -132,6 +134,16 @@ def send_email(emails, subject_line, content):
     # # Create the body of the message (an HTML version).
     # text = """Hi  this is the body
     # """
+
+    f = folder_path + 'Sponsor Invitation 2022.docx'
+    with open(f, "rb") as fil:
+        part = MIMEApplication(
+            fil.read(),
+            Name=basename(f)
+        )
+    # After the file is closed
+    part['Content-Disposition'] = 'attachment; filename="%s"' % basename(f)
+    msg.attach(part)
 
     # Record the MIME types of both parts - text/plain and text/html.
     body = MIMEText(content, 'plain')
