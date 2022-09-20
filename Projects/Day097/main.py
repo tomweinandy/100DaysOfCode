@@ -11,6 +11,9 @@ import time
 import pandas as pd
 import json
 import textract
+from email.mime.text import MIMEText
+from email.message import EmailMessage
+
 
 
 # Define helper functions
@@ -85,7 +88,7 @@ def get_emails(email_series):
     return email_list
 
 
-def send_email(emails, message):
+def send_email(emails, subject_line, content):
     """
     Had to reduce security level detailed here:
     https://www.udemy.com/course/100-days-of-code/learn/lecture/21712834#questions/13766454
@@ -95,11 +98,23 @@ def send_email(emails, message):
     # Gmail is smtp.gmail.com, Hotmail is smtp.live.com, Yahoo is smtp.mail.yahoo.com
     with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
         # Start Transfer Layer Security encryption
+        # connection.ehlo()
         connection.starttls()
+        # connection.ehlo()
         connection.login(user=EMAIL, password=EMAIL_KEY)
         connection.sendmail(from_addr=EMAIL,
                             to_addrs=emails,
-                            msg=message)
+                            msg=f'Subject: {subject_line}\n\n{content}')
+
+    # msg = EmailMessage()
+    # msg.set_content(content, subtype="plain", charset='us-ascii')
+    # msg['From'] = EMAIL
+    # msg['To'] = emails
+    # msg['Subject'] = subject_line
+    #
+    # with smtplib.SMTP('smtp.gmail.com', port=587) as s:
+    #     s.starttls()
+    #     s.send_message(msg)
 
 
 # Define folder path of project assets
@@ -109,8 +124,8 @@ folder_path = '../../../../Dropbox/Big Data Ignite/AutomatedEmail/'
 with open(folder_path + 'Creds.json') as file:
     creds = json.loads(file.read())
 
-EMAIL = creds['EMAIL']
-EMAIL_KEY = creds['EMAIL_KEY']
+EMAIL = creds['EMAIL2']
+EMAIL_KEY = creds['EMAIL_KEY2']
 
 # Read in list of potential sponsors
 # df = pd.read_csv(folder_path + 'PotentialSponsors.csv')
@@ -121,7 +136,7 @@ org_list = df['Organization'].unique()
 
 # Read in message for email
 text_byte = textract.process(folder_path + 'Sponsorship Invitation - Cold Email.docx')
-text = text_byte.decode("utf-8")
+text = text_byte.decode('utf-8')
 
 
 for org in org_list:
@@ -132,10 +147,13 @@ for org in org_list:
     # Modify text to be used in message
     new_text = text.replace('<Contact Name>', salutation(df_subset['Contact Name']))
     new_text = new_text.replace('<Organization Name>', org)
+    # new_text = new_text.encode()
+    # new_text = MIMEText(new_text)
 
     # Send email
     org_emails = get_emails(df_subset['Contact Email'])
-    send_email(org_emails, new_text)
+    subject = 'Invitation to Join and Support Big Data Ignite 2022'
+    send_email(org_emails, subject, new_text)
 
     print(f'Sent an email to {org_emails}')
     time.sleep(10)
