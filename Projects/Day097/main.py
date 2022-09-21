@@ -12,6 +12,8 @@ import datetime
 import smtplib
 import textract
 from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 # Define folder path of project assets
 FOLDER_PATH = '../../../../Dropbox/Big Data Ignite/AutomatedEmail/'
@@ -96,11 +98,6 @@ def send_email(emails, subject_line, content):
     Had to reduce security level detailed here:
     https://www.udemy.com/course/100-days-of-code/learn/lecture/21712834#questions/13766454
     """
-    # import smtplib
-    from email.mime.multipart import MIMEMultipart
-    from email.mime.text import MIMEText
-    import os
-
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
     msg['Subject'] = subject_line
