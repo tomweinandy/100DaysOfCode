@@ -1,23 +1,20 @@
 """
-Day 97: Personalized Sponsor Request Email
+Day 97: Personalized Conference Email Blast
 
 Documentation: https://docs.python.org/3/library/smtplib.html
+Note: Some emails were not delivered citing security reasons. These had to be manually re-sent.
 """
-import smtplib
-import ssl
-import datetime as dt
-import random
-import time
-
 import pandas as pd
-import json
-import textract
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from email.message import EmailMessage
 from os.path import basename
+import json
+import time
+import datetime
+import smtplib
+import textract
 from email.mime.application import MIMEApplication
 
+# Define folder path of project assets
+FOLDER_PATH = '../../../../Dropbox/Big Data Ignite/AutomatedEmail/'
 
 
 # Define helper functions
@@ -99,49 +96,26 @@ def send_email(emails, subject_line, content):
     Had to reduce security level detailed here:
     https://www.udemy.com/course/100-days-of-code/learn/lecture/21712834#questions/13766454
     """
-
-    # # Set up SMTP connection
-    # # Gmail is smtp.gmail.com, Hotmail is smtp.live.com, Yahoo is smtp.mail.yahoo.com
-    # with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
-    #     # Start Transfer Layer Security encryption
-    #     connection.ehlo()
-    #     # context = ssl.create_default_context()
-    #     connection.starttls()
-    #     connection.ehlo()
-    #     connection.login(user=EMAIL, password=EMAIL_KEY)
-    #     connection.sendmail(from_addr=EMAIL,
-    #                         to_addrs=emails,
-    #                         msg=f'Subject: {subject_line}\n\n{content}')
-
     # import smtplib
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
     import os
-
-    # FROMADDR = "myaddr@server.com"
-    # PASSWORD = 'foo'
-    #
-    # TOADDR = ['toaddr1@server.com', 'toaddr2@server.com']
-    # CCADDR = ['ccaddr1@server.com', 'ccaddr2@server.com']
 
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
     msg['Subject'] = subject_line
     msg['From'] = EMAIL
     msg['To'] = ', '.join(emails)
-    # msg['Cc'] = ', '.join(CCADDR)
+    # msg['Cc'] = ', '.join(cc_emails)
 
-    # # Create the body of the message (an HTML version).
-    # text = """Hi  this is the body
-    # """
-
-    f = folder_path + 'Sponsor Invitation 2022.docx'
+    # Include an attachment
+    f = FOLDER_PATH + 'Sponsor Invitation 2022.docx'
     with open(f, "rb") as fil:
         part = MIMEApplication(
             fil.read(),
             Name=basename(f)
         )
-    # After the file is closed
+    # After the file is closed.
     part['Content-Disposition'] = 'attachment; filename="%s"' % basename(f)
     msg.attach(part)
 
@@ -161,28 +135,25 @@ def send_email(emails, subject_line, content):
     s.quit()
 
 
-    # Define folder path of project assets
-folder_path = '../../../../Dropbox/Big Data Ignite/AutomatedEmail/'
-
 # Read in credentials and save as a dictionary
-with open(folder_path + 'Creds.json') as file:
+with open(FOLDER_PATH + 'Creds.json') as file:
     creds = json.loads(file.read())
-
 EMAIL = creds['EMAIL2']
-EMAIL_KEY = creds['EMAIL_KEY2']
+EMAIL_KEY = creds['EMAIL_KEY2'] #todo change for production run
 
 # Read in list of potential sponsors
-# df = pd.read_csv(folder_path + 'PotentialSponsors.csv')
+# df = pd.read_csv(FOLDER_PATH + 'PotentialSponsors.csv') #todo change for production run
 df = pd.read_csv('TestSponsors.csv')
 
 # Define list of all organizations in the csv
 org_list = df['Organization'].unique()
 
 # Read in message for email
-text_byte = textract.process(folder_path + 'Sponsorship Invitation - Cold Email copy.docx')
+text_byte = textract.process(FOLDER_PATH + 'Sponsorship Invitation - Cold Email.docx')
 text = text_byte.decode('utf-8')
 
-
+# Only send one email per organization
+counter = 0
 for org in org_list:
     # Filter all contacts in the same organization
     df_subset = df[df['Organization'] == org]
@@ -191,37 +162,17 @@ for org in org_list:
     # Modify text to be used in message
     new_text = text.replace('<Contact Name>', salutation(df_subset['Contact Name']))
     new_text = new_text.replace('<Organization Name>', org)
-    # new_text = new_text.encode()
-    # new_text = MIMEText(new_text)
 
     # Send email
     org_emails = get_emails(df_subset['Contact Email'])
     subject = 'Invitation to Join and Support Big Data Ignite 2022'
     send_email(org_emails, subject, new_text)
 
-    print(f'Sent an email to {org_emails}')
-    time.sleep(10)
+    # Print status
+    counter += 1
+    now = datetime.datetime.now()
+    status = round(100*(counter/len(org_list)), 1)
+    print(f'Sent email to {org_emails} at {now} ({status}% complete)')
 
-
-
-
-#
-#
-# # Identify current date
-# now = dt.datetime.now()
-#
-# # Read in csv of birthdays
-# birthdays = pd.read_csv('birthdays.csv')
-# for idx, person in birthdays.iterrows():
-#
-#     # Check if birthday is today
-#     if person.day == now.day and person.month == now.month:
-#         # Write a letter
-#         letter = write_letter(person['name'])
-#         print(letter)
-#
-#         # Email the birthday person
-#         send_email(person.email, letter)
-#
-#     else:
-#         print(f'Today is not {person["name"]}\'s birthday.')
+    # Add a delay to prevent account flagging (unclear if this is necessary, but did not want to risk in production run)
+    time.sleep(10) #todo change for production run
