@@ -4,6 +4,8 @@ Day 97: Personalized Conference Email Blast
 Documentation: https://docs.python.org/3/library/smtplib.html
 Note: Some emails were not delivered citing security reasons. These had to be manually re-sent.
 """
+# todo remove todos after prod run
+# todo add/update test assets
 import pandas as pd
 from os.path import basename
 import json
