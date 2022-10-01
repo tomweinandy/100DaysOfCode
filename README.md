@@ -4,6 +4,7 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 
 **Portfolio Projects**
 
+* [Day 99: Fatal Force Analysis (Data Viz)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day099)*
 * [Day 98: Space Mission Analysis (Data Viz)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day098)*
 * [Day 97: Personalized Conference Email Blast](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day097)*
 * Day 96: Hero Prop Online Shop* ([initial code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day096)) ([new project code](https://github.com/tomweinandy/hero-props)) ([website](https://hero-props.herokuapp.com))
