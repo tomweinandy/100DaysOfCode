@@ -4,6 +4,7 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 
 **Portfolio Projects**
 
+* [Day 100: Predicting Earnings](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day100) test link
 * [Day 99: Fatal Force Analysis (Data Viz)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day099)*
 * [Day 98: Space Mission Analysis (Data Viz)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day098)*
 * [Day 97: Personalized Conference Email Blast](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day097)*
