@@ -1,9 +1,9 @@
-﻿Organization,Primary,Secondary,OLD Primary,OLD Secondary,OLD Target Level,OLD Goal,Contact Name,Contact Email,Contact Title,Contact Phone,Contact Description,Last Contacted,Last Contact By,Last Contact Type,Notes,Website
-Org A,Tom,,,,,,Name Namerson,thomasweinandy@bigdataignite.org,,,,,,,,
-Org B,Tuhin,,,,,,Namith Nam,t.homasweinandy@bigdataignite.org,,,,,,,,
-Org C,Tom,,,,,,Namey McName,th.omasweinandy@bigdataignite.org,,,,,,,,
-Org C,Tom,,,,,,Nombre Namirez,tho.masweinandy@bigdataignite.org,,,,,,,,
-Org C,Tom,,,,,,Sir Name  ,thom.asweinandy@bigdataignite.org,,,,,,,,
-Org D,Tuhin,,,,,,Nammy O'Namey,thoma.sweinandy@bigdataignite.org,,,,,,,,
-Org D,Tuhin,,,,,,Namela VanNam,thomasw.einandy@bigdataignite.org,,,,,,,,
-Org E,,,,,,,,thomaswei.nandy@bigdataignite.org,,,,,,,,
+﻿Organization,Contact Name,Contact Email
+Gringotts,Name Namerson,email1@email.com
+The Human Fund,Namitha Nam,email2@email.com
+Acme Corp.,Namey McName,email3@email.com
+Acme Corp.,Nombre Namirez,email4@email.com
+Acme Corp.,Sir Name  ,email5@email.com
+Wayne Enterprises,Nammy O'Namey,email6@email.com
+Government of Fredonia,Namela VanNam,email7@email.com
+Government of Fredonia,Names Namme,email8@email.com
