@@ -2,6 +2,7 @@ import ast
 import requests
 import datetime as dt
 
+
 class FlightData:
     """
     This class is responsible for structuring the flight data.
@@ -53,4 +54,3 @@ class FlightData:
 
         best_flight_returned = response.json()['data'][0]
         return best_flight_returned
-

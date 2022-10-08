@@ -8,7 +8,7 @@ import notification_manager
 
 # Get data from prices worksheet
 data = data_manager.DataManager()
-sheet_data = data.get_sheet_data()
+sheet_data = data.sheet_data
 # pprint(sheet_data)
 
 # Search flight by city (static for now)

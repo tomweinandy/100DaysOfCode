@@ -1,4 +1,4 @@
-# todo Build out flight club detailed in Day 40
+# Optional: Build out flight club detailed in Day 40
 
 # Ask user to input information
 first_name = input('What is your first name?: ')
