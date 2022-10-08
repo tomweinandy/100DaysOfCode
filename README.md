@@ -3,8 +3,7 @@
 My favorite projects have one asterisk (*) and capstone projects have two.
 
 **Portfolio Projects**
-
-* [Day 100: Predicting Earnings](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day100) test link
+* [Day 100: Predicting Earnings](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day100)
 * [Day 99: Fatal Force Analysis (Data Viz)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day099)*
 * [Day 98: Space Mission Analysis (Data Viz)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day098)*
 * [Day 97: Personalized Conference Email Blast](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day097)*
@@ -27,7 +26,6 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 
 
 **Advanced Projects**
-
 * [Day 80: Predicting House Prices (Multivariate Regression)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day080)**
 * [Day 79: Maternal Death Data (Histograms and T-tests)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day079)
 * [Day 78: Nobel Prize Data (Even More Data Visualization! with Matplotlib, Seaborn and Plotly)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day078)*
@@ -65,7 +63,7 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 * [Day 47: Amazon Price Tracker](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day047)
 * [Day 46: Musical Time Machine](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day046)*
 * [Day 45: Top 250 Movies Web Scraper](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day045)
-* [Day 44: Stylized Personal Website](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day044) (in progress)
+* [Day 44: Stylized Personal Website](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day044)
 * Day 41-43: HTML Personal Website ([code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day041-043)) ([website](https://tomweinandy.github.io/cv/))
 * [Day 39-40: Cheap Flight Finder](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day039-040)*
 * [Day 38: Workout Activity Tracker](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day038)
