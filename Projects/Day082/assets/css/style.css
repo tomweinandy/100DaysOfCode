@@ -772,6 +772,7 @@ a:hover {
   color: #fff;
   font-weight: 600;
   font-size: 3rem;
+  margin-top: 20rem;
 }
 
 @media (min-width: 768px) {
