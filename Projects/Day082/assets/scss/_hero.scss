@@ -1,0 +1,84 @@
+/*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+.hero {
+  height: 100vh;
+  position: relative;
+  color: #fff;
+
+  
+  .hero-content {
+    text-align: center;
+    position: absolute;
+  }
+
+  .overlay-itro {
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0;
+    left: 0px;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    opacity: .9;
+  }
+
+  .hero-title {
+    color: #fff;
+    font-weight: 600;
+    font-size: 3rem;
+
+    @media (min-width: 768px) {
+      font-size: 4.5rem;
+    }
+  }
+
+  .hero-subtitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+
+    @media (min-width: 768px) {
+      font-size: 2.5rem;
+    }
+  }
+
+  .text-slider-items {
+    display: none;
+  }
+}
+
+.hero-single {
+  height: 350px;
+
+  .hero-content {
+    margin-top: 30px;
+  }
+
+  .hero-title {
+    text-transform: uppercase;
+    font-size: 3rem;
+
+    @media (min-width: 768px) {
+      font-size: 3.5rem;
+    }
+  }
+
+  .breadcrumb {
+    background-color: transparent;
+    color: $primary;
+
+    .breadcrumb-item {
+      &:before {
+        color: $primary-light;
+      }
+
+      &.active {
+        color: $primary-light;
+      }
+    }
+
+    a {
+      color: #fff;
+    }
+  }
+}

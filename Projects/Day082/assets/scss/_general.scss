@@ -1,0 +1,431 @@
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+  background-color: $secondary;
+  color: $default;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $default-dark;
+}
+
+a {
+  color: $default-dark;
+  text-decoration: none;
+  transition: all 0.5s ease-in-out;
+
+  &:hover {
+    color: $primary;
+    text-decoration: none;
+    transition: all 0.5s ease-in-out;
+  }
+}
+
+.p-r {
+  position: relative;
+}
+
+.color-a {
+  text-decoration: none;
+  color: $primary;
+}
+
+.color-d {
+  color: $secondary;
+}
+
+.color-text-a {
+  text-decoration: none;
+  color: $default;
+}
+
+.box-shadow {
+  box-shadow: 0 13px 8px -10px rgba(0, 0, 0, 0.1);
+}
+
+.box-shadow-a {
+  text-decoration: none;
+  box-shadow: 0 0 0 4px $primary-light;
+}
+
+.display-5 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+.display-6 {
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  margin-right: 4px;
+  overflow: hidden;
+}
+
+.bg-image {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
+  @media (max-width: 1024px) {
+    background-attachment: scroll;
+  }
+}
+
+.overlay-mf {
+  background-color: $primary;
+}
+
+.overlay-mf {
+  position: absolute;
+  top: 0;
+  left: 0px;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  opacity: .7;
+}
+
+.paralax-mf {
+  position: relative;
+  padding: 8rem 0;
+  @extend .box-shadow;
+}
+
+.display-table {
+  width: 100%;
+  height: 100%;
+  display: table;
+}
+
+.table-cell {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+/*--/ Sections /--*/
+.sect-4 {
+  padding: 4rem 0;
+}
+
+.sect-pt4 {
+  padding-top: 4rem;
+}
+
+.sect-mt4 {
+  margin-top: 4rem;
+}
+
+/*--/ Title s /--*/
+.title-s {
+  font-weight: 600;
+  color: $default-dark;
+  font-size: 1.1rem;
+}
+
+/*--/ Title A /--*/
+.title-box {
+  margin-bottom: 4rem;
+}
+
+.title-a {
+  text-decoration: none;
+  font-size: 3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.subtitle-a {
+  text-decoration: none;
+  color: $default;
+}
+
+.line-mf {
+  width: 40px;
+  height: 5px;
+  background-color: $primary;
+  margin: 0 auto;
+}
+
+/*--/ Title Left /--*/
+.title-box-2 {
+  margin-bottom: 3rem;
+}
+
+.title-left {
+  font-size: 2rem;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    height: 3px;
+    background-color: $primary;
+    width: 100px;
+    bottom: -12px;
+  }
+}
+
+/*------/ Box /------*/
+.box-pl2 {
+  padding-left: 2rem;
+}
+
+.box-shadow-full {
+  padding: 3rem 1.25rem;
+  position: relative;
+  background-color: #fff;
+  margin-bottom: 3rem;
+  z-index: 2;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.06), 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+
+  @media (min-width: 768px) {
+    padding: 3rem;
+  }
+}
+
+/*------/ Socials /------*/
+.socials {
+  padding: 1.5rem 0;
+
+  ul {
+    @extend .ul-resect;
+
+    li {
+      display: inline-block;
+    }
+  }
+
+  .ico-circle {
+    height: 40px;
+    width: 40px;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    line-height: 1.6;
+    margin: 0 15px 0 0;
+    box-shadow: 0 0 0 3px $primary;
+    transition: all 500ms ease;
+
+    &:hover {
+      background-color: $primary;
+      color: #fff;
+      box-shadow: 0 0 0 3px $primary-light;
+      transition: all 500ms ease;
+    }
+  }
+}
+
+/*------/ Ul resect /------*/
+.ul-resect {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.list-ico {
+  @extend .ul-resect;
+  line-height: 2;
+
+  span {
+    color: $primary;
+    margin-right: 10px;
+  }
+}
+
+/*------/ Ico Circle /------*/
+.ico-circle {
+  height: 100px;
+  width: 100px;
+  font-size: 2rem;
+  border-radius: 50%;
+  line-height: 1.55;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 0 0 0 10px $primary;
+  display: block;
+}
+
+/*------/ Owl Carousel /------*/
+.owl-theme {
+  .owl-dots {
+    text-align: center;
+    margin-top: 18px;
+
+    .owl-dot {
+      display: inline-block;
+
+      span {
+        width: 18px;
+        height: 7px;
+        margin: 5px 5px;
+        background: $primary-light;
+        border: 0px solid $primary-light;
+        display: block;
+        transition: all 0.6s ease-in-out;
+        cursor: pointer;
+      }
+
+      &:hover {
+        span {
+          background-color: $primary-light;
+        }
+      }
+
+      &.active {
+        span {
+          background-color: #1B1B1B;
+          width: 25px;
+        }
+      }
+    }
+  }
+}
+
+/*--/ Scrolltop s /--*/
+.scrolltop-mf {
+  position: relative;
+  display: none;
+
+  span {
+    z-index: 999;
+    position: fixed;
+    width: 42px;
+    height: 42px;
+    background-color: $primary;
+    opacity: .7;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    text-align: center;
+    color: #fff;
+    top: auto;
+    left: auto;
+    right: 30px;
+    bottom: 50px;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+}
+
+/*--------------------------------------------------------------
+# Back to top button
+--------------------------------------------------------------*/
+.back-to-top {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  right: 15px;
+  bottom: 15px;
+  z-index: 996;
+  background: $primary;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  transition: all 0.4s;
+
+  i {
+    font-size: 28px;
+    color: #fff;
+    line-height: 0;
+  }
+
+  &:hover  {
+    background: lighten($primary, 8);
+    color: #fff;
+  }
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+}
+
+/*------/ Prelaoder /------*/
+#preloader { 
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: #fff;
+}
+
+#preloader:before {
+  content: "";
+  position: fixed;
+  top: calc(50% - 30px);
+  left: calc(50% - 30px);
+  border: 6px solid #f2f2f2;
+  border-top: 6px solid $primary;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: animate-preloader 1s linear infinite;
+}
+
+@keyframes animate-preloader {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/*------/ Button /------*/
+.button {
+  display: inline-block;
+  padding: .3rem .6rem;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  font-size: 1rem;
+  border-radius: .3rem;
+  border: 1px solid transparent;
+  transition: all 500ms ease;
+  cursor: pointer;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:hover {
+    background-color: $primary-dark;
+    color: #fff;
+    transition: all 500ms ease;
+    @extend .box-shadow-a;
+  }
+}
+
+.button-a {
+  text-decoration: none;
+  background-color: $primary;
+  color: #fff;
+  border-color: $primary-light;
+}
+
+.button-big {
+  padding: .9rem 2.3rem;
+  font-size: 1.2rem;
+}
+
+.button-rouded {
+  border-radius: 5rem;
+}
+
+.btn-lg {
+  padding: .5rem 1rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: .3rem;
+}

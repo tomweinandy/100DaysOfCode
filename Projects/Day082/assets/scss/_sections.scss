@@ -1,0 +1,411 @@
+/*--------------------------------------------------------------
+# About
+--------------------------------------------------------------*/
+.about-mf {
+  .box-shadow-full {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .about-img {
+    margin-bottom: 2rem;
+
+    img {
+      margin-left: 10px;
+    }
+  }
+
+  .box-pl2 {
+    @media (min-width: 767px) {
+      margin-top: 3rem;
+      padding-left: 0rem;
+    }
+  }
+}
+
+.skill-mf {
+  span {
+    color: $default;
+  }
+
+  .progress {
+    background-color: $primary-light;
+    margin: .5rem 0 1.2rem 0;
+    border-radius: 0;
+    height: .7rem;
+
+    .progress-bar {
+      height: .7rem;
+      background-color: $primary;
+    }
+  }
+}
+
+/*--------------------------------------------------------------
+# Services
+--------------------------------------------------------------*/
+.service-box {
+  @extend .box-shadow;
+  background-color: #fff;
+  padding: 2.5rem 1.3rem;
+  border-radius: 1rem;
+  margin-bottom: 3rem;
+  text-align: center;
+
+  &:hover {
+    .ico-circle {
+      transition: all 500ms ease;
+      color: #fff;
+      background-color: $primary;
+      box-shadow: 0 0 0 10px $primary-light;
+    }
+  }
+
+  .service-ico {
+    margin-bottom: 1rem;
+    color: $default-dark;
+  }
+
+  .ico-circle {
+    transition: all 500ms ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    i {
+      line-height: 0;
+      font-size: 40px;
+    }
+  }
+
+  .s-title {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    text-align: center;
+    padding: .4rem 0;
+  }
+
+  .s-description {
+    color: $default;
+  }
+}
+
+/*--------------------------------------------------------------
+# Counter
+--------------------------------------------------------------*/
+.counter-box {
+  color: #fff;
+  text-align: center;
+
+  @media (min-width: 577px) {
+    margin-bottom: 1.8rem;
+  }
+}
+
+.counter-ico {
+  margin-bottom: 1rem;
+
+  .ico-circle {
+    height: 60px;
+    width: 60px;
+    line-height: 1.5;
+    box-shadow: 0 0 0 10px $primary-light;
+  }
+}
+
+.counter-num {
+  .counter {
+    font-size: 2rem;
+    margin-bottom: 0;
+  }
+}
+
+/*--------------------------------------------------------------
+# Portfolio
+--------------------------------------------------------------*/
+.work-box {
+  @extend .box-shadow;
+  margin-bottom: 3rem;
+  backface-visibility: hidden;
+  background-color: #fff;
+
+  &:hover {
+    img {
+      transform: scale(1.3);
+    }
+  }
+}
+
+.work-img {
+  display: block;
+  overflow: hidden;
+
+  img {
+    transition: all 1s;
+  }
+}
+
+.work-content {
+  padding: 2rem 3% 1rem 4%;
+
+  .w-more {
+    color: $default;
+    font-size: .8rem;
+
+    .w-ctegory {
+      color: $primary;
+    }
+  }
+
+  .w-like {
+    font-size: 2.5rem;
+    color: $primary;
+    float: right;
+
+    a {
+      color: $primary;
+    }
+
+    .num-like {
+      font-size: .7rem;
+    }
+  }
+}
+
+.w-title {
+  font-size: 1.2rem;
+}
+
+/*--------------------------------------------------------------
+# Portfolio Details
+--------------------------------------------------------------*/
+.portfolio-details {
+
+  padding-top: 40px;
+
+  .portfolio-details-slider {
+    img {
+      width: 100%;
+    }
+    .swiper-pagination {
+      margin-top: 20px;
+      position: relative;
+
+      .swiper-pagination-bullet {
+        width: 12px;
+        height: 12px;
+        background-color: #fff;
+        opacity: 1;
+        border: 1px solid $primary;
+      }
+
+      .swiper-pagination-bullet-active {
+        background-color: $primary;
+      }
+    }
+
+  }
+
+  .portfolio-info {
+    padding: 30px;
+    box-shadow: 0px 0 30px rgba($default, 0.08);
+
+    h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      font-size: 15px;
+
+      li +li {
+        margin-top: 10px;
+      }
+    }
+    
+  }
+
+  .portfolio-description {
+    padding-top: 30px;
+    
+    h2 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    p {
+      padding: 0;
+    }
+  }
+
+}
+
+
+/*--------------------------------------------------------------
+# Testimonials
+--------------------------------------------------------------*/
+
+
+.testimonial-box {
+  color: #fff;
+  text-align: center;
+
+  .author-test {
+    margin-top: 1rem;
+
+    img {
+      margin: 0 auto;
+    }
+  }
+
+  .author {
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 1rem 0;
+    display: block;
+    font-size: 1.4rem;
+  }
+
+  .comit {
+    font-size: 2rem;
+    color: $primary;
+    background-color: #fff;
+    width: 52px;
+    height: 52px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    line-height: 1.6;
+  }
+
+  .description {
+    @media (min-width: 768px) {
+      padding: 0 5rem;
+    }
+
+    @media (min-width: 992px) {
+      padding: 0 8rem;
+    }
+
+    @media (min-width: 1200px) {
+      padding: 0 13rem;
+    }
+  }
+}
+
+.swiper-pagination {
+  margin-top: 20px;
+  position: relative;
+
+  .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(#fff, .4);
+    opacity: 1;
+  }
+
+  .swiper-pagination-bullet-active {
+    background-color: #fff;
+  }
+}
+
+/*--------------------------------------------------------------
+# Contact
+--------------------------------------------------------------*/
+
+.footer-paralax {
+  padding: 4rem 0 0 0;
+}
+
+.contact-mf {
+  margin-top: 4rem;
+
+  .box-pl2 {
+    @media (min-width: 767px) {
+      margin-top: 3rem;
+      padding-left: 0rem;
+    }
+  }
+}
+
+.php-email-form {
+  
+  .error-message {
+    display: none;
+    color: #fff;
+    background: #ed3c0d;
+    text-align: center;
+    padding: 15px;
+    font-weight: 600;
+  }
+  
+  .sent-message {
+    display: none;
+    color: #fff;
+    background: #18d26e;
+    text-align: center;
+    padding: 15px;
+    font-weight: 600;
+  }
+
+  .loading {
+    display: none;
+    background: #fff;
+    text-align: center;
+    padding: 15px;
+
+    &:before {
+      content: "";
+      display: inline-block;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      margin: 0 10px -6px 0;
+      border: 3px solid #18d26e;
+      border-top-color: #eee;
+      animation: animate-loading 1s linear infinite;
+    }
+
+  }
+
+  input, textarea {
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 14px;
+    &:focus {
+      border-color: $primary;
+    }
+  }
+
+  input {
+    padding: 10px 15px;
+  }
+
+  textarea {
+    padding: 12px 15px;
+    margin-bottom: 0;
+  }
+
+  button[type="submit"] {
+    background: $primary;
+    border: 0;
+    padding: 10px 24px;
+    color: #fff;
+    transition: 0.4s;
+    &:hover {
+      background: lighten($primary, 10%);
+    }
+  }
+
+}
+
+@keyframes animate-loading {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

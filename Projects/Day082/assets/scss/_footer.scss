@@ -1,0 +1,21 @@
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+footer {
+  text-align: center;
+  color: #fff;
+  padding: 25px 0;
+  background: $primary-dark;
+
+  .copyright {
+    margin-bottom: .3rem;
+  }
+
+  .credits {
+    margin-bottom: 0;
+
+    a {
+      color: #fff;
+    }
+  }
+}
