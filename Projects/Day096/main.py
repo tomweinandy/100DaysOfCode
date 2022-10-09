@@ -13,8 +13,6 @@ from forms import CreatePostForm, RegisterForm, LoginForm, FlaskForm, CKEditorFi
 from flask_gravatar import Gravatar
 from functools import wraps
 
-# todo update About Me
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 ckeditor = CKEditor(app)
