@@ -1,6 +1,6 @@
 # 100DaysOfCode
 
-My favorite projects have one asterisk (*) and capstone projects have two.
+My favorite projects have an asterisk (*).
 
 **Portfolio Projects**
 * [Day 100: Predicting Earnings](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day100)
@@ -24,9 +24,8 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 * Day 82: Portfolio Website (to be finished after portfolio projects completed)
 * [Day 81: String to Morse Code Converter](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day081)
 
-
 **Advanced Projects**
-* [Day 80: Predicting House Prices (Multivariate Regression)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day080)**
+* [Day 80: Predicting House Prices (Multivariate Regression)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day080)*
 * [Day 79: Maternal Death Data (Histograms and T-tests)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day079)
 * [Day 78: Nobel Prize Data (Even More Data Visualization! with Matplotlib, Seaborn and Plotly)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day078)*
 * [Day 77: Movie Theater Data (Linear Regression with Sklearn and Seaborn)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day077)*
@@ -36,7 +35,7 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 * [Day 73: Exploring LEGO Data (Merging and More Visualization)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day073)
 * [Day 72: Programming Language Popularity Over Time (Data Visualization with Matplotlib)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day072)
 * [Day 71: Salaries by Major (Data Exploration with Pandas)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day071)
-* Day 69-70: HTML Blog with Jinja, Flask and SQLite (Pt IV)** ([initial code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day069-070)) ([new project code](https://github.com/tomweinandy/blog)) ([website](https://thomas--blog.herokuapp.com))
+* Day 69-70: HTML Blog with Jinja, Flask and SQLite (Pt IV)* ([initial code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day069-070)) ([new project code](https://github.com/tomweinandy/blog)) ([website](https://thomas--blog.herokuapp.com))
 * [Day 68: User Authentication with Flask](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day068)
 * [Day 67: HTML Blog with Jinja, Flask and SQLite (Pt III)](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day067)
 * Day 66: Build REST API ([code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day066)) ([documentation](https://documenter.getpostman.com/view/21536847/UzBmMnEC))
@@ -54,7 +53,7 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 * Day 56: HTML Name Card ([code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day056)) ([website](https://tomweinandy.github.io/card/))
 * [Day 55: High Low Game using HTML & URL parsing in Flask](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day055)
 * [Day 54: Intro to Web Development with Flask](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day054)
-* [Day 53: Zillow Data Entry Job Automation](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day053)**
+* [Day 53: Zillow Data Entry Job Automation](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day053)*
 * [Day 52: Instagram Follower Bot](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day052)
 * [Day 51: Internet Speed Twitter Complaint Bot](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day051)*
 * [Day 50: Auto Tinder Swiper](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day050)
@@ -75,7 +74,7 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 * [Day 32: Automated Birthday Wisher](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day032)
 
 **Intermediate Projects**
-* [Day 31: Flash Card App](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day031)**
+* [Day 31: Flash Card App](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day031)*
 * [Day 29-30: Password Manager](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day029-030)*
 * [Day 28: Pomodoro Time Tracker](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day028)*
 * [Day 27: GUI Miles to Kilometers Converter](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day027)
@@ -95,7 +94,7 @@ My favorite projects have one asterisk (*) and capstone projects have two.
 * [Day 14: Higher Lower Game](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day014)
 * [Day 13: Debugging Exercises](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day013)
 * [Day 12: Guess the Movie Year](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day012)*
-* [Day 11: Blackjack](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day011)**
+* [Day 11: Blackjack](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day011)*
 * [Day 10: Nine-Function Calculator](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day010)
 * [Day 9: First Price, Sealed Bid Auction](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day009)
 * [Day 8: Caesar Cipher](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day008)
