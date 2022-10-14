@@ -25,7 +25,8 @@ with open('projects.csv', newline='') as csv_file:
     list_of_rows = []
     for row in csv_data:
         list_of_rows.append(row)
-    print(type(csv_file), type(csv_data), type(list_of_rows))
+    print(type(csv_file), type(csv_data), type(list_of_rows), type(row))
+    print(list_of_rows)
 
 # # CONNECT TO DB
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///this_old_thing.db'
@@ -112,7 +113,7 @@ with open('projects.csv', newline='') as csv_file:
 #     return decorated_function
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def get_all_posts():
     # posts = ProductPost.query.all()
     # return render_template("index.html", all_posts=posts, current_user=current_user)
