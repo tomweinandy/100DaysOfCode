@@ -382,7 +382,7 @@
   }
   function injectAssets(url, waitFor, callback) {
     if (isNil(url)) {
-      console.error('Inject assets error');
+      console.error('Inject static error');
       return;
     }
 

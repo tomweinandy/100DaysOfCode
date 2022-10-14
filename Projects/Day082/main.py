@@ -112,7 +112,7 @@ with open('projects.csv', newline='') as csv_file:
 #     return decorated_function
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def get_all_posts():
     # posts = ProductPost.query.all()
     # return render_template("index.html", all_posts=posts, current_user=current_user)

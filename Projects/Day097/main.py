@@ -5,7 +5,7 @@ Documentation: https://docs.python.org/3/library/smtplib.html
 Note: Some emails were not delivered citing security reasons. These had to be manually re-sent.
 """
 # todo remove todos after prod run
-# todo add/update test assets
+# todo add/update test static
 import pandas as pd
 from os.path import basename
 import json
@@ -17,7 +17,7 @@ from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-# Define folder path of project assets
+# Define folder path of project static
 FOLDER_PATH = '../../../../Dropbox/Big Data Ignite/AutomatedEmail/'
 
 
