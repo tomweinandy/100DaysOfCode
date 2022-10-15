@@ -14,6 +14,14 @@ from flask_gravatar import Gravatar
 from functools import wraps
 import csv
 
+# todo connect project page with product details
+# todo add details for each project
+# todo clean up code
+# todo get contact form to work
+# todo update final/project photo?
+# todo update stats
+# todo deploy
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 ckeditor = CKEditor(app)
