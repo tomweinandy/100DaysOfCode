@@ -33,7 +33,7 @@ with open('projects.csv', newline='') as csv_file:
     list_of_rows = []
     for row in csv_data:
         list_of_rows.append(row)
-    print(type(csv_file), type(csv_data), type(list_of_rows), type(row))
+    # print(type(csv_file), type(csv_data), type(list_of_rows), type(row))
     print(list_of_rows)
 
 # # CONNECT TO DB
@@ -202,7 +202,16 @@ def get_all_posts():
 #     return redirect(url_for('get_all_posts'))
 
 
-# @app.route("/post/<int:post_id>", methods=["GET", "POST"])
+@app.route("/day/<int:day_number>", methods=["GET", "POST"])
+def show_day(day_number):
+    print("day_number", type(day_number), day_number)
+    for a_row in list_of_rows:
+        if a_row[0] == str(day_number):
+            day = row
+    print('Day:', day)
+    return render_template("portfolio-details.html", post=day)
+
+
 # def show_post(post_id):
 #     form = CommentForm()
 #     requested_post = ProductPost.query.get(post_id)
@@ -241,7 +250,7 @@ def get_all_posts():
 # @app.route("/new-post", methods=['GET', 'POST'])
 # @admin_only
 # def add_new_post():
-#     print('Checkpoint 1') #todo fix
+#     print('Checkpoint 1')
 #     form = CreatePostForm()
 #     print('Checkpoint 2')
 #     print(form)
