@@ -1,4 +1,5 @@
 ﻿day,project,category,description
-11,Project One,Game Development,Description of the first project
-22,Project Two,Automation,Description of the second project
-33,Project Three,Data Science,Descriptiopn of the third project
+89,Project Eighty-Nine,Desktop App,"Want to finish some writing but are not feeling the motivation? Need a commitment device to force yourself to work? Well, here is a notepad that that lets you write for a defined amout if time but will delete all of your work if you stop for two minutes. It's as cruel as it is effective.
+
+The GUI was built using tkinter and features responsive buttons with the ability to customize the session time. All work is automatically saved to the downloads folder as a txt file at the end fo the session.
+"

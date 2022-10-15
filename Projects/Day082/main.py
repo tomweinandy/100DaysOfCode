@@ -14,11 +14,12 @@ from flask_gravatar import Gravatar
 from functools import wraps
 import csv
 
-# todo connect project page with product details
 # todo add details for each project
+# todo update project session
 # todo clean up code
 # todo get contact form to work
 # todo update final/project photo?
+# todo remove unused files (esp. photos)
 # todo update stats
 # todo deploy
 

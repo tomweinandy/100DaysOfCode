@@ -224,7 +224,7 @@ timer_label = tkinter.Label(text=label, bg=SAND, fg=BLUE, font=(FONT_NAME, 36))
 timer_label.grid(row=0, columnspan=5)
 
 # Add instructions
-instructions_text = 'INSTRUCTIONS: Set the timer for your session and begin writing below. All work will be saved as' \
+instructions_text = 'INSTRUCTIONS: Set the timer for your session and begin writing below. All work will be saved as ' \
                     'a text file \nat the end of the session. But beware! If you stop writing for ' \
                     f'{MINUTES_BEFORE_BOMB} minutes, ALL WORK WILL BE DELETED forever.'
 timer_label = tkinter.Label(text=instructions_text, bg=SAND, fg=BLUE, font=(FONT_NAME, 16, 'italic'))
