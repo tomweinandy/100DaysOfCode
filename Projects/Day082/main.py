@@ -30,11 +30,18 @@ Bootstrap(app)
 # CONNECT TO CSV
 with open('projects.csv', newline='') as csv_file:
     csv_data = csv.reader(csv_file, delimiter=',')
-    list_of_rows = []
+    list_of_dicts = []
+    first_row = True
     for row in csv_data:
-        list_of_rows.append(row)
+        if not first_row:
+            project_dict = {'day': row[0],
+                            'name': row[1],
+                            'category': row[2],
+                            'description': row[3]}
+            list_of_dicts.append(project_dict)
+        first_row = False
     # print(type(csv_file), type(csv_data), type(list_of_rows), type(row))
-    print(list_of_rows)
+    print(list_of_dicts)
 
 # # CONNECT TO DB
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///this_old_thing.db'
@@ -205,11 +212,11 @@ def get_all_posts():
 @app.route("/day/<int:day_number>", methods=["GET", "POST"])
 def show_day(day_number):
     print("day_number", type(day_number), day_number)
-    for a_row in list_of_rows:
-        if a_row[0] == str(day_number):
-            day = row
-    print('Day:', day)
-    return render_template("portfolio-details.html", post=day)
+    for project in list_of_dicts:
+        if project['day'] == str(day_number):
+            selected_project = project
+    print('Day:', selected_project)
+    return render_template("portfolio-details.html", project=selected_project)
 
 
 # def show_post(post_id):
