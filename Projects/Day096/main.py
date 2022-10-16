@@ -97,7 +97,7 @@ def admin_only(f):
         # If id is not 1 then return abort with 403 error
         if current_user.id != 1:
             return abort(403)
-        # Otherwise continue with the route function
+        # Otherwise, continue with the route function
         return f(*args, **kwargs)
 
     return decorated_function

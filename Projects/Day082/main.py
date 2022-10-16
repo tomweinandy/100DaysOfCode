@@ -14,8 +14,7 @@ from flask_gravatar import Gravatar
 from functools import wraps
 import csv
 
-# todo add details for each project
-# todo update project session
+# todo update project section
 # todo clean up code
 # todo get contact form to work
 # todo update final/project photo?
@@ -42,7 +41,7 @@ with open('projects.csv', newline='') as csv_file:
             list_of_dicts.append(project_dict)
         first_row = False
     # print(type(csv_file), type(csv_data), type(list_of_rows), type(row))
-    print(list_of_dicts)
+    # print(list_of_dicts)
 
 # # CONNECT TO DB
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///this_old_thing.db'
