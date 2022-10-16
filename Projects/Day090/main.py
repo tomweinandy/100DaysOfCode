@@ -31,7 +31,7 @@ session = Session(aws_access_key_id=ACCESS_KEY,
 polly = session.client("polly")
 
 # Read sample file
-filename = 'sample.pdf'
+filename = 'sample_input.pdf'
 pdfFileObj = open(filename, 'rb')
 pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
 

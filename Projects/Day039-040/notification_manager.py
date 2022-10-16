@@ -30,10 +30,9 @@ class NotificationManager:
 
         message = client.messages \
             .create(
-            body=message_text,
-            from_=self.PHONE_NUMBER,
-            to=self.MY_NUMBER
-        )
+                body=message_text,
+                from_=self.PHONE_NUMBER,
+                to=self.MY_NUMBER)
 
         print(message.status)
 

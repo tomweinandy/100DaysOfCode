@@ -13,7 +13,6 @@ screen = turtle.Screen()
 
 # Configure our reptile
 t.shape('turtle')
-# t.color('red')
 t.pensize(2)
 t.speed(10)
 

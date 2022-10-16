@@ -45,7 +45,10 @@ class InternetSpeedTwitterBot:
         print('checkpoint 5')
 
         # Saves the internet upload speed value
+        old_xpath_upload = '//*[@id="container"]/div/div[3]/div/div/div/div[2]/div[3]/div[3]/div/div[3]/div/div/div[2]/div[1]/div[3]/div/div[2]'
         xpath_upload = '//*[@id="container"]/div/div[3]/div/div/div/div[2]/div[3]/div[3]/div/div[3]/div/div/div[2]/div[1]/div[3]/div/div[2]'
+        xpath_upload = '/html/body/div[3]/div/div[3]/div/div/div/div[2]/div[3]/div[3]/div/div[3]/div/div/div[2]/div[1]/div[2]/div/div[2]/span'
+
         upload = self.driver.find_element(by=By.XPATH, value=xpath_upload)
         upload_speed = upload.text
         print('checkpoint 6')
@@ -93,11 +96,16 @@ class InternetSpeedTwitterBot:
         time.sleep(10)
         print('checkpoint 13')
 
-        xpath_compose_tweet = '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div/div[2]/div[1]/div/div/div/div/div/div/div/div/div/label/div[1]/div/div/div/div/div[2]/div/div/div/div'
+
+        self.driver.get('https://twitter.com/compose/tweet')
+        print('checkpoint 14')
+        time.sleep(5)
+
+        xpath_compose_tweet = '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div[3]/div/div[1]/div/div/div/div/div[2]/div[1]/div/div/div/div/div/div[2]/div/div/div/div/label/div[1]/div/div/div/div/div/div[2]/div/div/div/div'
         compose_tweet = self.driver.find_element(by=By.XPATH, value=xpath_compose_tweet)
         compose_tweet.send_keys(tweet_message)
-        print('checkpoint 14')
+        print('checkpoint 15', tweet_message)
 
-        xpath_tweet = '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div/div[2]/div[3]/div/div/div[2]/div[3]'
+        xpath_tweet = '//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div[3]/div/div[1]/div/div/div/div/div[2]/div[3]/div/div/div[2]/div[4]'
         tweet = self.driver.find_element(by=By.XPATH, value=xpath_tweet)
         tweet.click()

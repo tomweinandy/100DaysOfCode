@@ -21,6 +21,11 @@ time.sleep(10)
 xpath = '//*[@id="bigCookie"]'
 big_cookie = driver.find_element(by=By.XPATH, value=xpath)
 
+# Select English and wait a few seconds
+english = driver.find_element(by=By.ID, value='langSelect-EN')
+english.click()
+time.sleep(5)
+
 # Open the stats tab (necessary to find total cookie count)
 stats = driver.find_element(by=By.ID, value='statsButton')
 stats.click()

@@ -24,4 +24,4 @@ print('checkpoint 7')
 # Send out mean tweet
 message = f"Dear internet provider, my upload speed is only {download_speed}Mbps. I'm not mad, just disappointed"
 bot.tweet_at_provider(TWITTER_USERNAME, TWITTER_PASSWORD, message)
-print('checkpoint 15')
+print('checkpoint 16')
