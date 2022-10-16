@@ -210,7 +210,7 @@ def get_all_posts():
 #     return redirect(url_for('get_all_posts'))
 
 
-@app.route("/day/<int:day_number>", methods=["GET", "POST"])
+@app.route("/day/<day_number>", methods=["GET", "POST"])
 def show_day(day_number):
     print("day_number", type(day_number), day_number)
     for project in list_of_dicts:
