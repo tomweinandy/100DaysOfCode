@@ -1,1 +1,1 @@
-Check out the live website at [https://portfolio-100daysofcode.herokuapp.com](https://portfolio-100daysofcode.herokuapp.com)
+Check out the live website at [https://tomweinandy.github.io/100DaysOfCode-Portfolio/](https://tomweinandy.github.io/100DaysOfCode-Portfolio/)
