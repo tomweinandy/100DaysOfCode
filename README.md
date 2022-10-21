@@ -1,6 +1,6 @@
 # 100DaysOfCode
 
-The best projects are showcased on the [portfolio website](https://tomweinandy.github.io/100DaysOfCode-Portfolio/). My other favorite projects have an asterisk (*).
+The best projects are showcased on my [portfolio website](https://tomweinandy.github.io/100DaysOfCode-Portfolio/). My other favorite projects have an asterisk (*).
 
 **Portfolio Projects**
 * [Day 100: Predicting Earnings](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day100)
@@ -21,7 +21,7 @@ The best projects are showcased on the [portfolio website](https://tomweinandy.g
 * [Day 85: Typing Speed Desktop App](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day085)*
 * [Day 84: Desktop App that Adds Image Watermarks](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day084)*
 * [Day 83: Tic-Tac-Toe Game](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day083)* 
-* Day 82: Portfolio Website [code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day082) [website](https://tomweinandy.github.io/100DaysOfCode-Portfolio/)*
+* Day 82: Portfolio Website ([code](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day082)) ([website](https://tomweinandy.github.io/100DaysOfCode-Portfolio/))*
 * [Day 81: String to Morse Code Converter](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day081)
 
 **Advanced Projects**
@@ -107,66 +107,66 @@ The best projects are showcased on the [portfolio website](https://tomweinandy.g
 * [Day 1: Band Name Generator](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day001)
 
 **Libraries used in the above projects**
-•	art
-•	ast
-•	boto3
-•	botocore
-•	bs4
-•	collections
-•	colorgram
-•	contextlib
-•	cpi
-•	csv
-•	datetime
-•	dateutil
-•	email
-•	email_validator
-•	flask
-•	flask_bootstrap
-•	flask_ckeditor
-•	flask_gravatar
-•	flask_login
-•	flask_sqlalchemy
-•	flask_wtf
-•	functools
-•	html
-•	iso3166
-•	json
-•	math
-•	matplotlib
-•	mutagen
-•	numpy
-•	os
-•	pandas
-•	PIL
-•	playwright
-•	polli
-•	prettytable
-•	pyautogui
-•	pyPDF2
-•	pyperclip
-•	pytrends
-•	random
-•	re
-•	requests
-•	seaborn
-•	scipy
-•	selenium
-•	sklearn
-•	smtplib
-•	spotipy
-•	sqlalchemy
-•	sqlite3
-•	statsmodels
-•	subprocess
-•	sys
-•	tempfile
-•	textract
-•	time
-•	tkinter
-•	turtle
-•	Tweeps
-•	twilio
-•	webbrowser
-•	werkzeug
-•	wtforms
+* art
+* ast
+* boto3
+* botocore
+* bs4
+* collections
+* colorgram
+* contextlib
+* cpi
+* csv
+* datetime
+* dateutil
+* email
+* email_validator
+* flask
+* flask_bootstrap
+* flask_ckeditor
+* flask_gravatar
+* flask_login
+* flask_sqlalchemy
+* flask_wtf
+* functools
+* html
+* iso3166
+* json
+* math
+* matplotlib
+* mutagen
+* numpy
+* os
+* pandas
+* PIL
+* playwright
+* polli
+* prettytable
+* pyautogui
+* pyPDF2
+* pyperclip
+* pytrends
+* random
+* re
+* requests
+* seaborn
+* scipy
+* selenium
+* sklearn
+* smtplib
+* spotipy
+* sqlalchemy
+* sqlite3
+* statsmodels
+* subprocess
+* sys
+* tempfile
+* textract
+* time
+* tkinter
+* turtle
+* Tweeps
+* twilio
+* webbrowser
+* werkzeug
+* wtforms
