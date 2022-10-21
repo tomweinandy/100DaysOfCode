@@ -106,6 +106,8 @@ The best projects are showcased on my [portfolio website](https://tomweinandy.gi
 * [Day 2: Tip Calculator](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day002)
 * [Day 1: Band Name Generator](https://github.com/tomweinandy/100DaysOfCode/tree/master/Projects/Day001)
 
+![Course Completion Certificate](100.jpeg)
+
 **Libraries used in the above projects**
 * art
 * ast
